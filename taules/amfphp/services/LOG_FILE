@@ -1,0 +1,6 @@
+AMFPHP guardaEstat (10360) >
+(estat_taula_data, estat_taula_torn, estat_taula_taula_id, estat_taula_nom, reserva_id, estat_taula_x, estat_taula_y, estat_taula_persones, estat_taula_cotxets, estat_taula_grup, estat_taula_plena) ('2011-11-10','1','7','7','1044','392','267','2','0','0','')
+************************************************************************************
+************************************************************************************
+2011-11-09T11:02:01+01:00 >>> AMFPHP guardaEstat (10360) >
+(estat_taula_data, estat_taula_torn, estat_taula_taula_id, estat_taula_nom, reserva_id, estat_taula_x, estat_taula_y, estat_taula_persones, estat_taula_cotxets, estat_taula_grup, estat_taula_plena) ('2011-11-10','1','7','7','1044','392','267','2','0','0','')
