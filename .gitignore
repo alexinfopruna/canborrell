@@ -1,5 +1,7 @@
 # Ignore configuration files that may contain sensitive information.
 taules/config_*.php
+/Connections
+
 .*
 .svn
 .doc
@@ -7,5 +9,4 @@ taules/config_*.php
 .htaccess
 robots.txt
 
-/Connections
 /video
