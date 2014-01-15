@@ -17,7 +17,7 @@
 
 
  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js"></script>
-  
+  <?php //RES ?>
   <!-- -->
 <!-- <script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
 <script src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
