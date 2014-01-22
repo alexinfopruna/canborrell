@@ -8,7 +8,7 @@ $(function(){
 		buttons: {
 			"Actualitza": function() { 
 				$(this).dialog("close"); 
-				refresh();
+				//refresh();
 				timer(true);
 				guarda_missatge_dia();
 			}, 
@@ -24,7 +24,6 @@ $(function(){
 		//$("#ta_missatge_dia").val("");
 		timer(false);
 		$('#form_missatge_dia').dialog("open");
-		return false;
 	});
 	
 	$(".calendari",CALEND_ZOOM).hide();
@@ -38,7 +37,6 @@ $(function(){
 	$("#radio_hores_calend",CALEND_ZOOM).mouseup(zoomoff);
         ZOOM_COMENSALS=$("#selectorComensals",CALEND_ZOOM);
         ZOOM_COTXETS=$("#selectorCotxets",CALEND_ZOOM);
-    	return false;
 });
 
 function guarda_missatge_dia()
@@ -48,7 +46,6 @@ function guarda_missatge_dia()
 	   function(data) {
 		 	$('.missatge_dia').html(data);
 	   });
-	return false;
 }
 
 function zoomon()
@@ -71,12 +68,11 @@ function zoomon()
         RADIO.show();
         
 	ZOOM_COMENSALS.show();
-	$("input[name='hora']:checked",CALEND_ZOOM).attr('checked', false);
+	$("input[name='hora']:checked",CALEND_ZOOM).prop('checked', false);
 	$("#radio_hores_calend input[name='hora']",CALEND_ZOOM).button("refresh");
 	$("td.ui-datepicker-today a.ui-state-highlight",CALEND_ZOOM).removeClass("ui-state-highlight");
 	
 	//ALEX ANULAT MES CORRENT if (comprovaMes && currentMonth != $("#calendari").val().split("/")[1]) alert("ATENCIO: NO ÉS EL MES CORRENT");
-	return false;
 }
 
 function zoomoff()
@@ -93,18 +89,15 @@ function zoomoff()
 	$("#radio_hores_calend",CALEND_ZOOM).hide();
 	$("#radio_hores_calend",CALEND_ZOOM).css("display","none");
 	$("input:checked",ZOOM_COMENSALS).css("font-size","3em");
-	$("input:checked",ZOOM_COMENSALS).attr("checked",false);
+	$("input:checked",ZOOM_COMENSALS).prop("checked",false);
 	$("input",ZOOM_COMENSALS).button("refresh");
 	$("input:checked",ZOOM_COTXETS).css("font-size","3em");
-	$("input:checked",ZOOM_COTXETS).attr("checked",false);
-	$("input[value=0]:checked",ZOOM_COTXETS).attr("checked",true);
+	$("input:checked",ZOOM_COTXETS).prop("checked",false);
+	$("input[value=0]:checked",ZOOM_COTXETS).prop("checked",true);
 	$("input",ZOOM_COTXETS).button("refresh");
 	ZOOM_COMENSALS.hide();
 	ZOOM_COTXETS.hide();
 	$("#cercaTaulaResult",CALEND_ZOOM).html("Quants coberts?");
-	
-	return false;
-
 }
 
 function avui()
@@ -117,14 +110,12 @@ function avui()
 		if(avui==c) return;
 		
 		$("#calendari").datepicker("setDate",d);
-			$( "#reservesAc" ).accordion('destroy');
-			
-			var cs=controlaSopars();
-			$.ajax({url: "gestor_reserves.php?a=canvi_data&p="+$("#calendari").val()+"&q="+cs,success:recargaAccordioReserves});
-			$.get("gestor_reserves.php?a=recupera_missatge_dia",function(data) {$(".missatge_dia").html(data);});
-			canvia_data_confirma=true;	
-			
-			return false;
+                try{RESERVES_AC.accordion('destroy');}catch(err){};
+
+                var cs=controlaSopars();
+                $.ajax({url: "gestor_reserves.php?a=canvi_data&p="+$("#calendari").val()+"&q="+cs,success:recargaAccordioReserves});
+                $.get("gestor_reserves.php?a=recupera_missatge_dia",function(data) {$(".missatge_dia").html(data);});
+                canvia_data_confirma=true;	
 }
 
 
@@ -140,7 +131,6 @@ var t = LLISTA_NEGRA[m];
 if (!t) return false;
 for (var i in t) if (t[i] == d) return true;
 
-
 	return false;
 }
 
@@ -155,7 +145,6 @@ var t = LLISTA_BLANCA[m];
 
 if (!t) return false;
 for (var i in t) if (t[i] == d) return true;
-
 
 	return false;
 }
@@ -190,7 +179,7 @@ function monta_calendari(selector)
 			if (ONLOAD_BLOC_CALEND) $("#calendari").datepicker("disable");
 			date_session=$(this).val();
 						
-			RESERVES_AC.accordion('destroy');
+			try{RESERVES_AC.accordion('destroy');}catch(err){};
 			RESERVES_AC.html('<img src="css/loading_llarg.gif" class="loading_llarg"/>');
 			RESERVES_AC.show("fade");
 			
@@ -202,9 +191,6 @@ function monta_calendari(selector)
 			cercaTaula();
 		}
 	});
-        
         CALEND=$(selector);
         CALEND_ZOOM=$("#zoom");
-        
-        return false;
 }

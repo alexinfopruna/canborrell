@@ -69,7 +69,7 @@ position:relative;left:-440px;font-size:3em;z-index:2;width:650px;
 .conflicte{background:#ffeeee;color:#990000;font-weight:bold;width:100%;display:block}
 .delete{width:100px;border:#AA0505 solid 1px;position:relative;right:10px;bottom:10px;padding:3px;color:#FFFFFF;text-align:center;}
 .taules{color:#990000;font-weight:bold;}
-.ui-tabs .ui-tabs-panel{padding: 1em 0 1em 0;border:#AA0505 solid 1px;}
+.ui-tabs .ui-tabs-panel{padding: 0em 0 1em 0;border:#AA0505 solid 1px;}
 .reservat{color:#FF0000;width:35px;}
 
 a:link, a:visited{color:#990000;}
@@ -101,7 +101,6 @@ a:hover{color:#FF0000;}
 #autoc_client_updata_res{width:100%}
 
 .error{color:#FF0000;font-size:0.8em;font-weight:bold;background:#ffeeee;border:#FF0000 solid 1px;}
-/*.error{background-image:url('error.gif');background-repeat:no-repeat;}*/
 
 .maldia{background:#888888;}
 
@@ -110,11 +109,11 @@ a:hover{color:#FF0000;}
 /*************************************************************/
 /* CRECADOR **/
 .searchform {
-margin-top:-17px;
+/*margin-top:-17px;*/
 	/*float:right;*/
-	display: inline-block;
+	/*display: inline-block;*/
 	zoom: 1; /* ie7 hack for display:inline-block */
-	*display: inline;
+	/**display: inline;*/
 	border: solid 1px #d2d2d2;
 	padding: 2px 3px;
 	
@@ -472,3 +471,13 @@ border-radius: 6px;
 #total-t3{width:33%;color:#993333;font-style: normal;font-weight:bold}
 
 .noTitleStuff .ui-dialog-titlebar {display:none}
+
+.ui-autocomplete {
+    max-height: 100px;
+    overflow-y: auto;
+    /* prevent horizontal scrollbar */
+    overflow-x: hidden;
+  }
+  
+  .working{background:url('loading.gif') no-repeat right center;}
+  .ui-autocomplete-loading { background:url('loading.gif') no-repeat right center; }

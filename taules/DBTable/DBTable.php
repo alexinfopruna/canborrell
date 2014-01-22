@@ -24,6 +24,10 @@ class DBTable extends Gestor
 	
 	public function DBTable($table_query)
 	{
+                $usuari_minim=0;
+                $were="";
+                $order="";
+                
 		parent::__construct(DB_CONNECTION_FILE, $usuari_minim);
 		
 		if (!empty($were) && substr($were,0,5)!="WHERE") $were="WHERE ".$were;

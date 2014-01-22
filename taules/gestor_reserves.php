@@ -9,6 +9,7 @@ if (!defined('LLISTA_DIES_BLANCA')) define("LLISTA_DIES_BLANCA",INC_FILE_PATH."l
 
 require_once(ROOT."Menjador.php");
 require_once(ROOT."TaulesDisponibles.php");
+require_once(ROOT."translate_ca.php");
 
 if (!defined('HEADERS')) header('Content-Type: text/html; charset=utf-8');
 header('Content-Encoding: bzip');
@@ -188,11 +189,10 @@ class gestor_reserves extends Gestor
     $row = $this->last_row = mysql_fetch_assoc($this->qry_result);
     if ($row['data']<"2011") return "DATA ANOMALA esborra_reserva";
 
-    
     $dataSMS=$dataSMS=$this->cambiaf_a_normal($row['data']);
     $hora=$row['hora'];
     $mensa = "Restaurant Can Borrell: Su reserva para el $dataSMS a las $hora HA SIDO ANULADA. Si desea contactar con nosotros: 936929723 - 936910605. Gracias.(ID$id_reserva)";
-    if (!$permuta)  
+    if (!$permuta && !defined('LOCAL'))  
     {
       $this->enviaSMS($id_reserva, $mensa);
       $this->paperera_reserves($id_reserva);
@@ -203,20 +203,15 @@ class gestor_reserves extends Gestor
       $deleteSQL = "DELETE FROM ".T_RESERVES." WHERE id_reserva=$id_reserva";
       $res=$this->log_mysql_query($deleteSQL, $this->connexioDB) or die(mysql_error());
       
-      //$usr=$_SESSION['admin_id'];
       $usr=$_SESSION['uSer']->id;
       
       $deleteSQL = "UPDATE ".ESTAT_TAULES." SET reserva_id=0, estat_taula_usuari_modificacio=$usr WHERE reserva_id=$id_reserva";
       $res=$this->log_mysql_query($deleteSQL, $this->connexioDB) or die(mysql_error());
     
-      ///if ($permuta){return $res;}
-      //if (!isset($_REQUEST['a'])) header("Location: ".$_SERVER['PHP_SELF']);
-      //return $this->accordion_reserves();
       
     $resposta['resposta']="ok";
     $resposta['total_coberts_torn'] = $this->total_coberts_torn(false);
     $resposta['missatge_dia'] = $this->recupera_missatge_dia();
-    //$resposta['ac_reserves']=$this->accordion_reserves();
     $resposta['del_reserva']=$id_reserva;
 	
     return $this->jsonResposta($resposta);
@@ -369,7 +364,6 @@ class gestor_reserves extends Gestor
                  $this->SQLVal($_POST['reserva_info'], "zero"));
       $a=$this->qry_result = $this->log_mysql_query($insertSQL, $this->connexioDB) or die(mysql_error());
       $idr=mysql_insert_id($this->connexioDB);
-      
 /**************/
       $data=$this->cambiaf_a_mysql($_POST['data']);
       $torn=$this->torn($data,$_POST['hora']);
@@ -421,7 +415,7 @@ class gestor_reserves extends Gestor
       $c=$this->qry_result = $this->log_mysql_query($deleteSQL, $this->connexioDB) or die(mysql_error());
       
       // ENVIA SMS
-      if (isset($_POST['cb_sms']))
+      if (isset($_POST['cb_sms']) && !defined('LOCAL'))
       {
         $_REQUEST['res'] = $idr;
         $dataSMS=$this->cambiaf_a_normal($data);
@@ -526,6 +520,8 @@ class gestor_reserves extends Gestor
   public function permuta_reserva()
   {   
     if ($_SESSION['permisos']<16) return "error:sin permisos";
+    if (!isset($_POST['hora'])) return $this->jsonResposta(array('resposta'=>'ko','error'=>202)); 
+        
     if ($_POST['extendre'] == 1) {
       return $this->extendreReserva();
     }
@@ -578,7 +574,6 @@ class gestor_reserves extends Gestor
       WHERE estat_taula_data='{$data}' AND estat_taula_torn=$torn 
       AND estat_taula_taula_id={$_POST['estat_taula_taula_id']}"; 
       $result = $this->log_mysql_query($query, $this->connexioDB) or mysql_query("ROLLBACK");
-      
        if ($num=mysql_num_rows($result)) {
         ////////////////////////////////
         //SI EL TE, CANVIA LA RESERVA D'UN CAP A L'ALTRE   
@@ -1737,19 +1732,35 @@ ORDER BY client_cognoms, data";
 /**********   AUTOCOMPLETE  ************/
   public function autocomplete_clients($q,$p)
   {
-      if (is_numeric($q) && $q>2000 && $q<99999) $q="ID".$q;
+      //if (is_numeric($q) && $q>2000 && $q<99999) $q="ID".$q;
+      
+      switch($_SESSION['modo']){
+          case 1:
+                $filtre="data='".$_SESSION['data']."' AND ";
+                //$filtre="data='".$_SESSION['data']."' AND estat_taula_torn='".$_SESSION['torn']."' AND ";
+             break;
+          
+          case 2:
+                $filtre="data='".$_SESSION['data']."' AND ";
+             break;
+      }
+      $filtre= ($p=="modo")?$filtre:""; 
+ 
       $query = "SELECT DISTINCT 
       client.client_id, 
       client_nom, 
       client_cognoms, 
       client_mobil, 
+      client_email, 
       client_conflictes  
       
       FROM client 
       LEFT JOIN ".T_RESERVES." ON client.client_id=".T_RESERVES.".client_id 
       
       WHERE 
-      CONCAT('ID',id_reserva) = '$q' OR
+      $filtre
+
+      (CONCAT('ID',id_reserva) = '$q' OR
       id_reserva LIKE '%$q%' OR
       client.client_id LIKE '%$q%' OR
       client_cognoms LIKE '%$q%' OR
@@ -1758,14 +1769,18 @@ ORDER BY client_cognoms, data";
       CONCAT(client_cognoms,', ',client_nom) LIKE '%$q%' OR
       CONCAT(client_cognoms,' ',client_nom) LIKE '%$q%' OR
       client_mobil LIKE '%$q%' OR
-      client_conflictes LIKE '%$q%'
+      client_conflictes LIKE '%$q%')
 
       ORDER BY client_cognoms";
-    
+   // echo $query;
       $this->qry_result = mysql_query($query, $this->connexioDB) or die(mysql_error());
       $this->total_rows = mysql_num_rows($this->qry_result);
 
-      $clients0="+++ Nou client (".strtoupper($q).")|$q\n";
+      $clients0['label']="+++ Nou client (".strtoupper($q).")|$q\n";
+      $clients0['client_cognoms']=is_numeric($q)?"":$q;
+      $clients0['client_mobil']=is_numeric($q)?$q:"";
+      $clients0['client_email']="";
+      $clients0['value']=is_numeric($q)?$q:"";
       while ($row = mysql_fetch_assoc($this->qry_result)) 
       {
         $br = array("<br>", "<br/>","\n","\r");
@@ -1775,15 +1790,21 @@ ORDER BY client_cognoms, data";
         else $conflictes="";
 
         $key="(".$row['client_id'].") ".$conflictes.$row['client_nom']." ".$row['client_cognoms']." tel:".$row['client_mobil'];
-        $value=$row['client_id'];
 
-        $q_normal=Gestor::normalitzar($q);
-        $key_normal=Gestor::normalitzar($key);
+        //$q_normal=Gestor::normalitzar($q);
+        //$key_normal=Gestor::normalitzar($key);
+        //$clients.= "$key|$value\n";
         
-        $clients.= "$key|$value\n";
+        if (empty($row['client_email'])) $row['client_email']="";
+        $row['label']=$key;
+        $row['value']=$q;
+        if ($p!="modo") $row['value']=$row['client_mobil'];
+        $clients[]=$row;
       }
-      if (empty($clients)) $clients=$clients0;
-      return $clients;
+      if (empty($clients) && $p!="modo") $clients[]=$clients0;
+      //return $clients;
+      
+      return json_encode($clients);
   }
 
 
@@ -2385,6 +2406,7 @@ ORDER BY `estat_hores_data` DESC";
   /****************************************/
   public function enviaSMS($res,$missatge,$numMobil=0)
   {
+      if (defined('LOCAL')) return false;
     if ($_SESSION['permisos'] < 1) {
       $this->reg_log(">>>>>>>>>>>>>>>>>>> ENVIA SMS: SIN PERMISOS!!!");
     }
@@ -2791,6 +2813,7 @@ public function decodeInfo($info)
     $resposta['data']=$_SESSION['data'];
     $resposta['torn']=$_SESSION['torn'];
     $resposta['modo']=$_SESSION['modo'];
+    $resposta['times']=$_SESSION['times'];
     //$resposta['request']=$_SERVER['REQUEST_URI'];
     //$resposta['query']=$_SERVER['QUERY_STRING'];
     $resposta['action']=$_REQUEST['a'];

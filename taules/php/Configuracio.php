@@ -44,7 +44,7 @@ class Configuracio
             $r = mysql_query($query, $DBConn);
             //echo $r;
             $dr=$r;
-            //$dr=true;
+            $dr=false;
             
             if ($dr && !mysql_num_rows($r) && !isset($_GET['load_config'])){ // SI NO CAL CARREGA DE CACHE
                 require(ROOT.'config_define.php');
@@ -54,9 +54,8 @@ class Configuracio
                 }
                 return false;
             }
-
             //SI CAL REGENERA CACHE
-           $this->load($config=CONFIG, $taula_config="config");
+           else $this->load($config=CONFIG, $taula_config="config");
         }
         
 	private function load($config=CONFIG, $taula_config="config")
@@ -70,12 +69,12 @@ class Configuracio
                  
                 // genera fitxer cache config
 		$cache.= $this->parseDBConfig($this->taulaConfig);
-                file_put_contents(ROOT.'config_define.php', $cache);
+                //file_put_contents(ROOT.'config_define.php', $cache);
                 
                 // genera fitxer cache javascript
                 $cache=$this->genera_dumpJSVars(true);
                 $cache="<?php \n\n\$config_js='".$cache."';\n\n ?>";                
-                file_put_contents(ROOT.'config_js.php', $cache);
+                //file_put_contents(ROOT.'config_js.php', $cache);
                  
                 
 	}

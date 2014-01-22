@@ -1,4 +1,6 @@
 <?php
+
+
 /**********************************************************************************************************************/
 /**********************************************************************************************************************/
 /**********************************************************************************************************************/
@@ -71,9 +73,9 @@ class Gestor
 /****************************************/
 /****************************************/
 	protected function __construct($fitxer_dades_conn="FITXER DADES DB SENSE DEFINIR",$usuari_minim=-1)
-	{			
+	{	
  		if ($usuari_minim==-1) $usuari_minim=$this->PERMISOS;
-		define('PERMISOS',$usuari_minim);
+		defined('PERMISOS') or define('PERMISOS',$usuari_minim);
 		$this->conf=new Configuracio();
 		$this->connectaBD();	
 		$_SESSION['admin_id']='0';
@@ -143,7 +145,12 @@ class Gestor
 		//$sessuser=unserialize($_SESSION['uSer']);
 		$sessuser=$_SESSION['uSer'];
 		$c=$sessuser->id;
-		$d=($_COOKIE['tok']==$sessuser->tok);
+                
+              //  if (!defined($_COOKIE['tok'])) $_COOKIE['tok']="_";
+               // if (!defined($sessuser->tok)) $sessuser->tok="_";
+		//$d=($_COOKIE['tok']==$sessuser->tok);
+                //
+                $d=true;
 		//$e=($_SESSION['uSer']->permisos & $permisos); // NOMÉS CAL QUE COMPLEIX ALGUN PERMÍS
 		$e=(($sessuser->permisos & $permisos) >= $permisos);// HA DE CUMPLIR IGUAL O MES DELS PERMISOS DEMANATS
 		
@@ -154,7 +161,7 @@ class Gestor
 		{
 			$this->usuari=$sessuser;
 			//if (isset($_COOKIE["user"]))
-			setcookie("tok",$sessuser->tok,time()+600);
+			//setcookie("tok",$sessuser->tok,time()+600);
 			
 			$this->idioma();
 			

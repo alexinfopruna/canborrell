@@ -94,7 +94,7 @@ $row['observacions']=null;
 		<script type="text/javascript" src="../taules/js/ui/dev/ui/i18n/jquery.ui.datepicker-ca.js"></script>
 		<script type="text/javascript" src="../taules/js/ui/dev/ui/i18n/jquery.ui.datepicker-es.js"></script>
 		<script type="text/javascript" src="../taules/js/jquery.metadata.js"></script>
-		<script type="text/javascript" src="../taules/js/jquery.validate.pack.js"></script>
+		<script type="text/javascript" src="../taules/js/jquery.validate.min.js"></script>
 		<script type="text/javascript" src="../taules/js/jquery.timers.js"></script>
 		<script type="text/javascript" src="../taules/js/jquery.form.js"></script>
 		<script type="text/javascript" src="js/jquery.scrollTo-1.4.2-min.js"></script>

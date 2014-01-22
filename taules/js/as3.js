@@ -57,7 +57,7 @@ function fromAS3_editReserva(id,n,p,c,f)
 	if (n==-1) permuta=c;
 	
 	var hora=$("input[name='hora']:checked",CALEND_ZOOM).val();
-	$("input[name='hora']:checked",CALEND_ZOOM).attr('checked', false);
+	$("input[name='hora']:checked",CALEND_ZOOM).prop('checked', false);
 	$("input[name='hora']:checked",CALEND_ZOOM).val("");
 	if (hora!="" && hora!=null) setHora="&hora="+hora;
 	
@@ -72,6 +72,7 @@ function fromAS3_editReserva(id,n,p,c,f)
 			FORM_EDIT.html(decodeURIComponent(datos));
                         FORM_EDIT=$("#edit");
 			addHandlersEditReserva();
+			//addHandlersEditCli();
 			$(".missatge_dia",FORM_EDIT).html($("#ta_missatge_dia",FORM_EDIT).val());
 			P=$(".places",FORM_EDIT).html();
 			C=$(".cotxets",FORM_EDIT).html();
@@ -87,7 +88,7 @@ function fromAS3_editReserva(id,n,p,c,f)
 				
 			if (permuta) 
 			{
-				$(".updata_res input[name=cb_sms]").attr("checked",false);	
+				$(".updata_res input[name=cb_sms]").prop("checked",false);	
 			}
 			
                         LOADING.dialog('close');
@@ -95,8 +96,6 @@ function fromAS3_editReserva(id,n,p,c,f)
 		 }		
 	});
 	e.preventDefault();
-	return false;
-
 }
 
 function fromAS3_permuta(orig,desti,res)

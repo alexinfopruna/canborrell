@@ -16,8 +16,6 @@ require_once("translate_ca.php");
 require_once("gestor_reserves.php");
 $gestor=new gestor_reserves();   
 
-
-
 if (!$gestor->valida_sessio())  
 {
 	header("Location: index.php");
@@ -99,7 +97,9 @@ if ((isset($_REQUEST["del_client"])) && ($_REQUEST["del_client"] > 0))
 </head>
 <body bgcolor="#ffffff" class="<?php echo DEV?" dev ":""; echo LOCAL?" local ":"" ?>">
 
-<?php if ($_SESSION['permisos']>16){ ?>
+<?php if ($_SESSION['permisos']>16){ 
+    if (!isset($dev)) $dev=false;
+    ?>
 <div id="barra_dalt" class="NOtransparent">
 	<ul>
 		<li><a href="#" class="catcher round">+</a></li>
@@ -176,7 +176,10 @@ if ((isset($_REQUEST["del_client"])) && ($_REQUEST["del_client"] > 0))
 					<input type="radio" id="torn3" name="radio" value="3"  /><label for="torn3" id="lblTorn3">Sopar</label>
 				</div>
 				<table id="totals-torn"  style="clear:both;font-size:0.3em;width:525px;text-align:center;"><tr>
-				<td id="total-t1"></td><td id="total-t2"></td><td id="total-t3"></td>
+				<td id="total-t1"></td>
+                                <?php if (isset($_REQUEST['Historic'])): ?><td id="total-t2"></td><?php endif;?>
+                                <td id="total-t3"></td>
+                                <?php if (!isset($_REQUEST['Historic'])): ?><td id="total-t2"></td><?php endif;?>
 				</tr></table>
 				</div>
 								
@@ -184,35 +187,13 @@ if ((isset($_REQUEST["del_client"])) && ($_REQUEST["del_client"] > 0))
 			</div>
 		</div>
 
-	
-		<div id="tabs" >
-			<ul>
-				<li><a href="#reserves">Reserves</a></li>
-				<li><a href="#clients">Clients</a></li>
-			</ul>
-			<div id="clients">
-	
-		<select id="filtreCli" name="filtreCli" >
-			<option value="1" selected="selected">Torn</option>
-			<option value="2">Dia</option>
-			<option value="3">Avançat</option>
-		</select>
-		
-		<!-- HOLA TEO I LOLA , MAMA I ALEX
--->
-	
-	<input id="autoc_client_accordion" /><a href="#" id="resetCerca" class="ui-state-default ui-corner-all" title="Elimina filtre">X</a>
 
-		
-		
-				<div id="clientsAc">
-					<?php //out ($gestor->accordion_clients(1));?>
-				</div>
-			</div>
-			<div id="reserves">
-				<p>
 					<a href="#" id="novaReserva" class="ui-state-default ui-corner-all" style="margin-right:10px;padding:4px;">Nova Reserva</a>
-<form class="searchform">
+
+
+                                        
+		<div id="tabs" >
+<form id="cercador" class="searchform">
 	<input id="cercaReserva" name="cercaReserva" class="searchfield amagat" type="text" value="Cerca..." onfocus="if (this.value.toUpperCase().search('CERCA...')!=-1) {this.value = ''} else if(this.value.length>0) this.select();" onblur="if (this.value == '') {recargaAccordioReserves();this.value = 'Cerca...'}">
 
 
@@ -222,11 +203,44 @@ if ((isset($_REQUEST["del_client"])) && ($_REQUEST["del_client"] > 0))
 			<option value="2">Dia</option>
 			<?php if ($_SESSION['permisos']>64){ ?>
 			<option value="3">Avançat</option>
+			<option value="4">Clients</option>
 			<?php } ?>
 			
 		</select>
-	 <input id="autoc_reserves_accordion" /><a href="#" id="resetCercaRes" class="ui-state-default ui-corner-all" title="Elimina filtre">X</a>
-</form>
+	 <input id="autoc_reserves_accordion" placeholder="Cerca…" /><a href="#" id="resetCercaRes" class="ui-state-default ui-corner-all" title="Elimina filtre">X</a>
+</form>			
+<!--                  
+                    <ul>
+				<li><a href="#reserves">Reserves</a></li>
+				<li><a href="#clients">Clients</a></li>
+			</ul>
+                <div id="clients">
+-->
+	<!--
+		<select id="filtreCli" name="filtreCli" >
+			<option value="1" selected="selected">Torn</option>
+			<option value="2">Dia</option>
+			<option value="3">Avançat</option>
+		</select>
+ -->
+		
+		<!-- HOLA TEO I LOLA , MAMA I ALEX
+-->
+	<!--
+	
+	<input id="autoc_client_accordion" /><a href="#" id="resetCerca" class="ui-state-default ui-corner-all" title="Elimina filtre">X</a>
+ -->
+<!--		
+		
+				<div id="clientsAc">
+					<?php //out ($gestor->accordion_clients(1));?>
+				</div>
+			</div>
+                                        
+   -->                                      
+			<div id="reserves">
+				<p>
+
 
 
 				<div id="reservesAc" style="display:none">

@@ -12,7 +12,7 @@ if (isset($_REQUEST['a']) && !empty($_REQUEST['a']))
 	$logables=array('update_client','esborra_client','inserta_reserva','update_reserva','esborra_reserva','enviaSMS','permuta','permuta_reserva','','','','','','','','','','','');
 	$log=in_array($_REQUEST['a'], $logables);
 		
-	$ip=$ips[$_SERVER['REMOTE_ADDR']]?$ips[$_SERVER['REMOTE_ADDR']]:$_SERVER['REMOTE_ADDR'];
+	$ip=isset($ips[$_SERVER['REMOTE_ADDR']])?$ips[$_SERVER['REMOTE_ADDR']]:$_SERVER['REMOTE_ADDR'];
 	$sessuser=$_SESSION['uSer'];
 		if (isset($sessuser)) $user=$sessuser->id;
 		if ($log)	$gestor->reg_log("/* >>> Petició Gestor reserves:  user: $user ($ip)".$_REQUEST['a']." (b=".$_REQUEST['b'].", c=".$_REQUEST['c'].", d=".$_REQUEST['d']." ---- p=".$_REQUEST['p'].", q=".$_REQUEST['q'].", r=".$_REQUEST['r'].", c=".$_REQUEST['c'].", d=".$_REQUEST['d'].", e=".$_REQUEST['e'].")<<< */".EOL);
@@ -150,11 +150,12 @@ if (isset($_REQUEST['a']) && !empty($_REQUEST['a']))
 		break;
 
 		case "autocomplete_clients":
-			out( $gestor->autocomplete_clients($_REQUEST['q'],$_REQUEST['p']));
+			//out( $gestor->autocomplete_clients($_REQUEST['q'],$_REQUEST['p']));
+			out( $gestor->autocomplete_clients($_REQUEST['term'],$_REQUEST['p']));
 		break;
 
 		case "autocomplete_reserves":
-			out( $gestor->autocomplete_reserves($_REQUEST['q']));
+			out( $gestor->autocomplete_reserves($_REQUEST['term']));
 		break;
 
 		case "permuta":

@@ -16,7 +16,7 @@ ORDER BY config_descripcio
 ////////////////////////////////////////////////////////////////////////////////
 $EDITABLE="true";
 
-if ($_POST["edit_id"])
+if (isset($_POST["edit_id"]))
 {
 	require_once("DBTable.php");
 	$gestor=new DBTable($query);

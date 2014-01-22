@@ -26,7 +26,7 @@
 		
 		<!----------------------------------------------------------------------------->
 		<!---- EDIT FORM 														------->
-		<script type="text/javascript" src="../js/jquery.validate.pack.js"></script>		
+		<script type="text/javascript" src="../js/jquery.validate.min.js"></script>		
 		<script type="text/javascript" src="../js/jquery.metadata.js"></script>		
 		<script type="text/javascript" src="../js/jquery.form.js"></script>		
 		<script type="text/javascript" src="../js/jquery.bestupper.min.js"></script>		
