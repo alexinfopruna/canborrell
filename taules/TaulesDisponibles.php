@@ -59,7 +59,7 @@ class TaulesDisponibles extends Gestor
 		$this->menjadors=$menjadors;
 		//RECUPEREM CREA_TAULES i NITS_OBERT DEL CONFIG
 		$this->creaTaules=$this->recupera_creaTaules();
-		$this->nitsObert=unserialize(AR__NITS_OBERT);
+ 		$this->nitsObert=unserialize(AR__NITS_OBERT);
 		
 		$this->reset();
 		$this->data=$this->data_BASE;
@@ -98,7 +98,7 @@ class TaulesDisponibles extends Gestor
 		if (!$this->controlMaxTorn()) return $this->addError(26);
 		//CONTROLA MENJADORS BLOQUEJATS
 		$this->treuBloquejats();	
-		
+		//die ("EEE".CREA_TAULES);
 		/////////////////////////////////////////
 		if ($this->recupera_creaTaules()===true && !count($this->arResultatTaula)) $this->creaTaula();
 		return $this->arResultatTaula;
@@ -759,13 +759,11 @@ ORDER BY  `estat_hores_hora` ASC ";
 	private function creaTaula()
 	{	
 		//if ($this->creaTaules!==true) return false;
-
-		$novaTaula=new EstatTaula(null, $this->torn, $this->data, $this->hora, $this->persones, $this->cotxets, $plena=0, null,null, 0);
+ 		$novaTaula=new EstatTaula(null, $this->torn, $this->data, $this->hora, $this->persones, $this->cotxets, $plena=0, null,null, 0);
 
 		array_unshift($this->arResultatTaula,$novaTaula);
 		array_unshift($this->arResultat,$novaTaula->id);
-		
-		return $novaTaula;
+		               echo "CREAAAA: ".$this->creaTaules;
 	}
 
 /************************************************************************************************************************/

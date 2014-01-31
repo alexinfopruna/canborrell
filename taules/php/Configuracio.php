@@ -170,24 +170,32 @@ class Configuracio
 							$row['config_val']=serialize($array);
 						}
 						$defineeed = null;
+                                                
+                                                $valtxt=$row['config_val'];
 						if ($row['config_val']==="true" || $row['config_val']==="TRUE") $row['config_val']=true;
 						elseif ($row['config_val']==="false" || $row['config_val']==="FALSE") $row['config_val']=false;
+                                                else $valtxt='"'.$row['config_val'].'"';
 
 						$this->configVars[$row['config_var']]=$row['config_val'];
 						$val=$row['config_val'];
+                                                
+                                 		//if ($valtxt==="true" || $valtxt==="TRUE") $valtxt=true";
+						//elseif ($valtxt==="false" || $valtxt==="FALSE") $valtxt=false";
+                                               
+                                                //echo "<br>".$row['config_var'].": ".$valtxt."  *****  ";
+                                                /*
+                                                $val2=$val;
 						if ($val==="true" || $val==="TRUE") $val=true;
 						elseif ($val==="false" || $val==="FALSE") $val=false;
-						
+                                                
+                                                //if (!is_numeric($val)) $val='"'.$val.'"';
+						*/
 						//if (!defined($row['config_var'])) 
-                                                if (true)
-						{
-							defined($row['config_var']) or define($row['config_var'], $val);
-                                                        $cache.='defined("'.$row['config_var'].'") or define("'.$row['config_var'].'", "'.$val.'");'.PHP_EOL;
-						}
-						else $defineeed="IGNORAT (definit A XML!!!!!) --- ";
+                                                defined($row['config_var']) or define($row['config_var'], $val);
+                                                $cache.='defined("'.$row['config_var'].'") or define("'.$row['config_var'].'", '.$valtxt.');'.PHP_EOL;
 					
-						$this->DB__defines[$defineeed.$row['config_var']] = $val;
-                                                $cache.='$DB_defines["'.$defineeed.$row['config_var'].'"]="'.$val.'";'.PHP_EOL;
+						$this->DB__defines[$defineeed.$row['config_var']] = $val ;
+                                                $cache.='$DB_defines["'.$defineeed.$row['config_var'].'"]='.$valtxt.';'.PHP_EOL;
 					}
 					
 					// DEFINE PER JAVASCRIPT
