@@ -863,7 +863,8 @@ són reserves perdudes que perden el link amb una taula
       $this->qry_result = $this->log_mysql_query($deleteSQL, $this->connexioDB) or die(mysql_error());
     
       $resposta['resposta']="ok";
-     return $this->jsonResposta($resposta);//$query." - ".$row['estat_taula_taula_id'];
+    $resposta['ac_reserves']=$this->accordion_reserves();
+         return $this->jsonResposta($resposta);//$query." - ".$row['estat_taula_taula_id'];
   } 
   
   

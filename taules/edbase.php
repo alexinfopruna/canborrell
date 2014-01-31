@@ -9,12 +9,16 @@ $gestor=new gestor_reserves();
 		<link type="text/css" href="css/blitzer/jquery-ui-1.8.9.custom.css" rel="stylesheet" />	
 		<link type="text/css" href="css/taules.css" rel="stylesheet" />	
 		
-		<script type="text/javascript" src="js/jquery-1.5.min.js"></script>
-		<script type="text/javascript" src="js/ui/dev/ui/jquery.ui.core.js"></script>
-		<script type="text/javascript" src="js/ui/dev/ui/jquery.ui.widget.js"></script>
-		<script type="text/javascript" src="js/ui/dev/ui/jquery.ui.position.js"></script>
-		<script type="text/javascript" src="js/ui/dev/ui/jquery.ui.dialog.js"></script>
-		
+<script src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
+<script>window.jQuery || document.write('<script src="js/jquery-2.0.3.min.js">\x3C/script>')</script>
+
+<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>    
+<script type="text/javascript">
+    /* */
+    if (typeof jQuery.ui == 'undefined') {
+        document.write(unescape("%3Cscript src='js/jquery-ui-1.10.3.custom/js/jquery-ui-1.10.3.custom.min.js' type='text/javascript'%3E%3C/script%3E"));
+    };
+</script>                		
 		<script src="js/hores.js" type="text/javascript"></script> 
 		<script src="js/swfobject.js" type="text/javascript"></script> 
 		

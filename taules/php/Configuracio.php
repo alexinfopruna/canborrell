@@ -39,12 +39,13 @@ class Configuracio
             require(ROOT.DB_CONNECTION_FILE);
             
             // COMPROVA SI CAL REFRESCAR
-            $data=date ("Y-m-d H:i:s", filemtime(ROOT.'config_define.php'));
+            if (file_exists(ROOT.'config_define.php')) $data=date ("Y-m-d H:i:s", filemtime(ROOT.'config_define.php'));
+            else $data="";
+            
             $query = "SELECT * FROM ".$taula_config." WHERE config_timestamp>'$data'";
             $r = mysql_query($query, $DBConn);
-            //echo $r;
             $dr=$r;
-            $dr=false;
+            //$dr=false;
             
             if ($dr && !mysql_num_rows($r) && !isset($_GET['load_config'])){ // SI NO CAL CARREGA DE CACHE
                 require(ROOT.'config_define.php');
@@ -69,12 +70,12 @@ class Configuracio
                  
                 // genera fitxer cache config
 		$cache.= $this->parseDBConfig($this->taulaConfig);
-                //file_put_contents(ROOT.'config_define.php', $cache);
+                file_put_contents(ROOT.'config_define.php', $cache);
                 
                 // genera fitxer cache javascript
                 $cache=$this->genera_dumpJSVars(true);
                 $cache="<?php \n\n\$config_js='".$cache."';\n\n ?>";                
-                //file_put_contents(ROOT.'config_js.php', $cache);
+                file_put_contents(ROOT.'config_js.php', $cache);
                  
                 
 	}

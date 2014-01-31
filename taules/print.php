@@ -87,7 +87,9 @@ if (isset($_GET['img']))
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>MenjadorEditor</title>
 <link type="text/css" href="css/print.css" rel="stylesheet" />			
-		<script type="text/javascript" src="js/jquery-1.5.min.js"></script>
+<script src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
+<script>window.jQuery || document.write('<script src="js/jquery-2.0.3.min.js">\x3C/script>');</script>
+
 <script>
 $(function(){
 		

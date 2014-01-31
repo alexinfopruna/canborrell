@@ -322,9 +322,6 @@ $('#edit').dialog({
 			LOADING.dialog("open");
 			$(this).dialog("close"); 
 			timer(true);
-
-			return false;
-			
 		}, 
 		"Elimina": function() { 
 			if ($('#edit form').hasClass("updata_res",FORM_EDIT))
@@ -342,6 +339,7 @@ $('#edit').dialog({
 			
 			
 			
+			LOADING.dialog("open");
 			$(this).dialog("close"); 
 			timer(true);
 		
@@ -373,7 +371,6 @@ $('#nouClient').click(function(){
 	timer(false);
 	$('#insertClient').dialog('open');
 	$("form.inserta_cli").validate().resetForm();	
-	return false;
 });
 
 /**********************************************************************************
@@ -395,7 +392,6 @@ $(".combo_clients",FORMULARI_INSERTA_RES).change(function(e){
     alert("COMBOOOOO");////
         var id=$(this).val();
         var desti="gestor_reserves.php?a=htmlDadesClient&p="+ id;
-        return false;
 });
 
 
@@ -406,7 +402,6 @@ $('.nouClient').click(function(){
 
 	$('#insertClient').dialog('open');
 	$("form.inserta_cli").validate().resetForm();
-	return false;
 });
 	
 jQuery.validator.addMethod("client", function(value, element) { 
@@ -457,10 +452,10 @@ jQuery.validator.addMethod("personesInsert", function(value, element) {
 	upercase("body ");
 	$("#flash").hide();
 
-	$("#bt_print").click(function()
+	$("#bt_print").click(function(e)
 	{
 		FLASH.print();	
-		return false;
+                e.preventDefault();
 	});
 	
 	
@@ -470,7 +465,6 @@ jQuery.validator.addMethod("personesInsert", function(value, element) {
 cb_autocompletes();
 
 addHandlersEditCli();
-    return false;
 }); // FINAL READY
 
 
@@ -520,11 +514,7 @@ function deleteReserva(id)
 		var desti="gestor_reserves.php?a=esborra_reserva&p="+id;
                 $.ajax({url: desti,	success: procesaResposta});
                     //FLASH.canviData(date_session);
-           
-		return false;
 	}	
-	
-	return false;
 }
 
 function addHandlersEditCli()
@@ -576,10 +566,7 @@ function addHandlersEditCli()
 		
 		var desti="gestor_reserves.php?a=garjola&b="+$("#autoc_client_inserta_res",FORMULARI_INSERTA_RES).val()+"&c="+$(".inserta_res input[name='client_email']").val()+"&d="+ !garjola;
 		$.post(desti);
-		return false;
 	});
-	//TODO
-        return false;
 }
 
 
@@ -607,7 +594,7 @@ function addHandlersEditReserva()
 		var msg=$("#sms_mensa",FORM_EDIT).val();
 		var rsv=$("input[name=id_reserva]",FORM_EDIT).val();
 		$.post(desti,{p:rsv,r:mob,c:msg},function(datos){$("#llista_sms",FORM_EDIT).html(datos);alert("S'ha enviat l'SMS");});
-		return false;}
+		}
 	);
 	
 	$("#extendre",FORM_EDIT).buttonset();
@@ -620,8 +607,6 @@ function addHandlersEditReserva()
 	$("#selectorCotxets",FORM_EDIT).change(function(){if(!$(this).val()) $("input[name=cotxets]").val(1);});
 
 	$(document).oneTime(3000,'missatgeLlegit' ,missatgeLlegit);
-        
-        return false;
 }
 
 function reservaEntrada()
@@ -646,8 +631,6 @@ function reservaEntrada()
 	var idRes=$("input[name=id_reserva]",FORM_EDIT).val();
 	var desti="gestor_reserves.php?a=taulaEntrada&b="+idRes;
 	$.post(desti,{b:idRes,c:des});
-        
-        return false;
 }
 
 function missatgeLlegit()
@@ -659,11 +642,7 @@ function missatgeLlegit()
 		$.post(desti,{b:idRes},function(datos){
                     $("#rnode_"+idRes+" div.ui-icon-mail-closed",RESERVES_AC).addClass("ui-icon-mail-open");
                     $("#rnode_"+idRes+" div.ui-icon-mail-closed",RESERVES_AC).removeClass("ui-icon-mail-closed");
-                    return false;
                 });
-                
-                return false;
-
 }
 
 function obreDetallReserva(e)
@@ -684,12 +663,10 @@ function obreDetallReserva(e)
                         $("#torn"+trn).button("refresh");
                         LOADING.dialog('close');
                         FORM_EDIT.dialog('open');
-                        return false;
                     }		
 		});
 		
 		e.preventDefault();
-		return false;
 }
 
 function FROM_CERCADOR_obreDetallReserva(id,data,torn)////FALTAAAAA
@@ -711,12 +688,9 @@ function FROM_CERCADOR_obreDetallReserva(id,data,torn)////FALTAAAAA
                                                                 FORM_EDIT=$("#edit");
 								//recargaAccordioReserves();					
 								addHandlersEditReserva();						
-		                                                return false;
 							 }		
 					})
                                     }});
-
-		return false;
 }
 
 function onNovaReserva()
@@ -767,9 +741,6 @@ function onNovaReserva()
 		var input='<input type="text" name="hora"  value="'+hora+'" size="3" readonly="readonly" class="{required:true}" title=""/>';
 		$("#inserta_res_radio",FORMULARI_INSERTA_RES).html(input);
 	}
-	
-	return false;
-	
 };
 
 /******************************************************************************************************/
@@ -797,8 +768,6 @@ function fromDialog_novaReserva(taula,n,p,c,f)
 	$(".cotxets",FORMULARI_INSERTA_RES).html(c);
 	$(".plena",FORMULARI_INSERTA_RES).html((f?"si":"no"));
 	$("input[name='hora']:checked",CALEND_ZOOM).prop('checked', false);
-	
-	return false;	
 }
 
 
@@ -807,8 +776,6 @@ function upercase(selector)
 	/** UPPERCASE **/
 	$(selector+'  input').not('input[readonly]').bestupper(); 
 	$(selector+'  textarea').bestupper(); 
-	
-	return false;
 }
 
 function comprova_backup()
@@ -816,7 +783,6 @@ function comprova_backup()
 	var desti="gestor_reserves.php?a=reserves_orfanes";
 	$.post(desti,{r:rand},function(datos){
 		if (datos) alert("ATENCIO!!!\nS'han detectat reserves perdudes: Per més detalls, ves al Panel de control > Eines avançades > Reserves perdudes"); 
-               // return false;
 	});
         
 	if (!BACKUP_INTERVAL) return false;
@@ -831,8 +797,6 @@ function comprova_backup()
 
 	var desti="esborra_clients_llei.php";
 	$.post(desti,function(datos){return false;});
-	
-	//return false;
 }
 
 function comprova_refresh()
@@ -845,8 +809,6 @@ function comprova_refresh()
     $("#imgCalendari",CALEND_ZOOM).attr("src", img+"?" + rand);	
     REFRESH.slideDown().delay(500).slideUp();
     timer(true);
-    //return false;
-		
 };
 
 function timer(activa)
@@ -858,8 +820,6 @@ function timer(activa)
 	if (activa) $(document).everyTime(REFRESH_INTERVAL,'refresh' ,comprova_refresh);
 	
 	timeractiu=activa;
-	
-	return false;
 }
 
 function validaData()
@@ -880,8 +840,6 @@ function validaData()
 function actualitza_combo_clients(id)
 {
 		$(".autoc_id_client",FORM_EDIT).val(id);
-		
-		return false;
 }	
 
 
@@ -928,7 +886,6 @@ function cercaReserves(s)////FALTAAA
 	if (s && s!="" && s!="Cerca..." ) s="&c="+s;
 	
 	$.ajax({url: "gestor_reserves.php?a=cerca_reserves"+s,success: procesaResposta});	
-	return false;
 }
 
 
@@ -954,13 +911,9 @@ function cercaTaula()
 					$("input[name=total]",FORMULARI_INSERTA_RES).val(P);
 					CERCA=P;
 					$("#selectorAdults",CALEND_ZOOM).hide();
-
-					return false;
+                                        e.preventDefault();
 				});	
-			return false;
 		}});
-	
-	return false;
 }
 /**/
 function botonera_adults(e)
@@ -972,10 +925,6 @@ function botonera_adults(e)
 	$("#selectorAdults input:checked",FORMULARI_INSERTA_RES).prop("checked",false);
 	$("#selectorAdults input",FORMULARI_INSERTA_RES).button("refresh");
 	calcula_adults(e);
-        
-        
-	
-	return false;
 }
 function botonera_nens4_9(e)
 {
@@ -983,8 +932,6 @@ function botonera_nens4_9(e)
 	$("#selectorNens4_9 input:checked",FORMULARI_INSERTA_RES).prop("checked",false);
 	$("#selectorNens4_9 input",FORMULARI_INSERTA_RES).button("refresh");
 	calcula_adults(e);
-	
-	return false;
 }
 function botonera_nens10_14(e)
 {
@@ -992,9 +939,6 @@ function botonera_nens10_14(e)
 	$("#selectorNens10_14 input:checked",FORMULARI_INSERTA_RES).prop("checked",false);
 	$("#selectorNens10_14 input",FORMULARI_INSERTA_RES).button("refresh");
 	calcula_adults(e);
-	
-	return false;
-
 }
 function calcula_adults(e){		
 		$("input[persones]",FORMULARI_INSERTA_RES).unbind("change");
@@ -1029,8 +973,6 @@ function calcula_adults(e){
 		var total=0+Number($("input[name=adults]",FORMULARI_INSERTA_RES).val())+Number($("input[name=nens4_9]",FORMULARI_INSERTA_RES).val())+Number($("input[name=nens10_14]",FORMULARI_INSERTA_RES).val());
 		$("input[name=total]",FORMULARI_INSERTA_RES).val(total);		
 		$("input[persones]",FORMULARI_INSERTA_RES).bind("change",calcula_adults);
-		
-		return false;
 	}
 
 function controlNumMobil()
@@ -1051,15 +993,10 @@ function controlNumMobil()
 			$("#campsClient input[name='client_mobil']",FORMULARI_INSERTA_RES).show();
 			$(".sense-numero",FORMULARI_INSERTA_RES).html("Sense número");	
 		}
-		
-		return false;
 	});
-	
-	return false;
 }
 	
 function debug(text)
 {
 	$("#debug_out").html(text);
-        return false;
 }
