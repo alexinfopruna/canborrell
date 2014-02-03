@@ -3,7 +3,6 @@ header('Content-Type: text/html; charset=utf-8');
 
 define('ROOT',"../taules/");
 require_once (ROOT."Gestor.php");
-//require_once (ROOT."Configuracio.php");
 
 if (defined("CB_FORA_DE_SERVEI") && CB_FORA_DE_SERVEI === true) header("Location:fora_de_servei.html");
 
@@ -48,7 +47,6 @@ $PERSONES_GRUP=$gestor->configVars("persones_grup");
 define("PERSONES_GRUP",$PERSONES_GRUP);
 $max_nens=$gestor->configVars("max_nens");
 $max_juniors=$gestor->configVars("max_juniors");
-//die($max_juniors);
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <HTML>

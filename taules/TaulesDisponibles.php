@@ -201,7 +201,6 @@ class TaulesDisponibles extends Gestor
 			// genera array ids ordenada
 			$this->arResultat[]=$v->id;
 		}//SEGONA PASSADA (ORDRE)
-                
 		return $this->arResultatTaula;
 	}
 /************************************************************************************************************************/
@@ -389,10 +388,7 @@ class TaulesDisponibles extends Gestor
 				INNER JOIN ".T_RESERVES." ON id_reserva = `reserva_id`
 				WHERE `estat_taula_data` = '$data'
 				AND `estat_taula_torn` =$torn";
-                
-               //die($query) ;
 		$Result1 = mysql_query($query,  $this->connexioDB) ;//or die(mysql_error());
-                if (!$Result1) echo $query;
 		if (!mysql_num_rows($Result1)) return 0;
 		
 		$row = mysql_fetch_array($Result1);
@@ -560,6 +556,7 @@ class TaulesDisponibles extends Gestor
 		}
 		$data=$this->data;
 		$torn=$this->torn;
+		
 		// TABLE PELS MAXIMS SEMPRE ES ESTAT HORES
 		$table=$this->tableHores; 
 			
@@ -577,6 +574,7 @@ class TaulesDisponibles extends Gestor
 		// 
 		// QUERY HORES
 		// HORES ACTIVES A estat_hores_form (base) O overriden a estat_hores (data)
+		
 $query = "
 SELECT *
 FROM $table
@@ -630,7 +628,6 @@ ORDER BY  `estat_hores_hora` ASC ";
 		$mensa='';
 		$info='';
 		$radio='';
-		//echo "WWWW".  mysql_num_rows($Result1);
 		while ($row = mysql_fetch_array($Result1))
 		{			
 			if ($hora==$row['estat_hores_hora']) 

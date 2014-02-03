@@ -47,11 +47,8 @@ class ControlTaules
 		$taules=array();
 		
 		while ($row = mysql_fetch_array($Result1))
-		{
-		  $row['client_nom']=", ".$row['client_nom'];
-      if ($row['client_nom']==", SENSE_NOM") $row['client_nom']="";
-      if ($row['client_nom']==",  ") $row['client_nom']="";
-			$client = $row['client_cognoms'].$row['client_nom']."\n(".$row['client_mobil']." - ".$row['client_telefon'].")\n".$row['client_email'];
+		{							
+			$client = $row['client_cognoms'].", ".$row['client_nom']."\n(".$row['client_mobil']." - ".$row['client_telefon'].")\n".$row['client_email'];
 			$online=$row['reserva_info'] & 1;
 			$taula = new TaulaVO($row['estat_taula_taula_id'],$row['estat_taula_nom'] ,$row['estat_taula_persones'], $row['estat_taula_cotxets'],
 								$row['estat_taula_grup'], $row['estat_taula_x'], $row['estat_taula_y'], $row['reserva_id'],
@@ -227,10 +224,6 @@ $values);
 /*********************************************************************************************************************************/	
 	function recuperaUsuari()
 	{	
-		$_SESSION['loGin'] = 'Alex';
-		$_SESSION['permisos'] = 255;
-		$_SESSION['torn'] = 1;
-	
 		if (!isset($_SESSION['loGin']))  return false;
 		$usuari=new UsuariVO(0,$_SESSION['loGin'],$_SESSION['permisos']);
 		return $usuari;	

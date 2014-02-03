@@ -7,7 +7,7 @@ function out($t)
 if (isset($_REQUEST['a']) && !empty($_REQUEST['a']))
 {
 	$gestor=new gestor_reserves();
-        if (!$gestor->valida_sessio(1))  header("Location: index.php");
+	if (!$gestor->valida_sessio(1))  header("Location: index.php");
 
 	$logables=array('update_client','esborra_client','inserta_reserva','update_reserva','esborra_reserva','enviaSMS','permuta','permuta_reserva','','','','','','','','','','','');
 	$log=in_array($_REQUEST['a'], $logables);
@@ -93,7 +93,7 @@ if (isset($_REQUEST['a']) && !empty($_REQUEST['a']))
 		break;	
 		
 		case "cerca_reserves":
-			out( $gestor->cerca_reserves($_REQUEST['p'],$_REQUEST['c']));
+			out( $gestor->accordion_reserves($_REQUEST['p'],$_REQUEST['c']));
 		break;	
 		
 		case "cerca_clients":
@@ -150,11 +150,11 @@ if (isset($_REQUEST['a']) && !empty($_REQUEST['a']))
 		break;
 
 		case "autocomplete_clients":
-			out( $gestor->autocomplete_clients($_REQUEST['q'],$_REQUEST['p']));
+			out( $gestor->autocomplete_clients($_REQUEST['term'],$_REQUEST['p']));
 		break;
 
 		case "autocomplete_reserves":
-			out( $gestor->autocomplete_reserves($_REQUEST['q']));
+			out( $gestor->autocomplete_reserves($_REQUEST['term']));
 		break;
 
 		case "permuta":

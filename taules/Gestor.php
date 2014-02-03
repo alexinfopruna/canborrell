@@ -27,9 +27,15 @@ if (!defined('DB_CONNECTION_FILE')) define('DB_CONNECTION_FILE', "../Connections
 
 require_once(ROOT."Usuari.php");
 if (file_exists(ROOT."php/define.php")) require(ROOT."php/define.php");
-
 require_once(ROOT."php/Configuracio.php");
 $config=new Configuracio();
+
+//if (defined("CB_FORA_DE_SERVEI") && CB_FORA_DE_SERVEI === true) header("Location:".ROOT."../reservar/fora_de_servei.html");
+
+
+//date_default_timezone_set('UTC'); //ALEX SET TIME!!
+date_default_timezone_set('Europe/Madrid');
+setlocale(LC_TIME,"ca_ES.utf8");
 
 /**********************************************************************************************************************/
 // DEFINE CARPETA DE TREBALL SOBRE LA ROOT
@@ -72,7 +78,7 @@ class Gestor
 /****************************************/
 	protected function __construct($fitxer_dades_conn="FITXER DADES DB SENSE DEFINIR",$usuari_minim=-1)
 	{			
- 		if ($usuari_minim==-1) $usuari_minim=$this->PERMISOS;
+		if ($usuari_minim==-1) $usuari_minim=$this->PERMISOS;
 		define('PERMISOS',$usuari_minim);
 		$this->conf=new Configuracio();
 		$this->connectaBD();	
@@ -137,7 +143,7 @@ class Gestor
 	{
 		if ($permisos==0) return true;
 		if (!$permis_admin) $permis_admin=Gestor::$USUARI_ADMIN;
-		//if (!isset($_SESSION)) session_start();
+		if (!isset($_SESSION)) session_start();
 		$a=isset($_SESSION['uSer']);
 		$b=!empty($_SESSION['uSer']);
 		//$sessuser=unserialize($_SESSION['uSer']);
@@ -189,7 +195,7 @@ class Gestor
 		  
 		  if ($loginFoundUser) {
 			$usuari=new usuari($row['admin_id'],$loginUsername,$row['permisos']);
-			//if (!isset($_SESSION))   session_start();
+			if (!isset($_SESSION))   session_start();
 			//$this->usuari=$_SESSION['uSer']=serialize($usuari);
 			
 			$this->usuari=$_SESSION['uSer']=$usuari;
@@ -210,7 +216,7 @@ class Gestor
 /********      TANCA_SESSIO     ************/
 	public static function tanca_sessio($redir=null)
 	{
-		//if (!isset($_SESSION))   session_start();
+		if (!isset($_SESSION))   session_start();
 		//$sessuser=unserialize($_SESSION['uSer']);
 		$sessuser=$_SESSION['uSer'];
 		$sessuser->id=null;
@@ -359,7 +365,7 @@ class Gestor
 /*****************************************************************************************/
 	public static function out($t)
 	{
-	 	if (mb_detect_encoding ($t)!="UTF-8") $t=utf8_encode($t);
+		if (mb_detect_encoding ($t)!="UTF-8") $t=utf8_encode($t);
 		echo $t;
 	}
 
@@ -559,7 +565,7 @@ class Gestor
 		
 	}
 	
-	protected  function l($text,$echo=true)
+	protected function l($text,$echo=true)
 	{
 		global $translate;//	return $translate[$text];
 		global $notrans;
@@ -615,7 +621,6 @@ class Gestor
 /******************************************************************************************************/
 /*********************************************************************************/
 /*********************************************************************************/
-
 /******************************************************************************************************/
 	protected function jsonErr($codi,$merge=null)
 	{
@@ -697,15 +702,11 @@ class Gestor
 /******************************************************************************************************/
 	public function configVars($nom)
 	{
-            //$conf=get_defined_constants();
-            //return $conf[$nom];
 		return $this->conf->configVars[$nom];
 	}
 /******************************************************************************************************/
 	public function dumpJSVars($tags)
 	{
-                //include(ROOT."config_js.php");
-                //return $config_js;
 		return $this->conf->dumpJSVars($tags);
 	}
 

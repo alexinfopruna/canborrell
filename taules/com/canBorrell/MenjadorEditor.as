@@ -62,7 +62,7 @@
 		static public const ESTAT_INICIAL_ES:String = ESTAT_INICIAL.date+"-"+(ESTAT_INICIAL.month+1)+"-"+ESTAT_INICIAL.fullYear;
 		static public const MAX_MENJADORS:uint = 10;
 		//public var XML_CONFIG:String = "config.xml?"+Math.random();
-		static public const KEEP_ALIVE:uint = 60000 * 10;//3600 * 5;
+		static public const KEEP_ALIVE:uint=3600 * 5;
 		
 		private var _data:Date = new Date(1900,0,1);
 		
