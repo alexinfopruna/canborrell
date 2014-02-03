@@ -230,8 +230,7 @@ function controlsTaula($fila)
 			<?php
 				foreach($row as $k => $v) 
 				{
-                                        $data=Gestor::cambiaf_a_normal($row["data"]);
-					echo '<td col="'.$k.'" id="'.$row["idR"].'" data="'.$data.'" hora="'.$row["hora"].'" torn="'.$row["T"].'" >';
+					echo '<td col="'.$k.'" id="'.$row["idR"].'" data="'.$row["data"].'" hora="'.$row["hora"].'" torn="'.$row["T"].'" >';
 					echo Gestor::upperNoTilde($v);
 					echo "</td>";
 				}

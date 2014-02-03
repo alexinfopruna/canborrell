@@ -4,13 +4,13 @@ if (!defined('ROOT')) define('ROOT', "");
 require_once(ROOT."Gestor.php");
 
 if (!defined('LLISTA_DIES_NEGRA')) define("LLISTA_DIES_NEGRA",INC_FILE_PATH."llista_dies_negra.txt");
-if (!defined('LLISTA_NITS_NEGRA')) define("LLISTA_NITS_NEGRA",INC_FILE_PATH."llista_dies_negra.txt");
+if (!defined('LLISTA_NITS_NEGRA')) define("LLISTA_DIES_NEGRA",INC_FILE_PATH."llista_dies_negra.txt");
 if (!defined('LLISTA_DIES_BLANCA')) define("LLISTA_DIES_BLANCA",INC_FILE_PATH."llista_dies_blanca.txt");
 
 require_once(ROOT."Menjador.php");
 require_once(ROOT."TaulesDisponibles.php");
 
-if (!defined('HEADERS')) header('Content-Type: text/html; charset=utf-8');
+header('Content-Type: text/html; charset=utf-8');
 header('Content-Encoding: bzip');
 if (!isset($_SESSION)) session_start();
 if (!isset($_SESSION['data'])) $_SESSION['data']=date("Y-m-d");
@@ -55,7 +55,6 @@ class gestor_reserves extends Gestor
     $this->taulesDisponibles=new TaulesDisponibles();
     $this->taulesDisponibles->data=$_SESSION['data'];
     $this->taulesDisponibles->torn=$_SESSION['torn'];
- 
   }
   
 /****************************************/
@@ -174,7 +173,7 @@ class gestor_reserves extends Gestor
   
 /****************************************/
 /****************************************/
-/********      ESBORRA_RESERVA     ******/
+/********      ESBORRA_RESERVA     ************/
 /****************************************/
 /****************************************/
   public function esborra_reserva($id_reserva,$permuta=false)
@@ -209,17 +208,10 @@ class gestor_reserves extends Gestor
       $deleteSQL = "UPDATE ".ESTAT_TAULES." SET reserva_id=0, estat_taula_usuari_modificacio=$usr WHERE reserva_id=$id_reserva";
       $res=$this->log_mysql_query($deleteSQL, $this->connexioDB) or die(mysql_error());
     
-      ///if ($permuta){return $res;}
+      if ($permuta){return $res;}
       //if (!isset($_REQUEST['a'])) header("Location: ".$_SERVER['PHP_SELF']);
-      //return $this->accordion_reserves();
+      return $this->accordion_reserves();
       
-    $resposta['resposta']="ok";
-    $resposta['total_coberts_torn'] = $this->total_coberts_torn(false);
-    $resposta['missatge_dia'] = $this->recupera_missatge_dia();
-    //$resposta['ac_reserves']=$this->accordion_reserves();
-    $resposta['del_reserva']=$id_reserva;
-	
-    return $this->jsonResposta($resposta);
   }
   
   
@@ -235,8 +227,11 @@ class gestor_reserves extends Gestor
     if (!defined("DB_CONNECTION_FILE_DEL")) return;
     
     $reserva = $this->load_reserva($id_reserva);
+//    print_r($reserva);
     
     //connectem a la bbdd d'ESBORRADES
+    
+    
     
     include(ROOT.DB_CONNECTION_FILE_DEL); 
     mysql_select_db($database_canborrell, $canborrell);
@@ -273,6 +268,7 @@ class gestor_reserves extends Gestor
                  $this->SQLVal($reserva['estat_taula_grup'], "text"),
                  $this->SQLVal($reserva['estat_taula_plena'], "text"));
       
+     // echo $insertSQL." P3 ".DB_CONNECTION_FILE_DEL;
     $this->qry_result = $this->log_mysql_query($insertSQL, $canborrell) or die(mysql_error());
       
     $insertSQL = sprintf("REPLACE INTO client ( client_id, client_nom, client_cognoms, client_adresa, 
@@ -288,8 +284,10 @@ class gestor_reserves extends Gestor
                  $this->SQLVal($reserva['client_mobil'], "text"),
                  $this->SQLVal($reserva['client_email'], "text"),
                  $this->SQLVal($reserva['client_conflictes'], "text"));
+
                  
     $this->qry_result = $this->log_mysql_query($insertSQL, $canborrell);
+            
     
     // ESBORREM INFO CADUCADA
     /**/
@@ -312,6 +310,7 @@ class gestor_reserves extends Gestor
     //DELETE
     $deleteSQL = "DELETE FROM sms WHERE sms_reserva_id=$id_reserva";
     $this->qry_result = $this->log_mysql_query($deleteSQL, $this->connexioDB) or die(mysql_error());
+    
   
     //PASSO COMANDES
     $insertSQL = sprintf("REPLACE INTO `$database_canborrell`.comanda ( comanda_id, comanda_reserva_id, comanda_plat_id, comanda_plat_quantitat) 
@@ -324,7 +323,10 @@ class gestor_reserves extends Gestor
     $this->qry_result = $this->log_mysql_query($deleteSQL, $this->connexioDB) or die(mysql_error());
     
     return true;
+      
   }
+  
+  
   
 /****************************************/
 /****************************************/
@@ -341,6 +343,7 @@ class gestor_reserves extends Gestor
     
     $_POST['client_id']=$this->controlClient($_POST['client_id'],$_POST['client_mobil']);
     
+    
     /*
      * reserva_info
      */
@@ -350,6 +353,12 @@ class gestor_reserves extends Gestor
     $_POST['reserva_info']=$this->flagBit($_POST['reserva_info'],8,$selectorCadiraRodes);
     $selectorAccesible= (isset($_POST['selectorAccesible']) && $_POST['selectorAccesible']=='on');
     $_POST['reserva_info']=$this->flagBit($_POST['reserva_info'],9,$selectorAccesible);
+    
+    /*
+    */
+
+    
+    /***/
     
     $insertSQL = sprintf("INSERT INTO ".T_RESERVES." ( id_reserva, client_id, data, hora, adults, 
       nens4_9, nens10_14, cotxets, observacions, resposta, estat, usuari_creacio, reserva_navegador, reserva_info) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)",
@@ -372,7 +381,8 @@ class gestor_reserves extends Gestor
       
 /**************/
       $data=$this->cambiaf_a_mysql($_POST['data']);
-      $torn=$this->torn($data,$_POST['hora']);
+     // $torn=$_POST['hora']>TORN2? $_POST['hora']>TORN3?'3':'2':'1';
+    $torn=$this->torn($data,$_POST['hora']);
       $estatSQL = "SELECT * FROM ".ESTAT_TAULES." 
       
       WHERE (estat_taula_data<'$data 23:59:59' 
@@ -382,6 +392,8 @@ class gestor_reserves extends Gestor
       OR (estat_taula_data='".$this->data_BASE."' AND estat_taula_taula_id = ".$_POST['estat_taula_taula_id'].")
       
       ORDER BY estat_taules_timestamp DESC, estat_taula_id DESC";
+      
+      
       
       $this->qry_result = mysql_query($estatSQL, $this->connexioDB) or die(mysql_error());
       $row = mysql_fetch_assoc($this->qry_result);
@@ -406,6 +418,7 @@ class gestor_reserves extends Gestor
       $b=$this->qry_result = $this->log_mysql_query($insertSQL, $this->connexioDB) or die(mysql_error());
       $id = mysql_insert_id();
       //$_SESSION['torn']=$torn;
+
       
     //DELETE REDUNDANTS
       $deleteSQL=sprintf("DELETE FROM ".ESTAT_TAULES."
@@ -420,7 +433,10 @@ class gestor_reserves extends Gestor
       
       $c=$this->qry_result = $this->log_mysql_query($deleteSQL, $this->connexioDB) or die(mysql_error());
       
+      
       // ENVIA SMS
+      
+       
       if (isset($_POST['cb_sms']))
       {
         $_REQUEST['res'] = $idr;
@@ -431,22 +447,21 @@ class gestor_reserves extends Gestor
         if ($_POST['cotxets']>1) $coberts.="s";
         $mensa = "Recuerde: reserva en Restaurant Can Borrell. $dataSMS $hora ($coberts).Rogamos comunique cualquier cambio: 936929723/936910605.Gracias.(ID$idr)";
         
+        
         $this->enviaSMS($idr, $mensa);          
         //ENVIA MAIL
         $mail=$this->enviaMail($idr);
       }
+        
+     
+      //if (!isset($_REQUEST['a'])) header("Location: ".$_SERVER['PHP_SELF']);
       
       $_POST['id_reserva']=$idr;
       
       $this->qry_result=($a && $b && $c);
-  
-    $resposta['resposta']="ok";
-    $resposta['total_coberts_torn'] = $this->total_coberts_torn(false);
-    $resposta['missatge_dia'] = $this->recupera_missatge_dia();
-    //$resposta['add_reserva']=$this->accordion_reserves("id_reserva=".$idr);
-    $resposta['ac_reserves']=$this->accordion_reserves();
-	
-    return $this->jsonResposta($resposta);
+      
+     return $this->accordion_reserves();
+
   }
 
   
@@ -506,14 +521,8 @@ class gestor_reserves extends Gestor
              
     if (!isset($_REQUEST['a'])) header("Location: ".$_SERVER['PHP_SELF']);
      
-    $resposta['resposta']="ok";
-    $resposta['total_coberts_torn'] = $this->total_coberts_torn(false);
-    $resposta['missatge_dia'] = $this->recupera_missatge_dia();
-    $resposta['ac_reserves']=$this->accordion_reserves();
-    
-    return $this->jsonResposta($resposta);
      //return $query
-     //return $this->accordion_reserves();
+     return $this->accordion_reserves();
   
   }
   
@@ -529,7 +538,7 @@ class gestor_reserves extends Gestor
     if ($_POST['extendre'] == 1) {
       return $this->extendreReserva();
     }
-     $resposta['resposta']="ko";
+    
     $reserva=$_POST['id_reserva'];
     $data=$this->cambiaf_a_mysql($_POST['data']);
     $torn=$this->torn($data,$_POST['hora']);
@@ -560,7 +569,7 @@ class gestor_reserves extends Gestor
       observacions='{$_POST['observacions']}',      
       resposta='{$_POST['resposta']}'      
       WHERE id_reserva=$reserva"; 
-    
+      
       $result = $this->log_mysql_query($query, $this->connexioDB) or die(mysql_error());
        $this->reg_log("PERMUTA ($reserva): ACTUALITZO RESERVA (data,hora) >> ".($this->qry_result?"OK":"KO"));
       if (!$result)  return mysql_query("ROLLBACK");     
@@ -611,17 +620,11 @@ class gestor_reserves extends Gestor
         
         if ($this->reserves_orfanes()) {
           mysql_query("ROLLBACK");
-          //return "ORFANES!!!";
-          $resposta['resposta']="ko";
-          $resposta['orfanes']="orfanes";
-          $resposta['error']="202";
-          //$resposta['orfanes']="orfanes";
-          
+          return "ORFANES!!!";
       }
     }catch (Exception $e) {
               mysql_query("ROLLBACK"); 
-             $resposta['resposta']="ko";
-             $resposta['error']="203";
+              return "ERROR PERMUTA";
     }
     
    /**
@@ -631,14 +634,8 @@ class gestor_reserves extends Gestor
     mysql_query("SET AUTOCOMMIT=1");
     $_POST['id_reserva']=$reserva;
     
-    //return $accordion;
-    $resposta['resposta']="ok";
-    $resposta['total_coberts_torn'] = $this->total_coberts_torn(false);
-    $resposta['missatge_dia'] = $this->recupera_missatge_dia();
-    $resposta['ac_reserves']=$this->accordion_reserves();
- 
-     return $this->jsonResposta($resposta);
- }
+    return $accordion;
+  }
   
  /****************************************/
 /****************************************/
@@ -867,8 +864,7 @@ són reserves perdudes que perden el link amb una taula
       
       $this->qry_result = $this->log_mysql_query($deleteSQL, $this->connexioDB) or die(mysql_error());
     
-      $resposta['resposta']="ok";
-     return $this->jsonResposta($resposta);//$query." - ".$row['estat_taula_taula_id'];
+     return $query." - ".$row['estat_taula_taula_id'];
   } 
   
   
@@ -911,7 +907,7 @@ són reserves perdudes que perden el link amb una taula
 /****************************************/
   public function accordion_reserves($filtre="TRUE",$cerca="")
   {
-    if ($_SESSION['permisos'] < 16) {return "error:sin permisos";}
+    if ($_SESSION['permisos'] < 16) return "error:sin permisos";
     
     if ($filtre=="TRUE" || empty($filtre)) 
     {
@@ -944,44 +940,21 @@ són reserves perdudes que perden el link amb una taula
     
 
   $html="";
-    $query = "SELECT 
-	id_reserva,
-	estat_taula_nom,
-	estat_taula_taula_id,
-	data,
-	hora,
-	nens4_9,
-	nens10_14,
-	adults,
-	cotxets,
-	observacions,
-	client.client_id,
-	client_nom,
-	client_cognoms,
-	client_email,
-	
-	client_mobil,
-	client_conflictes,
-	reserva_info,
-	
-	0 AS deleted FROM ".T_RESERVES." 
+    $query = "SELECT *,0 AS deleted FROM ".T_RESERVES." 
     LEFT JOIN client ON ".T_RESERVES.".client_id=client.client_id
     INNER JOIN ".ESTAT_TAULES." ON ".T_RESERVES.".id_reserva = ".ESTAT_TAULES.".reserva_id
     WHERE $filtre ";
     
     $query.="ORDER BY client_cognoms, data , hora , data_creacio";
     
-   
+    
     if (isset($cerca) && !empty($cerca) && $cerca != "" && $cerca != "undefined" && $cerca != "null" && $cerca != "CERCA...") 
       $query=$this->qryCercaReserva($cerca, $filtre);
 
     $this->qry_result = mysql_query($query, $this->connexioDB) or die(mysql_error());   
-    if (!$this->total_rows = mysql_num_rows($this->qry_result)) {
-        $html="<h3>No hi ha reserves</h3>";
-        $resposta['0']=$html;
-    }
+    if (!$this->total_rows = mysql_num_rows($this->qry_result)) $html="<h3>No hi ha reserves</h3>";
     /** TODO si en troba més d'una */
-    $n = 0; 
+    $n=0;
     while ($row= $this->last_row = mysql_fetch_assoc($this->qry_result))
     {
       if ($row['estat_taula_id']>0) 
@@ -995,54 +968,69 @@ són reserves perdudes que perden el link amb una taula
         $row["client_cognoms"]="Client NO DEFINIT";
       }
       
-      $idr = $row['id_reserva'];
+      
       $torn=$this->torn($row['data'],$row['hora']);
       $comensals=$row['adults']+$row['nens10_14']+$row['nens4_9'];
-      if (empty($row['client_email'])) $row['client_email']="";
-      if (empty($row['client_conflictes'])) $row['client_conflictes']="";
-          
+      if ($_SESSION['permisos']>=64) 
+      {
+       $elimina.='<div class="delete reserva ui-state-default ui-corner-all">
+                    <a href="taules.php?del_reserva='.$row['id_reserva'].'" del="'.$row['id_reserva'].'">Elimina</a></div>';
+      } 
+      
+      $body=$this->mail_body($row['data'],$row['hora']);
+      
       $deleted = $row['deleted']?' style="background:red" ':'';
       $obs=trim($row['observacions']);
       if (!empty($obs))
       {
-       $sobret=($row['reserva_info'] & 16?"ui-icon-mail-open":"ui-icon-mail-closed");
+        $sobret='<div style="position:relative;left:0" class="ui-icon '.($row['reserva_info'] & 16?"ui-icon-mail-open":"ui-icon-mail-closed").'" title="Observacions del client">'.(strlen($row['observacions'])+5).'</div>';
       }
       else $sobret="";
       
-      $es_online=$row['reserva_info'] & 1;
-      $online=$es_online?'<div class="online" title="Reserva ONLINE">'.$sobret.'</div>':'';
-      
-      
+      $online=$row['reserva_info'] & 1?'<div class="online" title="Reserva ONLINE">'.$sobret.'</div>':'';
       if ($row['client_nom']=="SENSE_NOM") $row['client_nom']="";
       $nom="<br/>".substr($row['client_cognoms'].", ".$row['client_nom'],0,25);
       
+      $html .= <<< EOHTML
+          <h3 $deleted><a n="$n" href="form_reserva.php?edit={$row['id_reserva']}&id={$row['id_reserva']}" class="fr" taula="{$row['estat_taula_taula_id']}">{$row['reserva_id']}&rArr;{$this->cambiaf_a_normal($row['data'],"%d/%m")} {$row['hora']} | {$row['estat_taula_nom']}&rArr;{$comensals}/{$row['cotxets']} $online  $nom </a></h3>
+          <div style="border:#eeeeee solid 2px;marginn:3px;padding:5px">
+            ID:<b> {$row['reserva_id']}</b>
+            <table cellspacing="0" cellpadding="0">
+              <tr class="taulaf1">
+                <td>Coberts</td><td>Taula</td><td>Hora</td><td>Torn</td>
+              </tr>
+              <tr class="taulaf2">
+                <td>$comensals</td><td>{$row['estat_taula_nom']}</td><td>{$row['hora']}</td><td>$torn</td>
+              </tr>
+              <tr class="taulaf1">
+                <td>Adults</td><td>10-14</td><td>4-9</td><td>Cotxets</td>
+              </tr>
+              <tr class="taulaf2">
+                <td>  {$row['adults']}</td><td>{$row['nens10_14']}</td><td>{$row['nens4_9']}</td><td>{$row['cotxets']}</td>
+              </tr>
+            </table>
+          
+            
+            
+            
+            <p>
+            
+      <b>{$row['client_cognoms']}, {$row['client_nom']}</b><br/>
+            <a href="mailto:{$row['client_email']}?subject=Reservas Can Borrell&amp;body={$body}">{$row['client_email']}</a> <br/>
+            <b>{$row['client_mobil']} - {$row['client_telefon']}</b><br/>
+            <span class="conflicte">{$row['client_conflictes']}</span>
+            </p>
+            $elimina
+</div>
+EOHTML;
 
-		$row['sobret'] =$sobret;
-		$row['data_es'] =$this->cambiaf_a_normal($row['data'],"%d/%m");
-		$row['torn'] = $torn;
-		$row['comensals'] = $comensals;
-		$row['online']=$es_online;
-		$row['nom']=$nom;
-		$row['total_reserves']=$this->total_rows;
-		
-		unset($row['cognoms']);
-		unset($row['reserva_info']);
-		unset($row['deleted']);
-		unset($row['observacions']);
-		
-		//$resposta[$idr] = $row;
-		$resposta[$n] = $row;
-		
-		$n++;
+
     }
     
-	return $resposta;
+    //$this->refresh(true);
+    return $html;
   }
- 
-  public function cerca_reserves($filtre="TRUE",$cerca=""){
-      $resposta['ac_reserves']=$this->accordion_reserves($filtre,$cerca);
-      return $this->jsonResposta($resposta);
-  }
+  
   
   public function qryCercaReserva($cerca, $filtre)
   {
@@ -1573,14 +1561,7 @@ AND client.client_id='$client_id'";
                  $this->SQLVal($_POST['client_id'], "text"));
     $this->qry_result = $this->log_mysql_query($updateSQL, $this->connexioDB) or die(mysql_error());
      if (!isset($_REQUEST['a']))  header("Location: ".$_SERVER['PHP_SELF']);
-     //return $this->accordion_clients();
-     
-         $resposta['resposta']="ok";
-   // $resposta['total_coberts_torn'] = $this->total_coberts_torn(false);
-    //$resposta['missatge_dia'] = $this->recupera_missatge_dia();
-    //$resposta['add_reserva']=$this->accordion_reserves("id_reserva=".$idr);
-    $resposta['ac_reserves']=$this->accordion_reserves();
-    return $this->jsonResposta($resposta);
+     return $this->accordion_clients();
   
   }
 /****************************************/
@@ -1644,7 +1625,7 @@ AND client.client_id='$client_id'";
 
     }
     $query = "SELECT DISTINCT estat_taula_torn, estat_taula_taula_id, client.client_id AS client_client_id, 
-        client_nom,client_cognoms,client_email,client_telefon,client_mobil, ".T_RESERVES.".id_reserva, ".T_RESERVES.".data, ".T_RESERVES.".hora,
+        client.*, ".T_RESERVES.".id_reserva, ".T_RESERVES.".data, ".T_RESERVES.".hora,
         data>=NOW() AS reservat
         
 FROM client 
@@ -1684,19 +1665,19 @@ ORDER BY client_cognoms, data";
       if ($id > 0 && $row['client_client_id'] == $id) $insert = 'insert="'.$id.'"'; 
       else $insert='we="'.$row['client_client_id'].'"';
       
-      $body = $this->mail_body($row['data'], $row['hora']);
-	  
+      $body=$this->mail_body($row['data'],$row['hora']);
+      $html .= <<< EOHTML
+          <h3 $insert m="$m" class="ui-accordion-header ui-helper-reset ui-state-default ui-corner-all">
+            <a href="form_client.php?edit={$row['client_client_id']}&id={$row['client_client_id']}" class="fc" title="detall client">
+              {$row['client_cognoms']}, {$row['client_nom']} - {$row['client_mobil']}
+              </a>
+          <br/> $reservat $reserva</h3>
+
+EOHTML;
+    
       $m++;
-	  
-	  $row['data_es'] = $data;
-	  $row['reservat'] = $reservat;
-	  
-	  //$resposta[$row['id_reserva']] = $row;
-	  $resposta[$m] = $row;
     } 
-	
-	return $resposta;
-   // return $html; 
+    return $html; 
   } 
   
   
@@ -1737,19 +1718,35 @@ ORDER BY client_cognoms, data";
 /**********   AUTOCOMPLETE  ************/
   public function autocomplete_clients($q,$p)
   {
-      if (is_numeric($q) && $q>2000 && $q<99999) $q="ID".$q;
+      //if (is_numeric($q) && $q>2000 && $q<99999) $q="ID".$q;
+      
+      switch($_SESSION['modo']){
+          case 1:
+                $filtre="data='".$_SESSION['data']."' AND ";
+                //$filtre="data='".$_SESSION['data']."' AND estat_taula_torn='".$_SESSION['torn']."' AND ";
+             break;
+          
+          case 2:
+                $filtre="data='".$_SESSION['data']."' AND ";
+             break;
+      }
+      $filtre= ($p=="modo")?$filtre:""; 
+ 
       $query = "SELECT DISTINCT 
       client.client_id, 
       client_nom, 
       client_cognoms, 
       client_mobil, 
+      client_email, 
       client_conflictes  
       
       FROM client 
       LEFT JOIN ".T_RESERVES." ON client.client_id=".T_RESERVES.".client_id 
       
       WHERE 
-      CONCAT('ID',id_reserva) = '$q' OR
+      $filtre
+
+      (CONCAT('ID',id_reserva) = '$q' OR
       id_reserva LIKE '%$q%' OR
       client.client_id LIKE '%$q%' OR
       client_cognoms LIKE '%$q%' OR
@@ -1758,14 +1755,18 @@ ORDER BY client_cognoms, data";
       CONCAT(client_cognoms,', ',client_nom) LIKE '%$q%' OR
       CONCAT(client_cognoms,' ',client_nom) LIKE '%$q%' OR
       client_mobil LIKE '%$q%' OR
-      client_conflictes LIKE '%$q%'
+      client_conflictes LIKE '%$q%')
 
       ORDER BY client_cognoms";
-    
+   // echo $query;
       $this->qry_result = mysql_query($query, $this->connexioDB) or die(mysql_error());
       $this->total_rows = mysql_num_rows($this->qry_result);
 
-      $clients0="+++ Nou client (".strtoupper($q).")|$q\n";
+      $clients0['label']="+++ Nou client (".strtoupper($q).")|$q\n";
+      $clients0['client_cognoms']=is_numeric($q)?"":$q;
+      $clients0['client_mobil']=is_numeric($q)?$q:"";
+      $clients0['client_email']="";
+      $clients0['value']=is_numeric($q)?$q:"";
       while ($row = mysql_fetch_assoc($this->qry_result)) 
       {
         $br = array("<br>", "<br/>","\n","\r");
@@ -1775,16 +1776,23 @@ ORDER BY client_cognoms, data";
         else $conflictes="";
 
         $key="(".$row['client_id'].") ".$conflictes.$row['client_nom']." ".$row['client_cognoms']." tel:".$row['client_mobil'];
-        $value=$row['client_id'];
 
-        $q_normal=Gestor::normalitzar($q);
-        $key_normal=Gestor::normalitzar($key);
+        //$q_normal=Gestor::normalitzar($q);
+        //$key_normal=Gestor::normalitzar($key);
+        //$clients.= "$key|$value\n";
         
-        $clients.= "$key|$value\n";
+        if (empty($row['client_email'])) $row['client_email']="";
+        $row['label']=$key;
+        $row['value']=$q;
+        if ($p!="modo") $row['value']=$row['client_mobil'];
+        $clients[]=$row;
       }
-      if (empty($clients)) $clients=$clients0;
-      return $clients;
+      if (empty($clients) && $p!="modo") $clients[]=$clients0;
+      //return $clients;
+      
+      return json_encode($clients);
   }
+
 
 
 /****************************************/
@@ -1854,22 +1862,10 @@ ORDER BY client_cognoms, data";
         $row = mysql_fetch_array($Result1);
         $_SESSION['refresh'] = $row['estat_taules_timestamp'];
         
-        if ($update) //return "no_change$data_refresh"; 
-        //return "refresh";
-            {
-          $resposta['ok']="ok";
-          $resposta['no_change']=$data_refresh;
-          return $this->jsonResposta($resposta);
-         }
-
-        return $this->canvi_data();
+        if ($update) return "no_change$data_refresh"; 
+        return "refresh";
       }
-      else //return "no_change$data_refresh";
-      {
-          $resposta['ok']="ok";
-          $resposta['no_change']=$data_refresh;
-          return $this->jsonResposta($resposta);
-      }
+      else return "no_change$data_refresh";
   }
   
 /*****************************************************************************************************************/
@@ -1920,22 +1916,6 @@ return stripslashes($text);
     return stripslashes($row['missatge_dia_text']);
 return $query;
   }
-   
- /*********************************************************************************************************************************/ 
-  public function prepara_insert_dialog($taula_id=null , $persones=null,$cotxets=0)
-  {
-    if ($this->taula_bloquejada($taula_id)) {
-      $resposta['resposta']='ko';
-      $resposta['error']=201;
-    }
-    else{
-      $this->bloqueig_taula($taula_id,$_SESSION['data'],$_SESSION['torn']);
-      $resposta['resposta']='ok';
-      $resposta['hores']=$this->recupera_hores($taula_id,$persones,$cotxets);
-    }
-    
-    return $this->jsonResposta($resposta);
-  }  
     
 /*********************************************************************************************************************************/ 
   public function recupera_hores($idr_o_taula=null , $persones=null,$cotxets=0)
@@ -2008,24 +1988,17 @@ return $query;
     }
     $json=array('dinar'=>$dinar,'dinarT2'=>$dinarT2,'sopar'=>$sopar,'taulaT1'=>$taulaT1,'taulaT2'=>$taulaT2,'taulaT3'=>$taulaT3,'error'=>'');   
     
-    if ($taulaT1 || $taulaT2 || $taulaT3) return $json;//return json_encode($json);// ARRAY AMB ELS TRES TORNS   
+    if ($taulaT1 || $taulaT2 || $taulaT3) return json_encode($json);// ARRAY AMB ELS TRES TORNS   
     
     $error='<p class="error max_comensals">Has superat el maxim de comensals per aquest torn. <br/>No es poden crear mes reserves</p>';
     
     $error=$this->taulesDisponibles->llistaErrors();
     $json=array('dinar'=>'','dinarT2'=>'','sopar'=>'','taulaT1'=>'','taulaT2'=>0,'taulaT3'=>0,'error'=>$error);
-    return $json;
-    //return json_encode($json);
+    return json_encode($json);
     
-    //$avis2='<input type="hidden" name="prohibit" class="{required:true,email:true}"/>';
-    //return $avis;
+    $avis2='<input type="hidden" name="prohibit" class="{required:true,email:true}"/>';
+    return $avis;
   }
-  
-  public function recupera_hores_json($idr_o_taula=null , $persones=null,$cotxets=0)
-  {
-    return json_encode($this->recupera_hores($idr_o_taula, $persones, $cotxets));
-  }
-    
   
 /*********************************************************************************************************************************/ 
 /*********************************************************************************************************************************/ 
@@ -2197,14 +2170,9 @@ return $query;
       $_SESSION['data']=$this->cambiaf_a_mysql($data);
       if ($torn) $_SESSION['torn']=$torn;
     }
-
-        $resposta['resposta']="ok";
-	$resposta['total_coberts_torn'] = $this->total_coberts_torn(false);
-	$resposta['missatge_dia'] = $this->recupera_missatge_dia();
-	$resposta['ac_reserves']=$this->accordion_reserves();
-	
-	return $this->jsonResposta($resposta);
-}
+    
+    return $_SESSION['data'];
+  }
 
   /********      CANVI_TORN     ************/
   public function canvi_torn($torn)
@@ -2212,12 +2180,7 @@ return $query;
     if (!isset($_SESSION))   session_start();
       $_SESSION['torn']=$torn;
     
-        $resposta['resposta']="ok";
-	$resposta['total_coberts_torn'] = $this->total_coberts_torn(false);
-	//$resposta['missatge_dia'] = $this->recupera_missatge_dia();
-	$resposta['ac_reserves']=$this->accordion_reserves();
-	
-	return $this->jsonResposta($resposta);
+    return "T".$_SESSION['torn'];
   }
 
 
@@ -2227,12 +2190,7 @@ return $query;
     if (!isset($_SESSION))   session_start();
     $_SESSION['modo']=$modo;
     
-        $resposta['resposta']="ok";
-	//$resposta['total_coberts_torn'] = $this->total_coberts_torn(false);
-	//$resposta['missatge_dia'] = $this->recupera_missatge_dia();
-	$resposta['ac_reserves']=$this->accordion_reserves();
-	
-	return $this->jsonResposta($resposta);
+    echo $_SESSION['modo'];
   }
 
   
@@ -2508,7 +2466,7 @@ ORDER BY `estat_hores_data` DESC";
 /********   TOTAL COBERTS TORN  *********/
 /****************************************/
 /****************************************/
-  public function total_coberts_torn($json=true)
+  public function total_coberts_torn()
   {
     $this->taulesDisponibles->data=$_SESSION['data'];
     //$this->taulesDisponibles->torn=$_SESSION['torn'];
@@ -2523,8 +2481,7 @@ ORDER BY `estat_hores_data` DESC";
     $t['t3']=$this->taulesDisponibles->sum_comensals_torn();
     //return $this->taulesDisponibles->sum_comensals_torn().'  max:'.$this->taulesDisponibles->max_torn();
     $t['total']=$t['t'.$_SESSION['torn']].'  max:'.$maxtorn;
-    if ($json) return json_encode($t);
-    return $t;
+    return json_encode($t);
   }
 
 
@@ -2777,35 +2734,13 @@ public function decodeInfo($info)
     parent::greg_log($txt,null,$request);
   }
 
-/******************************************************************************************************/
-  public function init($data)
-  {
-      $this->canvi_modo('1');
-      
-      return $this->canvi_data($data);
-      
-  }
- /******************************************************************************************************/
-  protected function jsonResposta($resposta)
-  {
-    $resposta['data']=$_SESSION['data'];
-    $resposta['torn']=$_SESSION['torn'];
-    $resposta['modo']=$_SESSION['modo'];
-    //$resposta['request']=$_SERVER['REQUEST_URI'];
-    //$resposta['query']=$_SERVER['QUERY_STRING'];
-    $resposta['action']=$_REQUEST['a'];
-    if ($resposta['resposta']=="ko") return $this->jsonErr($resposta['error'],$resposta);
-    else return $this->jsonOK("ok",$resposta); 
-  
-  }
 
 /************************************************************************************************************************/
 }
 //$_REQUEST['a']="print_llista_reserves";
 //$_SESSION['permisos']=255;
-
 include(ROOT."peticions_ajax.php");
- 
+
 //$g=new gestor_reserves();echo $g->recupera_hores(1964);
 
 ?>

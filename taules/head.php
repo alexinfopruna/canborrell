@@ -10,32 +10,26 @@
 <link type="text/css" href="css/admin.css" rel="stylesheet" />	
 <link type="text/css" href="css/taules.css" rel="stylesheet" />	
 
-		<!--<script type="text/javascript">
-			document.write("\<script src='//ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js' type='text/javascript'>\<\/script>");
-		</script>				
-		<script type="text/javascript" src="js/include.js"></script>-->
 
-
- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js"></script>
-  <?php //RES ?>
-  <!-- -->
-<!-- <script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
 <script src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
+<script>window.jQuery || document.write('<script src="js/jquery-2.0.3.min.js">\x3C/script>')</script>
 
+<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>    
+<script type="text/javascript">
+    /* */
+    if (typeof jQuery.ui == 'undefined') {
+        document.write(unescape("%3Cscript src='js/jquery-ui-1.10.3.custom/js/jquery-ui-1.10.3.custom.min.js' type='text/javascript'%3E%3C/script%3E"));
+    };
+</script>                
 
-  <script>alert("JQUERY");</script>
-	<script src="js/jquery-1.5.min.js"></script>-->
-
-
-
-		<script type="text/javascript" src="js/ui/js/jquery-ui-1.8.9.custom.min.js"></script>
 		<script type="text/javascript" src="js/ui/dev/ui/i18n/jquery.ui.datepicker-ca.js"></script>
 		<script type="text/javascript" src="js/jquery.metadata.js"></script>
-		<script type="text/javascript" src="js/jquery.validate.pack.js"></script>
+		<script type="text/javascript" src="js/jquery.validate.min.js"></script>
 		<script type="text/javascript" src="js/jquery.form.js"> </script>
 		<script type="text/javascript" src="js/jquery.bestupper.min.js"></script> 
 		<script type="text/javascript" src="js/jquery.timers.js"></script>
-		<script type="text/javascript" src="js/jquery-autocomplete/jquery.autocomplete.js"></script> 
+		<!-- <script type="text/javascript" src="js/jquery-autocomplete/jquery.autocomplete.js"></script> -->
+		<script type="text/javascript" src="js/cb_autocompletes.js"></script>
 		<script type="text/javascript" src="js/swfobject.js"></script> 
 		<script type="text/javascript" src="js/jquery.fileDownload.js"></script> 
 
@@ -44,7 +38,6 @@
 		<script type="text/javascript" src="js/calendari.js"></script>
 		<script type="text/javascript" src="js/as3.js"></script>
 		<script type="text/javascript" src="js/hores.js"></script>
-		<script type="text/javascript" src="js/resposta.js"></script>
 
 <?php
 // corregeix si és DL o DM o dia passat

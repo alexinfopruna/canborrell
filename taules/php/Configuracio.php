@@ -28,59 +28,20 @@ class Configuracio
 	public $configVars;
 	
 	private $config_file; //PER DEFECTE
-	private $taulaConfig;
 	private $JS__defines;
 	private $DB__defines;
+	private $taulaConfig;
 
 	public function __construct($config=CONFIG, $taula_config="config")
-        {
-            if (!isset($_SESSION)) session_start();
-            $DB__defines=array();
-            require(ROOT.DB_CONNECTION_FILE);
-            
-            // COMPROVA SI CAL REFRESCAR
-            $data=date ("Y-m-d H:i:s", filemtime(ROOT.'config_define.php'));
-            $query = "SELECT * FROM ".$taula_config." WHERE config_timestamp>'$data'";
-            $r = mysql_query($query, $DBConn);
-            //echo $r;
-            $dr=$r;
-            //$dr=true;
-            
-            if ($dr && !mysql_num_rows($r) && !isset($_GET['load_config'])){ // SI NO CAL CARREGA DE CACHE
-                require(ROOT.'config_define.php');
-                $this->configVars = $DB__defines;
-                foreach($DB_defines as $key => $value) {
-                    $this->configVars[$key]=$DB_defines[$key];
-                }
-                return false;
-            }
-
-            //SI CAL REGENERA CACHE
-           $this->load($config=CONFIG, $taula_config="config");
-        }
-        
-	private function load($config=CONFIG, $taula_config="config")
 	{
-                
-                 
- 		$this->config_file = ROOT.$config;
+		if (!isset($_SESSION)) session_start();
+		$this->config_file = ROOT.$config;
 		$this->taulaConfig=$taula_config;
-		$cache="<?php\n\nif (session_status() == PHP_SESSION_NONE) session_start();".PHP_EOL.PHP_EOL;
-		if (file_exists($this->config_file)) $cache.= $this->parseXML($this->config_file);
-                 
-                // genera fitxer cache config
-		$cache.= $this->parseDBConfig($this->taulaConfig);
-                file_put_contents(ROOT.'config_define.php', $cache);
-                
-                // genera fitxer cache javascript
-                $cache=$this->genera_dumpJSVars(true);
-                $cache="<?php \n\n\$config_js='".$cache."';\n\n ?>";                
-                file_put_contents(ROOT.'config_js.php', $cache);
-                 
-                
+		
+		if (file_exists($this->config_file)) $this->parseXML($this->config_file);
+		$this->parseDBConfig($this->taulaConfig);
 	}
 	
-         
 	/********************************************/
 	private function parseXML($file)
 	{
@@ -88,18 +49,13 @@ class Configuracio
 		$result = xml2array($contents);
 		$config=$result["config"];
 	
-                $cache="";
 		foreach ($config as $key => $val)
 		{
-                        $cache.="/*** $key FROM XML***/ ".PHP_EOL.PHP_EOL;
-                        
 			if (substr($key, -5) == "_attr") continue;
 			if ($val==="true" || $val==="TRUE") $val=true;
 			elseif ($val==="false" || $val==="FALSE") $val=false;
 			if (isset($config[$key."_attr"]))
 			{	
-                                $cache.='$DB_defines["'.$key.'"]="'.$val.'";'.PHP_EOL;
-                                
 				// SI ES ARRAY
 				if (is_array($val)) 
 				{
@@ -115,7 +71,6 @@ class Configuracio
 				if ($config[$key."_attr"]["define"] && !defined($key)) 
 				{
 					define($key, $val);
-                                        $cache.='defined("'.$key.'") or define("'.$key.'", "'.$val.'");'.PHP_EOL;
 				}
 				
 				// DEFINE PER JAVASCRIPT
@@ -123,10 +78,7 @@ class Configuracio
 				
 				// DEFINE VARIABLES DE SESSIO
 				if(isset($config[$key."_attr"]["session"]))
-				if ($config[$key."_attr"]["session"])	{
-                                    $_SESSION[$key]=$val;
-                                     $cache.='$_SESSION["'.$key.'"] = "'.$val.'";'.PHP_EOL.PHP_EOL;
-		                 }
+					if ($config[$key."_attr"]["session"])	$_SESSION[$key]=$val;
 			}
 		}
 	}
@@ -141,10 +93,8 @@ class Configuracio
 		if (!mysql_num_rows($r)) return false;
 		else
 		{
-                        $cache="";
 			while ($row = mysql_fetch_array($r))
 			{		
-                                       $cache.="/*** {$row['config_var']} ***/ ".PHP_EOL.PHP_EOL;
 					// DEFINE PER CONSTANT PHP
 					if ($row['config_define']) 
 					{
@@ -178,16 +128,13 @@ class Configuracio
 						if ($val==="true" || $val==="TRUE") $val=true;
 						elseif ($val==="false" || $val==="FALSE") $val=false;
 						
-						//if (!defined($row['config_var'])) 
-                                                if (true)
+						if (!defined($row['config_var'])) 
 						{
-							defined($row['config_var']) or define($row['config_var'], $val);
-                                                        $cache.='defined("'.$row['config_var'].'") or define("'.$row['config_var'].'", "'.$val.'");'.PHP_EOL;
+							define($row['config_var'], $val);
 						}
 						else $defineeed="IGNORAT (definit A XML!!!!!) --- ";
 					
 						$this->DB__defines[$defineeed.$row['config_var']] = $val;
-                                                $cache.='$DB_defines["'.$defineeed.$row['config_var'].'"]="'.$val.'";'.PHP_EOL;
 					}
 					
 					// DEFINE PER JAVASCRIPT
@@ -205,23 +152,14 @@ class Configuracio
 						$defineeed = null;
 						if (!isset($_SESSION[$row['config_var']])) $_SESSION[$row['config_var']] = $row['config_val'];
 						else $defineeed="IGNORAT (definit A XML!!!!!) --- ";
-                                                
-                                                $cache.='$_SESSION["'.$row['config_var'].'"] = "'.$row['config_val'].'";'.PHP_EOL.PHP_EOL;
+					
 						$this->DB__defines[$defineeed.$row['config_var']] = $row['config_val'];
 					}
 			}
 		}
-                return $cache."\n\n ?>";
 	}
 	
 	public function dumpJSVars($tag=false)
-        {
-                include(ROOT."config_js.php");
-                return $config_js;
-           
-        }
-        
-	private function genera_dumpJSVars($tag=false)
 	{
 		if ($tag) $out="<script>\n";
 		$out.="/*******************************/\n/****** dumpJSDefines **********/\n\n";
@@ -267,7 +205,9 @@ class Configuracio
 		$query = "UPDATE config SET config_val='$v' $fdesc $fdefine $fjs $fsess WHERE config_var='$k'";
 
 		require(ROOT.DB_CONNECTION_FILE);
-		return mysql_query($query, $DBConn);	
+		return mysql_query($query, $DBConn);
+
+		
 	}
 	
 	public function test()

@@ -1,6 +1,6 @@
 var zoom=false;
 
-$(function(){    
+$(function(){
 	$('#form_missatge_dia').dialog({
 		autoOpen: false,
 		modal:true,
@@ -27,18 +27,15 @@ $(function(){
 		return false;
 	});
 	
-	$(".calendari",CALEND_ZOOM).hide();
-	$("#radio",CALEND_ZOOM).hide();
-	$("#radio_hores_calend",CALEND_ZOOM).hide();
-	$("#totals-torn",CALEND_ZOOM).hide();
+	$("#zoom .calendari").hide();
+	$("#zoom #radio").hide();
+	$("#zoom #radio_hores_calend").hide();
+	$("#zoom #totals-torn").hide();
 	
 	
 // ZOOM CALENDARI
-            CALEND_ZOOM.mouseenter(zoomon);
-	$("#radio_hores_calend",CALEND_ZOOM).mouseup(zoomoff);
-        ZOOM_COMENSALS=$("#selectorComensals",CALEND_ZOOM);
-        ZOOM_COTXETS=$("#selectorCotxets",CALEND_ZOOM);
-    	return false;
+	$("#zoom").mouseenter(zoomon);
+	$("#radio_hores_calend").mouseup(zoomoff);
 });
 
 function guarda_missatge_dia()
@@ -48,62 +45,59 @@ function guarda_missatge_dia()
 	   function(data) {
 		 	$('.missatge_dia').html(data);
 	   });
-	return false;
 }
 
 function zoomon()
 {		
-	CALEND_ZOOM.unbind();
-	CALEND_ZOOM.mouseleave(zoomoff);
+	$("#zoom").unbind();
+	$("#zoom").mouseleave(zoomoff);
 	var currentMonth=new Date().getMonth()+1;	
 	var comprovaMes= !$("#zoom .calendari").is(':visible');
 	//avui(); // ANULAT RECULA AVUI
 	
 	
-	CALEND_ZOOM.removeClass("zoompetit");
-	CALEND_ZOOM.addClass("zoom");
-	$("img",CALEND_ZOOM).hide();
-	$(".comensals",CALEND_ZOOM).hide();
-	$(".calendari",CALEND_ZOOM).show();
-	$("#totals-torn",CALEND_ZOOM).show();
-	ZOOM_COTXETS.show();
-	$("#radio").show();
-        RADIO.show();
-        
-	ZOOM_COMENSALS.show();
-	$("input[name='hora']:checked",CALEND_ZOOM).attr('checked', false);
-	$("#radio_hores_calend input[name='hora']",CALEND_ZOOM).button("refresh");
-	$("td.ui-datepicker-today a.ui-state-highlight",CALEND_ZOOM).removeClass("ui-state-highlight");
+	$("#zoom").removeClass("zoompetit");
+	$("#zoom").addClass("zoom");
+	$("#zoom img").hide();
+	$("#zoom .comensals").hide();
+	$("#zoom .calendari").show();
+	$("#zoom #totals-torn").show();
+	$("#selectorCotxets").show();
+	
+	$("#zoom #radio").show();
+	$("#selectorComensals").show();
+	$("#zoom input[name='hora']:checked").attr('checked', false);
+	$("#radio_hores_calend input[name='hora']").button("refresh");
+	
+	$("td.ui-datepicker-today a.ui-state-highlight").removeClass("ui-state-highlight");
 	
 	//ALEX ANULAT MES CORRENT if (comprovaMes && currentMonth != $("#calendari").val().split("/")[1]) alert("ATENCIO: NO ÉS EL MES CORRENT");
-	return false;
+	
 }
 
 function zoomoff()
 {
-	CALEND_ZOOM.unbind();
-	CALEND_ZOOM.mouseenter(zoomon);
-	CALEND_ZOOM.removeClass("zoom");
-	CALEND_ZOOM.addClass("zoompetit");
-	$("img",CALEND_ZOOM).show();
-	$(".comensals",CALEND_ZOOM).show();
-	$(".calendari",CALEND_ZOOM).hide();
-	$("#totals-torn",CALEND_ZOOM).hide();
-	RADIO.hide();
-	$("#radio_hores_calend",CALEND_ZOOM).hide();
-	$("#radio_hores_calend",CALEND_ZOOM).css("display","none");
-	$("input:checked",ZOOM_COMENSALS).css("font-size","3em");
-	$("input:checked",ZOOM_COMENSALS).attr("checked",false);
-	$("input",ZOOM_COMENSALS).button("refresh");
-	$("input:checked",ZOOM_COTXETS).css("font-size","3em");
-	$("input:checked",ZOOM_COTXETS).attr("checked",false);
-	$("input[value=0]:checked",ZOOM_COTXETS).attr("checked",true);
-	$("input",ZOOM_COTXETS).button("refresh");
-	ZOOM_COMENSALS.hide();
-	ZOOM_COTXETS.hide();
-	$("#cercaTaulaResult",CALEND_ZOOM).html("Quants coberts?");
-	
-	return false;
+	$("#zoom").unbind();
+	$("#zoom").mouseenter(zoomon);
+	$("#zoom").removeClass("zoom");
+	$("#zoom").addClass("zoompetit");
+	$("#zoom img").show();
+	$("#zoom .comensals").show();
+	$("#zoom .calendari").hide();
+	$("#zoom #totals-torn").hide();
+	$("#zoom #radio").hide();
+	$("#zoom #radio_hores_calend").hide();
+	$("#zoom #radio_hores_calend").css("display","none");
+	$("#selectorComensals input:checked").css("font-size","3em");
+	$("#selectorComensals input:checked").attr("checked",false);
+	$("#selectorComensals input").button("refresh");
+	$("#selectorCotxets input:checked").css("font-size","3em");
+	$("#selectorCotxets input:checked").attr("checked",false);
+	$("#selectorCotxets input[value=0]:checked").attr("checked",true);
+	$("#selectorCotxets input").button("refresh");
+	$("#selectorComensals").hide();
+	$("#selectorCotxets").hide();
+	$("#cercaTaulaResult").html("Quants coberts?");
 
 }
 
@@ -122,9 +116,7 @@ function avui()
 			var cs=controlaSopars();
 			$.ajax({url: "gestor_reserves.php?a=canvi_data&p="+$("#calendari").val()+"&q="+cs,success:recargaAccordioReserves});
 			$.get("gestor_reserves.php?a=recupera_missatge_dia",function(data) {$(".missatge_dia").html(data);});
-			canvia_data_confirma=true;	
-			
-			return false;
+			canvia_data_confirma=true;		
 }
 
 
@@ -190,21 +182,16 @@ function monta_calendari(selector)
 			if (ONLOAD_BLOC_CALEND) $("#calendari").datepicker("disable");
 			date_session=$(this).val();
 						
-			RESERVES_AC.accordion('destroy');
-			RESERVES_AC.html('<img src="css/loading_llarg.gif" class="loading_llarg"/>');
-			RESERVES_AC.show("fade");
+			$( "#reservesAc" ).accordion('destroy');
 			
 			var cs=controlaSopars();
-			FLASH.canviData($(this).val());
-			$.ajax({url: "gestor_reserves.php?a=canvi_data&p="+$(this).val()+"&q="+cs,success:procesaResposta});
+			$.ajax({url: "gestor_reserves.php?a=canvi_data&p="+$(this).val()+"&q="+cs,success:recargaAccordioReserves});
+			$.get("gestor_reserves.php?a=recupera_missatge_dia",function(data) {$(".missatge_dia").html(data);});
 			canvia_data_confirma=true;
 			dtb=$.datepicker.formatDate("DD, d 'de' MM 'del' yy", $(this).datepicker("getDate"), {dayNamesShort: $.datepicker.regional['ca'].dayNamesShort, dayNames: $.datepicker.regional['ca'].dayNames, monthNamesShort: $.datepicker.regional['ca'].monthNamesShort, monthNAmes: $.datepicker.regional['ca'].monthNames});		
 			cercaTaula();
 		}
 	});
-        
-        CALEND=$(selector);
-        CALEND_ZOOM=$("#zoom");
-        
-        return false;
 }
+
+

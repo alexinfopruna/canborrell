@@ -136,7 +136,8 @@ class Gestor_form extends gestor_reserves
 	{
 		$mydata=$this->cambiaf_a_mysql($data);
 	
-                $this->taulesDisponibles->tableHores="estat_hores";   //ANULAT GESTOR HORES FORM. Toto es gestiona igual, des de estat hores
+		//$this->taulesDisponibles->tableHores="estat_hores_form";
+    $this->taulesDisponibles->tableHores="estat_hores";   //ANULAT GESTOR HORES FORM. Toto es gestiona igual, des de estat hores
 				
 		if ($idr) 
 		{

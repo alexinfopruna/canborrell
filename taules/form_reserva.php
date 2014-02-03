@@ -95,7 +95,6 @@ else
 		<!-- UPLOAD -->
 		<input type="hidden" readonly="readonly" name="id_reserva" value="<?php echo $row_reserva['id_reserva'] ?>" size="32"  />
 		<input type="hidden" readonly="readonly" name="reserva_info" value="<?php echo $row_reserva['reserva_info'] ?>" size="32"  />
-		<input type="hidden" readonly="readonly" name="torn_session" value="<?php echo $_SESSION['torn'] ?>" size="1"  />
 		<?php echo $row_reserva['id_reserva'] ?>
 		 </td>
 	 </tr>
@@ -177,6 +176,12 @@ else
 			<div id="<?php echo trim($class);?>_radio" class="radio_hores">
 				<?php 
 					$horaTorn = $row_reserva['hora'];
+/*
+					if ($_SESSION['torn'] != $gestor->torn($_SESSION['data'], $row_reserva['hora'])) $horaTorn = "";
+					if (isset($_REQUEST['hora'])) $horaTorn = $_REQUEST['hora'];
+					//echo '$gestor->recupera_hores('.$horaTorn.','.$row_reserva['estat_taula_taula_id'];
+					if ($id) out($gestor->recupera_hores($horaTorn,$row_reserva['estat_taula_taula_id']));
+*/
 					
 					$persones=$row_reserva['adults']+$row_reserva['nens10_14']+$row_reserva['nens4_9'];
 					$cotxets=$row_reserva['cotxets'];
@@ -185,7 +190,8 @@ else
 					if (isset($_REQUEST['hora'])) $horaTorn = $_REQUEST['hora'];
 					if ($id)
 					{
-						$json=$gestor->recupera_hores_json($id);
+					//echo "reserva".$id;
+						$json=$gestor->recupera_hores($id);
 						$hores=json_decode($json);
 						echo $hores->dinar;
 						echo $hores->dinarT2;

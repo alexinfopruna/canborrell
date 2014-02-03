@@ -12,7 +12,7 @@ require_once("Gestor.php");
 if (!defined('LLISTA_DIES_NEGRA'))define("LLISTA_DIES_NEGRA",INC_FILE_PATH."llista_dies_negra.txt");
 if (!defined('LLISTA_DIES_BLANCA'))define("LLISTA_DIES_BLANCA",INC_FILE_PATH."llista_dies_blanca.txt");
 if (!defined('LLISTA_NITS_NEGRA')) define("LLISTA_NITS_NEGRA",INC_FILE_PATH."llista_dies_negra.txt");
-require_once("translate_ca.php");
+
 require_once("gestor_reserves.php");
 $gestor=new gestor_reserves();   
 
@@ -23,6 +23,7 @@ if (!$gestor->valida_sessio())
 	header("Location: index.php");
 	die();
 }
+
 
 require(INC_FILE_PATH."llista_dies_taules.php");
 
@@ -83,6 +84,7 @@ if ((isset($_REQUEST["del_client"])) && ($_REQUEST["del_client"] > 0))
 		$gestor->esborra_client($_REQUEST["del_client"]);	
 
 
+		
 
 /**************************************************************************************************************************************************************************/
 /**************************************************************************************************************************************************************************/
@@ -199,14 +201,18 @@ if ((isset($_REQUEST["del_client"])) && ($_REQUEST["del_client"] > 0))
 		</select>
 		
 		<!-- HOLA TEO I LOLA , MAMA I ALEX
--->
+		<form class="searchform searchCli" class="amagat" style="display:none;">
+	<input id="cercaClient" name="cercaClient" class="searchfield" type="text" value="Cerca..." onfocus="if (this.value.toUpperCase().search('CERCA...')!=-1) {this.value = '} else if(this.value.length>0) this.select();" onblur="if (this.value == '') {recargaAccordionClients();this.value = 'Cerca...'}">
+	<input id="btCercaClient" class="searchbutton" type="button" value="Go">
+	
+</form>-->
 	
 	<input id="autoc_client_accordion" /><a href="#" id="resetCerca" class="ui-state-default ui-corner-all" title="Elimina filtre">X</a>
 
 		
 		
 				<div id="clientsAc">
-					<?php //out ($gestor->accordion_clients(1));?>
+					<?php out ($gestor->accordion_clients(1));?>
 				</div>
 			</div>
 			<div id="reserves">
@@ -258,7 +264,6 @@ if ((isset($_REQUEST["del_client"])) && ($_REQUEST["del_client"] > 0))
 </div>
 
 <div id="form_hores" title="Modifica hores actives pel dia i torn seleccionats"  style="display:none">Cal actualitzar les dades</div>
-<div id="loading" ><img src="css/loading_llarg.gif"></div>
 
 <div id="refresh" class="round"><img src="css/loading.gif"></div>
 <div id="refresh_popup" class="round"  style="display:none">Cal actualitzar les dades</div>

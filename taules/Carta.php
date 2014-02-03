@@ -89,8 +89,6 @@ class Carta extends Gestor
 			}
 			
 			$descripcio=l("menu_" . $id,false);
-			//$descripcio="wwwwww"+$id;
-			
 			
 			if ($descripcio=="menu_" . $id) $descripcio="";
 			

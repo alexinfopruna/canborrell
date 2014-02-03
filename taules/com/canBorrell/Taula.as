@@ -4,7 +4,6 @@
 	import adobe.utils.CustomActions;
 	import fl.controls.CheckBox;
 	import flash.display.MovieClip;
-	import flash.display.Shape;
 	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.events.MouseEvent;
@@ -280,141 +279,9 @@
 		public function updateLabel():void
 		{
 				var t:Taula;
-				
-				var tarda:Boolean; 
-				var tarda2:Boolean; 
-				var ct:Sprite;
-				var paramObj:Array = new Array();
-				var estat_color:Number;
-
-				paramObj['col_insitu1']=0xFF0000;
-				paramObj['col_insitu2']=0xFF00FF;
-				paramObj['col_insitu3']=0x8A15FF;
-				paramObj['col_online1']=0xFFB300;
-				paramObj['col_online2']=0xFC771F;
-				paramObj['col_online3']=0xA05F16;
-				paramObj['col_entrada1']=0x00B3FF;
-				paramObj['col_entrada2']=0x006B99;
-				
-				var clipcolor:Shape = new Shape; // initializing the variable named rectangle
-				clipcolor.name = "color";
-				
-			if (this._arrayGrup && this._arrayGrup[0]!=this) //FA GRUP 
-			{
-				TextField(clip.getChildByName("txt")).text = "";
-				TextField(clip.getChildByName("lin2")).text = "";
-				
-				tarda = this._arrayGrup[0].reserva && this._arrayGrup[0].reserva.torn == 1 && InfoTaula.ObtenerFechaHora(this._arrayGrup[0].reserva.data, 4) >= "15:00";
-				tarda2 = this._arrayGrup[0].reserva && this._arrayGrup[0].reserva.torn == 1 && InfoTaula.ObtenerFechaHora(this._arrayGrup[0].reserva.data, 4) > "15:30";
-				estat_color = paramObj["col_insitu1"];	
-				if (tarda) estat_color = paramObj["col_insitu2"];	//TARDA > FOSC
-				if (tarda2) estat_color = paramObj["col_insitu3"];		//TARDA2 > FOSC
-				
-					
-				if (this._arrayGrup[0].reserva && this._arrayGrup[0].reserva.online) {
-					estat_color = paramObj["col_online1"]; // ONLINE GROC	
-					if (tarda) estat_color = paramObj["col_online2"];	//TARDA > FOSC
-					if (tarda2) estat_color = paramObj["col_online3"];	//TARDA2 > FOSC
-				}
-				
-				// ENTRADA > BLAU
-				if (this._arrayGrup[0].reserva && (this._arrayGrup[0].reserva.reserva_info & 32)) {
-					estat_color = paramObj["col_entrada1"]; // ENTRADA BLAU
-					if (tarda) estat_color = paramObj["col_entrada2"];	//TARDA > FOSC
-				}
-				
-				ct = Sprite (this.clip.getChildByName("reservadaT1"));
-				if (ct.getChildByName("color")) ct.removeChild(ct.getChildByName("color"));
-				
-				clipcolor.graphics.beginFill(estat_color); // choosing the colour for the fill, here it is red
-				clipcolor.graphics.drawRect(0, 0, 30,30); // (x spacing, y spacing, width, height)
-				clipcolor.graphics.endFill(); // not always needed but I like to put it in to end the fill
-				ct.addChild(clipcolor );
-					
-			}
-			else //NO FA GRUP
-			{	
-				tarda = (this.reserva && this.reserva.torn == 1 && InfoTaula.ObtenerFechaHora(this.reserva.data, 4) >= "15:00") ;
-				tarda2 = (this.reserva && this.reserva.torn == 1 && InfoTaula.ObtenerFechaHora(this.reserva.data, 4) > "15:30") ;
-				var lin2:String = String(persones);
-				if (cotxets) lin2 += "/" + String(cotxets);			
-				
-				if (this.reserva)
-				{
-					lin2 = String(reserva.adults+reserva.nens10+reserva.nens14);
-					if (cotxets) lin2 += "/" + String(reserva.cotxets);							
-				}
-				TextField(clip.getChildByName("txt")).text = String(this.nom);
-				TextField(clip.getChildByName("lin2")).text = lin2;
-				/* MARCA RESERVES ONLINE */
-				
-				estat_color = paramObj["col_insitu1"];	
-				if (tarda) estat_color = paramObj["col_insitu2"];	//TARDA > FOSC
-				if (tarda2) estat_color = paramObj["col_insitu3"];		//TARDA2 > FOSC
-				
-				
-				if (this.reserva && this.reserva.online) {
-					estat_color = paramObj["col_online1"]; // ONLINE GROC	
-					if (tarda) estat_color = paramObj["col_online2"];	//TARDA > FOSC
-					if (tarda2) estat_color = paramObj["col_online3"];	//TARDA2 > FOSC
-				}
-				
-				if (this.reserva && (this.reserva.reserva_info & 32)) {
-					estat_color = paramObj["col_entrada1"]; // ENTRADA BLAU
-					if (tarda) estat_color = paramObj["col_entrada2"];	//TARDA > FOSC
-				}
-				
-				//this.clip.getChildByName("reservadaT1").filters = [color,enfosqueix];
-				ct = Sprite(this.clip.getChildByName("reservadaT1"));
-				if (ct.getChildByName("color")) ct.removeChild(ct.getChildByName("color"));
-				
-				clipcolor.graphics.beginFill(estat_color); // choosing the colour for the fill, here it is red
-				clipcolor.graphics.drawRect(0, 0, 30,30); // (x spacing, y spacing, width, height)
-				clipcolor.graphics.endFill(); // not always needed but I like to put it in to end the fill
-				ct.addChild(clipcolor);
-				
-			}
-			
-
-			
-		}
-				
-
-		public function XXXupdateLabel():void
-		{
-				var t:Taula;
-				
-				var tarda:Boolean; 
-				var tarda2:Boolean; 
-				var ct:Sprite;
-				
 			var groc_matrix:Array = new Array(1,1,1,0,0,  0.7,1,0,0,0,  0,0,1,0,0,  0,0,0,1,0);
-			var blau_matrix:Array = new Array(0, 0, 0, 0, 0,  0.7, 0, 0, 0, 0,  1, 1, 1, 0, 0,  0, 0, 0, 1, 0);
-			
-			var fosc_blau_matrix:Array;
-			var fosc_groc_matrix:Array;
-			var fosc_vermell_matrix:Array;
-			var fosc2_blau_matrix:Array;
-			var fosc2_groc_matrix:Array;
-			var fosc2_vermell_matrix:Array;
-			
-			
-           fosc_groc_matrix = new Array(.8, 0, 0, 0, 0,  0, .8, 0, 0, 0,  0, 0, .4, 0, 0,  0, 0, 0, 1,0);
-           fosc2_groc_matrix = new Array(.5, 0, 0, 0, 0,  0, .5, 0, 0, 0,  0, 0, .1, 0, 0,  0, 0, 0, 1, 0);
-		   
-            fosc_vermell_matrix = new Array(2.1, 2, 2, 0, 0,  0, 0.8, 0, 0, 0,  2, 1, 1, 0.3,0,   0, 0, 0, 1, 0);
-           fosc2_vermell_matrix = new Array(.5, 0, 0, 0, 0,  0, .5, 0, 0, 0,  1, 1, .1, 0, 0,  0, 0, 0, 1, 0);
-		   
-           fosc_blau_matrix= new Array(0.6,0,0,0,0,  0,0.6,0,0,0,  0,0,0.6, 0,  0,0,0,0,1,0);
-			
-		   
-			var clipcolor:Shape = new Shape; // initializing the variable named rectangle
-			clipcolor.graphics.beginFill(0xFF00FF); // choosing the colour for the fill, here it is red
-			clipcolor.graphics.drawRect(0, 0, 30,30); // (x spacing, y spacing, width, height)
-			clipcolor.graphics.endFill(); // not always needed but I like to put it in to end the fill
-			clipcolor.name = "color";
-			//addChild(rectangle); // adds the rectangle to the stage
-			
+			var blau_matrix:Array = new Array(0,0,0,0,0,  0.7,0,0,0,0,  1,1,1,0,0,  0,0,0,1,0);
+			var fosc_matrix:Array = new Array(0.9,0,0,0,0,  0,0.7,0,0,0,  0,0,0.8,0.3,  0,0,0,0,1,0);
 			var color:ColorMatrixFilter = new ColorMatrixFilter();	
 			var enfosqueix:ColorMatrixFilter = new ColorMatrixFilter();	
 
@@ -423,35 +290,19 @@
 				TextField(clip.getChildByName("txt")).text = "";
 				TextField(clip.getChildByName("lin2")).text = "";
 				
-				tarda = this._arrayGrup[0].reserva && this._arrayGrup[0].reserva.torn == 1 && InfoTaula.ObtenerFechaHora(this._arrayGrup[0].reserva.data, 4) >= "15:00";
-				tarda2 = this._arrayGrup[0].reserva && this._arrayGrup[0].reserva.torn == 1 && InfoTaula.ObtenerFechaHora(this._arrayGrup[0].reserva.data, 4) > "15:30";
-				if (tarda) enfosqueix = new ColorMatrixFilter(fosc_vermell_matrix);	//TARDA > FOSC
-				if (tarda2) enfosqueix = new ColorMatrixFilter(fosc2_vermell_matrix);	//TARDA2 > FOSC
-				
+				if (this._arrayGrup[0].reserva && this._arrayGrup[0].reserva.torn == 1 && InfoTaula.ObtenerFechaHora(this._arrayGrup[0].reserva.data, 4) >= "15:00")
+					enfosqueix = new ColorMatrixFilter(fosc_matrix);	// ONLINE GROC	
 					
-				if (this._arrayGrup[0].reserva && this._arrayGrup[0].reserva.online) {
-					color=new ColorMatrixFilter(groc_matrix); // ONLINE GROC	
-					if (tarda) enfosqueix = new ColorMatrixFilter(fosc_groc_matrix);	//TARDA > FOSC
-					if (tarda2) enfosqueix = new ColorMatrixFilter(fosc2_groc_matrix);	//TARDA2 > FOSC
-				}
+				if (this._arrayGrup[0].reserva && this._arrayGrup[0].reserva.online) color=new ColorMatrixFilter(groc_matrix); //TARDA > FOSC
 				
 				// ENTRADA > BLAU
-				if (this._arrayGrup[0].reserva && (this._arrayGrup[0].reserva.reserva_info & 32)) {
-					color = new ColorMatrixFilter(blau_matrix); // ENTRADA BLAU
-					if (tarda) enfosqueix = new ColorMatrixFilter(fosc_blau_matrix);	//TARDA > FOSC
-				}
+				if (this._arrayGrup[0].reserva && (this._arrayGrup[0].reserva.reserva_info & 32)) color = new ColorMatrixFilter(blau_matrix); // ENTRADA BLAU
 				
 				this.clip.getChildByName("reservadaT1").filters = [color,enfosqueix];
-				ct = Sprite (this.clip.getChildByName("reservadaT1"));
-				if (ct.getChildByName("color")) ct.removeChild(ct.getChildByName("color"));
-				
-				//ct.addChild(clipcolor );
 					
 			}
 			else //NO FA GRUP
 			{	
-				tarda = (this.reserva && this.reserva.torn == 1 && InfoTaula.ObtenerFechaHora(this.reserva.data, 4) >= "15:00") ;
-				tarda2 = (this.reserva && this.reserva.torn == 1 && InfoTaula.ObtenerFechaHora(this.reserva.data, 4) > "15:30") ;
 				var lin2:String = String(persones);
 				if (cotxets) lin2 += "/" + String(cotxets);			
 				
@@ -464,26 +315,13 @@
 				TextField(clip.getChildByName("lin2")).text = lin2;
 				/* MARCA RESERVES ONLINE */
 				
-				if (tarda) 	enfosqueix = new ColorMatrixFilter(fosc_vermell_matrix);							
-				if (tarda2) enfosqueix = new ColorMatrixFilter(fosc2_vermell_matrix);					
+				if (this.reserva && this.reserva.torn == 1 && InfoTaula.ObtenerFechaHora(this.reserva.data, 4) >= "15:00")
+					enfosqueix = new ColorMatrixFilter(fosc_matrix);					
+				if (this.reserva && this.reserva.online) color = new ColorMatrixFilter(groc_matrix); // ONLNE GROC
 				
-				
-				if (this.reserva && this.reserva.online) {
-					color = new ColorMatrixFilter(groc_matrix); // ONLNE GROC
-					if (tarda) enfosqueix = new ColorMatrixFilter(fosc_groc_matrix);	//TARDA > FOSC
-					if (tarda2) enfosqueix = new ColorMatrixFilter(fosc2_groc_matrix);	//TARDA > FOSC
-				}
-				
-				if (this.reserva && (this.reserva.reserva_info & 32)) {
-					color = new ColorMatrixFilter(blau_matrix); // ENTRADA BLAU
-					if (tarda) enfosqueix = new ColorMatrixFilter(fosc_blau_matrix);	//TARDA > FOSC
-				}
+				if (this.reserva && (this.reserva.reserva_info & 32)) color = new ColorMatrixFilter(blau_matrix); // ENTRADA BLAU
 				
 				this.clip.getChildByName("reservadaT1").filters = [color,enfosqueix];
-				ct = Sprite(this.clip.getChildByName("reservadaT1"));
-				if (ct.getChildByName("color")) ct.removeChild(ct.getChildByName("color"));
-				
-				//ct.addChild(clipcolor );
 				
 			}
 			
