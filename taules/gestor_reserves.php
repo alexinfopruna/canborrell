@@ -663,7 +663,7 @@ són reserves perdudes que perden el link amb una taula
       $this->reg_log("TROBADES $num RESERVES ORFANES!!");
       if (!$num)  return false;
       
-      $html="
+      $html="<!--ORFANES-->
       <table>
         ";
         while ($row=mysql_fetch_assoc($result)){
@@ -973,7 +973,7 @@ són reserves perdudes que perden el link amb una taula
       $comensals=$row['adults']+$row['nens10_14']+$row['nens4_9'];
       if ($_SESSION['permisos']>=64) 
       {
-       $elimina.='<div class="delete reserva ui-state-default ui-corner-all">
+       $elimina='<div class="delete reserva ui-state-default ui-corner-all">
                     <a href="taules.php?del_reserva='.$row['id_reserva'].'" del="'.$row['id_reserva'].'">Elimina</a></div>';
       } 
       
@@ -993,7 +993,7 @@ són reserves perdudes que perden el link amb una taula
       
       $html .= <<< EOHTML
           <h3 $deleted><a n="$n" href="form_reserva.php?edit={$row['id_reserva']}&id={$row['id_reserva']}" class="fr" taula="{$row['estat_taula_taula_id']}">{$row['reserva_id']}&rArr;{$this->cambiaf_a_normal($row['data'],"%d/%m")} {$row['hora']} | {$row['estat_taula_nom']}&rArr;{$comensals}/{$row['cotxets']} $online  $nom </a></h3>
-          <div style="border:#eeeeee solid 2px;marginn:3px;padding:5px">
+          <div style="border:#eeeeee solid 2px;marginn:3px;padding:5px;height:280px;">
             ID:<b> {$row['reserva_id']}</b>
             <table cellspacing="0" cellpadding="0">
               <tr class="taulaf1">

@@ -17,6 +17,7 @@ function cb_autocompletes(){
      $("#autoc_client_accordion, #autoc_reserves_accordion",CERCADOR).autocomplete({
       source:"gestor_reserves.php?a=autocomplete_clients&p=modo",
       minLength: 4,
+      autoFocus: true,
       select: function( event, ui ) {
           
             $("#autoc_client_accordion",CERCADOR).val(this.value);
@@ -31,6 +32,7 @@ function cb_autocompletes(){
  */
     $("#autoc_client_inserta_res",FORMULARI_INSERTA_RES).autocomplete({
       source:"gestor_reserves.php?a=autocomplete_clients",
+      autoFocus: true,
       select: function( event, ui ) {
   	$("#campsClient input[name='client_mobil']",FORMULARI_INSERTA_RES).focus(function(){
 		if (!isNaN(this.value)){ 

@@ -14,7 +14,7 @@ var ONLOAD_BLOC_TORN=false;
 var canvia_data_confirma=false;
 
 var reserva=0;
-var acop={collapsible:false,active:false,autoHeight:false,change:function(event,ui){	client=$(ui.newHeader).find("a").attr("href").split("&id=")[1];	}};
+var acop={collapsible:false,active:false,heightStyle: "content",fillSpace: true,clearStyle: true,autoHeight: false, change:function(event,ui){	client=$(ui.newHeader).find("a").attr("href").split("&id=")[1];	}};
 
 var popup;
 var guardat=false;
@@ -134,8 +134,8 @@ $.ajax({url: "gestor_reserves.php?a=canvi_modo&p=1",success:recargaAccordioReser
 //$.ajax({url: "gestor_reserves.php?a=canvi_modo&p="+$("#filtreRes").val()});
 $("#filtreRes").change(function(e){
 		//$("#autoc_reserves_accordion").autocomplete("gestor_reserves.php?a=autocomplete_reserves",{cacheLength:1,minChars:4});
-		$("#autoc_reserves_accordion").setOptions({extraParams:{t:new Date()}});
-		$("#autoc_reserves_accordion").flushCache();
+		//$("#autoc_reserves_accordion").setOptions({extraParams:{t:new Date()}});
+		//$("#autoc_reserves_accordion").flushCache();
 		
 
 			if ($("#filtreRes").val()==3) 
@@ -219,14 +219,26 @@ $("#novaReserva").hide();
 $.ajax({url: "gestor_reserves.php?a=canvi_data&p="+$("#calendari").val()});
 
 $("#selectorComensals").buttonset();
+$( "#selectorComensals" ).find("label").unbind("mouseup");
 $("#selectorDinarSopar").buttonset();
+$( "#selectorDinarSopar" ).find("label").unbind("mouseup");
 $("#selectorCotxets").buttonset();
+$( "#selectorCotxets" ).find("label").unbind("mouseup");
 $(".inserta_res #selectorCotxets").buttonset();
+$( ".inserta_res #selectorCotxets" ).find("label").unbind("mouseup");
 $(".inserta_res #selectorCadiraRodes").buttonset();
+$( ".inserta_res #selectorCadiraRodes" ).find("label").unbind("mouseup");
 $("#selectorNens4_9").buttonset();
+$( "#selectorNens4_9" ).find("label").unbind("mouseup");
 $("#selectorNens10_14").buttonset();
+$( "#selectorNens10_14" ).find("label").unbind("mouseup");
 $("#selectorAdults").buttonset();
+$( "#selectorAdults" ).find("label").unbind("mouseup");
 $("#finde").button();
+
+
+
+
 
 $("#selectorComensals").change(cercaTaula);
 $("#selectorDinarSopar").change(cercaTaula);
@@ -249,7 +261,7 @@ $(".inserta_res #selectorCotxets").change(function(){
 $( "#torn"+torn_session ).prop("checked","true");
 
 $( "#radio" ).buttonset();
-
+$( "#radio" ).find("label").unbind("mouseup");
 
 
 $( "#radio" ).change(function(e){ 
@@ -263,7 +275,7 @@ $( "#radio" ).change(function(e){
 /***********************************************************************************/
 // ACCORDIONS
 //ACCORDION CLI ANULAT$( "#clientsAc" ).accordion(acop);
-$( "#reservesAc" ).accordion(acopres);
+//$( "#reservesAc" ).accordion(acopres);
 
 /***********************************************************************************/
 // TABS CLIENTS / RESERVES 
@@ -291,7 +303,7 @@ $("#tabs").tabs();
 			"Guarda": function() { 
 				guardat=true;
 				if (!$("form.inserta_res").validate().form()) return;
-				$( "#reservesAc" ).accordion('destroy');
+				try{$( "#reservesAc" ).accordion("destroy");}catch(e){};
 				$('form.inserta_res').ajaxSubmit({target:'#reservesAc',success:recargaAccordioReserves});			
 				$(this).dialog("close"); 
 				timer(true);
@@ -315,7 +327,7 @@ $('#edit').dialog({
 				if (permuta && $("#extendre input:checked").val()==1) permuta=permuta;
 				else if (!$("form.updata_res").validate().form()) return ;
 		
-				$( "#reservesAc" ).accordion('destroy');
+				try{$( "#reservesAc" ).accordion("destroy");}catch(e){};
 				$('#edit form').ajaxSubmit({target:'#reservesAc',success:function(datos){
 					
 						if (datos=="ORFANES!!!") alert("ATENCIO!!!\nS'han detectat reserves perdudes: Per més detalls, ves al Panel de control > Eines avançades > Reserves perdudes"); 
@@ -587,6 +599,7 @@ function recargaAccordionClients(nomesClients)
 	$.ajax({url: "gestor_reserves.php?a=accordion_clients&p="+filtreCli,success: function(datos){	
 			if (datos.trim().substr(0,3)!="<h3") 
 			{
+                            if (datos.substr(0,4)=="<!DO") datos="La sessió ha caducat.\n Refresca la pàgina prement F5";
 				alert(datos);
 				return false;
 			}
@@ -628,7 +641,8 @@ function recargaAccordioReserves(creaNovaReserva)
 			}
 			$("#reservesAc").html(datos);
 			$("#reservesAc").hide();
-			//$( "#reservesAc" ).accordion("destroy");
+                        
+                        try{$( "#reservesAc" ).accordion("destroy");}catch(e){};
 			$( "#reservesAc" ).accordion(acopres);
 
 			$(".fr").mouseover(function(){taulaSel=$(this).attr("taula");getFlashMovie("flash").seleccionaTaula(taulaSel);});
@@ -637,7 +651,7 @@ function recargaAccordioReserves(creaNovaReserva)
 			//$( "#reservesAc" ).accordion("resize");
 			addHandlersAccordionReserves();
 	
-			$( "#reservesAc" ).show("fade");
+			$( "#reservesAc" ).show("fade").accordion("refresh");
 			$("#autoc_reserves_accordion").val("");
 			$("#autoc_reserves_accordion").removeClass("cercador-actiu");
 
@@ -722,7 +736,8 @@ function deleteReserva(id)
 {
 	if (confirm("Segur que vols eliminar aquesta reserva?"))
 	{
-		$( "#reservesAc" ).accordion('destroy');
+            $("#reservesAc").hide();
+		try{$( "#reservesAc" ).accordion("destroy");}catch(e){};
 		
 		var enviaSMS=$(".updata_res input[name=cb_sms]:checked").val()?"":"&q=1";
 
@@ -730,7 +745,7 @@ function deleteReserva(id)
 		$.ajax({url: desti,	success: function(datos){		
 			$("#reservesAc").html(decodeURIComponent(datos));
 			$( "#reservesAc" ).accordion(acopres);
-
+                        $("#reservesAc").show().accordion("refresh");;
 			onClickAmpliaReserva();
 			
 			//$( "#reservesAc" ).accordion("resize");
@@ -826,6 +841,7 @@ function addHandlersEditReserva()
 	/***********************************************************************************/
 	// RADIO HORES
 	$( "#updata_res_radio" ).buttonset();
+        $( "#updata_res_radio" ).find("label").unbind("mouseup");
 	$(".updata_res  .combo_clients").change(function(e){
 		var id=$(this).val();
 		var desti="gestor_reserves.php?a=htmlDadesClient&p="+ id;
@@ -845,12 +861,18 @@ function addHandlersEditReserva()
 	);
 	
 	$("#extendre").buttonset();
+                $( "#extendre" ).find("label").unbind("mouseup");
+
 	$("input[name='confirma_data']").button();
 	$("input[name='reserva_entrada']").button();
 	$("input[name='reserva_entrada']").click(reservaEntrada); // boto reserva entrada
 
 	$(".updata_res #selectorCotxets").buttonset();
+                $( ".updata_res #selectorCotxets" ).find("label").unbind("mouseup");
+
 	$(".updata_res #selectorCadiraRodes").buttonset();
+                $( ".updata_res #selectorCadiraRodes" ).find("label").unbind("mouseup");
+
 	$(".updata_res #selectorCotxets").change(function(){if(!$(this).val()) $("input[name=cotxets]").val(1);});
 
 	$(document).oneTime(3000,'missatgeLlegit' ,missatgeLlegit);
@@ -1040,10 +1062,9 @@ function onNovaReserva()
 	$(".inserta_res input[name=total]").rules("add",{personesInsert:true});
 	$("#confirma_data_inserta_res").rules("add",{required:true});
 	
-        $("autoc_client_inserta_res']").focus();
         
 	var hora=$("#zoom input[name='hora']:checked").val();
-	if (hora==null)
+	if (hora===null || typeof hora === "undefined" )
 	{
 		hora=0;
 		$.ajax({url: "gestor_reserves.php?a=recupera_hores&c="+TAULA+"&d="+P+"&e="+C,	success: function(datos){
@@ -1053,6 +1074,8 @@ function onNovaReserva()
 			if (obj.error!=null && obj.error!='') $("#inserta_res_radio").html(obj.error);
 			else $("#inserta_res_radio").html(obj.dinar+obj.dinarT2+obj.sopar);
 			$( "#inserta_res_radio" ).buttonset();
+                        $( "#inserta_res_radio" ).find("label").unbind("mouseup");
+                        
 			$( "#inserta_res_radio input" ).change(function(){max_comensals=$(this).attr("maxc");});
 		 }});		
 	}	
@@ -1061,8 +1084,9 @@ function onNovaReserva()
 		var input='<input type="text" name="hora"  value="'+hora+'" size="3" readonly="readonly" class="{required:true}" title=""/>';
 		$("#inserta_res_radio").html(input);
 	}
-	
-	
+	$('#insertReserva').dialog('open');
+	$("#autoc_client_inserta_res").focus();
+
 	
 };
 
@@ -1106,7 +1130,7 @@ function comprova_backup()
 { 
 	var desti="gestor_reserves.php?a=reserves_orfanes";
 	$.post(desti,{r:rand},function(datos){
-		if (datos) alert("ATENCIO!!!\nS'han detectat reserves perdudes: Per més detalls, ves al Panel de control > Eines avançades > Reserves perdudes"); 
+		if (datos.substr(0,14)=="<!--ORFANES-->") alert("ATENCIO!!!\nS'han detectat reserves perdudes: Per més detalls, ves al Panel de control > Eines avançades > Reserves perdudes"); 
 
 	});
 	if (!BACKUP_INTERVAL) return;
@@ -1233,7 +1257,7 @@ function excepcions_nits(date){
 function cercaReserves(s)
 {
 	$( "#reservesAc" ).hide();
-	$( "#reservesAc" ).accordion("destroy");
+	try{$( "#reservesAc" ).accordion("destroy");}catch(e){};
 	
 	if (s && s!="" && s!="Cerca..." ) s="&c="+s;
 	
@@ -1247,7 +1271,7 @@ function cercaReserves(s)
 			
 			//$( "#reservesAc" ).accordion("resize");
 			addHandlersAccordionReserves();
-			$( "#reservesAc" ).show("fade");
+			$( "#reservesAc" ).show("fade").accordion("refresh");;
 	}});	
 }
 
