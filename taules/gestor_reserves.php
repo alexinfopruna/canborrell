@@ -555,6 +555,7 @@ class gestor_reserves extends Gestor
      * 
      * De vegades falla misteriosament, per això transition i, per això dos intents
      */
+<<<<<<< HEAD
     for ($i=0;$i<2;$i++){ 
         echo "PERMUTA INTENT #$i";
             $this->reg_log("PERMUTA INTENT $i *************************************");
@@ -651,6 +652,80 @@ class gestor_reserves extends Gestor
       $this->reg_log("PERMUTA ($reserva): ERRORRRRRRR");
 
         return "ORFANES!!!";
+=======
+     try{
+      ////////////////////////////////
+      mysql_query("START TRANSACTION");    
+  
+      //ELIMINA LA RESERVA DE LA TAULA VELLA
+      $query="UPDATE ".T_RESERVES." 
+      SET data='$data',
+      hora='{$_POST['hora']}',
+      adults={$_POST['adults']},
+      nens10_14={$_POST['nens10_14']},
+      nens4_9={$_POST['nens4_9']},
+      cotxets={$_POST['cotxets']},
+
+      observacions='{$_POST['observacions']}',      
+      resposta='{$_POST['resposta']}'      
+      WHERE id_reserva=$reserva"; 
+      
+      $result = $this->log_mysql_query($query, $this->connexioDB) or die(mysql_error());
+       $this->reg_log("PERMUTA ($reserva): ACTUALITZO RESERVA (data,hora) >> ".($this->qry_result?"OK":"KO"));
+      if (!$result)  return mysql_query("ROLLBACK");     
+              
+      //ACTUALITZA DADES DE LA RESERVA
+      $query="UPDATE ".ESTAT_TAULES." SET reserva_id=0
+      WHERE reserva_id=$reserva"; 
+      $result = $this->log_mysql_query($query, $this->connexioDB) or die(mysql_error());
+       $this->reg_log("PERMUTA ($reserva): ELIMINO LA RESERVA DE L'ESTAT ORIGEN >> ".($this->qry_result?"OK":"KO"));
+      if (!$result)  return mysql_query("ROLLBACK");     
+              
+      ////////////////////////////////
+      //COMPROVA SI LA TAULA JA TE ESTAT
+      $query="SELECT estat_taula_id from estat_taules 
+      WHERE estat_taula_data='{$data}' AND estat_taula_torn=$torn 
+      AND estat_taula_taula_id={$_POST['estat_taula_taula_id']}"; 
+      $result = $this->log_mysql_query($query, $this->connexioDB) or mysql_query("ROLLBACK");
+      
+       if ($num=mysql_num_rows($result)) {
+        ////////////////////////////////
+        //SI EL TE, CANVIA LA RESERVA D'UN CAP A L'ALTRE   
+        $query="UPDATE ".ESTAT_TAULES." SET reserva_id=$reserva
+        WHERE estat_taula_data='{$data}' AND estat_taula_torn={$torn} 
+        AND estat_taula_taula_id={$_POST['estat_taula_taula_id']}"; 
+        $result = $this->log_mysql_query($query, $this->connexioDB) or mysql_query("ROLLBACK");
+       $this->reg_log("PERMUTA ($reserva): HI HA ESTAT EXISTENT >> LI ASSIGNO LA RESERVA".($this->qry_result?"OK":"KO"));
+                
+        if (!$result)  return mysql_query("ROLLBACK");
+        
+      }else{
+      ////////////////////////////////
+      //SI EL TE, CREA UN ESTAT PEL DIA, TORN, TAULA, RESERVA COPIAT DE LA BASE      
+        $query="INSERT INTO ".ESTAT_TAULES." ( estat_taula_data, estat_taula_nom, estat_taula_torn, estat_taula_taula_id, 
+        reserva_id, estat_taula_x, estat_taula_y, estat_taula_persones, estat_taula_cotxets, estat_taula_grup, estat_taula_plena, estat_taula_usuari_modificacio) 
+        
+        SELECT '{$data}', estat_taula_nom, estat_taula_torn, estat_taula_taula_id, 
+        $reserva, estat_taula_x, estat_taula_y, estat_taula_persones, estat_taula_cotxets, 
+        estat_taula_grup, estat_taula_plena, estat_taula_usuari_modificacio 
+        FROM estat_taules 
+        WHERE estat_taula_data='2011-01-01' AND estat_taula_torn=$torn
+        AND estat_taula_taula_id={$_POST['estat_taula_taula_id']}";
+        
+        $result = $this->log_mysql_query($query, $this->connexioDB) or mysql_query("ROLLBACK");
+       $this->reg_log("PERMUTA ($reserva): SENSE ESTAT EXISTENT >> CREAT ESTAT AMN RESERVA".($this->qry_result?"OK":"KO"));
+                
+        if (!$result)  return mysql_query("ROLLBACK");
+        }
+        
+        if ($this->reserves_orfanes()) {
+          mysql_query("ROLLBACK");
+          return "ORFANES!!!";
+      }
+    }catch (Exception $e) {
+              mysql_query("ROLLBACK"); 
+              return "ERROR PERMUTA";
+>>>>>>> 35161c14c48ae123817b0aa7f8426b403453ede3
     }
     if ($rollback){
         //echo "PERMUTA ($reserva): $rollback";
@@ -1005,7 +1080,11 @@ són reserves perdudes que perden el link amb una taula
       $comensals=$row['adults']+$row['nens10_14']+$row['nens4_9'];
       if ($_SESSION['permisos']>=64) 
       {
+<<<<<<< HEAD
        $elimina='<div class="delete reserva ui-state-default ui-corner-all">
+=======
+       $elimina.='<div class="delete reserva ui-state-default ui-corner-all">
+>>>>>>> 35161c14c48ae123817b0aa7f8426b403453ede3
                     <a href="taules.php?del_reserva='.$row['id_reserva'].'" del="'.$row['id_reserva'].'">Elimina</a></div>';
       } 
       
@@ -1024,8 +1103,13 @@ són reserves perdudes que perden el link amb una taula
       $nom="<br/>".substr($row['client_cognoms'].", ".$row['client_nom'],0,25);
       
       $html .= <<< EOHTML
+<<<<<<< HEAD
           <h3 $deleted><a n="$n" href="form_reserva.php?edit={$row['id_reserva']}&id={$row['id_reserva']}" class="fr" taula="{$row['estat_taula_taula_id']}" id="accr-{$row['id_reserva']}">{$row['reserva_id']}&rArr;{$this->cambiaf_a_normal($row['data'],"%d/%m")} {$row['hora']} | {$row['estat_taula_nom']}&rArr;{$comensals}/{$row['cotxets']} $online  $nom </a></h3>
           <div style="border:#eeeeee solid 2px;marginn:3px;padding:5px;height:280px;">
+=======
+          <h3 $deleted><a n="$n" href="form_reserva.php?edit={$row['id_reserva']}&id={$row['id_reserva']}" class="fr" taula="{$row['estat_taula_taula_id']}">{$row['reserva_id']}&rArr;{$this->cambiaf_a_normal($row['data'],"%d/%m")} {$row['hora']} | {$row['estat_taula_nom']}&rArr;{$comensals}/{$row['cotxets']} $online  $nom </a></h3>
+          <div style="border:#eeeeee solid 2px;marginn:3px;padding:5px">
+>>>>>>> 35161c14c48ae123817b0aa7f8426b403453ede3
             ID:<b> {$row['reserva_id']}</b>
             <table cellspacing="0" cellpadding="0">
               <tr class="taulaf1">
@@ -1055,8 +1139,12 @@ són reserves perdudes que perden el link amb una taula
             $elimina
 </div>
 EOHTML;
+<<<<<<< HEAD
             
             $n++;
+=======
+
+>>>>>>> 35161c14c48ae123817b0aa7f8426b403453ede3
 
     }
     

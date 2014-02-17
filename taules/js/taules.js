@@ -12,7 +12,10 @@ var TAULA, N, P,C,F,CERCA;
 var ONLOAD_BLOC_CALEND=false;
 var ONLOAD_BLOC_TORN=false;
 var canvia_data_confirma=false;
+<<<<<<< HEAD
 var AC_ACTIU;
+=======
+>>>>>>> 35161c14c48ae123817b0aa7f8426b403453ede3
 
 var reserva=0;
 var acop={collapsible:false,active:false,heightStyle: "content",fillSpace: true,clearStyle: true,autoHeight: false, change:function(event,ui){	client=$(ui.newHeader).find("a").attr("href").split("&id=")[1];	}};
@@ -135,8 +138,13 @@ $.ajax({url: "gestor_reserves.php?a=canvi_modo&p=1",success:recargaAccordioReser
 //$.ajax({url: "gestor_reserves.php?a=canvi_modo&p="+$("#filtreRes").val()});
 $("#filtreRes").change(function(e){
 		//$("#autoc_reserves_accordion").autocomplete("gestor_reserves.php?a=autocomplete_reserves",{cacheLength:1,minChars:4});
+<<<<<<< HEAD
 		//$("#autoc_reserves_accordion").setOptions({extraParams:{t:new Date()}});
 		//$("#autoc_reserves_accordion").flushCache();
+=======
+		$("#autoc_reserves_accordion").setOptions({extraParams:{t:new Date()}});
+		$("#autoc_reserves_accordion").flushCache();
+>>>>>>> 35161c14c48ae123817b0aa7f8426b403453ede3
 		
 
 			if ($("#filtreRes").val()==3) 
@@ -224,11 +232,16 @@ $( "#selectorComensals" ).find("label").unbind("mouseup");
 $("#selectorDinarSopar").buttonset();
 $( "#selectorDinarSopar" ).find("label").unbind("mouseup");
 $("#selectorCotxets").buttonset();
+<<<<<<< HEAD
 $( "#selectorCotxets" ).find("label").unbind("mouseup");
 $(".inserta_res #selectorCotxets").buttonset();
 $( ".inserta_res #selectorCotxets" ).find("label").unbind("mouseup");
 $(".inserta_res #selectorCadiraRodes").buttonset();
 $( ".inserta_res #selectorCadiraRodes" ).find("label").unbind("mouseup");
+=======
+$(".inserta_res #selectorCotxets").buttonset();
+$(".inserta_res #selectorCadiraRodes").buttonset();
+>>>>>>> 35161c14c48ae123817b0aa7f8426b403453ede3
 $("#selectorNens4_9").buttonset();
 $( "#selectorNens4_9" ).find("label").unbind("mouseup");
 $("#selectorNens10_14").buttonset();
@@ -262,9 +275,15 @@ $(".inserta_res #selectorCotxets").change(function(){
 $( "#torn"+torn_session ).prop("checked","true");
 
 $( "#radio" ).buttonset();
+<<<<<<< HEAD
 $( "#radio" ).find("label").unbind("mouseup");
 
 
+=======
+
+
+
+>>>>>>> 35161c14c48ae123817b0aa7f8426b403453ede3
 $( "#radio" ).change(function(e){ 
 		$.ajax({url: "gestor_reserves.php?a=canvi_torn&p="+$("input[name='radio']:checked").val(),success:function(){
 			recargaAccordioReserves();	
@@ -276,7 +295,11 @@ $( "#radio" ).change(function(e){
 /***********************************************************************************/
 // ACCORDIONS
 //ACCORDION CLI ANULAT$( "#clientsAc" ).accordion(acop);
+<<<<<<< HEAD
 //$( "#reservesAc" ).accordion(acopres);
+=======
+$( "#reservesAc" ).accordion(acopres);
+>>>>>>> 35161c14c48ae123817b0aa7f8426b403453ede3
 
 /***********************************************************************************/
 // TABS CLIENTS / RESERVES 
@@ -304,7 +327,11 @@ $("#tabs").tabs();
 			"Guarda": function() { 
 				guardat=true;
 				if (!$("form.inserta_res").validate().form()) return;
+<<<<<<< HEAD
 				try{$( "#reservesAc" ).accordion("destroy");}catch(e){};
+=======
+				$( "#reservesAc" ).accordion('destroy');
+>>>>>>> 35161c14c48ae123817b0aa7f8426b403453ede3
 				$('form.inserta_res').ajaxSubmit({target:'#reservesAc',success:recargaAccordioReserves});			
 				$(this).dialog("close"); 
 				timer(true);
@@ -328,7 +355,11 @@ $('#edit').dialog({
 				if (permuta && $("#extendre input:checked").val()==1) permuta=permuta;
 				else if (!$("form.updata_res").validate().form()) return ;
 		
+<<<<<<< HEAD
 				try{$( "#reservesAc" ).accordion("destroy");}catch(e){};
+=======
+				$( "#reservesAc" ).accordion('destroy');
+>>>>>>> 35161c14c48ae123817b0aa7f8426b403453ede3
 				$('#edit form').ajaxSubmit({target:'#reservesAc',success:function(datos){
 					
 						if (datos=="ORFANES!!!") alert("ATENCIO!!!\nS'han detectat reserves perdudes: Per més detalls, ves al Panel de control > Eines avançades > Reserves perdudes"); 
@@ -593,6 +624,7 @@ jQuery.validator.addMethod("personesInsert", function(value, element) {
 
 
 function recargaAccordionClients(nomesClients)
+<<<<<<< HEAD
 {
 	$("#clientsAc").html('<img src="css/loading_llarg.gif" class="loading_llarg"/>');
 	if ($("#filtreCli").val()>2) $("#filtreCli").val(1);
@@ -618,6 +650,32 @@ function recargaAccordionClients(nomesClients)
 	
 function cercaClients(s)
 {
+=======
+{
+	$("#clientsAc").html('<img src="css/loading_llarg.gif" class="loading_llarg"/>');
+	if ($("#filtreCli").val()>2) $("#filtreCli").val(1);
+	var filtreCli=$("#filtreCli").val();
+	$.ajax({url: "gestor_reserves.php?a=accordion_clients&p="+filtreCli,success: function(datos){	
+			if (datos.trim().substr(0,3)!="<h3") 
+			{
+				alert(datos);
+				return false;
+			}
+	
+			$("#clientsAc").html(decodeURIComponent(datos));
+			//ACCORDION CLI ANULAT$( "#clientsAc" ).		("destroy");
+			//ACCORDION CLI ANULAT$( "#clientsAc" ).accordion(acop);
+			$( "#clientsAc" ).show("fade");
+			if ($( "#clientsAc h3[insert]").attr("insert")) client=$( "#clientsAc h3[insert]" ).attr("insert");
+			//ACCORDION CLI ANULAT$( "#clientsAc" ).accordion("activate","h3[insert]");			
+			addHandlersAccordionClients();
+	}});	
+	if (!nomesClients) 	recargaAccordioReserves();	
+}
+	
+function cercaClients(s)
+{
+>>>>>>> 35161c14c48ae123817b0aa7f8426b403453ede3
 	$("#filtreCli").val(3);
 	$( "#clientsAc" ).hide();
 	if (s && s!="" && s!="Cerca..." ) s="&c="+s;
@@ -632,8 +690,13 @@ function cercaClients(s)
 
 function recargaAccordioReserves(creaNovaReserva)
 {
+<<<<<<< HEAD
 	AC_ACTIU=$("#reservesAc").scrollTop();
  	$("#reservesAc").html('<img src="css/loading_llarg.gif" class="loading_llarg"/>');
+=======
+	$("#reservesAc").html('<img src="css/loading_llarg.gif" class="loading_llarg"/>');
+	
+>>>>>>> 35161c14c48ae123817b0aa7f8426b403453ede3
 	$.ajax({url: "gestor_reserves.php?a=accordion_reserves",success: function(datos){	
 			if (datos.trim().substr(0,3)!="<h3") 
 			{
@@ -642,10 +705,14 @@ function recargaAccordioReserves(creaNovaReserva)
 			}
 			$("#reservesAc").html(datos);
 			$("#reservesAc").hide();
+<<<<<<< HEAD
                         
                         
                         
                         try{$( "#reservesAc" ).accordion("destroy");}catch(e){};
+=======
+			//$( "#reservesAc" ).accordion("destroy");
+>>>>>>> 35161c14c48ae123817b0aa7f8426b403453ede3
 			$( "#reservesAc" ).accordion(acopres);
 
 			$(".fr").mouseover(function(){taulaSel=$(this).attr("taula");getFlashMovie("flash").seleccionaTaula(taulaSel);});
@@ -654,15 +721,22 @@ function recargaAccordioReserves(creaNovaReserva)
 			//$( "#reservesAc" ).accordion("resize");
 			addHandlersAccordionReserves();
 	
+<<<<<<< HEAD
 			$( "#reservesAc" ).show("fade").accordion("refresh");
+=======
+			$( "#reservesAc" ).show("fade");
+>>>>>>> 35161c14c48ae123817b0aa7f8426b403453ede3
 			$("#autoc_reserves_accordion").val("");
 			$("#autoc_reserves_accordion").removeClass("cercador-actiu");
 
 			if (creaNovaReserva=="open") fromAS3_novaReserva(TAULA,N,P,C,F);
+<<<<<<< HEAD
                         
                         $("#reservesAc").scrollTop(AC_ACTIU);
                         //$("#reservesAc").scrollTo( $('#reservesAc h3:eq('+AC_ACTIU+')'));
                         //$("#reservesAc").accordion('activate', parseInt(AC_ACTIU, 10)   );
+=======
+>>>>>>> 35161c14c48ae123817b0aa7f8426b403453ede3
 
 	}});	
 	if (ONLOAD_BLOC_TORN) $( "#radio input" ).button( "disable");	
@@ -743,10 +817,21 @@ function deleteReserva(id)
 {
 	if (confirm("Segur que vols eliminar aquesta reserva?"))
 	{
+<<<<<<< HEAD
             $("#reservesAc").hide();
 		try{$( "#reservesAc" ).accordion("destroy");}catch(e){};
 		
 		var enviaSMS=$(".updata_res input[name=cb_sms]:checked").val()?"":"&q=1";
+=======
+		$( "#reservesAc" ).accordion('destroy');
+		
+		var enviaSMS=$(".updata_res input[name=cb_sms]:checked").val()?"":"&q=1";
+
+		var desti="gestor_reserves.php?a=esborra_reserva&p="+id+enviaSMS;
+		$.ajax({url: desti,	success: function(datos){		
+			$("#reservesAc").html(decodeURIComponent(datos));
+			$( "#reservesAc" ).accordion(acopres);
+>>>>>>> 35161c14c48ae123817b0aa7f8426b403453ede3
 
 		var desti="gestor_reserves.php?a=esborra_reserva&p="+id+enviaSMS;
 		$.ajax({url: desti,	success: function(datos){		
@@ -848,7 +933,10 @@ function addHandlersEditReserva()
 	/***********************************************************************************/
 	// RADIO HORES
 	$( "#updata_res_radio" ).buttonset();
+<<<<<<< HEAD
         $( "#updata_res_radio" ).find("label").unbind("mouseup");
+=======
+>>>>>>> 35161c14c48ae123817b0aa7f8426b403453ede3
 	$(".updata_res  .combo_clients").change(function(e){
 		var id=$(this).val();
 		var desti="gestor_reserves.php?a=htmlDadesClient&p="+ id;
@@ -868,18 +956,25 @@ function addHandlersEditReserva()
 	);
 	
 	$("#extendre").buttonset();
+<<<<<<< HEAD
                 $( "#extendre" ).find("label").unbind("mouseup");
 
+=======
+>>>>>>> 35161c14c48ae123817b0aa7f8426b403453ede3
 	$("input[name='confirma_data']").button();
 	$("input[name='reserva_entrada']").button();
 	$("input[name='reserva_entrada']").click(reservaEntrada); // boto reserva entrada
 
 	$(".updata_res #selectorCotxets").buttonset();
+<<<<<<< HEAD
                 $( ".updata_res #selectorCotxets" ).find("label").unbind("mouseup");
 
 	$(".updata_res #selectorCadiraRodes").buttonset();
                 $( ".updata_res #selectorCadiraRodes" ).find("label").unbind("mouseup");
 
+=======
+	$(".updata_res #selectorCadiraRodes").buttonset();
+>>>>>>> 35161c14c48ae123817b0aa7f8426b403453ede3
 	$(".updata_res #selectorCotxets").change(function(){if(!$(this).val()) $("input[name=cotxets]").val(1);});
 
 	$(document).oneTime(3000,'missatgeLlegit' ,missatgeLlegit);
@@ -1071,9 +1166,16 @@ function onNovaReserva()
 	$(".inserta_res input[name=total]").rules("add",{personesInsert:true});
 	$("#confirma_data_inserta_res").rules("add",{required:true});
 	
+<<<<<<< HEAD
         
 	var hora=$("#zoom input[name='hora']:checked").val();
 	if (hora===null || typeof hora === "undefined" )
+=======
+        $("autoc_client_inserta_res']").focus();
+        
+	var hora=$("#zoom input[name='hora']:checked").val();
+	if (hora==null)
+>>>>>>> 35161c14c48ae123817b0aa7f8426b403453ede3
 	{
 		hora=0;
 		$.ajax({url: "gestor_reserves.php?a=recupera_hores&c="+TAULA+"&d="+P+"&e="+C,	success: function(datos){
@@ -1083,8 +1185,11 @@ function onNovaReserva()
 			if (obj.error!=null && obj.error!='') $("#inserta_res_radio").html(obj.error);
 			else $("#inserta_res_radio").html(obj.dinar+obj.dinarT2+obj.sopar);
 			$( "#inserta_res_radio" ).buttonset();
+<<<<<<< HEAD
                         $( "#inserta_res_radio" ).find("label").unbind("mouseup");
                         
+=======
+>>>>>>> 35161c14c48ae123817b0aa7f8426b403453ede3
 			$( "#inserta_res_radio input" ).change(function(){max_comensals=$(this).attr("maxc");});
 		 }});		
 	}	
@@ -1093,9 +1198,14 @@ function onNovaReserva()
 		var input='<input type="text" name="hora"  value="'+hora+'" size="3" readonly="readonly" class="{required:true}" title=""/>';
 		$("#inserta_res_radio").html(input);
 	}
+<<<<<<< HEAD
 	$('#insertReserva').dialog('open');
 	$("#autoc_client_inserta_res").focus();
 
+=======
+	
+	
+>>>>>>> 35161c14c48ae123817b0aa7f8426b403453ede3
 	
 };
 
@@ -1139,7 +1249,11 @@ function comprova_backup()
 { 
 	var desti="gestor_reserves.php?a=reserves_orfanes";
 	$.post(desti,{r:rand},function(datos){
+<<<<<<< HEAD
 		if (datos.substr(0,14)=="<!--ORFANES-->") alert("ATENCIO!!!\nS'han detectat reserves perdudes: Per més detalls, ves al Panel de control > Eines avançades > Reserves perdudes"); 
+=======
+		if (datos) alert("ATENCIO!!!\nS'han detectat reserves perdudes: Per més detalls, ves al Panel de control > Eines avançades > Reserves perdudes"); 
+>>>>>>> 35161c14c48ae123817b0aa7f8426b403453ede3
 
 	});
 	if (!BACKUP_INTERVAL) return;
@@ -1266,7 +1380,11 @@ function excepcions_nits(date){
 function cercaReserves(s)
 {
 	$( "#reservesAc" ).hide();
+<<<<<<< HEAD
 	try{$( "#reservesAc" ).accordion("destroy");}catch(e){};
+=======
+	$( "#reservesAc" ).accordion("destroy");
+>>>>>>> 35161c14c48ae123817b0aa7f8426b403453ede3
 	
 	if (s && s!="" && s!="Cerca..." ) s="&c="+s;
 	
@@ -1280,7 +1398,11 @@ function cercaReserves(s)
 			
 			//$( "#reservesAc" ).accordion("resize");
 			addHandlersAccordionReserves();
+<<<<<<< HEAD
 			$( "#reservesAc" ).show("fade").accordion("refresh");;
+=======
+			$( "#reservesAc" ).show("fade");
+>>>>>>> 35161c14c48ae123817b0aa7f8426b403453ede3
 	}});	
 }
 

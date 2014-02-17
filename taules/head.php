@@ -10,8 +10,13 @@
 <link type="text/css" href="css/admin.css" rel="stylesheet" />	
 <link type="text/css" href="css/taules.css" rel="stylesheet" />	
 
+<<<<<<< HEAD
 <script src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
 <!-- <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script> -->
+=======
+
+<script src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
+>>>>>>> 35161c14c48ae123817b0aa7f8426b403453ede3
 <script>window.jQuery || document.write('<script src="js/jquery-2.0.3.min.js">\x3C/script>')</script>
 
 <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>    
