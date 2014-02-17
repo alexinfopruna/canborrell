@@ -15,14 +15,15 @@
 			var IDR=<?php echo $_REQUEST['idR']?$_REQUEST['idR']:0;?>;
 			var EDITABLE=<?php echo $EDITABLE?$EDITABLE:"false"?>;	
 		</script>		
-		<!----------------------------------------------------------------------------->		<!--<script type="text/javascript" src="../js/jquery-1.5.min.js"></script>-->
-		<script type="text/javascript">
-			//document.write("\<script src='//ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js' type='text/javascript'>\<\/script>");
-		</script>				
+		<!----------------------------------------------------------------------------->
+                
+                <?php echo Gestor::loadJQuery(); ?>
+                <!--
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js"></script>
-
+		<script type="text/javascript" src="../js/ui/js/jquery-ui-1.8.9.custom.min.js"></script>
+                -->
+                
 		<script class="jsbin" src="../js/DataTables/media/js/jquery.dataTables.min.js"></script>
-		<script type="text/javascript" src="../js/ui/js/jquery-ui-1.8.9.custom.min.js"></script>		
 		
 		<!----------------------------------------------------------------------------->
 		<!---- EDIT FORM 														------->
@@ -36,5 +37,6 @@
 		
 		<script type="text/javascript" src="../js/multiLang.js"></script>			
 		<script type="text/javascript" src="js/DBTable.js"></script>			
-		<script type="text/javascript" src="js/uitableedit/jquery.uitableedit.js"></script>		
+		<!--<script type="text/javascript" src="js/uitableedit/jquery.uitableedit.js"></script>	-->	
+		<script type="text/javascript" src="js/jquery.editinplace.js"></script>	
 		

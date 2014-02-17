@@ -12,6 +12,7 @@ var TAULA, N, P,C,F,CERCA;
 var ONLOAD_BLOC_CALEND=false;
 var ONLOAD_BLOC_TORN=false;
 var canvia_data_confirma=false;
+var AC_ACTIU;
 
 var reserva=0;
 var acop={collapsible:false,active:false,heightStyle: "content",fillSpace: true,clearStyle: true,autoHeight: false, change:function(event,ui){	client=$(ui.newHeader).find("a").attr("href").split("&id=")[1];	}};
@@ -164,7 +165,7 @@ $("#filtreCli").change(function(){
 			{
 				$("#filtreCli").val(FILTRE_CLI);
 				var opciones="toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=yes, width=900, height=650, top=85, left=50";				
-				popup=window.open("DBTable/LlistatClient.php","",opciones );
+				popup=window.open("DBTable/LlistatClient.php?futur=true","",opciones );
 				if (window.focus) {popup.focus();}				
 				e.preventDefault();
 				return false;
@@ -631,8 +632,8 @@ function cercaClients(s)
 
 function recargaAccordioReserves(creaNovaReserva)
 {
-	$("#reservesAc").html('<img src="css/loading_llarg.gif" class="loading_llarg"/>');
-	
+	AC_ACTIU=$("#reservesAc").scrollTop();
+ 	$("#reservesAc").html('<img src="css/loading_llarg.gif" class="loading_llarg"/>');
 	$.ajax({url: "gestor_reserves.php?a=accordion_reserves",success: function(datos){	
 			if (datos.trim().substr(0,3)!="<h3") 
 			{
@@ -641,6 +642,8 @@ function recargaAccordioReserves(creaNovaReserva)
 			}
 			$("#reservesAc").html(datos);
 			$("#reservesAc").hide();
+                        
+                        
                         
                         try{$( "#reservesAc" ).accordion("destroy");}catch(e){};
 			$( "#reservesAc" ).accordion(acopres);
@@ -656,6 +659,10 @@ function recargaAccordioReserves(creaNovaReserva)
 			$("#autoc_reserves_accordion").removeClass("cercador-actiu");
 
 			if (creaNovaReserva=="open") fromAS3_novaReserva(TAULA,N,P,C,F);
+                        
+                        $("#reservesAc").scrollTop(AC_ACTIU);
+                        //$("#reservesAc").scrollTo( $('#reservesAc h3:eq('+AC_ACTIU+')'));
+                        //$("#reservesAc").accordion('activate', parseInt(AC_ACTIU, 10)   );
 
 	}});	
 	if (ONLOAD_BLOC_TORN) $( "#radio input" ).button( "disable");	
@@ -958,6 +965,8 @@ function onClickAmpliaReserva()
 
 function obreDetallReserva(e)
 {
+    
+    AC_ACTIU=$(this).attr("n");//$(this).parent();
 		var desti=$(this).attr("href");
 		var data=$(this).attr("data");
 		$("#edit").html('<div class="loading"></div>');

@@ -27,7 +27,7 @@
 */
 jQuery.uiTableEdit = function(jq, options){
   function unbind(){
-    return jq.find( options.find ).die('mousedown.uiTableEdit');
+    return jq.find( options.find ).off('mousedown.uiTableEdit');
   }
   options = options || {}
   options.find = options.find || 'tbody > tr > td'
@@ -40,7 +40,8 @@ jQuery.uiTableEdit = function(jq, options){
   }
 
   function bind_mouse_down( mouseDn ){
-    unbind().live('mousedown.uiTableEdit', mouseDn );
+   // unbind().on('click','mousedown.uiTableEdit', mouseDn );
+    unbind(document).on('mousedown', mouseDn );
   }
   function td_edit(){
     var td = jQuery(this);

@@ -7,8 +7,22 @@ $(function(){
 	{
 	  var t = $('#grid')
 	  var options = {editDone:onEdit,"iDisplayLength": 50}
-	  $.uiTableEdit( t, options ) // returns t
-	}
+	  //$.uiTableEdit( t, options ) // returns t
+            $("td.no-bool").editInPlace({
+               url: EDITABLE,
+               show_buttons: true,
+               saving_image: "../css/loading.gif"
+
+           });	
+            $("td.bool").editInPlace({
+               url: EDITABLE,
+               show_buttons: true,
+               saving_image: "../css/loading.gif",
+		field_type: "select",
+		select_options: "true, false"
+
+           });	
+        }
 
 	$('#edit').dialog({
 		autoOpen: false,
@@ -17,7 +31,7 @@ $(function(){
 		modal:true,
 		buttons: {
 			"Guarda": function() { 
-					if (!$("form.form-edit").validate().form()) return alert("Les dades no són correctes!");
+					if (!$("form.form-edit").validate().form()) return alert("Les dades no sï¿½n correctes!");
 					$("form.form_"+TABLE).ajaxSubmit({success:afterEdit});					
 				
 					$(this).dialog("close"); 
@@ -69,7 +83,7 @@ function addTableListeners()
 		var desti=$(this).attr("href");
 		var col=$(this).parent().attr("col");
 		
-		if (col=="ui_icon_trash" && !confirm("Segur que vols eliminar el registre?\n\nAquesta acció és irreversible")) return false;
+		if (col=="ui_icon_trash" && !confirm("Segur que vols eliminar el registre?\n\nAquesta acciÃ³ Ã©s irreversible")) return false;
 		
 		$.ajax({url:desti,success:procesaRespostaAjax});
 		return false;
@@ -84,7 +98,7 @@ function cccaddTableListeners()
 		var id=$(this).attr("idR");
 		var col=$(this).attr("col");
 
-		if (col=="ui_icon_trash" && !confirm("Segur que vols eliminar el registre ID="+id+"?\n\nAquesta acció és irreversible")) return false;
+		if (col=="ui_icon_trash" && !confirm("Segur que vols eliminar el registre ID="+id+"?\n\nAquesta acciï¿½ ï¿½s irreversible")) return false;
 		
 		// DETALL REGISTRE PROPI
 		if (col=="idR") SELF="form_"+TABLE+".php";//TODO
@@ -118,7 +132,7 @@ function procesaRespostaAjax(resposta)
 
 		if (resp.resultat=="ko") 
 		{
-			popup("No s'ha pogut completar l'acció:<br/><br/>Error "+resp.n_error+"\n\n"+resp.m_error);
+			popup("No s'ha pogut completar l'acciï¿½:<br/><br/>Error "+resp.n_error+"\n\n"+resp.m_error);
 		}	
 		else if (resp.dialog) 
 		{

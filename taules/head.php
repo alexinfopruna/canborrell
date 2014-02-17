@@ -32,6 +32,7 @@
 		<script type="text/javascript" src="js/cb_autocompletes.js"></script>
 		<script type="text/javascript" src="js/swfobject.js"></script> 
 		<script type="text/javascript" src="js/jquery.fileDownload.js"></script> 
+		<script type="text/javascript" src="js/jquery.scrollTo.min.js"></script>
 
 		<script type="text/javascript" src="js/taules.js"></script>
 

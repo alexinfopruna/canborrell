@@ -728,6 +728,42 @@ class Gestor
 	}
 
 /******************************************************************************************************/
+	/* 
+	treu el codi html per carregar jquery + jquery ui del cdn de jquery
+	*/	
+	public static function loadJQuery($jqversion="1.11.0",$uiversion="1.10.3")
+	{
+            
+            $ROOT=ROOT;
+            
+            
+        $html= <<< EOHTML
+                
+<!-- ************************************************* -->            
+<!-- ************************************************* -->            
+<!-- *********      GESTOR::loadJQuery      ********** -->            
+<!-- ************************************************* -->            
+<!-- ************************************************* -->            
+<script src="http://code.jquery.com/jquery-{$jqversion}.min.js"></script>
+
+<script>window.jQuery || document.write('<script src="{$ROOT}js/jquery-{$jqversion}.min.js"><script>')</script>
+<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/{$uiversion}/jquery-ui.min.js"></script>    
+<script type="text/javascript">
+    if (typeof jQuery.ui == 'undefined') {
+        document.write(unescape("%3Cscript src='{$ROOT}js/jquery-ui-{$uiversion}.custom/js/jquery-ui-{$uiversion}.custom.min.js' type='text/javascript'%3E%3C/script%3E"));
+    };
+</script>                          
+<!-- ************************************************* -->            
+<!-- ************************************************* -->            
+<!-- ************************************************* -->            
+<!-- ************************************************* -->            
+
+EOHTML;
+            
+                return $html;
+	}
+
+/******************************************************************************************************/
 // TEST
 /******************************************************************************************************/
 	function test($t)

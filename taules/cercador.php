@@ -145,6 +145,8 @@ function controlsTaula($fila)
 				$("#grid td[col=idR]").click(function(e){	
 					var torn=$(this).attr("torn");
 					var data=$(this).attr("data");
+                                        var dat=$.datepicker.parseDate( "yy/mm/dd", data );
+                                        data=$.datepicker.formatDate('dd/mm/yy', dat);
 					var id=$(this).attr("id");
 					e.preventDefault();
 					window.opener.FROM_CERCADOR_obreDetallReserva(id,data,torn);

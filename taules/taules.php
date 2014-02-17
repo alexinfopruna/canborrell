@@ -207,7 +207,7 @@ if ((isset($_REQUEST["del_client"])) && ($_REQUEST["del_client"] > 0))
 	
 </form>-->
 	
-	<input id="autoc_client_accordion" /><a href="#" id="resetCerca" class="ui-state-default ui-corner-all" title="Elimina filtre">X</a>
+	<input id="autoc_client_accordion" type="text" name="autoc_client_accordion" value=""/><a href="#" id="resetCerca" class="ui-state-default ui-corner-all" title="Elimina filtre">X</a>
 
 		
 		

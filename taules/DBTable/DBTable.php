@@ -74,7 +74,7 @@ class DBTable extends Gestor
 
 			//$this->FILTRE=$were;
 			//$this->ORDRE=$were;
-			
+			//echo $this->QUERY.$were.$order;
 			$res=mysql_query($this->QUERY.$were.$order); 
 			return $res;
 	}

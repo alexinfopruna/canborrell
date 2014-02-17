@@ -14,16 +14,21 @@ ORDER BY config_descripcio
 ";
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
-$EDITABLE="true";
+$EDITABLE= '"'.$_SERVER['PHP_SELF'].'"';
 
-if ($_POST["edit_id"])
+//if ($_POST["edit_id"])
+if ($_POST["update_value"])
 {
 	require_once("DBTable.php");
 	$gestor=new DBTable($query);
 
 //if ($_POST["edit_col"]!="Valor") return;
-	$camp=$TABLE."__".$_POST["edit_col"]."__".$_POST["edit_id"];
-	/*
+        //$exp=explode("-",$_POST["element_id"]);
+       // $columna=$exp[0];
+       // $edit_id=$exp[1];
+        
+	$camp=$TABLE."__".$_POST["element_id"];//die($camp);
+        /*
 	echo $_POST["val"];
 	echo "<br/>";
 	echo $_POST["be"];
@@ -36,7 +41,7 @@ if ($_POST["edit_id"])
 	echo $camp;
 	echo "<br/>";
 	*/
-	echo $gestor->updateValor($camp,$_POST["val"]);
+	echo $gestor->updateValor($camp,$_POST["update_value"]);
 	die();
 }
 include("Llistat.php");

@@ -1,5 +1,5 @@
 <?php
-$EDITABLE = "true";
+//$EDITABLE = "true";
 
 if (!defined('ROOT')) define('ROOT', "../");
 require_once("DBTable.php");
@@ -12,8 +12,7 @@ $res = $gestor->query($FILTRE);
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html>
 
-	<head>
-		<meta http-equiv="Content-Type"  content="text/html; charset=utf-8" />
+	<head>		<meta http-equiv="Content-Type"  content="text/html; charset=utf-8" />
 	<?php 
 		include("DBTableHead.php");
 		if (file_exists("DBTHead.php")) include("DBTHead.php");
@@ -22,7 +21,11 @@ $res = $gestor->query($FILTRE);
 	<body>
 		<h2>ADMINISTRACIÓ DE <?php echo $TABLE;?></h2>
 		<?php //include("DBTableFiltres.php");?>
+        <header>
+            
+        </header>
 		<div id="popup_cercador" style="display:none">
+
 
 
 <?php 
@@ -46,17 +49,21 @@ $res = $gestor->query($FILTRE);
 			while ($row)
 			{	
 				$idr=$row['idR'];
-			
+		
 			?>
 					<tr style="<?php echo (!empty($dbdel)?"background:#fee;":""); ?>" class="ffila">
 			<?php
+                        $n=0;
 				foreach($row as $k => $v) 
 				{
-					echo '<td col="'.$k.'" tipus="'.substr($k,0,4).'" class="'.$row[$k].'" idR="'.$idr.'">';	
+                                    
+                                        $bool=($v=='true' || $v=='false')?' bool ':' no-bool ';
+					echo '<td id="'.$k.'__'.$idr.'" col="'.$k.'" tipus="'.substr($k,0,4).'" class="'.$row[$k].$bool.'" idR="'.$idr.'">';	
 					
 					echo $gestor->controlsTaula($row,$k);
 
 					echo "</td>";
+                                        $n++;
 				}
 			?>
 					</tr>

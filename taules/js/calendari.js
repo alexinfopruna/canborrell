@@ -178,6 +178,7 @@ function monta_calendari(selector)
 
 		minDate: limit_passat,
 		onSelect: function(dateText, inst) { 
+                        AC_ACTIU=0;
 			if (ONLOAD_BLOC_TORN) $( "#radio input" ).button( "disable");	
 			if (ONLOAD_BLOC_CALEND) $("#calendari").datepicker("disable");
 			date_session=$(this).val();

@@ -14,7 +14,7 @@ function cb_autocompletes(){
 /**
  * AUTOCOMPLETE CERCADOR CLI
  */
-     $("#autoc_client_accordion, #autoc_reserves_accordion",CERCADOR).autocomplete({
+     $("#autoc_reserves_accordion").autocomplete({
       source:"gestor_reserves.php?a=autocomplete_clients&p=modo",
       minLength: 4,
       autoFocus: true,
@@ -23,6 +23,21 @@ function cb_autocompletes(){
             $("#autoc_client_accordion",CERCADOR).val(this.value);
             $("#autoc_reserves_accordion",CERCADOR).val(this.value);
           cercaReserves(this.value);
+      }
+  
+    });
+/**
+ * AUTOCOMPLETE CERCADOR CLI
+ */
+     $("#autoc_client_accordion").autocomplete({
+      source:"gestor_reserves.php?a=autocomplete_clients&p=modo",
+      minLength: 4,
+      autoFocus: true,
+      select: function( event, ui ) {
+          
+            $("#autoc_client_accordion",CERCADOR).val(this.value);
+            $("#autoc_reserves_accordion",CERCADOR).val(this.value);
+          cercaClients("&p=0&c="+this.value);
       }
   
     });
