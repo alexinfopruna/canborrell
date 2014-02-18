@@ -63,11 +63,7 @@ position:relative;left:-440px;font-size:3em;z-index:2;width:650px;
 .ui-icon-triangle-1-e{    background-position: -128px -112px;}
 
 .ui-accordion-content-active{height:auto;}
-<<<<<<< HEAD
 .ui-accordion-content-active p{padding:3px;border:#444 solid 1px;margin-bottom:0px;background:white}
-=======
-.ui-accordion-content-active p{padding:3px;border:#444 solid 1px;margin-bottom:30px;background:white}
->>>>>>> 35161c14c48ae123817b0aa7f8426b403453ede3
 .ui-accordion .ui-accordion-header a {padding: .5em .5em .5em 2em;}
 
 

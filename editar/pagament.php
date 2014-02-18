@@ -88,7 +88,7 @@ mysql_free_result($Result);
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>Detall de reserva</title>
-<script type="text/javascript" src="js/jquery-1.2.3.pack.js" ></script>
+               <?php echo Gestor::loadJQuery("2.0.3"); ?>
 <link href="reserves.css" rel="stylesheet" type="text/css" />
 <link href="../estils.css" rel="stylesheet" type="text/css" />
 <?php

@@ -71,7 +71,7 @@ $totalPages_reserves = ceil($totalRows_reserves/$maxRows_reserves)-1;
 <title>Gestió de reserves</title>
 <link href="reserves.css" rel="stylesheet" type="text/css" />
 <link href="../estils.css" rel="stylesheet" type="text/css" />
-<script language="javascript" src="js/jquery-1.2.3.pack.js"></script>
+               <?php echo Gestor::loadJQuery("2.0.3"); ?>
 <script>
 	$(function(){
 		$(".cerca").click(function(e){

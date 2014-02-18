@@ -53,14 +53,9 @@ if (isset($_GET['exit']))
 	iframe{width:100%;height:1000px;display:none;background:white;background-image:none;}
 </style>
 
-		<script type="text/javascript">
-//			document.write("\<script src='//ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js' type='text/javascript'>\<\/script>");
-			document.write("\<script src='//ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js' type='text/javascript'>\<\/script>");
-		</script>				
-		<!--<script type="text/javascript" src="js/include.js"></script>-->
-		<script type="text/javascript" src="../taules/js/ui/js/jquery-ui-1.8.9.custom.min.js"></script>	
+               <?php echo Gestor::loadJQuery("2.0.3"); ?>
 <script>
-$(function(){$("#panel").accordion({collapsible:true,active:false});
+$(function(){$("#panel").accordion({collapsible:true,active:false,heightStyle: "content",fillSpace: false,clearStyle: false,autoHeight: true});
 /*	
 	$("a").click(function(){
 		var desti=$(this).attr("href");

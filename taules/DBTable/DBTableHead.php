@@ -17,12 +17,8 @@
 		</script>		
 		<!----------------------------------------------------------------------------->
                 
-                <?php echo Gestor::loadJQuery(); ?>
-                <!--
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js"></script>
-		<script type="text/javascript" src="../js/ui/js/jquery-ui-1.8.9.custom.min.js"></script>
-                -->
-                
+               <?php echo Gestor::loadJQuery("2.0.3"); ?>
+                 
 		<script class="jsbin" src="../js/DataTables/media/js/jquery.dataTables.min.js"></script>
 		
 		<!----------------------------------------------------------------------------->

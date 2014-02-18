@@ -1,6 +1,7 @@
 <?php
 	if (!defined('ROOT')) define('ROOT', "../taules/");
-	require(ROOT."php/Configuracio.php");
+	require(ROOT."Gestor.php");
+	//require(ROOT."php/Configuracio.php");
 	$cfg=new Configuracio();
 	require(ROOT.INC_FILE_PATH."alex.inc");
 	$factures=scan_Dir(ROOT.INC_FILE_PATH."factures/");
@@ -39,13 +40,7 @@
 	iframe{width:100%;height:1000px;display:none;background:white;background-image:none;}
 	.cb-llistat{width:600px;margin:auto auto;background:white;padding:8px;border:darkgray solid 1px}
 </style>
-		<script type="text/javascript">
-			document.write("\<script src='https://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js' type='text/javascript'>\<\/script>");
-		</script>				
-		<script type="text/javascript" src="../taules/js/ui/js/jquery-ui-1.8.9.custom.min.js"></script>
-<script>
-	
-</script>
+               <?php echo Gestor::loadJQuery("2.0.3"); ?>
 </head>
 <body>
 <h1>Llistat de factures Proforma</h1>

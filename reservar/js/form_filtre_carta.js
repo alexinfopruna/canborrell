@@ -47,7 +47,7 @@ $(function(){
 	//$(".contador").val(0);
 	
 	$(".contador").each(function(){
-		if ($(this).attr('checked'))
+		if ($(this).prop('checked'))
 		{
 			$(this).parent().next().addClass("carta-seleccio");
 			$(this).addClass("carta-seleccio");
@@ -62,7 +62,7 @@ $(function(){
 		alert(checked);
 		
 		$(this).parent().find("input").each(function(){
-			$(this).attr('checked',check);
+			$(this).prop('checked',check);
 			var cpid=$(this).attr('cpid');
 			$.post("Gestor_filtre_carta.php?a=check_plat",{b:cpid,c:check});
 		});
@@ -103,7 +103,7 @@ $(function(){
 	
 	
 	$(".contador").change(function(){
-		var checked=$(this).attr('checked');
+		var checked=$(this).prop('checked');
 		var cpid=$(this).attr('cpid');
 		
 		if (!checked)

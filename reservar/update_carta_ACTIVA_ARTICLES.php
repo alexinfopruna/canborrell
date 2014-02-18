@@ -60,10 +60,7 @@ $max_juniors=$gestor->configVars("max_juniors");
 
 <noscript><meta http-equiv="refresh" content="0; nojscript.html"/></noscript>
 
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js"></script>
-			
-		<!--<script type="text/javascript" src="../taules/js/jquery-1.5.min.js"></script>-->
-		<script type="text/javascript" src="../taules/js/ui/js/jquery-ui-1.8.9.custom.min.js"></script>
+               <?php echo Gestor::loadJQuery("2.0.3"); ?>
 		<script type="text/javascript" src="../taules/js/ui/dev/ui/i18n/jquery.ui.datepicker-ca.js"></script>
 		<script type="text/javascript" src="../taules/js/ui/dev/ui/i18n/jquery.ui.datepicker-es.js"></script>
 		<script type="text/javascript" src="../taules/js/jquery.metadata.js"></script>
