@@ -185,7 +185,7 @@ function updateMenus(){
 	
 	$("#bt-carta").show();
 	$("#fr-carta-tabs").show();
-	$("#bt-menu span").html(l("Veure els menús"));
+	//$("#bt-menu span").html(l("Veure els menús"));
 
 	if (excepcioNadal){
 		/*

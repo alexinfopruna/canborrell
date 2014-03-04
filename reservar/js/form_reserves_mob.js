@@ -85,20 +85,19 @@ $(function(){
 			}
 		}
 	);
-var dlg={
-		autoOpen: true,
+	$("#help").dialog({
+		autoOpen: false,
 		modal:true,
-		width: '100%',
+		width: 400,
 		buttons: {
 			"Continuar": function() { 
 				$(this).dialog("close"); 
-				//if (!SECCIO) seccio(SECCIO_INICIAL);
+				if (!SECCIO) seccio(SECCIO_INICIAL);
 				SECCIO_INICIAL=null;
 			} 
 		}
-	};
-        
-	//$("#help").dialog(dlg);
+	}
+	);
 
 	$(".ncoberts").html(PERSONES_GRUP-1);
 	var t=setTimeout("timer()",TIMER_INTERVAL);
@@ -118,16 +117,16 @@ var dlg={
 	
 	$('#form-reserves').resetForm();
 
-	$("#selectorComensals").buttonset();$( "#selectorComensals" ).find("label").unbind("mouseup");
-	$("#selectorJuniors").buttonset();$( "#selectorJuniors" ).find("label").unbind("mouseup");
-	$("#selectorNens").buttonset();$( "#selectorNens" ).find("label").unbind("mouseup");
-	$("#selectorCotxets").buttonset();$( "#selectorCotxets" ).find("label").unbind("mouseup");
-	$("#selectorCadiraRodes").buttonset();$( "#selectorCadiraRodes" ).find("label").unbind("mouseup");
+	//$("#selectorComensals").buttonset();
+	//$("#selectorJuniors").buttonset();
+	//$("#selectorNens").buttonset();
+	//$("#selectorCotxets").buttonset();
+	//$("#selectorCadiraRodes").buttonset();
 	
-	$("input[type=submit]").button();$( "input[type=submit]" ).find("label").unbind("mouseup");
+	//$("input[type=submit]").button();
 	
 	$("#selectorComensals input[value=grups]").click(function(){window.location.href="form_grups.php";return false;})
-	$("button, .bt").button();$( "button, .bt" ).find("label").unbind("mouseup");
+	//$("button, .bt").button();
 
 	
 	
@@ -190,37 +189,15 @@ var dlg={
 	
 	controlSubmit();
 	//RESETEJA EL TIMER D'AJUDA SI TOCA LA PANTALLA
-	//$(document).change(function(e) {clearTimeout(th);	if (SECCIO) th=setTimeout('timer_help("'+l(SECCIO)+'")',TIMER_HELP_INTERVAL);});
+	$(document).change(function(e) {clearTimeout(th);	if (SECCIO) th=setTimeout('timer_help("'+l(SECCIO)+'")',TIMER_HELP_INTERVAL);});
 	
 	$("body").fadeIn("slow");
 	
-/*
-$.scrollTo( $("#selectorComensals"),1000,function(){
-    $("#help").dialog(dlg)
-            //.position( { 'my': 'center', 'at': 'center', 'of':window });
-
-    });
-*/    
-    
-//$("#help").position( { 'my': 'center top', 'at': 'center top', 'of':window });
-
-$("#help").dialog(dlg);
-
-$(".info-ico").click(function(e){
-    
-    id=$(this).attr("id");
-    $("#help").html($("."+id).html());
-    $("#help").dialog("open");
-    e.preventDefault();});
 
 
+//MOBIL $("#help").dialog("open");
 
 $("textarea[name='observacions']").change(observacions_cotxets);
-/* RESET HELP ON ANY INPUT */
-$('*').bind('blur change click dblclick error focus focusin focusout keydown keypress keyup load mousedown  mouseleave    mouseup resize scroll select submit', function(){
-  	  clearTimeout(th);	if (SECCIO) th=setTimeout('timer_help("'+l(SECCIO)+'")',TIMER_HELP_INTERVAL);
-
-});
 
 }); //ONLOAD, PRESENTACIO UI
 /************************************************************************************************************/
@@ -253,60 +230,43 @@ $('*').bind('blur change click dblclick error focus focusin focusout keydown key
 function comportamentQuantsSou()
 {
 	//ADULTS
-	$(".fr-seccio-quants").change(function(e){
+	$("#selectorComensals").change(function(){
 		ADULTS=$("input[name='selectorComensals']:checked").val();
 		$("input[name='adults']").val(ADULTS)
 		totalPersones();
 		//$("#selectorComensals").buttonset("destroy");
 		//$("#selectorComensals").buttonset();
-                if (!ADULTS) return;
-                
+
 		if ($(".fr-seccio-dia").is(":hidden")) 
 		{
 			monta_calendari("#calendari");
 			$(".fr-seccio-dia").show();
-			//seccio("fr-seccio-dia");
-                        
-                        clearTimeout(th);//
-                        th=setTimeout('timer_help("'+l("fr-seccio-dia")+'")',TIMER_HELP_INTERVAL);
-                        SECCIO="fr-seccio-dia";
-                       
+			seccio("fr-seccio-dia");
 			updateCalendari();
 		}
-                
-         
-                 
-                
-              
-                 
 		//return false;
 	});
-        
-	$("input[name=selectorComensals]").change(function(){ $.scrollTo("#titol_SelectorJuniors",600);});	
+	
 	//JUNIORS
 	$("input[name=selectorJuniors]").change(function(){
 		JUNIORS=$("input[name='selectorJuniors']:checked").val();
 		$("input[name='nens10_14']").val(JUNIORS)
 		totalPersones();
-                $.scrollTo("#titol_SelectorNens",600);
 		//return false;
 	});
 	
 	//NENS
 	$("input[name=selectorNens]").change(function(){
 		NENS=$("input[name='selectorNens']:checked").val();
-		$("input[name='nens4_9']").val(NENS);
+		$("input[name='nens4_9']").val(NENS)
 		totalPersones();
-                $.scrollTo("#titol_SelectorCotxets",600);
 		//return false;
 	});
 	
 	//COTXETS
 	$("input[name=selectorCotxets]").change(function(){
 		COTXETS=$("input[name='selectorCotxets']:checked").val();
-                timer_help(l("NENS_COTXETS"));
-                $.scrollTo("#titol_SelectorCadiraRodes",600,function(){});
-		//BARREJA NENS COTXETS!!
+		timer_help(l("NENS_COTXETS"));//BARREJA NENS COTXETS!!
 		totalPersones();
 		//return false;
 	});	
@@ -402,11 +362,11 @@ function recargaHores()
 		var txt="";
 		if ((obj.dinar+obj.dinarT2)=="") txt=l("Cap taula o restaurant tancat");
 		$("#selectorHora").html(obj.dinar+obj.dinarT2+txt);
-		$("#selectorHora").buttonset();
+		//MOBIL $("#selectorHora").buttonset();
 		txt="";
 		if (obj.sopar=="") txt=l("Cap taula o restaurant tancat");
 		$("#selectorHoraSopar").html(obj.sopar+txt);		
-		$("#selectorHoraSopar").buttonset();
+		//MOBIL  $("#selectorHoraSopar").buttonset();
 		
 		//ALERTA SI NO HI HA TAULA
 		if ((obj.dinar+obj.dinarT2+obj.sopar)=="")
@@ -434,7 +394,11 @@ function recargaHores()
 			updateResum();
 		
 		})
-		$(".fr-seccio-hora").trigger("change");
+		$("#selectorHora").trigger("create");
+                //$("#selectorHora").trigger("enhance")
+		//$(".fr-seccio-hora").trigger("create");
+               // $(".fr-seccio-hora").trigger("enhance")
+		//$(".fr-seccio-hora").trigger("change");
 	});
 
 }
@@ -860,8 +824,6 @@ function timer_help(txt)
 {
 	if (!SECCIO) return clearInterval(th);
 	$("#help").html(txt);
-        
-        //$( "#help" ).dialog( "option", "position",{ 'my': 'bottom center', 'at': 'center', 'of':window});
 	$("#help").dialog("open");
 	
 	SECCIO=null;

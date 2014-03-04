@@ -65,7 +65,7 @@ $translate['INFO_COMANDA']="Pots escollir diferents menús o diferents plats de 
 	$translate['Adults']="Adults (més de 14 anys):";
   $translate['ADULTS_TECLAT']='<span class="gris-ajuda">&#8625;Pots teclejar el número si no apareix un botó amb el valor adequat</span>';
 	
-	$translate['Cotxets de nadó']="Nens en cotxet de nadó. <b>El nen ocuparà el cotxet <br/>i no una cadira/trona</b>";
+	$translate['Cotxets de nadó']="Nens en cotxet de nadó. <br/><b style='font-size:0.8em'>El nen ocuparà el cotxet i no una cadira/trona</b>";
 
 	
 	$translate['INFO_QUANTS_SOU']='<b>Digue\'ns quantes persones vindreu</b>, indicant, en primer lloc els majors de 14 anys seguit de juniors i nens. 

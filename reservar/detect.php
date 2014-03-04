@@ -34,10 +34,10 @@ var check = false;
 return check; }
 
 
-alert(typeof window.orientation !== 'undefined');
+alert(navigator.userAgent + "window.orientation "+(typeof window.orientation !== 'undefined'));
 
 
-	alert(window.mobilecheck());
+	alert("window.mobilecheck "+window.mobilecheck());
 	</script>
 	</head>
 	<body>

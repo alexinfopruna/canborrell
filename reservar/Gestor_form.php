@@ -133,12 +133,12 @@ class Gestor_form extends gestor_reserves
 	
 	/**********************************************************************************************************/	
 	public function horesDisponibles($data,$coberts,$cotxets=0,$accesible=0,$idr=0)
-	{
+	{		
+
 		$mydata=$this->cambiaf_a_mysql($data);
 	
 		//$this->taulesDisponibles->tableHores="estat_hores_form";
     $this->taulesDisponibles->tableHores="estat_hores";   //ANULAT GESTOR HORES FORM. Toto es gestiona igual, des de estat hores
-				
 		if ($idr) 
 		{
 			if (!$this->taulesDisponibles->loadReserva($idr)) 
@@ -278,13 +278,22 @@ ORDER BY carta_subfamilia_order,carta_plats_nom_es , carta_plats_nom_ca";
 			
 			$odd=($l%2)?"odd":"pair";
 			$tr.='<tr producte_id="'.$val['id'].'" class="item-carta '.$odd.$menuEspecial.'">
-				<td class="mes"></td>
-				<td class="menys"></td>
+				<td  class="mes"><div  class="d-mes ui-corner-all" >+</div></td>
+				<td class="contador">
+                                <div  class="mes"><div  class="m-mes ui-corner-all"> + </div></div>
+                                <input id="carta_contador'.$val['id'].'" nid="'.$val['id'].'" type="text" name="carta_contador'.$c++.'" class="contador '.$class.'" '.$value.' preu="'.$preu.'" nom="'.$val['nom'].'"/>
+                                 <div  class="menys"><div  class="m-menys ui-corner-all"> - </div></div>   
+
+</td>
+				<td class="menys"><div  class="d-menys ui-corner-all" >-</div></td>
 				<td class="borra" style="display:none"></td>
-				<td><input id="carta_contador'.$val['id'].'" nid="'.$val['id'].'" type="text" name="carta_contador'.$c++.'" class="contador '.$class.'" '.$value.' preu="'.$preu.'" nom="'.$val['nom'].'"/></td>
 				<td class="resum-carta-nom" href="Gestor_form.php?a=TTmenu&b='.$val['id'].'">'.$val['nom'].'</td>
 				<td class="td-carta-preu"><span class="carta-preu">'.$preu.'</span>&euro; </td>
-				<!--<td class="carta-subtotal"><em>(subtotal: <span class="carta-preu-subtotal">0</span>&euro; )</em></td></tr>-->'.PHP_EOL;
+				<!--<td class="carta-subtotal"><em>(subtotal: <span class="carta-preu-subtotal">0</span>&euro; )</em></td></tr>-->
+                                           
+
+'.PHP_EOL;
+             
 		}
 		
 		$tancaTaula='

@@ -1,4 +1,4 @@
-<div class="caixa resum no-grup ui-corner-all" style="float:left;width:270px;">
+<div class="caixa resum no-grup ui-button ui-widget ui-state-default ui-button  ui-button-text-only ui-corner-all" style="float:left;width:270px;">
 <?php 
 l("INFO_NO_EDITAR_GRUPS");
 
@@ -11,7 +11,7 @@ $data=Gestor::cambiaf_a_normal($row['data']);
 
 
 
-<div id="caixa_reserva_consulta_online" class="ui-corner-bottom " style="width:400px;background:#FCFCFF;border:#AAA solid 1px;">
+<div id="caixa_reserva_consulta_online" class="ui-button ui-widget ui-state-default ui-button-text-only ui-corner-all" style="width:400px;background:#FCFCFF;border:#AAA solid 1px;">
 			 <?php  l("[Contactar amb el restaurant]");?><br/><br/>
 <div class="ui-corner-all caixa resum" style="margin:8px;text-align:left;color:#999;">
 	<b><?php l('Resum reserva');?>:</b><br/><br/>
