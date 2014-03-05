@@ -297,7 +297,10 @@ $("#tabs").tabs();
 		buttons: {
 			"Guarda": function() { 
 				guardat=true;
+                                
+                                 $.metadata.setType("html5");
 				if (!$("form.inserta_res").validate().form()) return;
+                               
 				try{$( "#reservesAc" ).accordion("destroy");}catch(e){};
 				$('form.inserta_res').ajaxSubmit({target:'#reservesAc',success:recargaAccordioReserves});			
 				$(this).dialog("close"); 
@@ -401,7 +404,7 @@ jQuery.validator.setDefaults({
     massages: {required:'Has d´omplir aquest camp'} 
 });
 var validator_inserta_cli=$("form.inserta_cli").validate();
-var validator_inserta_res=$("form.inserta_res").validate();
+var validator_inserta_res=$("form.inserta_res").validate(validationRules());
 	
 	
 /***********************************************************************************/
@@ -1044,7 +1047,13 @@ function onNovaReserva()
 	$("form.inserta_res_radio input[name='client_id']").attr("class","{required:true}");
 	
 	$("#inserta_res_radio").html("");
-	$("form.inserta_res").validate().resetForm();
+        
+        var val=validationRules();
+	$("form.inserta_res").validate(val).resetForm();
+	$(".inserta_res input[name=total]").rules("add",{personesInsert:true});
+	$("#confirma_data_inserta_res").rules("add",{required:true});
+        
+        
 	$("input[name=adults]").val("");
 	$("input[name=nen4_9]").val("");
 	$("input[name=nen10_14]").val("");
@@ -1061,8 +1070,6 @@ function onNovaReserva()
 	$(".combo_clients").trigger('change');
 	
 	
-	$(".inserta_res input[name=total]").rules("add",{personesInsert:true});
-	$("#confirma_data_inserta_res").rules("add",{required:true});
 	
         
 	var hora=$("#zoom input[name='hora']:checked").val();
@@ -1382,6 +1389,31 @@ function controlNumMobil()
 			$(".sense-numero").html("Sense número");	
 		}
 	});
+}
+
+function validationRules(){
+    $.validator.messages.required = 'Aquest camp és necessari';
+    var val={
+			
+			rules: {
+			client_cognoms:"required",
+			client_nom: "required",
+			client_email: "email",
+			client_mobil: 
+			{
+				required:true,
+				number:true,
+				minlength:9
+			},
+			confirma_data: "required",
+			hora: "required",
+			data: "required",
+                        adults:{min:1}
+		}
+
+	}
+        
+        return val;
 }
 	
 function debug(text)

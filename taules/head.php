@@ -19,8 +19,9 @@
 </script>                
 
 		<script type="text/javascript" src="js/ui/dev/ui/i18n/jquery.ui.datepicker-ca.js"></script>
-		<script type="text/javascript" src="js/jquery.metadata.js"></script>
 		<script type="text/javascript" src="js/jquery.validate.min.js"></script>
+		<!-- <script type="text/javascript" src="js/jquery.metadata.js"></script> -->
+		<script type="text/javascript" src="//cdn.jsdelivr.net/jquery.metadata/2.0/jquery.metadata.min.js"></script>
 		<script type="text/javascript" src="js/jquery.form.js"> </script>
 		<script type="text/javascript" src="js/jquery.bestupper.min.js"></script> 
 		<script type="text/javascript" src="js/jquery.timers.js"></script>

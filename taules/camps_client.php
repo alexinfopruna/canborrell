@@ -11,7 +11,7 @@
 		<td nowrap="nowrap" align="right">MOBIL/FIXE 1:
 </td>
 		<td align="left">
-			<input id="autoc_client_<?php echo trim($class) ?>"  type="text" name="client_mobil" value="<?php echo ($row_client['client_mobil']); ?>" size="10"  class="{required:true,number:true} autoc_client" />
+			<input id="autoc_client_<?php echo trim($class) ?>"  type="text" name="client_mobil" value="<?php echo ($row_client['client_mobil']); ?>" size="10"  class="required autoc_client" />
 			<input type="hidden" name="client_id" value="<?php echo ($row_client['client_id']); ?>" size="2"  tabindex="-1" readonly="readonly" disabled="disabled"/>
 		<button  style="font-size:0.8em;font-weight:normal;padding:3px;" type="button" class="sense-numero ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only ui-state-hover" role="button" aria-disabled="false">Sense número</button>			
 			
