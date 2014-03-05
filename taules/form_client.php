@@ -50,7 +50,7 @@ else
 	  <tr valign="baseline">
 		<td nowrap="nowrap" align="right">nom:</td>
 		<td align="left">
-			<input type="text" name="client_nom" value="<?php echo $row_client['client_nom'] ?>" size="32" class="required"   title="Has d´omplir aquest valor"  />
+			<input type="text" name="client_nom" value="<?php echo $row_client['client_nom'] ?>" size="32" class=""   title="Has d´omplir aquest valor"  />
 		</td>
 	  </tr>
 		
