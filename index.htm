@@ -1,8 +1,10 @@
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <HTML>
 <HEAD>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <TITLE> Masia Can Borrell </TITLE>
-	<meta name="Keywords" content="Plats típics, Restaurant, Sant Cugat del Vallès">
+	<meta name="Keywords" content="Plats tï¿½pics, Restaurant, Sant Cugat del Vallï¿½s">
 	<meta name="Description" content="Restaurant Masia Can Borrell">
 	<meta name="Author" content="topeweb.com">
 <link type="text/css" href="reservar/css/custom-theme/jquery-ui-1.8.16.custom.css" rel="stylesheet" />	
@@ -10,7 +12,7 @@
 BODY {font-family:verdana, arial, helvetica; font-size: 13px;}
 TD {font-family:verdana, arial, helvetica; font-size: 13px;}
 A {Text-decoration:none; font-weight:bold;}
-A:hover { text-deco	ration: none; color: #FF9900;}
+A:hover { text-decoration: none; color: #FF9900;}
 .novetat
 {
 	/*display:none;*/
@@ -18,7 +20,7 @@ A:hover { text-deco	ration: none; color: #FF9900;}
 	margin-bottom:12px;
 	background: white;
 	background-image: url('reservar/css/nuevo.png');
-	width: 600px;
+	max-width: 600px;
 	
 	padding: 8px;
 	border: red solid 1px;
@@ -30,13 +32,17 @@ A:hover { text-deco	ration: none; color: #FF9900;}
 box-shadow: 4px 4px 4px #ccc;	
 	
 }
-
+.novetat a{display:block;margin-bottom:0.1em;}
 .novetat a:link{	color: red;}
 .novetat a:visited{	color: red;}
 .novetat a:hover{	color: #c00;}
 
+
+img.img-porro{max-width:100%}
+
 </STYLE>
-<script type="text/javascript" src="ieupdate.js"></script>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/swfobject/2.2/swfobject.js"></script>
+
 </HEAD>
 <BODY BGCOLOR="#F8F8F0" TEXT="#000000" ALINK="#CC0000" VLINK="#CC0000" LINK="#CC0000">
 <TABLE CELLPADDING="0" CELLSPACING="0" WIDTH="100%" HEIGHT="100%" BORDER="0">
@@ -45,11 +51,11 @@ box-shadow: 4px 4px 4px #ccc;
 	<TD ALIGN="RIGHT" style="">
 		<div class="novetat ui-corner-all">
 			<img src="img/nuevo_pk.png" style="float:left;margin-top:-6px;" />
-			<a href="reservar/form.php?lang=cat" title="Reserva online ràpida i senzilla: Des de casa, sense trucades ni esperes">
+			<a  href="reservar/form.php?lang=cat" title="Reserva online rÃ pida i senzilla: Des de casa o el mÃ²bil, sense trucades ni esperes">
 				Coneix el NOU sistema de reserves online (catal&agrave;)
 			</a>
 			<br/>
-			<a href="reservar/form.php?lang=esp" title="Reserva online rápida y sencilla: Desde casa, sin telefonear ni esperar">
+			<a href="reservar/form.php?lang=esp" title="Reserva online rÃ¡pida y sencilla: Desde casa o el mÃ³vil, sin telefonear ni esperar">
 				Conoce el NUEVO sistema de reservas online (castellano)	
 			</a>
 		</div>
@@ -58,7 +64,7 @@ box-shadow: 4px 4px 4px #ccc;
 	</TR>
 	<TR>
 		<TD VALIGN="TOP"><A HREF="http://www.topeweb.com" TARGET="_blank"><IMG SRC="img/hp_credits.gif" WIDTH="10" HEIGHT="111" BORDER="0" TITLE="www.topeweb.com"></A></TD>
-		<TD ALIGN="CENTER"><script type="text/javascript">startIeFix();</script><object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=5,0,0,0" width="730" height="550">
+		<TD id="animacio" ALIGN="CENTER"><script type="text/javascript">startIeFix();</script><object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=5,0,0,0" width="730" height="550">
 <param name=movie value="img/porro.swf">
 <param name=quality value=high>
 <PARAM NAME=bgcolor VALUE=#F8F8F0>
@@ -77,4 +83,9 @@ box-shadow: 4px 4px 4px #ccc;
 	</TR>
 </TABLE>
 </BODY>
+    
+    <script type="text/javascript">
+    if (swfobject.getFlashPlayerVersion().major !== 0) 
+        document.getElementById("animacio").innerHTML='<img src="img/porro.png" class="img-porro" />';
+</script>
 </HTML>
