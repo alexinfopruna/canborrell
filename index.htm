@@ -1,4 +1,3 @@
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <HTML>
 <HEAD>
@@ -38,8 +37,12 @@ box-shadow: 4px 4px 4px #ccc;
 .novetat a:hover{	color: #c00;}
 
 
-img.img-porro{max-width:100%}
+img.img-porro{max-width:80%}
 
+@media all and (max-width:500px) {
+    .novetat
+{font-size:2em;}
+}
 </STYLE>
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/swfobject/2.2/swfobject.js"></script>
 
@@ -85,7 +88,7 @@ img.img-porro{max-width:100%}
 </BODY>
     
     <script type="text/javascript">
-    if (swfobject.getFlashPlayerVersion().major !== 0) 
-        document.getElementById("animacio").innerHTML='<img src="img/porro.png" class="img-porro" />';
+    if (swfobject.getFlashPlayerVersion().major !== 0) {a=0}
+    else   document.getElementById("animacio").innerHTML='<img src="img/porro.gif" class="img-porro" />';
 </script>
 </HTML>
