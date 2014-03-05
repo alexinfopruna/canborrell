@@ -30,14 +30,14 @@
 	  <tr valign="baseline">
 		<td nowrap="nowrap" align="right">COGNOMS:</td>
 		<td align="left">
-			<input type="text" name="client_cognoms" value="<?php echo $row_client['client_cognoms'] ?>" size="32"   class="{required:true}"  />
+			<input type="text" name="client_cognoms" value="<?php echo $row_client['client_cognoms'] ?>" size="32"   class="required"  />
 		</td>
 	  </tr>
 	  
 	  <tr valign="baseline">
 		<td nowrap="nowrap" align="right">NOM:</td>
 		<td align="left">
-			<input type="text" name="client_nom" value="<?php echo $row_client['client_nom'] ?>" size="32" class="{required:true}"     />
+			<input type="text" name="client_nom" value="<?php echo $row_client['client_nom'] ?>" size="32" class="required"     />
 		</td>
 	  </tr>
 		
@@ -67,7 +67,7 @@
 			EMAIL:
 		</td>
 		<td>
-			<input type="text" name="client_email" value="<?php echo $row_client['client_email']; ?>" size="40"  class="{email:true}"   title="L´email no és correcte"/>
+			<input type="text" name="client_email" value="<?php echo $row_client['client_email']; ?>" size="40"  class="email"   title="L´email no és correcte"/>
 		</td>
 	  </tr>
 	  <tr valign="baseline">

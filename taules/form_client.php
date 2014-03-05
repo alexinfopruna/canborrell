@@ -35,7 +35,7 @@ else
 	 
 	  <tr valign="baseline">
 		<td nowrap="nowrap" align="right">Mòbil/Fixe 1:</td>
-		<td align="left"><input type="text" name="client_mobil" value="<?php echo ($row_client['client_mobil']); ?>" size="10"  class="{required:true,number:true}"   title="Ha de ser numèric"/>
+		<td align="left"><input type="text" name="client_mobil" value="<?php echo ($row_client['client_mobil']); ?>" size="10"  class="required number"   title="Ha de ser numèric"/>
 	Mòbil/Fixe 2:<input type="text" name="client_telefon" value="<?php echo $row_client['client_telefon']; ?>" size="10" />
 		</td>
 	  </tr>
@@ -43,14 +43,14 @@ else
 	  <tr valign="baseline">
 		<td nowrap="nowrap" align="right">cognoms:</td>
 		<td align="left">
-			<input type="text" name="client_cognoms" value="<?php echo $row_client['client_cognoms'] ?>" size="32"   class="{required:true}"  title="Has d´omplir aquest valor"/>
+			<input type="text" name="client_cognoms" value="<?php echo $row_client['client_cognoms'] ?>" size="32"   class="required"  title="Has d´omplir aquest valor"/>
 		</td>
 	  </tr>
 	  
 	  <tr valign="baseline">
 		<td nowrap="nowrap" align="right">nom:</td>
 		<td align="left">
-			<input type="text" name="client_nom" value="<?php echo $row_client['client_nom'] ?>" size="32" class="{required:true}"   title="Has d´omplir aquest valor"  />
+			<input type="text" name="client_nom" value="<?php echo $row_client['client_nom'] ?>" size="32" class="required"   title="Has d´omplir aquest valor"  />
 		</td>
 	  </tr>
 		
@@ -80,7 +80,7 @@ else
 			email:
 		</td>
 		<td>
-			<input type="text" name="client_email" value="<?php echo $row_client['client_email']; ?>" size="40"  class="{email:true}"   title="L´email no és correcte"/>
+			<input type="text" name="client_email" value="<?php echo $row_client['client_email']; ?>" size="40"  class="email"   title="L´email no és correcte"/>
 		</td>
 	  </tr>
 	  <tr valign="baseline">

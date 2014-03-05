@@ -157,7 +157,7 @@ $("#filtreRes").change(function(e){
 	});
 
 // FILTRE CLI
-$("#filtreCli").change(function(){
+$("#filtreCli").change(function(e){
 			if ($("#filtreCli").val()==3) 
 			{
 				$("#filtreCli").val(FILTRE_CLI);
@@ -298,7 +298,7 @@ $("#tabs").tabs();
 			"Guarda": function() { 
 				guardat=true;
                                 
-                                 $.metadata.setType("html5");
+                                 
 				if (!$("form.inserta_res").validate().form()) return;
                                
 				try{$( "#reservesAc" ).accordion("destroy");}catch(e){};

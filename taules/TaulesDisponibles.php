@@ -620,7 +620,7 @@ ORDER BY  `estat_hores_hora` ASC ";
 		//
 		///////////////////////////////////////////////////////////////////////////////////////////////	
 		
-		$req='class="{required:true} primera-hora" title="Selecciona hora"';
+		$req='class="required primera-hora rh" title="Selecciona hora"';
 		$nom=$this->reserva_id?"hora":"uhora";
 		///////////////////////////////////////////////////
 		// BUCLE COMPROVACIONS HORA A HORA

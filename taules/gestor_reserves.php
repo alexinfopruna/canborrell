@@ -1102,7 +1102,7 @@ EOHTML;
         }
       }
       
-  $query = "SELECT *,0 AS deleted FROM ".T_RESERVES." 
+  $query = "SELECT *,client.client_id AS client_client_id, 0 AS deleted FROM ".T_RESERVES." 
       LEFT JOIN "."client ON ".T_RESERVES.".client_id=client.client_id
       LEFT JOIN ".ESTAT_TAULES." ON ".T_RESERVES.".id_reserva = ".ESTAT_TAULES.".reserva_id 
       
@@ -1421,7 +1421,7 @@ EOHTML;
     $this->last_row = mysql_fetch_assoc($this->qry_result);
     $this->total_rows = mysql_num_rows($this->qry_result);
 
-    $options='<select  class="combo_clients {required:true,min:1}" name="client_id" style="width:495px"  title="Selecciona un client">
+    $options='<select  class="combo_clients required" name="client_id" style="width:495px"  title="Selecciona un client">
         <option value="0">---------  client  ---------</option>';
     do 
     {  
@@ -1670,7 +1670,7 @@ ORDER BY client_cognoms, data";
     if (!empty($cerca) && $cerca != "undefined" && $cerca != "Cerca..." && $cerca != "CERCA...") 
      // $query=$this->qryCercaClient($cerca, $filtre);
       $query=$this->qryCercaReserva($cerca, $filtre);
-
+//echo $query;
     $html="";
     $this->qry_result = mysql_query($query, $this->connexioDB) or die(mysql_error());   
     if (!$this->total_rows = mysql_num_rows($this->qry_result)) $html = "<h3>No hi ha clients</h3>";
@@ -2030,7 +2030,7 @@ return $query;
     $json=array('dinar'=>'','dinarT2'=>'','sopar'=>'','taulaT1'=>'','taulaT2'=>0,'taulaT3'=>0,'error'=>$error);
     return json_encode($json);
     
-    $avis2='<input type="hidden" name="prohibit" class="{required:true,email:true}"/>';
+    $avis2='<input type="hidden" name="prohibit" class="required email"/>';
     return $avis;
   }
   

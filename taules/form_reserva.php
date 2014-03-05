@@ -121,7 +121,7 @@ else
 		<td align="left" class="combo_clients_container">
 			<?php if($id){?>
 				<input id="autoc_client_<?php echo trim($class) ?>" value="<?php echo $gestor->concatena($row_reserva['client_cognoms'],$row_reserva['client_nom']." (".$row_reserva['client_mobil'].")",", ")?>" name="client_non_cognom" title="Tecleja les primeres lletres del nom / cognom / mòbil" readonly="readonly" /> 
-				 <input id="autoc_id_client_<?php echo trim($class) ?>" type="hidden" name="client_id" value="<?php echo $row_reserva['client_id'] ?>" class="autoc_id_client {required:true}" />
+				 <input id="autoc_id_client_<?php echo trim($class) ?>" type="hidden" name="client_id" value="<?php echo $row_reserva['client_id'] ?>" class="autoc_id_client required" />
 			<?php }?>
 			<!-- <div class="dades_client" class="amagat">-->
 			<!-- </div>-->
@@ -140,7 +140,7 @@ else
 		<td nowrap="nowrap" align="right">data:</td>
 		<td align="left">
 		<?php if (!$id){?>
-		<input type="checkbox" id="confirma_data_<?php echo trim($class);?>" name="confirma_data"/><label for="confirma_data_<?php echo trim($class);?>" class="confirma-data {required:true}" title="Marca'l per confirmar la data">Confirma</label>
+		<input type="checkbox" id="confirma_data_<?php echo trim($class);?>" name="confirma_data"/><label for="confirma_data_<?php echo trim($class);?>" class="confirma-data required" title="Marca'l per confirmar la data">Confirma</label>
 		<?php }?>
 		
 		<span class="data-llarga ui-corner-all" style="margin-right:25px">
@@ -153,7 +153,7 @@ else
 		?>
 		</span>
 		<?php if ($id) echo ' Idr:<span class="data-llarga ui-corner-all" style="margin-left:5px;font-size:0.7em">'.$row_reserva['id_reserva'].'</span>';?>
-		<input type="hidden" name="data" value="<?php  out ($gestor->cambiaf_a_normal($row_reserva['data']))  ?>" size="10" tabindex="-1" class="{required:true}"  title="Selecciona una data" readonly="readonly"/>
+		<input type="hidden" name="data" value="<?php  out ($gestor->cambiaf_a_normal($row_reserva['data']))  ?>" size="10" tabindex="-1" class="required"  title="Selecciona una data" readonly="readonly"/>
 		<?php if($id && $row_reserva['data']<=date("Y-m-d")){ 
 			$chek=($row_reserva['reserva_info'] & 32)?'checked="checked" ':'';
 		?>
@@ -208,7 +208,7 @@ else
 	  <tr valign="baseline" >
 		<td nowrap="nowrap" align="right">taula:</td>
 		<td align="left">
-			<input type="text" name="estat_taula_taula_id" tabindex="-1" value="<?php echo $row_reserva['estat_taula_taula_id']; ?>" size="3" <?php if($id) echo 'readonly="readonly"' ?> class="borderojo taulaid {required:true}" title=""/>
+			<input type="text" name="estat_taula_taula_id" tabindex="-1" value="<?php echo $row_reserva['estat_taula_taula_id']; ?>" size="3" <?php if($id) echo 'readonly="readonly"' ?> class="borderojo taulaid required" title=""/>
 			
 			<input type="text" name="estat_taula_taula_nom" tabindex="-1"  value="<?php echo $row_reserva['estat_taula_nom']; ?>" size="3" <?php if($id || true) echo 'readonly="readonly"' ?> class="borderojo taulanom" title=""/>
 					 <em>(Places: <span class="places"><?php echo $row_reserva['estat_taula_persones']; ?></span> | Cotxets: <span class="cotxets"><?php echo $row_reserva['estat_taula_cotxets']; ?></span> | Plena: <span class="plena"><?php echo $row_reserva['estat_taula_plena']; ?></span>)</em>
@@ -220,7 +220,7 @@ else
 			adults:
 		</td>
 		<td nowrap="nowrap" align="left">
-			<input type="text" name="adults" value="<?php echo $row_reserva['adults']; ?>" class="{min:1}" size="3"  title="" persones=""/>		
+			<input type="text" name="adults" value="<?php echo $row_reserva['adults']; ?>" class="required" size="3"  title="" persones=""/>		
 			<?php if (!$id){?>
 			<div id="selectorAdults">&lArr;
 				<input type="radio" id="ad1" name="selectorNens4_9" value="1"  /><label for="ad1">1</label>
