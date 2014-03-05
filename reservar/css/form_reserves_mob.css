@@ -166,18 +166,6 @@ font-weight: bold;
          background-repeat:no-repeat;
 	}
 	
-	.ui-widget-overlay{background:#444  50% 50% repeat-x;
-                          opacity:0.9;
-                          position: fixed;
-                          /*overflow:hidden; height:15000px;*/
-                          top:0;
-                            bottom: 1px;
-                            left:0;
-                            right: 0;
-                          
-        
-        }
-	
 	.caixa{
 		background:#fbfbff;
 		/*background-image:url('info.png');
@@ -361,7 +349,6 @@ A:hover
  */  @media only screen and (max-width: 450px){ 
     
      #calendari{font-size:1.1em !important}
-   /* .ui-dialog{width:95% !important;}*/
     label{min-width:65px;}
     #selectorCotxets label{min-width:100%;}
     #selectorCadiraRodes label{min-width:100%;}
@@ -395,7 +382,7 @@ A:hover
      #bt-carta, #bt-menu {float:none;}
      .ui-button, h4, h3, h2, legend{font-size:1.7em !important;}
      
-   .ui-dialog{width:95% !important;}
+  /* .ui-dialog{width:95% !important;}*/
      .d-mes,.d-menys, td.mes,td.menys{display:none}
      .m-mes, .m-menys{
          display:block;
@@ -446,6 +433,21 @@ top: -10%;
 a:hover {
 color: red;
 }
+
+
+	.ui-widget-overlay{background:#444;
+                          opacity:0.9;
+                          position: fixed;
+                          /*overflow:hidden; height:15000px;*/
+                          top:0;
+                            bottom: 0;
+                            left:0;
+                            right: 0;
+                          
+        
+        }
+	
+
   
   /*
  * jQuery UI Datepicker @VERSION
