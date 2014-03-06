@@ -24,6 +24,9 @@ $fp = fopen($ini_file, "a");
 fwrite($fp, "----------------------------------------------------------------------------------\n");
 fwrite($fp, "----------------------------------------------------------------------------------\n");
 fwrite($fp, ">> Conexió TPV Caixa Sabadell: ".date("d/m/y  h:i")."\n");
+$req='<pre>'.print_r($_REQUEST,true).'</pre>';
+fwrite($fp, "$req\n");
+fwrite($fp, "----------------------------------------------------------------------------------\n");
 
 require_once ("../".INC_FILE_PATH."TPV.php");
 require(ROOT.DB_CONNECTION_FILE); 
