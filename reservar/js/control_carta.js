@@ -60,7 +60,7 @@ $(function(){
 		if (isNaN(n)) n=0;
 		if (n<100) input.val(parseInt(n)+1);	
 		input.trigger("change");
-                alert("+");
+                //alert("+");
 	});
 	
 	$(".menys").click(function(){
@@ -68,7 +68,7 @@ $(function(){
 		var n=parseInt(input.val());
 		if (n>0) input.val(parseInt(n)-1);		
 		input.trigger("change");
-                alert("-");
+                //alert("-");
 	});
 	$(".contador").change(function(){
 		var n=$(this).val();

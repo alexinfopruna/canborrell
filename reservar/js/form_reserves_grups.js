@@ -10,6 +10,23 @@ var SECCIO=null;
 
 var DEBUG=getParameterByName("debug");
 
+var dlg={
+		autoOpen: false,
+		modal:true,
+		width: '400px',
+		buttons: {
+			"Continuar": function() { 
+				$(this).dialog("close"); 
+                                //$(this).dialog('destroy');
+				//if (!SECCIO) seccio(SECCIO_INICIAL);
+				SECCIO_INICIAL=null;
+			} 
+		},
+                close: tanca_dlg
+	};
+    
+    
+    
 
 
 /* PROBLEMA IE indexOf */
@@ -110,8 +127,10 @@ $(function(){
 			"Continuar": function() { 
 				$(this).dialog("close"); 
 				if (!SECCIO) seccio("fr-seccio-quants");
-			} 
-		}
+			}
+                        
+		},
+                close: tanca_dlg
 	}
 	);	
 	
@@ -178,6 +197,14 @@ $(".ui-accordion-content").css("overflow","scroll");
 		}   
                 if (vl) $("em[generated=true]").remove();
         });
+        
+        
+        $(".info-ico").click(function(e){
+    
+    id=$(this).attr("id");
+    help($("."+id).html());
+   
+    e.preventDefault();});
 }); //ONLOAD, PRESENTACIO UI
 /************************************************************************************************************/
 /************************************************************************************************************/
@@ -208,16 +235,20 @@ function comportamentQuantsSou()
 		comportamentMenus();
 		$("#selectorComensals").buttonset("destroy");
 		$("#selectorComensals").buttonset();
+                    //seccio("titol_SelectorJuniors");
+                                    $.scrollTo("#titol_SelectorJuniors",600);
 
-		return false;
+                return false;
 	});
 	$("input[name='adults']").change(function(){
 		var val;
 		val=$("input[name='adults']").val();
-		$("input[name='selectorComensals']:checked").attr("checked",false).button("refresh");		
-		$("#com"+val).attr("checked","true").button("refresh");		
+		$("input[name='selectorComensals']:checked").prop("checked",false).button("refresh");		
+		$("#com"+val).prop("checked","true").button("refresh");		
 		totalPersones();
 		comportamentMenus();
+                //seccio("titol_SelectorJuniors");
+                $.scrollTo("#titol_SelectorJuniors",600);
 		return false;
 	});
 	
@@ -226,15 +257,17 @@ function comportamentQuantsSou()
 		$("input[name='nens10_14']").val($("input[name='selectorJuniors']:checked").val());
 		totalPersones();
 		comportamentMenus();
+                                     $.scrollTo("#titol_SelectorNens",600);
 		return false;
 	});
 	$("input[name='nens10_14']").change(function(){
 		var val;
 		val=$("input[name='nens10_14']").val();
-		$("input[name='selectorJuniors']:checked").attr("checked",false).button("refresh");		
-		$("#junior"+val).attr("checked","true").button("refresh");		
+		$("input[name='selectorJuniors']:checked").prop("checked",false).button("refresh");		
+		$("#junior"+val).prop("checked","true").button("refresh");		
 		totalPersones();
 		comportamentMenus();
+                                     $.scrollTo("#titol_SelectorNens",600);
 		return false;
 	});
 	
@@ -243,15 +276,17 @@ function comportamentQuantsSou()
 		$("input[name='nens4_9']").val($("input[name='selectorNens']:checked").val());
 		totalPersones();
 		comportamentMenus();
+                                     $.scrollTo("#titol_SelectorCotxets",600);
 		return false;
 	});
 	$("input[name='nens4_9']").change(function(){
 		var val;
 		val=$("input[name='nens4_9']").val();
-		$("input[name='selectorNens']:checked").attr("checked",false).button("refresh");		
-		$("#nens"+val).attr("checked","true").button("refresh");		
+		$("input[name='selectorNens']:checked").prop("checked",false).button("refresh");		
+		$("#nens"+val).prop("checked","true").button("refresh");		
 		totalPersones();
 		comportamentMenus();
+                                     $.scrollTo("#titol_SelectorCotxets",600);
 		return false;
 	});
 	
@@ -286,7 +321,7 @@ function totalPersones()
 */
 function comportamentDia()
 {
-	if ($(".fr-seccio-dia").is(":hidden")) $(".fr-seccio-dia").slideDown("slow",function(){seccio("fr-seccio-dia");});
+	if ($(".fr-seccio-dia").is(":hidden")) $(".fr-seccio-dia").slideDown("slow",function(){seccio("fr-seccio-diaxx");});
 	
 	$("#calendari").change(function(){
 		var dat=$("#calendari").datepicker("getDate");
@@ -337,8 +372,8 @@ function recargaHores()
 		$("#selectorHoraSopar").html(obj.sopar+txt);		
 		$("#selectorHoraSopar").buttonset();
 	
-		$("#selectorHora input[value='"+hora+"']").attr('checked',true);
-		$("#selectorHoraSopar input[value='"+hora+"']").attr('checked',true);
+		$("#selectorHora input[value='"+hora+"']").prop('checked',true);
+		$("#selectorHoraSopar input[value='"+hora+"']").prop('checked',true);
 		
 		$("input[name='selectorHora']").change(function(){	
 			$("#resum-hora").html($("input[name='selectorHora']:checked").val());	
@@ -364,79 +399,7 @@ function recargaHores()
 */
 function comportamentMenus()
 {	
-    
-    /*
-		var total=parseInt($("input[name='totalComensals']").val());
-		
-		if (total && total<PERSONES_GRUP) 
-		{
-			//alert(l("Per menys de"));
-			//window.location.href="form.php";
-		}
-		
-		
-		
-		//alert(parseInt($("#junior").val()));
-		if (parseInt($("#junior").val())) 
-		{
-			$('.menu-juniors').slideDown();
-			$("input[name=menu_juniors]").val("");
-		}
-		else 
-		{
-			$('.menu-juniors').hide();
-			$('.menu-juniors').accordion('option','active',false);
-			$("input[name=menu_juniors]").val("sense juniors");		
-			updateResum();
-		}
-		
-		if (parseInt($("#nens").val())) 
-		{
-			$('.menu-nens').slideDown();
-			$("input[name=menu_nens]").val("");
-		}
-		else
-		{
-			$('.menu-nens').hide();
-			$('.menu-nens').accordion('option','active',false);
-			$("input[name=menu_nens]").val("sense nens");
-			updateResum();
-		}		
-			
-	$('.menu-adults').bind();
-	$('.menu-adults').bind('accordionchange', function(event, ui) {
-			 var menu=$(ui.newHeader).find("a").attr("v");
-			 
-			 $("input[name=menu_adults]").val(menu);
-			 updateResum();
-			 
-	if (($(".menu-nens").is(":hidden") || ($("#input_menu_nens").val())) 
-		&& ($(".menu-juniors").is(":hidden") || ($("#input_menu_juniors").val()))
-		&& ($("#input_menu_adults").val())) comportamentClient();
-	});
 
-	$('.menu-juniors').bind();
-	$('.menu-juniors').bind('accordionchange', function(event, ui) {
-			 var menu=$(ui.newHeader).find("a").attr("v");
-			 $("input[name=menu_juniors]").val(menu);
-			 updateResum();
-	if (($(".menu-nens").is(":hidden") || ($("#input_menu_nens").val())) 
-		&& ($(".menu-juniors").is(":hidden") || ($("#input_menu_juniors").val()))
-		&& ($("#input_menu_adults").val())) comportamentClient();
-	});
-	$('.menu-nens').bind();
-	$('.menu-nens').bind('accordionchange', function(event, ui) {
-	var menu=$(ui.newHeader).find("a").attr("v");
-			 $("input[name=menu_nens]").val(menu);
-			 updateResum();
-			 
-	if (($(".menu-nens").is(":hidden") || ($("#input_menu_nens").val())) 
-		&& ($(".menu-juniors").is(":hidden") || ($("#input_menu_juniors").val()))
-		&& ($("#input_menu_adults").val())) comportamentClient();
-	});	
-	
-	*/
-		//comportamentClient();
 }
 
 /*******************************************************************************************************************
@@ -899,3 +862,23 @@ function seccio(selector_seccio){
 	th=setTimeout('timer_help("'+l("grups-"+selector_seccio)+'")',TIMER_HELP_INTERVAL);
 	
 }
+
+
+function help(txt){
+    //if ($.browser.name) $("#td_contingut").addClass("fals-overlay");
+    $("#help").html(txt);
+    alert(txt);
+    $("#help").dialog("open");
+}
+
+function tanca_dlg(){
+ //   $("#taula-estructura").removeClass("fals-overlay");
+    $("#td_contingut").removeClass("fals-overlay");
+    if (!SECCIO) seccio(SECCIO_INICIAL);
+}
+
+$(".info-ico").click(function(e){
+    alert("eee");
+    id=$(this).attr("id");
+    help("llll"+$("."+id).html());
+    e.preventDefault();});

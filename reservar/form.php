@@ -76,7 +76,7 @@ $max_juniors=$gestor->configVars("max_juniors");
 		<script type="text/javascript" src="../taules/js/jquery.timers.js"></script>
 		<script type="text/javascript" src="../taules/js/jquery.form.js"></script>
 		<script type="text/javascript" src="../taules/js/jquery.scrollTo.min.js"></script>
-                <!--<script type="text/javascript" src="js/jquery.scrollTo-1.4.2-min.js"></script>-->
+		<script type="text/javascript" src="../taules/js/jquery.browser.js"></script>
 		<script type="text/javascript" src="js/json2.js"></script>
 		<script type="text/javascript" src="../js/dynmenu.js"></script>
 		<script type="text/javascript" src="js/jquery.amaga.js"></script>
@@ -199,14 +199,14 @@ echo $gestor->dumpJSVars(true);
 	?>	
 </script>
 
-		<script type="text/javascript" src="js/control_carta.js";></script>
-		<script type="text/javascript" src="js/form_reserves.js?<?php echo time();?>";></script>
+		<script type="text/javascript" src="js/control_carta.js"></script>
+		<script type="text/javascript" src="js/form_reserves.js?<?php echo time();?>"></script>
 
 </head>
 <body class="amagat <?php echo DEV?" dev ":""; echo LOCAL?" local ":"" ?>" onload="loadMenu()" >
 <table id="taula-estructura" bgcolor="#F8F8F0" cellpadding="0" cellspacing="0"   border="0" align="center">
 	<tr height="114">
-            <td id="poma-fons" colspan="2" align="RIGHT"><a HREF="../index.htm"><img src="../img/lg_sup.gif"  border="0" title="INICI"/></a></td>
+            <td id="poma-fons" colspan="2" align="RIGHT"><a href="../index.htm"><img src="../img/lg_sup.gif"  border="0" title="INICI"/></a></td>
 	</tr>
 	<tr height="18">
 		<td bgcolor="#570600" colspan="2" align="">
@@ -504,31 +504,29 @@ else
                                              
                                 </h1>
 				<table id="dades-client" class="col_dere">
-					<tr><td class="label">* <em style="font-size:0.9em;"><?php l('Camps obligatoris');?></em></td><td></td></tr>
-					<tr><td class="label"><?php l('Telèfon mòbil');?>*</td><td><input type="text" name="client_mobil" value="<?php echo $row['client_mobil']?>"/></td></tr>
-					<tr><td class="label"><?php l('Ens vols deixar una altre telèfon?');?></td><td><input type="text" name="client_telefon" value="<?php echo $row['client_telefon']?>"/></td></tr>
-					<tr><td class="label">Email*</td><td><input type="text" name="client_email" value="<?php echo $row['client_email']?>"/></td></tr>
-					<tr><td class="label"><?php l('Nom');?>*</td><td><input type="text" name="client_nom" value="<?php echo $row['client_nom']?>"/></td></tr>
-					<tr><td class="label"><?php l('Cognoms');?>*</td><td><input type="text" name="client_cognoms" value="<?php echo $row['client_cognoms']?>"/></td></tr>
-					<tr><td class="label"><?php //l('Client_id');?></td><td><input type="hidden" name="client_id" value="<?php echo $row['client_id']?>"/></textarea></td></tr>
-					
-					<tr><td ></td><td>
-					  <div class="ui-corner-all info-legal info-observacions  caixa" style="width:496px;">
+					<tr><td class="label" >* <em style="font-size:0.9em;"><?php l('Camps obligatoris');?></em>
+					<div><label class="label" for="client_mobil"><?php l('Telèfon mòbil');?>*</label><input type="text" name="client_mobil" value="999558844<?php echo $row['client_mobil']?>"/></div>
+                                        <div><label class="label" for="client_telefon"><?php l('Ens vols deixar una altre telèfon?');?></label><input type="text" name="client_telefon" value="<?php echo $row['client_telefon']?>"/></div>
+                                        <div><label class="label" for="client_email">Email*</label><input type="email" name="client_email" value="aaa@aaa.aa<?php echo $row['client_email']?>"/></div>
+                                        <div><label class="label" for="client_nom"><?php l('Nom');?>*</label><input type="text" name="client_nom" value="<?php echo $row['client_nom']?>"/></div>
+					<div><label class="label" for="client_cognoms"><?php l('Cognoms');?>*</label><input type="text" name="client_cognoms" value="COOOOG<?php echo $row['client_cognoms']?>"/></div>
+					<div><label class="label" for="client_id"><?php //l('Client_id');?></label><input type="hidden" name="client_id" value="<?php echo $row['client_id']?>"/></div>
+                                        <div class="ui-corner-all info-legal info-observacions  caixa" style="width:496px;">
             <?php l('NO_COBERTS_OBSERVACIONS');?>
           </div>
-					  
 
-					  
-					</td></tr>
-					<tr><td class="label" style="vertical-align:top;"><?php l('Observacions');?>
+                                        
+                                        <div><label class="label" for=""><?php l('Observacions');?>
                      <a href="#" id="info-observacions" class="info-ico"><img src="css/info.png" title="<?php l('Ajuda');?>" style="width:16px;height:auto;margin-left:8px"/></a>
+					</label><textarea type="text" name="observacions"> <?php echo $row['observacions']?></textarea>
+					</div>
                                             
-                                            </td>
-					<td style="padding-left:10px;vertical-align:top;">				
-					
-					<textarea type="text" name="observacions"> <?php echo $row['observacions']?></textarea>
+                                            </td></tr>
+					<tr><td >
+			
+							  
 
-					
+					  
 					</td></tr>
 				</table>
 				<div style="clear:both"></div>
@@ -550,7 +548,7 @@ else
 		<!-- *******************************  SUBMIT ********************************************************   -->
 		<!-- *******************************  SUBMIT ********************************************************   -->
 		<a id="scroll-seccio-submit"></a>
-		<div class="fr-seccio ui-corner-all fr-seccio-submit"> 
+                <div class="fr-seccio ui-corner-all fr-seccio-submit"> 
 				<h1 class="titol"><span class="number">6</span><?php l('Envia la sol·licitud');?></h1>
 								
 				<div class="ui-corner-all caixa resum">
@@ -566,10 +564,9 @@ else
 				<?php $t=(isset($_POST['idr']) && $_POST['idr']>5000)?'Modificar reserva':'Sol·licitar reserva'; ?>
 				<button id="submit"><?php l($t);?></button>
 				
-				<div style="clear:both"></div>
+				
 				<div id="error_validate" class="ui-helper-hidden"><?php l("Hi ha errors al formulari. Revisa les dades, si us plau"); ?></div>
 		</div>
-			
 	</div>
 
 </form>	<!--

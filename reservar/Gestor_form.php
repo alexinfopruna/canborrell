@@ -278,14 +278,14 @@ ORDER BY carta_subfamilia_order,carta_plats_nom_es , carta_plats_nom_ca";
 			
 			$odd=($l%2)?"odd":"pair";
 			$tr.='<tr producte_id="'.$val['id'].'" class="item-carta '.$odd.$menuEspecial.'">
-				<td  class="mes"><div  class="d-mes ui-corner-all" >+</div></td>
+				<td  class="mes"><div  class="d-mes ui-corner-all" ><a href"#">+</a></div></td>
 				<td class="contador">
                                 <div  class="mes"><div  class="m-mes ui-corner-all"> + </div></div>
                                 <input id="carta_contador'.$val['id'].'" nid="'.$val['id'].'" type="text" name="carta_contador'.$c++.'" class="contador '.$class.'" '.$value.' preu="'.$preu.'" nom="'.$val['nom'].'"/>
                                  <div  class="menys"><div  class="m-menys ui-corner-all"> - </div></div>   
 
 </td>
-				<td class="menys"><div  class="d-menys ui-corner-all" >-</div></td>
+				<td class="menys"><div  class="d-menys ui-corner-all" ><a href"#">-</a></div></td>
 				<td class="borra" style="display:none"></td>
 				<td class="resum-carta-nom" href="Gestor_form.php?a=TTmenu&b='.$val['id'].'">'.$val['nom'].'</td>
 				<td class="td-carta-preu"><span class="carta-preu">'.$preu.'</span>&euro; </td>
@@ -344,14 +344,14 @@ FROM client
 	{
 		if ($row['id_reserva_grup']) $row['data']=$row['data_grup'];
 		$row['data']=$this->cambiaf_a_normal($row['data']);
-		$row['err']="err20";
+		$row['err']="20";
 	}
 	
 	//GARJOLA
 	if ($this->garjola($num,$mail)){
 		if ($row['id_reserva_grup']) $row['data']=$row['data_grup'];
 		$row['data']=$this->cambiaf_a_normal($row['data']);
-		$row['err']="err21";
+		$row['err']="21";
 	}
 /* TRAMPA PER FER PROVES!!!!	*/
 	if ($num=="999212121")

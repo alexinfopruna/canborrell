@@ -22,11 +22,35 @@ var resub=false;
 
 var SECCIO_INICIAL="fr-seccio-quants";
 
+var dlg={
+		autoOpen: false,
+		modal:true,
+		width: '400px',
+		buttons: {
+			"Continuar": function() { 
+				$(this).dialog("close"); 
+                                //$(this).dialog('destroy');
+				//if (!SECCIO) seccio(SECCIO_INICIAL);
+				SECCIO_INICIAL=null;
+			} 
+		},
+                close: tanca_dlg
+	};
+    
+    
+    
+    
+
+
+
 if (browser_malo) 
 {
 	alert("El sistema de reservas requiere Internet Explorer 7 o superior\n\nVersión utilizada:\n Microsoft Internet Explorer "+$.browser.version);
 	document.location.href="../";
 }
+
+
+        
 
 /* PROBLEMA IE indexOf */
 if (!Array.prototype.indexOf)
@@ -51,13 +75,8 @@ if (!Array.prototype.indexOf)
     return -1;
   };
 }
-/* PROBLEMA IE indexOf */
-/*
-	ONLOAD, PRESENTACIO UI
-*/
 
 $(function(){
-		/* popup */		return;
 	
 	/* popupGrups */
 	$("#popupGrups").dialog({
@@ -80,27 +99,11 @@ $(function(){
 		buttons: {
 			"Continuar": function() { 
 				
-				//window.location.href="../index.html";
 				$(this).dialog("close"); 
 				} 
 			}
 		}
 	);
-var dlg={
-		autoOpen: true,
-		modal:true,
-		width: '100%',
-		buttons: {
-			"Continuar": function() { 
-				$(this).dialog("close"); 
-				//if (!SECCIO) seccio(SECCIO_INICIAL);
-				SECCIO_INICIAL=null;
-			} 
-		}
-	};
-        
-	//$("#help").dialog(dlg);
-
 	$(".ncoberts").html(PERSONES_GRUP-1);
 	var t=setTimeout("timer()",TIMER_INTERVAL);
 
@@ -139,11 +142,6 @@ var dlg={
 	$("#cotxets2A").click(function(){$(".fr-seccio-quants input[name=amplaCotxets]").val(2);});
 	$("#cotxets2L").click(function(){$(".fr-seccio-quants input[name=amplaCotxets]").val(3);});
 
-	/**/
-	
-	
-	
-	
 	$("#info_reserves").click(function(){
 		$("#popup").html($("#reserves_info").html())
 		$("#popup").unbind("dialogclose");
@@ -151,21 +149,22 @@ var dlg={
 		return false;
 	});
 	
-	
 	validacio();
 	
 	/********  AMAGA PANELLS ********/	
 	
-	
 	if (!IDR && !DEBUG )
 	{
-	/*
-	*/
+	/**/
+	
 		$(".fr-seccio-dia").amaga();	
 		$(".fr-seccio-hora").amaga();
 		$(".fr-seccio-carta").amaga();
 		$(".fr-seccio-client").amaga();
 		$(".fr-seccio-submit").amaga();
+                //$(".fr-seccio-submit").css("visibility","hidden");
+               //comportamentClient();
+             
 	}
 	
 	if (IDR)
@@ -191,26 +190,18 @@ var dlg={
 	
 	controlSubmit();
 	//RESETEJA EL TIMER D'AJUDA SI TOCA LA PANTALLA
-	//$(document).change(function(e) {clearTimeout(th);	if (SECCIO) th=setTimeout('timer_help("'+l(SECCIO)+'")',TIMER_HELP_INTERVAL);});
+	$(document).change(function(e) {clearTimeout(th);	if (SECCIO) th=setTimeout('timer_help("'+l(SECCIO)+'")',TIMER_HELP_INTERVAL);});
 	
 	$("body").fadeIn("slow");
-/*
-$.scrollTo( $("#selectorComensals"),1000,function(){
-    $("#help").dialog(dlg)
-            //.position( { 'my': 'center', 'at': 'center', 'of':window });
-
-    });
-*/    
     
-//$("#help").position( { 'my': 'center top', 'at': 'center top', 'of':window });
-
-//$("#help").dialog(dlg);
+$("#help").dialog(dlg);
+help($("#help").html());
 
 $(".info-ico").click(function(e){
     
     id=$(this).attr("id");
-    $("#help").html($("."+id).html());
-    $("#help").dialog("open");
+   // $( "#help" ).dialog( "option", "position", { my: "center bottom", at: "center bottom",of: e} );
+    help($("."+id).html());
     e.preventDefault();});
 
 
@@ -253,6 +244,7 @@ $('*').bind('blur change click dblclick error focus focusin focusout keydown key
 function comportamentQuantsSou()
 {
 	//ADULTS
+        SECCIO="fr-seccio-quants";
 	$(".fr-seccio-quants").change(function(e){
 		ADULTS=$("input[name='selectorComensals']:checked").val();
 		$("input[name='adults']").val(ADULTS)
@@ -304,8 +296,8 @@ function comportamentQuantsSou()
 	//COTXETS
 	$("input[name=selectorCotxets]").change(function(){
 		COTXETS=$("input[name='selectorCotxets']:checked").val();
-                timer_help(l("NENS_COTXETS"));
-                $.scrollTo("#titol_SelectorCadiraRodes",600,function(){});
+                help(l("NENS_COTXETS"));
+               // $.scrollTo("#titol_SelectorCadiraRodes",600,function(){help(l("NENS_COTXETS"));});
 		//BARREJA NENS COTXETS!!
 		totalPersones();
 		//return false;
@@ -403,10 +395,12 @@ function recargaHores()
 		if ((obj.dinar+obj.dinarT2)=="") txt=l("Cap taula o restaurant tancat");
 		$("#selectorHora").html(obj.dinar+obj.dinarT2+txt);
 		$("#selectorHora").buttonset();
+                $( "#selectorHora" ).find("label").unbind("mouseup");
 		txt="";
 		if (obj.sopar=="") txt=l("Cap taula o restaurant tancat");
 		$("#selectorHoraSopar").html(obj.sopar+txt);		
 		$("#selectorHoraSopar").buttonset();
+                $( "#selectorHoraSopar" ).find("label").unbind("mouseup");
 		
 		//ALERTA SI NO HI HA TAULA
 		if ((obj.dinar+obj.dinarT2+obj.sopar)=="")
@@ -473,6 +467,7 @@ function comportamentCarta()
 	if ($(".fr-seccio-carta").is(":hidden")) $(".fr-seccio-carta").slideDown("slow",function(){seccio("fr-seccio-carta");});
 	
 	$("#bt-no-carta").click(function(){
+          //  $("textarea[name='observacions']").val("comportamentCarta -CLICK ");/******/
 		comportamentClient();		
 		return false;
 	});	
@@ -483,6 +478,13 @@ function comportamentCarta()
 */
 function comportamentClient()
 {		
+/*    $("textarea[name='observacions']").val("comportamentClient");
+    
+                          $(".fr-seccio-submit").show();
+                        $(".fr-seccio-submit").css("display","block");
+                        $(".fr-seccio-submit").css("visibility","visible");
+*****/
+    
 	$("input[name='client_mobil']").change(function(){		
 		var n=$("input[name='client_mobil']").val();
 		if (n.length>=9 && isNumber(n)) 	updateClient();
@@ -493,22 +495,44 @@ function comportamentClient()
 	
 
 	if ($(".fr-seccio-client").is(":hidden")) $(".fr-seccio-client").slideDown("slow",function(){seccio("fr-seccio-client");});
-	$(".fr-seccio-client").change(validaDadesClient);
-	$(".fr-seccio-client").keyup(validaDadesClient);
-	$(".fr-seccio-client").keypress(validaDadesClient);
-	$(".fr-seccio-client input").blur(validaDadesClient);
+        $(".fr-seccio-client input").bind('blur change ', validaDadesClient);
+        $(".fr-seccio-client").bind('blur change ', validaDadesClient);
+
 }
 
 function validaDadesClient(){
+    
+   // $("textarea[name='observacions']").val("zz");
 		var ok=true;
 		ok = ok && $("input[name='client_mobil']").val();
 		ok = ok && $("input[name='client_nom']").val();
 		ok = ok && $("input[name='client_cognoms']").val();
-		if (ok &&  $(".fr-seccio-submit").is(':hidden')) 
+               
+                var t="--------";
+                t+=" ok= "+(ok?"ok ":"nok ");
+                t+=$("input[name='client_nom']").val();
+                t+=" ** ";
+                t+=$("input[name='client_cognoms']").val();
+                t+=($(".fr-seccio-submit").is(':hidden')?" HID ":" VIS ");
+                //$("textarea[name='observacions']").val(t);
+               /*
+                */     
+                updateResum();
+		if (ok) 
 		{
-			if ($(".fr-seccio-submit").is(":hidden")) $(".fr-seccio-submit").slideDown("slow",function(){seccio("fr-seccio-submit");});
-			updateResum();
+  			if ($(".fr-seccio-submit").is(":hidden")) {
+                               $(".fr-seccio-submit").show();
+                               $(".fr-seccio-submit").css("display","block");
+                               $(".fr-seccio-submit").css("visibility","visible");
+                              
+                               $.scrollTo( "#scroll-seccio-submit", 800 );
+                      }
+                       
 		}
+            
+                else{ 
+                    //alert(t);
+                }
 	}
 
 /********************************************************************************************************************/
@@ -554,7 +578,8 @@ function updateClient()
 			$(".fr-seccio-client input[name='client_telefon']").attr("readonly", "readonly"); 
 			client_auto=true;
 			if ($(".fr-seccio-submit").is(":hidden")) $(".fr-seccio-submit").slideDown("slow",function(){seccio("fr-seccio-submit");});
-			updateResum();
+			validaDadesClient();
+                        updateResum();
 		}
 	});	
 }
@@ -578,8 +603,8 @@ function resetClient()
 */
 function updateResum()
 {
-	//if( $(".fr-seccio-submit").is(':hidden') ) return;
-	//var adults=parseInt($("input[name='adults']").val());
+	
+	
 	if (parseInt($("input[name='selectorComensals']:checked").val()) > ADULTS) adults=$("input[name='selectorComensals']:checked").val();
 	
 	$("#resum-data").html($("#calendari").val());
@@ -830,14 +855,14 @@ function controlSubmit()
 			else 
 			{
 				var err="Error de servidor";
-				if (obj && obj.error) err=obj.error+"\n"+l(obj.error)+" \n\n"+l("err_contacti");
+				if (obj && obj.error) err=obj.error+"\n "+l(obj.error)+" \n\n"+l("err_contacti");
 				if (obj.error=="err10") return;//DOBLE SUBMIT?????????
 				$("#popup").html("ERROR: "+err);
 				$('#submit').show();
 			}
 			
 			$("#popup").dialog('open');
-			//return false;
+ 			//return false;
 		}); 
 		return false;
 	});
@@ -859,14 +884,18 @@ function timer()
 function timer_help(txt)
 {
 	if (!SECCIO) return clearInterval(th);
-	$("#help").html(txt);
-        
+	
+        //$( "#help" ).dialog( dlg);
+       
         //$( "#help" ).dialog( "option", "position",{ 'my': 'bottom center', 'at': 'center', 'of':window});
-	$("#help").dialog("open");
+	
+    
+    help(txt);
 	
 	SECCIO=null;
 	clearInterval(th);
 }
+
 
 function roundNumber(num, dec) {
 	var result = Math.round(num*Math.pow(10,dec))/Math.pow(10,dec);
@@ -907,7 +936,7 @@ function loginoff()
 function seccio(selector_seccio){
 	if (!selector_seccio) return;
 	
-	$.scrollTo( $("."+selector_seccio), 800 );
+	$.scrollTo( "."+selector_seccio, 800 );
 	
 	clearTimeout(th);//
 	th=setTimeout('timer_help("'+l(selector_seccio)+'")',TIMER_HELP_INTERVAL);
@@ -926,3 +955,17 @@ function observacions_cotxets()
   
 }
 
+
+
+function help(txt){
+    if ($.browser.name) $("#td_contingut").addClass("fals-overlay");
+    $("#help").html(txt);
+    
+    $("#help").dialog("open");
+}
+
+function tanca_dlg(){
+ //   $("#taula-estructura").removeClass("fals-overlay");
+    $("#td_contingut").removeClass("fals-overlay");
+    if (!SECCIO) seccio(SECCIO_INICIAL);
+}

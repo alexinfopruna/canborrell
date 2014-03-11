@@ -1,402 +1,139 @@
-	body
-	{
-	font-family: verdana, arial, helvetica;
-	font-size: 11px;
-	color: #570600;
-	margin:0px;
-	}
 
-.dev{background-image:url(obres.png)}
-.local{background-image:url(local.png)}
+/**
+PANTALLES FINS A 500
+*/  @media only screen and (max-width: 450px){ 
 
-	
-	h2{text-align:right;margin-top:35px;margin-right:25px;}
-	h4{margin-bottom:0;	}
-	
-	img{border-style: none;}
-	#ui-datepicker-div { display: none; }	
-	#td_contingut{background-image:url(fons_9c.jpg); background-repeat:no-repeat;}	
-.shadow {
-  -moz-box-shadow: 5px 5px 5px #ccc;
-  -webkit-box-shadow: 5px 5px 5px #ccc;
-  box-shadow: 5px 5px 5px #ccc;
-}	
-	
-.ui-accordion-content{max-height:300px;font-size:0.8em;}
-	#editar_reserva{color:#999;text-align:right;float:right;margin:8px 25px;}	
-	#flogin{color:#999;float:right;text-align:right;width:300px;margin:8px 25px;}	
-	#calendari{font-size:1.6em}
-	.col-dere{width:500px;float:left;}
-	.fr-seccio-carta .ui-button{width:170px;}
-	#bt-no-carta{color:#570600}
-	#bt-carta{color:#570600;float:right;margin-top:25px;}
-	#bt-carta:hover,#bt-no-carta:hover{color:white;}
-	
-        #fr-menu-tabs {
-           border: 1px solid rgb(203, 199, 189);
-           padding: 12px;
-           margin: 0 0px 10px 0;
-           background: white;
-           height: expresion(this.scrollHeight < 601? "600px": "auto");
-           min-height: 620px;
-           }
-        
-	.td-carta-preu{
-		font-weight:bold;
-		margin-left:25px;
-		width: 50px;
-		text-align: right;
-	}
-	
-	td.resum-carta-nom{width:400px;font-weight:bold;}
-	.carta-seleccio{color:red;font-weight:bold;}
-/*	
-	.resum-carta-nom{
-		font-weight:bold;
-		margin-left:25px;
-		width: 70%;
-		text-align: right;	
-	}
-*/
-	.resum-carta-preu{
-		font-weight:bold;
-		margin-left:25px;
-		width: 20%;
-		text-align: right;	
-	}
-	
-	
-	.fr-seccio-carta  .ui-button, .fr-seccio-submit  .ui-button{border:2px solid #570600}
-	#fr-reserves{
-	  width:775px;
-/*	 margin-top:-500px;*/
-	/* padding-bottom:50px;*/
-	}
-
-	.fr-seccio{
-	clear:both;
-	border:1px solid rgb(203, 199, 189);
-	padding:12px;
-	margin:25px 25px 15px 25px;
-	background:white;
-
-  -moz-box-shadow: 2px 2px 2px #ccc;
-  -webkit-box-shadow: 2px 2px 2px #ccc;
-  box-shadow: 2px 2px 2px #ccc;
-	}
-	
-	
-	#selectorHoraSopar, #selectorHora{font-size:0.9em;}
-	
-	#fr-carta-tabs{
-	border:1px solid rgb(203, 199, 189);
-	padding:12px;
-	margin:0 0px 10px 0;
-	background:white;
-	min-height:620px;
-
-	}
-
-	#dades-client input{margin-left:10px;color:#570600;font-weight:bold;}
-	#dades-client .label{text-align:right;}
-	input[name='client_nom']{width:490px;}
-	input[name='client_cognoms']{width:490px;}
-	input[name='client_email']{width:490px;}
-	#form-reserves textarea{margin-left:10px;width:490px;color:#570600;font-weight:bold;}
-
-	.contador{text-align:right;width:25px;margin-left:20px;}
-	.mes{width:16px;height:16px;
-	background-image:url(custom-theme/images/ui-icons_570600_256x240.png);
-	background-position:0 -190px;
-	}	.menys{width:16px;height:16px;
-	background-image:url(custom-theme/images/ui-icons_570600_256x240.png);
-	background-position:-16px -190px;
-	}	
-	.borra{width:16px;height:16px;
-	background-image:url(custom-theme/images/ui-icons_570600_256x240.png);
-	background-position:-32px -190px;
-	}
-	
-	.ui-widget-overlay{background:#cccccc url(images/ui-bg_flat_20_6e4f1c_40x100.png) 50% 50% repeat-x}
-	
-	.caixa{
-		background:#fbfbff;
-		/*background-image:url('info.png');
-		background-repeat:no-repeat;*/
-		/*width:250px;*/
-		height:100%;
-		padding:8px;
-		border:1px solid rgb(203, 199, 189);
-		/*margin-right:20px;*/
-		color:#aa8888;
-	
-  -moz-box-shadow: 2px 2px 2px #ccc;
-  -webkit-box-shadow: 2px 2px 2px #ccc;
-  box-shadow: 2px 2px 2px #ccc;
-	}
-	
-	.dere{
-		float:right;
-	}
-	
-	.caixa input{
-		background:#fbfbff;
-	}
-	.fr-seccio-dia .caixa{width:250px;}
-	.fr-seccio-quants .caixa{width:250px;}
-	.fr-seccio-client .caixa{margin-top:10px;font-size:0.8em;}
-	
-	.fr-seccio-carta  .info
-	{
-		background:#fbfbff;
-		/*width:280px;*/
-		/*background-image:url('info.png');
-		background-repeat:no-repeat;*/
-		margin-bottom:10px;
-		padding:8px;
-		border:1px solid rgb(203, 199, 189);
-		color:#aa8888;
-	
-  -moz-box-shadow: 2px 2px 2px #ccc;
-  -webkit-box-shadow: 2px 2px 2px #ccc;
-  box-shadow: 2px 2px 2px #ccc;
-	}
-	
-	.carta-plat{width:380px;}
-	/*#carta .caixa{width:350px;}*/
-	.llista-menus{float:left;width:200px;margin:7px;}	
-	.hores{
-		/*background:#ffffef;*/
-		width:685px;
-		float:none;
-		padding:8px;
-		margin-top:8px;
-		margin-bottom:8px;
-
-	}
-	
-	#submit{float:right;right:0px;padding:10px;font-size:1.2em;}
-	.resum{margin-bottom:10px;color:#570600;}
-	.resum b{font-size:1.2em;}
-	/*#resum-comanda{font-size:0.8em;}*/
-	
-	.info-submit{margin-top:2px;width:450px;height:32px;float:left;}
-	input[name=totalComensals]{width:25px;color:red;font-weight:bold;border:none;}
-	
-	.number{
-	padding:3px 8px 3px 8px;
-	margin-right:15px;
-	color:white;
-	background:#996;
-	font-size:1.2em;
--moz-border-radius: 15px;
--webkit-border-radius: 15px;
-border-radius: 15px;	}
-
-.error{border:1px dotted red;	background:#fee;}
-em.error {
-display:block;
-	color:red;
-  background:url("error.gif") no-repeat 0px 0px;
-  padding-left: 18px;
-  border:none;
-  margin-left:10px;
-  min-height:16px;
-}
-
-/* #valida_calendari{display:none},*/
-.tels{text-align:right;padding:5px;color:#C00;margin-bottom:125px;}
-.titol2{text-align:right;}
-#labelGrups, label[for='comGrups']{font-size:1.2em;color:red;}
-.odd{background:#fcfcff;}
-
-.menu-active, .menu-active:link, .menu-active:visited	{color:white;}
-
-#carta label{width:350px;border:1px solid;}
-
-.ui-button-text-only .ui-button-text {
-padding: .4em .8em;
-}
-.coberts{padding:0;}
-
-#error_validate{background:#fee url("error.gif") no-repeat 4px 5px;;padding:5px;padding-left:20px;border:#f00 solid 2px;color:#f00;}
-
-.ui-accordion .ui-accordion-content{ overflow:scroll !important;overflow-y:scroll !important;overflow-x:hidden !important; }
-/*.ui-state-focus {background:none;}*/
-/*.ui-state-focus{background:#F8F7F6 !important;}*/
-
-.fr-seccio-carta input{width:230px;float:left;visibility:hidden;}
-/*.fr-seccio-carta input{width:230px;float:left;}*/
-/*.ui-state-default a:hover, .ui-state-default a:visited{color:white;}*/
-
-#a_consulta_online{color:#999;}
-#a_consulta_online:hover{color:red;}
-#form_contactar input{width:100%;}
-#form_contactar{padding:8px;text-align:justify;}
-#caixa_reserva_consulta_online{margin:0px 25px 45px 25px;width:300px;color:#999;text-align:center;float:right;}
-#caixa_reserva_consulta_online textarea{height:60px;}
-#bt_reserva_consulta_online{float:right;}
-#bt-menu{margin-top:10px;color: #570600;}
-#bt-menu:hover{margin-top:10px;color: white;}
-
-#help{font-size:1.2em}
-.gris-ajuda{
-  color:#999966;
-  margin-left:12px;
-  display:block;
-  }
-  
-  .tooltip-red{z-index:1100 !important;}
-  
-  
-  
- /**
- PANTALLES FINS A 500
- */  @media only screen and (max-width: 450px){ 
-    
-     #calendari{font-size:1.1em !important}
-    .ui-dialog{width:95% !important;}
+    #calendari{font-size:1.1em !important}
     label{min-width:65px;}
     #selectorCotxets label{min-width:100%;}
     #selectorCadiraRodes label{min-width:100%;}
     td.resum-carta-nom {
-    font-weight: normal;
-    font-size: 0.7em;
-}
-  }  
+        font-weight: normal;
+        /*font-size: 0.7em;*/
 
-  /**
- PANTALLES FINS A 770
- */
- @media only screen and (max-width: 770px){ 
-     #editar_reserva{width:99%;margin:0;padding:8px 0 12px 0;}
-     #caixa_reserva_consulta_online {width:99%;float:none;margin:0;padding:8px 0 12px 0;margin-bottom:35px;}
-     
-     h4{font-size:1.7em}
-      h2.titol{font-size:2.5em !important;}
-     div.caixa{display:none;} 
-     div.info{display:none;} 
-     .fr-seccio-submit .caixa.resum{display:block;}
-      .fr-seccio-carta .caixa{display:block;}
-      .info-legal{display:block;}
-      
-      .fr-seccio-carta .caixa .dere{float:none;}
+    }
+    #bt-carta, #bt-menu, #bt-no-carta {float:none;min-width:100%}
+}  
+
+/**
+PANTALLES FINS A 770
+*/
+@media only screen and (max-width: 770px){ 
+    #editar_reserva{width:99%;margin:0;padding:8px 0 12px 0;}
+    #caixa_reserva_consulta_online {width:99%;float:none;margin:0;padding:8px 0 12px 0;margin-bottom:35px;}
+
+    h4{font-size:1.7em}
+    h2.titol{font-size:2.5em !important;}
+    div.caixa{display:none;} 
+    div.info{display:none;} 
+    .fr-seccio-submit .caixa.resum{display:block;}
+    .fr-seccio-carta .caixa{display:block;}
+    .info-comanda{display:block;}
+    .info-legal{display:block;}
+
+    .fr-seccio-carta .caixa .dere{float:none;}
+
+    .fr-seccio{margin-left:0px;margin-right:0px;padding:8px;}  
+    #calendari{font-size:1.3em}
+    img{max-width:100%;}
+    #td_contingut {background-image: none;}
+    #bt-carta, #bt-menu,#bt-no-carta {float:none;}
+
+    .ui-button, h4, h3, h2, legend{font-size:1.7em !important;}
+
+    .ui-dialog{width:95% !important;}
+    .d-mes,.d-menys, td.mes,td.menys{display:none}
+    .m-mes, .m-menys{
+        display:block;
+        background:#570600;
+        color:white;
+        text-align:center;
+        height:25px;
+        font-size: 2em;
+        font-weight: bold;
+    }
+    .mes, .menys{background:white;}
+
+    .menys{margin-bottom:12px;}
+    .contador{width:35px;}
+    #tr_menu{font-size:2em;}
+    #tr_menu a{display:block;text-align:left;}
+    #tr_menu img{display:none;}
+    #table_menu{margin-left:15px !important}
+
+    #caixa_reserva_consulta_online {float:none}
+
+    .fals-overlay{visibility:hidden;}
+    /* .fals-overlay{display:none;}*/
+
+
+    #data{float:none !important;font-size: 1.3em;}
+    #calendari{width:95%;}
+    div.ui-datepicker-inline.ui-datepicker{width:100%;}
+
+    #fr-carta-tabs li, #fr-menu-tabs li {
+        width: 100%;
+        font-size:1.1em;
+    }
     
-     .fr-seccio{margin-left:0px;margin-right:0px;padding:8px;}  
-     #calendari{font-size:1.3em}
-
-     #td_contingut {background-image: none;}
-     #bt-carta, #bt-menu {float:none;}
-     .ui-button, h4, h3, h2, legend{font-size:1.5em !important;}
-     
-   .ui-dialog{width:95% !important;}
-     x.d-mes,x.d-menys{display:none}
-     .m-mes, .m-menys{display:none}
-     #tr_menu{font-size:2em;}
-     #tr_menu a{display:block;text-align:left;}
-     #tr_menu img{display:none;}
-     #table_menu{margin-left:15px !important}
-     
-     #caixa_reserva_consulta_online {float:none}
+    .fr-seccio-client input{font-size:1.7em;}   
+    .fr-seccio-submit {font-size:1.7em;}   
 }
- //body{font-size:1.5em !important;}
- 
- /**
- PANTALLES GRANS
- */
-@media all and (min-width: 770px) {
-	// styles
+    /**
+    PANTALLES GRANS
+    */
+    @media all and (min-width: 770px) {
+        // styles
         body{font-size:3em !important;}
         #poma-fons{background-image:url(../../img/fons_9a.jpg) }
         .fr-seccio-carta {max-width: 729px;}
         #calendari{font-size:1.6em}
-        
+
         #jnc{max-width:50%;}
         hr{display:none;} 
         .m-mes, .m-menys{display:none}
         .info-ico{display:none}
 
+    }
+
+
+    #dades-client{width:100%;}
+    .ui-icon-closethick,   .ui-button-icon-only .ui-icon {
+        left: 0%;
+        top: -10%; 
+    }
+
+    #carta_MENUS{padding:0;}
+    a:hover {
+        color: red;
+    }
+
+
+    .ui-widget-overlay{
+        background:#444;
+        opacity:0.9;
+        position: fixed;
+        /*overflow:hidden; height:15000px;*/
+        top:0;
+        bottom: 0;
+        left:0;
+        right: 0;
+        z-index:1999  !important;
+    }
+
+    #taula-estructura{background:#444}
+    #poma-fons{background-color:white; }
+    .mes a, .menys a{color:white;}
+    
+    .fr-seccio-client input, .fr-seccio-client  label {display: block;margin-top: 7px;}    
+h4{padding-top: 15px;}
+
+.ui-dialog{z-index:2000  !important;}
+#peu{display:none;}
+a:link, a:visited
+{
+    font-family: verdana, arial, helvetica;
+    text-decoration: none;
+    color: #FFCC99;
+    font-weight: bold;
 }
-
-img{max-width:100%;width:auto;}
-#dades-client{width:100%;}
-.ui-icon-closethick,   .ui-button-icon-only .ui-icon {
-left: 0%;
-top: -10%; 
-}
-
-#carta_MENUS{padding:0;}
-a:hover {
-color: red;
-}
-  
-        .d-mes{min-width:27px;height:27px;
-        
-        
-        /*
-        background-color:#570600;
-        margin:auto;
-        font-size:1.3em;
-        color:white;
-        text-align: center;
-font-weight: bold;
-margin-top:6px;*/
-	background-image:url(custom-theme/images/ui-icons_570600_256x240.png);
-	background-position:0 -189px;
-        background-repeat:no-repeat;
-	}
-        
-       
-        .d-menys{min-width:27px;min-height:27px;
-        /*
-        margin:auto;
-        font-size:1.5em;
-background-color:#570600;
-       font-size:1.3em;
-        color:white;
-        text-align: center;
-font-weight: bold;*/
-        }
-        
-        .ui-widget-overlay{
-            background:#444  50% 50% repeat-x;
-                          opacity:0.9;
-                          position: absolute;
-                          top:0 ;
-                            bottom: 1px ;
-                            left:0;
-                            right:0;            
-        }
-
-
-  /*
- * jQuery UI Datepicker @VERSION
- *
- * Copyright 2010, AUTHORS.txt (http://jqueryui.com/about)
- * Dual licensed under the MIT or GPL Version 2 licenses.
- * http://jquery.org/license
- *
- * http://docs.jquery.com/UI/Datepicker#theming
- 
-div.hasDatepicker{ display: block; padding: 0; overflow: visible;  margin: 8px 0; }
-.ui-datepicker {  overflow: visible; margin: 0; max-width: 90%;font-size: 100%;  }
-.ui-datepicker .ui-datepicker-header { position:relative; padding:.4em 0; border-bottom: 0; font-weight: bold; }
-.ui-datepicker .ui-datepicker-prev, .ui-datepicker .ui-datepicker-next { padding: 1px 0 1px 2px; position:absolute; top: .5em; margin-top: 0; text-indent: -9999px; }
-
-.ui-datepicker .ui-datepicker-prev { left:6px; }
-.ui-datepicker .ui-datepicker-next { right:6px; }
-.ui-datepicker .ui-datepicker-title { margin: 0 2.3em; line-height: 1.8em; text-align: center; }
-.ui-datepicker .ui-datepicker-title select { font-size:1em; margin:1px 0; }
-.ui-datepicker select.ui-datepicker-month-year {width: 100%;}
-.ui-datepicker select.ui-datepicker-month, 
-.ui-datepicker select.ui-datepicker-year { width: 49%;}
-.ui-datepicker table {width: 100%; border-collapse: collapse; margin:0; }
-.ui-datepicker td { border-width: 1px; padding: 0; text-align: center; }
-.ui-datepicker td span, .ui-datepicker td a { display: block; padding: .2em 0; font-weight: bold; margin: 0; border-width: 0; text-align: center; text-decoration: none; }
-
-.ui-datepicker-calendar th { padding-top: .3em; padding-bottom: .3em; }
-.ui-datepicker-calendar th span, .ui-datepicker-calendar span.ui-state-default { opacity: .3; }
-.ui-datepicker-calendar td a { padding-top: .5em; padding-bottom: .5em; }
-
-.min-width-480px div.hasDatepicker  { width: 63%; display: inline-block; margin: 0; } 
-  */
