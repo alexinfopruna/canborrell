@@ -101,16 +101,6 @@ textarea{margin-left:0px;width:90%;color:#570600;font-weight:bold;}
 .contador{text-align:right;width:25px;margin-left:0px;}
 
 .d-mes{min-width:27px;height:27px;
-
-
-       /*
-       background-color:#570600;
-       margin:auto;
-       font-size:1.3em;
-       color:white;
-       text-align: center;
-font-weight: bold;
-margin-top:6px;*/
        background-image:url(custom-theme/images/ui-icons_570600_256x240.png);
        background-position:0 -189px;
        background-repeat:no-repeat;
@@ -118,15 +108,6 @@ margin-top:6px;*/
 
 
 .d-menys{min-width:27px;min-height:27px;
-         /*
-         margin:auto;
-         font-size:1.5em;
- background-color:#570600;
-        font-size:1.3em;
-         color:white;
-         text-align: center;
- font-weight: bold;*/
-
          background-image:url(custom-theme/images/ui-icons_570600_256x240.png);
          background-position:-16px -189px;
          background-repeat:no-repeat;
@@ -139,10 +120,6 @@ margin-top:6px;*/
        color:white;
        text-align: center;
        font-weight: bold;
-
-       /*background-image:url(custom-theme/images/ui-icons_570600_256x240.png);
-       background-position:0 -189px;
-       background-repeat:no-repeat;*/
 }
 
 
@@ -154,10 +131,6 @@ margin-top:6px;*/
          color:white;
          text-align: center;
          font-weight: bold;
-
-         /*background-image:url(custom-theme/images/ui-icons_570600_256x240.png);
-         background-position:-16px -189px;
-         background-repeat:no-repeat;*/
 }	
 
 .borra{width:16px;height:16px;

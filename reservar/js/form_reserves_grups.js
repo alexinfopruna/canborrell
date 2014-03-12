@@ -111,7 +111,8 @@ $(function(){
 				$(this).dialog("close"); 
 				if (!SECCIO) seccio("fr-seccio-quants");
 			} 
-		}
+		},
+                close:tanca_dlg
 	}
 	);	
 	
@@ -413,10 +414,8 @@ function comportamentClient()
 	
 
 	if ($(".fr-seccio-client").is(":hidden")) $(".fr-seccio-client").slideDown("slow",function(){seccio("fr-seccio-client");});
-	$(".fr-seccio-client").change(validaDadesClient);
-	$(".fr-seccio-client").keyup(validaDadesClient);
-	$(".fr-seccio-client").keypress(validaDadesClient);
-	$(".fr-seccio-client input").blur(validaDadesClient);
+        $(".fr-seccio-client input").bind('blur change ', validaDadesClient);
+        $(".fr-seccio-client").bind('blur change ', validaDadesClient);
 }
 
 function validaDadesClient(){
@@ -424,11 +423,15 @@ function validaDadesClient(){
 		ok = ok && $("input[name='client_mobil']").val();
 		ok = ok && $("input[name='client_nom']").val();
 		ok = ok && $("input[name='client_cognoms']").val();
-		if (ok &&  $(".fr-seccio-submit").is(':hidden') ) 
+                updateResum();
+		if (ok ) 
 		{
-			if ($(".fr-seccio-submit").is(":hidden")) //$(".fr-seccio-submit").slideDown("slow",function(){seccio("fr-seccio-submit");});
-                        seccio("fr-seccio-submit");
-			updateResum();
+ 			if ($(".fr-seccio-submit").is(":hidden")) {
+                               $(".fr-seccio-submit").show();
+                               $(".fr-seccio-submit").css("display","block");
+                               $(".fr-seccio-submit").css("visibility","visible");
+                               $.scrollTo( "#scroll-seccio-submit", 800 );
+                      }
 		}
 	}
 
@@ -797,7 +800,7 @@ function controlSubmit()
 			{
 				$('#submit').show();
 				var err="Error de servidor";
-				if (obj && obj.error) err=l(obj.error);
+				if (obj && obj.error) err=l('err'+obj.error);
 				$("#popup").html("ERROR: "+err);
 				//alert("ERROR: "+err); 
 			}
@@ -861,13 +864,15 @@ function seccio(selector_seccio){
 
 
 function help(txt){
-    $("#td-contigut").addClass("fals-overlay");
+        if ($.browser.name=="opera") $("#td_contingut").addClass("fals-overlay");
+$("#td_contingut").addClass("fals-overlay");
+    
     $("#help").html(txt);
     $("#help").dialog("open");
 }
 
 function tanca_dlg(){
  //   $("#taula-estructura").removeClass("fals-overlay");
-    $("#td-contigut").removeClass("fals-overlay");
-    if (!SECCIO) seccio(SECCIO_INICIAL);
+    $("#td_contingut").removeClass("fals-overlay");
+   
 }

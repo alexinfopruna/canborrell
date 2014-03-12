@@ -958,7 +958,7 @@ function observacions_cotxets()
 
 
 function help(txt){
-    if ($.browser.name) $("#td_contingut").addClass("fals-overlay");
+    if ($.browser.name=="opera") $("#td_contingut").addClass("fals-overlay");
     $("#help").html(txt);
     
     $("#help").dialog("open");

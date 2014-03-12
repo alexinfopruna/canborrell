@@ -70,6 +70,8 @@ $row['observacions']=null;
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" pageEncoding="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
 <title> Masia Can Borrell </title>
 	
 	
@@ -128,12 +130,14 @@ require_once('translate_grups_'.$gestor->lng.'.php');
 </head>
 <body style="display:none" class="<?php echo DEV?" dev ":""; echo LOCAL?" local ":"" ?>">
 
-<table BGCOLOR="#F8F8F0" CELLPADDING="0" CELLSPACING="0"   BORDER="0" align="center">
+<table bgcolor="#F8F8F0" cellpadding="0" cellspacing="0"   border="0" align="center">
 	<tr height="114">
-		<td COLSPAN="2" ALIGN="RIGHT"><a HREF="../index.htm"><img SRC="../img/lg_sup.gif" width="303" height="114" border="0" title="INICI"></a></td>
+		<td colspan="2" align="RIGHT"><a HREF="../index.htm">
+                        <img src="../img/lg_sup.gif" width="303" height="114" border="0" title="INICI"></a>
+                 </td>
 	</tr>
 	<tr height="18">
-		<td BGCOLOR="#570600" COLSPAN="2" ALIGN="">
+		<td bgcolor="#570600" colspan="2" align="">
 			<table cellpadding="0" cellspacing="0" width="761" height="19" border="0">
 				<?php //require_once($ruta_lang."menu.php");?>
 			</table>
@@ -166,8 +170,7 @@ else
 		<!-- *******************************  QUANTS SOU ********************************************************   -->
 		<!-- *******************************  QUANTS SOU ********************************************************   -->
 		
-<h2 CLASS="titol"><?php  l('Sol·licitud de reserva per a GRUPS');?>
-    <a href="info_reserves.html" id="info_reserves"><img src="css/info.png" title="<?php l("Informació de reserves");?>" style="width:16px;height:auto;margin-left:8px"/></a></h2>
+<h2 CLASS="titol"><?php  l('Sol·licitud de reserva per a GRUPS');?><a href="info_reserves.html" id="info_reserves"><img src="css/info.png" title="<?php l("Informació de reserves");?>" style="width:16px;height:auto;margin-left:8px"/></a></h2>
 		<div class="fr-seccio ui-corner-all fr-seccio-quants"> 
 			<h1 class="titol"><span class="number">1</span><?php l('Quants sou?');?>
                         <a href="#" id="info-quants" class="info-ico"><img src="css/info.png" title="<?php l('Ajuda');?>" style="width:16px;height:auto;margin-left:8px"/></a>
@@ -233,6 +236,7 @@ else
 					<input type="radio" id="cotxets2L" name="selectorCotxets" value="1"  /><label for="cotxets2L"><?php l("Doble llarg");?></label>
 				</div>
 				
+				<!-- ******  CADIRA RODES  ********   -->
 				<h4  id="titol_selectorCadiraRodes"><?php l('Cadira de rodes');?>:</h4>
 				<div id="selectorCadiraRodes" class="col_dere">
 					<?php	
@@ -369,9 +373,9 @@ else
                                 </h1>
 				<table id="dades-client" class="col_dere">
 					<tr><td class="label" >* <em style="font-size:0.9em;"><?php l('Camps obligatoris');?></em>
-					<div><label class="label" for="client_mobil"><?php l('Telèfon mòbil');?>*</label><input type="text" name="client_mobil" value="999558844<?php echo $row['client_mobil']?>"/></div>
+					<div><label class="label" for="client_mobil"><?php l('Telèfon mòbil');?>*</label><input type="text" name="client_mobil" value="<?php echo $row['client_mobil']?>"/></div>
                                         <div><label class="label" for="client_telefon"><?php l('Ens vols deixar una altre telèfon?');?></label><input type="text" name="client_telefon" value="<?php echo $row['client_telefon']?>"/></div>
-                                        <div><label class="label" for="client_email">Email*</label><input type="email" name="client_email" value="aaa@aaa.aa<?php echo $row['client_email']?>"/></div>
+                                        <div><label class="label" for="client_email">Email*</label><input type="email" name="client_email" value="<?php echo $row['client_email']?>"/></div>
                                         <div><label class="label" for="client_nom"><?php l('Nom');?>*</label><input type="text" name="client_nom" value="<?php echo $row['client_nom']?>"/></div>
 					<div><label class="label" for="client_cognoms"><?php l('Cognoms');?>*</label><input type="text" name="client_cognoms" value="<?php echo $row['client_cognoms']?>"/></div>
 					<div><label class="label" for="client_id"><?php //l('Client_id');?></label><input type="hidden" name="client_id" value="<?php echo $row['client_id']?>"/></div>
@@ -497,5 +501,5 @@ else
 </div>
 
 
-</BODY>
-</HTML>
+</body>
+</html>

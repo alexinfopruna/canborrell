@@ -505,11 +505,11 @@ else
                                 </h1>
 				<table id="dades-client" class="col_dere">
 					<tr><td class="label" >* <em style="font-size:0.9em;"><?php l('Camps obligatoris');?></em>
-					<div><label class="label" for="client_mobil"><?php l('Telèfon mòbil');?>*</label><input type="text" name="client_mobil" value="999558844<?php echo $row['client_mobil']?>"/></div>
+					<div><label class="label" for="client_mobil"><?php l('Telèfon mòbil');?>*</label><input type="text" name="client_mobil" value="<?php echo $row['client_mobil']?>"/></div>
                                         <div><label class="label" for="client_telefon"><?php l('Ens vols deixar una altre telèfon?');?></label><input type="text" name="client_telefon" value="<?php echo $row['client_telefon']?>"/></div>
-                                        <div><label class="label" for="client_email">Email*</label><input type="email" name="client_email" value="aaa@aaa.aa<?php echo $row['client_email']?>"/></div>
+                                        <div><label class="label" for="client_email">Email*</label><input type="email" name="client_email" value="<?php echo $row['client_email']?>"/></div>
                                         <div><label class="label" for="client_nom"><?php l('Nom');?>*</label><input type="text" name="client_nom" value="<?php echo $row['client_nom']?>"/></div>
-					<div><label class="label" for="client_cognoms"><?php l('Cognoms');?>*</label><input type="text" name="client_cognoms" value="COOOOG<?php echo $row['client_cognoms']?>"/></div>
+					<div><label class="label" for="client_cognoms"><?php l('Cognoms');?>*</label><input type="text" name="client_cognoms" value="<?php echo $row['client_cognoms']?>"/></div>
 					<div><label class="label" for="client_id"><?php //l('Client_id');?></label><input type="hidden" name="client_id" value="<?php echo $row['client_id']?>"/></div>
                                         <div class="ui-corner-all info-legal info-observacions  caixa" style="width:496px;">
             <?php l('NO_COBERTS_OBSERVACIONS');?>

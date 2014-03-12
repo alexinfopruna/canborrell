@@ -41,7 +41,7 @@ PANTALLES FINS A 770
 
     .ui-button, h4, h3, h2, legend{font-size:1.7em !important;}
 
-    .ui-dialog{width:95% !important;}
+    .ui-dialog{width:90% !important;}
     .d-mes,.d-menys, td.mes,td.menys{display:none}
     .m-mes, .m-menys{
         display:block;
@@ -137,3 +137,24 @@ a:link, a:visited
     color: #FFCC99;
     font-weight: bold;
 }
+
+.d-mes{min-width:18px;height:18px;
+       background-color:#570600;
+       margin:auto;
+       font-size:1.3em;
+       color:white;
+       text-align: center;
+       font-weight: bold;
+}
+
+
+.d-menys{min-width:18px;min-height:18px;
+         margin:auto;
+         font-size:1.3em;
+         background-color:#570600;
+         font-size:1.3em;
+         color:white;
+         text-align: center;
+         font-weight: bold;
+}	
+.contador{text-align:right;width:25px;margin-left:0px;}
