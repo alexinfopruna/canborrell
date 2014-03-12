@@ -821,11 +821,16 @@ function timer()
 
 function timer_help(txt)
 {
-	$("#help").html(txt);
-	$("#help").dialog("open");
-	//SECCIO=null;
+	if (!SECCIO) return clearInterval(th);
+        //alert(window.orientation);
+	if(typeof window.orientation !== 'undefined') return;
+        
+    help(txt);
+	
+	SECCIO=null;
 	clearInterval(th);
 }
+
 
 
 /********************************************************************************************************************/

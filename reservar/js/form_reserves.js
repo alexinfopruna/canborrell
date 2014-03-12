@@ -884,12 +884,8 @@ function timer()
 function timer_help(txt)
 {
 	if (!SECCIO) return clearInterval(th);
+	if(typeof window.orientation !== 'undefined') return;
 	
-        //$( "#help" ).dialog( dlg);
-       
-        //$( "#help" ).dialog( "option", "position",{ 'my': 'bottom center', 'at': 'center', 'of':window});
-	
-    
     help(txt);
 	
 	SECCIO=null;

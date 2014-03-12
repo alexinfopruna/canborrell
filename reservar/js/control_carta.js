@@ -10,7 +10,7 @@ $(function(){
 		autoOpen: false,
 		modal:true,
 		width:800,
-		height:750,
+		
 		close:updateMenu,
 		buttons: {
 			"Fet": function() { 

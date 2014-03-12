@@ -464,3 +464,7 @@ h4{padding-top: 15px;}
     opacity: 0.5;
     z-index: 10000;
 }
+
+.ui-dialog-content{height:auto !important;}
+#fr-menu-popup{height:auto !important;}
+#fr-cartaw-popup{height:auto !important;}
