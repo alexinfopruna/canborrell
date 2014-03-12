@@ -10,23 +10,6 @@ var SECCIO=null;
 
 var DEBUG=getParameterByName("debug");
 
-var dlg={
-		autoOpen: false,
-		modal:true,
-		width: '400px',
-		buttons: {
-			"Continuar": function() { 
-				$(this).dialog("close"); 
-                                //$(this).dialog('destroy');
-				//if (!SECCIO) seccio(SECCIO_INICIAL);
-				SECCIO_INICIAL=null;
-			} 
-		},
-                close: tanca_dlg
-	};
-    
-    
-    
 
 
 /* PROBLEMA IE indexOf */
@@ -127,10 +110,8 @@ $(function(){
 			"Continuar": function() { 
 				$(this).dialog("close"); 
 				if (!SECCIO) seccio("fr-seccio-quants");
-			}
-                        
-		},
-                close: tanca_dlg
+			} 
+		}
 	}
 	);	
 	
@@ -198,13 +179,13 @@ $(".ui-accordion-content").css("overflow","scroll");
                 if (vl) $("em[generated=true]").remove();
         });
         
-        
-        $(".info-ico").click(function(e){
+$(".info-ico").click(function(e){
     
     id=$(this).attr("id");
     help($("."+id).html());
-   
-    e.preventDefault();});
+    e.preventDefault();
+});
+    
 }); //ONLOAD, PRESENTACIO UI
 /************************************************************************************************************/
 /************************************************************************************************************/
@@ -232,12 +213,10 @@ function comportamentQuantsSou()
 	$("#selectorComensals").change(function(){
 		$("input[name='adults']").val($("input[name='selectorComensals']:checked").val());
 		totalPersones();
-		comportamentMenus();
 		$("#selectorComensals").buttonset("destroy");
 		$("#selectorComensals").buttonset();
-                    //seccio("titol_SelectorJuniors");
-                                    $.scrollTo("#titol_SelectorJuniors",600);
-
+                $.scrollTo("#titol_SelectorJuniors",600);
+                //SECCIO="fr-seccio-dia";
                 return false;
 	});
 	$("input[name='adults']").change(function(){
@@ -246,9 +225,9 @@ function comportamentQuantsSou()
 		$("input[name='selectorComensals']:checked").prop("checked",false).button("refresh");		
 		$("#com"+val).prop("checked","true").button("refresh");		
 		totalPersones();
-		comportamentMenus();
                 //seccio("titol_SelectorJuniors");
                 $.scrollTo("#titol_SelectorJuniors",600);
+                //SECCIO="fr-seccio-dia";
 		return false;
 	});
 	
@@ -256,8 +235,8 @@ function comportamentQuantsSou()
 	$("input[name=selectorJuniors]").change(function(){
 		$("input[name='nens10_14']").val($("input[name='selectorJuniors']:checked").val());
 		totalPersones();
-		comportamentMenus();
-                                     $.scrollTo("#titol_SelectorNens",600);
+                //seccio("titol_SelectorNens");
+                 $.scrollTo("#titol_SelectorNens",600);
 		return false;
 	});
 	$("input[name='nens10_14']").change(function(){
@@ -266,8 +245,8 @@ function comportamentQuantsSou()
 		$("input[name='selectorJuniors']:checked").prop("checked",false).button("refresh");		
 		$("#junior"+val).prop("checked","true").button("refresh");		
 		totalPersones();
-		comportamentMenus();
-                                     $.scrollTo("#titol_SelectorNens",600);
+                  $.scrollTo("#titol_SelectorNens",600);
+                //seccio("titol_SelectorNens");
 		return false;
 	});
 	
@@ -275,8 +254,8 @@ function comportamentQuantsSou()
 	$("input[name=selectorNens]").change(function(){
 		$("input[name='nens4_9']").val($("input[name='selectorNens']:checked").val());
 		totalPersones();
-		comportamentMenus();
-                                     $.scrollTo("#titol_SelectorCotxets",600);
+                  $.scrollTo("#titol_SelectorCotxets",600);
+               //seccio("titol_SelectorCotxets");
 		return false;
 	});
 	$("input[name='nens4_9']").change(function(){
@@ -285,12 +264,22 @@ function comportamentQuantsSou()
 		$("input[name='selectorNens']:checked").prop("checked",false).button("refresh");		
 		$("#nens"+val).prop("checked","true").button("refresh");		
 		totalPersones();
-		comportamentMenus();
-                                     $.scrollTo("#titol_SelectorCotxets",600);
+                 $.scrollTo("#titol_SelectorCotxets",600);
+                //seccio("titol_SelectorCotxets");
 		return false;
 	});
+        
+$("input[name=selectorCotxets]").change(function(){
+		
+		//totalPersones();
+		//comportamentMenus();
+                  $.scrollTo("#titol_selectorCadiraRodes",600);
+               //seccio("titol_SelectorCotxets");
+		return false;
+	});
+
 	
-}
+}	
 
 
 /********************************************************************************************************************
@@ -308,7 +297,10 @@ function totalPersones()
 	var total=na+nj+nn;
 	
 	$("input[name='totalComensals']").val(total);
-	if (total>=PERSONES_GRUP) 	{monta_calendari("#calendari");comportamentDia();}
+	if (total>=PERSONES_GRUP) 	{
+            monta_calendari("#calendari");
+            comportamentDia();
+        }
 
 	updateResum();
 	return total;
@@ -321,7 +313,10 @@ function totalPersones()
 */
 function comportamentDia()
 {
-	if ($(".fr-seccio-dia").is(":hidden")) $(".fr-seccio-dia").slideDown("slow",function(){seccio("fr-seccio-diaxx");});
+	if ($(".fr-seccio-dia").is(":hidden")) $(".fr-seccio-dia").slideDown("slow",function(){
+            //seccio("fr-seccio-dia");
+            SECCION="fr-seccio-dia";
+        });
 	
 	$("#calendari").change(function(){
 		var dat=$("#calendari").datepicker("getDate");
@@ -431,7 +426,8 @@ function validaDadesClient(){
 		ok = ok && $("input[name='client_cognoms']").val();
 		if (ok &&  $(".fr-seccio-submit").is(':hidden') ) 
 		{
-			if ($(".fr-seccio-submit").is(":hidden")) $(".fr-seccio-submit").slideDown("slow",function(){seccio("fr-seccio-submit");});
+			if ($(".fr-seccio-submit").is(":hidden")) //$(".fr-seccio-submit").slideDown("slow",function(){seccio("fr-seccio-submit");});
+                        seccio("fr-seccio-submit");
 			updateResum();
 		}
 	}
@@ -801,7 +797,7 @@ function controlSubmit()
 			{
 				$('#submit').show();
 				var err="Error de servidor";
-				if (obj && obj.error) err=obj.error;
+				if (obj && obj.error) err=l(obj.error);
 				$("#popup").html("ERROR: "+err);
 				//alert("ERROR: "+err); 
 			}
@@ -865,20 +861,13 @@ function seccio(selector_seccio){
 
 
 function help(txt){
-    //if ($.browser.name) $("#td_contingut").addClass("fals-overlay");
+    $("#td-contigut").addClass("fals-overlay");
     $("#help").html(txt);
-    alert(txt);
     $("#help").dialog("open");
 }
 
 function tanca_dlg(){
  //   $("#taula-estructura").removeClass("fals-overlay");
-    $("#td_contingut").removeClass("fals-overlay");
+    $("#td-contigut").removeClass("fals-overlay");
     if (!SECCIO) seccio(SECCIO_INICIAL);
 }
-
-$(".info-ico").click(function(e){
-    alert("eee");
-    id=$(this).attr("id");
-    help("llll"+$("."+id).html());
-    e.preventDefault();});

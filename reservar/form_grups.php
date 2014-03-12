@@ -197,7 +197,7 @@ else
 					<!--Tingue's present que si vols modificar aquest nombre més endavant no podem garantir la disponibilitat de taula.<br/><br/>-->
 				</div>
 				<!-- ******  JUNIOR  ********   -->
-			<h4  class="titol_SelectorJuniors"><?php l('Juniors (de 10 a 14 anys):');?></h4>
+			<h4  id="titol_SelectorJuniors"><?php l('Juniors (de 10 a 14 anys):');?></h4>
 				<div id="selectorJuniors" class="col_dere">
 				 <input type="text" id="junior" name="nens10_14" value=""  style="width:35px;font-size:1.2em;padding-left:0;padding-right:0" class="ui-button ui-widget ui-state-default ui-button-text-only coberts"/><label for="comGrupsN" ><?php //l('Més de ');//echo ($PERSONES_GRUP+14)?></label>
 				 &lArr;
@@ -212,7 +212,7 @@ else
 				?>
 				</div>
 				<!-- ******  NENS  ********   -->
-				<h4 class="titol_SelectorNens"><?php l('Nens (de 4 a 9 anys)');?>:</h4>
+				<h4 id="titol_SelectorNens"><?php l('Nens (de 4 a 9 anys)');?>:</h4>
 				<div id="selectorNens" class="col_dere">
 				 <input type="text" id="nens" name="nens4_9" value=""  style="width:35px;font-size:1.2em;padding-left:0;padding-right:0" class="ui-button ui-widget ui-state-default ui-button-text-only coberts"/><label for="comGrupsN" ><?php //l('Més de ');//echo ($PERSONES_GRUP+14)?></label>
 				 &lArr;
@@ -225,7 +225,7 @@ else
 				?>
 				</div>
 				<!-- ******  COTXETS  ********   -->
-				<h4  class="titol_SelectorCotxets"><?php l('Cotxets de nadó');?>:</h4>
+				<h4  id="titol_SelectorCotxets"><?php l('Cotxets de nadó');?>:</h4>
 				<div id="selectorCotxets" class="col_dere">
 					<input type="radio" id="cotxets0" name="selectorCotxets" value="0"   /><label for="cotxets0"><?php l("Cap");?></label>
 					<input type="radio" id="cotxets1" name="selectorCotxets" value="1"  /><label for="cotxets1">1 simple</label>
@@ -233,7 +233,7 @@ else
 					<input type="radio" id="cotxets2L" name="selectorCotxets" value="1"  /><label for="cotxets2L"><?php l("Doble llarg");?></label>
 				</div>
 				
-				<h4  class="titol_selectorCadiraRodes"><?php l('Cadira de rodes');?>:</h4>
+				<h4  id="titol_selectorCadiraRodes"><?php l('Cadira de rodes');?>:</h4>
 				<div id="selectorCadiraRodes" class="col_dere">
 					<?php	
 						$estat=$gestor->decodeInfo($row['reserva_info']);

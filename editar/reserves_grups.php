@@ -29,7 +29,7 @@ header('Content-Type: text/html; charset=utf-8');
 	//echo $_REQUEST['client_mobil'];
 	//print_r($client);
 	if (isset($client)){		
-		if($client->id_reserva || $client->id_reserva_grup) $json['error']="Err30";
+		if($client->id_reserva || $client->id_reserva_grup) $json['error']="20";
 	}
 	
 	//DADES CLIENT

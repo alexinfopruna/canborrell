@@ -448,7 +448,7 @@ else
 		<!-- *******************************  CARTA  *********************************   -->
 		<a id="scroll-seccio-carta"></a>
 		<div class="fr-seccio ui-corner-all fr-seccio-carta"> 
-				<h1 class="titol"><span class="number">4</span><?php l('Vols triar els plats?');?>
+				<h1 class="titol"><span class="number">4</span><?php l('Vols triar els plats?');?> (opcional)
                                            <a href="#" id="info_carta" class="info-ico"><img src="css/info.png" title="<?php l('Ajuda');?>" style="width:16px;height:auto;margin-left:8px"/></a>
                                 </h1>
 				<div id="carta" class="col_derexx">
