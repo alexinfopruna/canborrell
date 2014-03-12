@@ -49,11 +49,11 @@ define("PERSONES_GRUP",$PERSONES_GRUP);
 $max_nens=$gestor->configVars("max_nens");
 $max_juniors=$gestor->configVars("max_juniors");
 ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html>
+<!DOCTYPE html>
+<html lang="ca-ES">
 <head>
 
-<title> Masia Can Borrell </title>
+<TITLE> Masia Can Borrell </TITLE>
 <!-- <?php echo $gestor->configVars("url_base"); ?> -->
 <!-- <?php echo $gestor->configVars("INC_FILE_PATH"); ?> -->
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -61,12 +61,12 @@ $max_juniors=$gestor->configVars("max_juniors");
 
 
 
-<link type="text/css" href="../taules/css/blitzer/jquery-ui-1.8.9.forms.css" rel="stylesheet" />	
+<link type="text/css" href="../taules/css/blitzer/jquery-ui-1.8.9.formsxxxx.css" rel="stylesheet" />	
 <link type="text/css" href="css/jquery.tooltip.css" rel="stylesheet" />	
 <!--<link type="text/css" href="../estils.css" rel="stylesheet" />	-->
 <link type="text/css" href="css/form_reserves_mob.css" rel="stylesheet" />		
 
-
+<noscript><meta http-equiv="refresh" content="0; nojscript.html"/></noscript>
                <?php echo Gestor::loadJQuery(); ?>
 
 		<script type="text/javascript" src="../taules/js/ui/dev/ui/i18n/jquery.ui.datepicker-ca.js"></script>
@@ -76,18 +76,16 @@ $max_juniors=$gestor->configVars("max_juniors");
 		<script type="text/javascript" src="../taules/js/jquery.timers.js"></script>
 		<script type="text/javascript" src="../taules/js/jquery.form.js"></script>
 		<script type="text/javascript" src="../taules/js/jquery.scrollTo.min.js"></script>
-		<script type="text/javascript" src="../taules/js/jquery.browser.js"></script>
+                <!--<script type="text/javascript" src="js/jquery.scrollTo-1.4.2-min.js"></script>-->
 		<script type="text/javascript" src="js/json2.js"></script>
 		<script type="text/javascript" src="../js/dynmenu.js"></script>
 		<script type="text/javascript" src="js/jquery.amaga.js"></script>
 		<script type="text/javascript" src="js/jquery.tooltip.js"></script>
                 
  <meta name="viewport" content="width=device-width, initial-scale=1">
-
- <!--
 <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.1/jquery.mobile-1.4.1.min.css">
-<script src="http://code.jquery.com/mobile/1.4.1/jquery.mobile-1.4.1.min.js"></script>                
-     -->           
+<script src="http://code.jquery.com/mobile/1.4.1/jquery.mobile-1.4.1.min.js"></script>               
+                
 <!--[if lt IE 7]>
      <script src="http://ie7-js.googlecode.com/svn/version/2.0(beta3)/IE7.js" type="text/javascript"></script>
 <![endif]-->		
@@ -199,24 +197,24 @@ echo $gestor->dumpJSVars(true);
 	?>	
 </script>
 
-		<script type="text/javascript" src="js/control_carta.js"></script>
-		<script type="text/javascript" src="js/form_reserves.js?<?php echo time();?>"></script>
+                <script type="text/javascript" src="js/control_carta.js"></script>
+		<script type="text/javascript" src="js/form_reserves_mob.js"></script>
 
-</head>
-<body class="amagat <?php echo DEV?" dev ":""; echo LOCAL?" local ":"" ?>" onload="loadMenu()" >
-<table id="taula-estructura" bgcolor="#F8F8F0" cellpadding="0" cellspacing="0"   border="0" align="center">
-	<tr height="114">
-            <td id="poma-fons" colspan="2" align="RIGHT"><a href="../index.htm"><img src="../img/lg_sup.gif"  border="0" title="INICI"/></a></td>
-	</tr>
-	<tr height="18">
-		<td bgcolor="#570600" colspan="2" align="">
-			<table cellpadding="0" cellspacing="0" width="761" height="19" border="0">
+</HEAD>
+<BODY class="amagat <?php echo DEV?" dev ":""; echo LOCAL?" local ":"" ?>" onload="loadMenu()" >
+<TABLE id="taula-estructura" BGCOLOR="#F8F8F0" CELLPADDING="0" CELLSPACING="0"   BORDER="0" align="center">
+	<TR height="114">
+		<TD id="poma-fons" COLSPAN="2" ALIGN="RIGHT"><A HREF="../index.htm"><IMG SRC="../img/lg_sup.gif" WIDTH="303" HEIGHT="114" BORDER="0" TITLE="INICI"></A></TD>
+	</TR>
+	<TR height="18">
+		<TD BGCOLOR="#570600" COLSPAN="2" ALIGN="">
+			<TABLE CELLPADDING="0" CELLSPACING="0" WIDTH="761" HEIGHT="19" BORDER="0">
 				<?php //require_once($ruta_lang."menu.php");?>
-			</table>
-		</td>
-	</tr>
-	<tr height="18">
-		<td id="td_contingut" bgcolor="#F8F8F0" colspan="2" align="">
+			</TABLE>
+		</TD>
+	</TR>
+	<TR height="18">
+		<TD id="td_contingut" BGCOLOR="#F8F8F0" COLSPAN="2" ALIGN="">
 <!-- ***************************************************************************************   -->
 <!-- ***************************************************************************************   -->
 <!-- ********     EDITA RESERVA       ***********************************************************   -->
@@ -254,7 +252,7 @@ else include("form_contactar.php");?>
 
   					
 <div style="clear:both"></div>
-<h2 class="titol titol1">
+<h2 CLASS="titol titol1">
 <?php  
 if ($EDITA_RESERVA)
 {
@@ -287,15 +285,12 @@ else
 		<!-- *******************************  QUANTS SOU ********************************************************   -->
 		
 
-		<div class="fr-seccio ui-corner-all fr-seccio-quants" style="max-width:950px;">
-			<h1 class="titol"><span class="number">1</span><?php l('Quants sou?');?>
-                            <a href="#" id="info-quants" class="info-ico"><img src="css/info.png" title="<?php l('Ajuda');?>" style="width:16px;height:auto;margin-left:8px"/></a>
-                        </h1>
-			<h4  id="titol_SelectorComensals"><?php l('Adults (més de 14 anys)');?>:</h4>
-	                   
-                        
+		<div class="fr-seccio ui-corner-all fr-seccio-quants" style="max-width:950px;"> 
+			<h1 class="titol"><span class="number">1</span><?php l('Quants sou?');?></h1>
+			
 			<!-- ******  ADULTS  ********   -->
-			<div id="selectorComensals" class="fr-col-dere selector">
+			<fieldset id="selectorComensals" class="fr-col-dere selector" data-role="controlgroup" data-type="horizontal">
+                                <legend><?php l('Adults (més de 14 anys)');?>:</legend>
 				<input type="hidden" id="com" name="adults" value="<?php echo $row['adults']?>"  style="width:35px;font-size:1.2em;padding-left:0;padding-right:0" class="ui-button ui-widget ui-state-default ui-button-text-only coberts"/><label for="comGrupsN" ><?php //l('Més de ');//echo ($PERSONES_GRUP+14)?></label>	
 				<?php 
 					for ($i=2;$i<$PERSONES_GRUP;$i++)
@@ -305,50 +300,44 @@ else
 					}
 				?>
 				<input type="radio" id="comGrups" name="selectorComensals" value="grups"  /><label id="labelGrups" for="comGrups" style="font-size:1.2em"><?php l('Grups');?></label>
-			</div>
-				<hr/>
-			<div id="jnc" style="float:left">
+			</fieldset>
+				
+			<div style="float:left">
 				<!-- ******  JUNIOR  ********   -->
-				<h4  id="titol_SelectorJuniors"><?php l('Juniors (de 10 a 14 anys):');?></h4>
 				 <input type="hidden" id="junior" name="nens10_14" value="<?php echo $row['nens10_14']?>"  style="width:35px;font-size:1.2em;padding-left:0;padding-right:0" class="ui-button ui-widget ui-state-default ui-button-text-only coberts"/><label for="comGrupsN" ><?php //l('Més de ');//echo ($PERSONES_GRUP+14)?></label>
-				<div id="selectorJuniors" class="col_dere">
+				<fieldset id="selectorJuniors" class="col_dere"  data-role="controlgroup" data-type="horizontal">
+				<legend><?php l('Juniors (de 10 a 14 anys):');?></legend>
 				<?php 
 					for ($i=0;$i<=$max_juniors;$i++)
 					{
-                                           // if (is_null($row['nens10_14'])) $row['nens10_14']=-1; 
-						$chek=($i===$row['nens10_14']?'checked="checked"':'');
+						$chek=($i==$row['nens10_14']?'checked="checked"':'');
 						$k=$i;if (!$i) $k=l("Cap",false);
 						print '<input type="radio" id="junior'.$i.'" name="selectorJuniors" value="'.$i.'" '.$chek.'/><label for="junior'.$i.'">'.$k.'</label>';
 						
 					}
 				?>
-				</div>
-                                 
-                                 <hr/>
+				</fieldset>
 				<!-- ******  NENS  ********   -->
-				<h4  id="titol_SelectorNens"><?php l('Nens (de 4 a 9 anys)');?>:</h4>
-				<div id="selectorNens" class="col_dere">
+				<fieldset id="selectorNens" class="col_dere"  data-role="controlgroup" data-type="horizontal">
+				<legend><?php l('Nens (de 4 a 9 anys)');?>:</legend>
 				 <input type="hidden" id="nens" name="nens4_9" value="<?php echo $row['nens4_9']?>"  style="width:35px;font-size:1.2em;padding-left:0;padding-right:0" class="ui-button ui-widget ui-state-default ui-button-text-only coberts"/><label for="comGrupsN" ><?php //l('Més de ');//echo ($PERSONES_GRUP+14)?></label>
 				<?php 
 					for ($i=0;$i<=$max_nens;$i++)
 					{
-                                            //if (is_null($row['nens4_9'])) $row['nens10_14']=-1; 
-						$chek=($i===$row['nens4_9']?'checked="checked"':'');
+						$chek=($i==$row['nens4_9']?'checked="checked"':'');
 						$k=$i;if (!$i) $k=l("Cap",false);
 						print '<input type="radio" id="nens'.$i.'" name="selectorNens" value="'.$i.'" '.$chek.'/><label for="nens'.$i.'">'.$k.'</label>';
 					}
 				?>
-				</div>
-                                
-                                <hr/>
+				</fieldset>
 				<!-- ******  COTXETS  ********   -->
-				<h4 id="titol_SelectorCotxets"><?php l('Cotxets de nadó');?>:</h4>
-				<div id="selectorCotxets" class="col_dere">
+				<fieldset id="selectorCotxets" class="col_dere"  data-role="controlgroup" data-type="horizontal">
+				<legend><?php l('Cotxets de nadó');?>:</legend>
 					<?php											
 						$estat=$gestor->decodeInfo($row['reserva_info']);		
 
-						$chek0=($row['cotxets']===0?'checked="checked"':'');
-						$chek1=($estat['ampla']===0 && $row['cotxets']==1?'checked="checked"':'');
+						$chek0=($row['cotxets']==0?'checked="checked"':'');
+						$chek1=($estat['ampla']==0 && $row['cotxets']==1?'checked="checked"':'');
 						$chek11=($estat['ampla']==2?'checked="checked"':'');
 						$chek12=($estat['ampla']==3?'checked="checked"':'');
 					?>
@@ -362,12 +351,12 @@ else
 					<input type="radio" id="cotxets2A" name="selectorCotxets" value="1"  <?php echo $chek11?>/><label for="cotxets2A">1<br/><?php l("Doble ample");?></label>
 					<input type="radio" id="cotxets2L" name="selectorCotxets" value="1"  <?php echo $chek12?>/><label for="cotxets2L">1<br/><?php l("Doble llarg");?></label>
 					
-				</div>
+				</fieldset>
 				<input type="hidden" name="amplaCotxets" value="<?php echo $estat['ampla']?>" /> 
-				<hr/>
+				
 				<!--  -->
-				<h4 id="titol_SelectorCadiraRodes"><?php l('Cadira de rodes');?>:</h4>
-				<div id="selectorCadiraRodes" class="col_dere">
+				<fieldset id="selectorCadiraRodes" class="col_dere"  data-role="controlgroup" data-type="horizontal">
+				<legend><?php l('Cadira de rodes');?>:</legend>
 					<?php	
 						$estat=$gestor->decodeInfo($row['reserva_info']);
 						$chek0=($estat['cadiraRodes']==0?'':'checked="checked"');
@@ -375,13 +364,11 @@ else
 					?>
 					<input type="checkbox" id="accesible" name="selectorAccesible" value="on"  <?php echo $chek1?> /><label for="accesible"><?php l("Algú amb movilitat reduïda");?></label>
 					<input type="checkbox" id="cadira0" name="selectorCadiraRodes" value="on"  <?php echo $chek0?> /><label for="cadira0"><?php l("Portem una cadira de rodes");?></label>
-				</div>
+				</fieldset>
 				
-			</div>	
-                                
-                                
+			</div>		
 				<!-- ******  INFO  ********   -->
-				<div class="caixa dere info ui-corner-all info-quants"><?php l('INFO_QUANTS_SOU');?>
+				<div class="caixa dere ui-corner-all"><?php l('INFO_QUANTS_SOU');?>
 					 <input type="text" name="totalComensals" value="<?php echo $row['adults']+$row['nens10_14']+$row['nens4_9']?>" readonly="readonly"/></b>
 					 <input type="text" name="totalCotxets" value="<?php echo $row['cotxets']?"/ ".$row['cotxets']:""?>" readonly="readonly"/></b>
 					<!--Tingue's present que si vols modificar aquest nombre més endavant no podem garantir la disponibilitat de taula.<br/><br/>-->
@@ -395,12 +382,9 @@ else
 		<!-- *******************************  QUIN DIA ********************************************************   -->
 		<a id="scroll-seccio-dia"></a>
 		<div class="fr-seccio ui-corner-all fr-seccio-dia"> 
-				<div class="putoIE">
-                                    <h1 class="titol"><span class="number">2</span><?php l("Quin dia voleu venir?")?>
-                                          <a href="#" id="info_dia" class="info-ico"><img src="css/info.png" title="<?php l('Ajuda');?>" style="width:16px;height:auto;margin-left:8px"/></a>
-                                    </h1></div>
+				<div class="putoIE"><h1 class="titol"><span class="number">2</span><?php l("Quin dia voleu venir?")?></h1></div>
 				<!-- ******  INFO  ********   -->
-				<div class="caixa dere ui-corner-all info_dia">
+				<div class="caixa dere ui-corner-all">
 					<?php l('INFO_DATA');?>	
 					<input type="hidden" id="valida_calendari" name="selectorData" value="<?php echo $row['data'];?>"/>
 					
@@ -419,23 +403,21 @@ else
 		<!-- *******************************  QUINA HORA ********************************************************   -->
 				<a id="scroll-seccio-hora"></a>
 				<div class="fr-seccio ui-corner-all fr-seccio-hora" > 
-				<h1 class="titol"><span class="number">3</span><?php l('A quina hora?');?>
-                                           <a href="#" id="info_hora" class="info-ico"><img src="css/info.png" title="<?php l('Ajuda');?>" style="width:16px;height:auto;margin-left:8px"/></a>
-                                </h1>
+				<h1 class="titol"><span class="number">3</span><?php l('A quina hora?');?></h1>
 				<!-- ******  INFO  ********   -->
-				<div class="ui-corner-all caixa dere hores info_hora">
+				<div class="ui-corner-all caixa dere hores">
 					<?php l('INFO_HORES');?>	
 				</div>
 				<!-- ******  DINAR  ********   -->
-				<h4><?php l('Dinar');?></h4>
-				<div id="selectorHora" class="col_dere">
+				<fieldset id="selectorHora" class="col_dere"  data-role="controlgroup" data-type="horizontal">
+				<legend><?php l('Dinar');?></legend>
 					<img src="css/loading.gif"/>
-				</div>
+				</fieldset>
 				<!-- ******  SOPAR  ********   -->
-				<h4><?php l('Sopar');?></h4>
-				<div id="selectorHoraSopar" class="col_dere" >
+				<fieldset id="selectorHoraSopar" class="col_dere"  data-role="controlgroup" data-type="horizontal">
+				<legend><?php l('Sopar');?></legend>
 					<img src="css/loading.gif"/>
-				</div>
+				</fieldset>
 				
 				<input type="hidden" name="taulaT1" value="">
 				<input type="hidden" name="taulaT2" value="">
@@ -448,9 +430,7 @@ else
 		<!-- *******************************  CARTA  *********************************   -->
 		<a id="scroll-seccio-carta"></a>
 		<div class="fr-seccio ui-corner-all fr-seccio-carta"> 
-				<h1 class="titol"><span class="number">4</span><?php l('Vols triar els plats?');?> (opcional)
-                                           <a href="#" id="info_carta" class="info-ico"><img src="css/info.png" title="<?php l('Ajuda');?>" style="width:16px;height:auto;margin-left:8px"/></a>
-                                </h1>
+				<h1 class="titol"><span class="number">4</span><?php l('Vols triar els plats?');?></h1>
 				<div id="carta" class="col_derexx">
               <input id="te-comanda" name="te_comanda" type="text" value="" style="display:none"> 
 					<!-- ******  COMANDA  ********   -->
@@ -474,7 +454,7 @@ else
 							</tr>
 						</table>
 											<!-- ******  BUTO CARTA  ********   -->
-						<div class="ui-corner-all info info-comanda info_carta" style="float:left;">
+						<div class="ui-corner-all info info-comanda" style="float:left;">
 							<?php l('INFO_COMANDA');?>
 						</div>
 					
@@ -486,10 +466,10 @@ else
 						<?php l('INFO_CARTA');?>
 					</div>
 					<!-- ******  BUTO CARTA  ********   -->
-						<a href="#"  id="bt-carta" name="bt-carta" class="bt" ><?php l('Carta');?></a>
-						<a href="#"  id="bt-menu" name="bt-menu" class="bt"><?php l('Menús');?></a>
-				<a href="#" id="bt-no-carta" name="bt-no-carta" class="bt" ><?php l('Continuar');?></a>
-						<div style="clear:both"></div>
+					<a href="#" id="bt-no-carta" name="bt-no-carta" class="bt" ><?php l('Continuar');?></a>
+						<a href="#"  id="bt-carta" name="bt-carta" class="bt" ><?php l('Veure la carta');?></a>
+						<a href="#"  id="bt-menu" name="bt-menu" class="bt"><?php l('Veure els menús');?></a>
+					<div style="clear:both"></div>
 
 				</div>
 		</div>	
@@ -500,37 +480,34 @@ else
 		<!-- *******************************  CLIENT ********************************************************   -->
 		<a id="scroll-seccio-client"></a>
 		<div class="fr-seccio ui-corner-all fr-seccio-client"> 
-				<h1 class="titol"><span class="number">5</span><?php l('Donan´s algunes dades de contacte');?>
-                                             
-                                </h1>
+				<h1 class="titol"><span class="number">5</span><?php l('Donan´s algunes dades de contacte');?></h1>
 				<table id="dades-client" class="col_dere">
-					<tr><td class="label" >* <em style="font-size:0.9em;"><?php l('Camps obligatoris');?></em>
-					<div><label class="label" for="client_mobil"><?php l('Telèfon mòbil');?>*</label><input type="text" name="client_mobil" value="<?php echo $row['client_mobil']?>"/></div>
-                                        <div><label class="label" for="client_telefon"><?php l('Ens vols deixar una altre telèfon?');?></label><input type="text" name="client_telefon" value="<?php echo $row['client_telefon']?>"/></div>
-                                        <div><label class="label" for="client_email">Email*</label><input type="email" name="client_email" value="<?php echo $row['client_email']?>"/></div>
-                                        <div><label class="label" for="client_nom"><?php l('Nom');?>*</label><input type="text" name="client_nom" value="<?php echo $row['client_nom']?>"/></div>
-					<div><label class="label" for="client_cognoms"><?php l('Cognoms');?>*</label><input type="text" name="client_cognoms" value="<?php echo $row['client_cognoms']?>"/></div>
-					<div><label class="label" for="client_id"><?php //l('Client_id');?></label><input type="hidden" name="client_id" value="<?php echo $row['client_id']?>"/></div>
-                                        <div class="ui-corner-all info-legal info-observacions  caixa" style="width:496px;">
+					<tr><td class="label">* <em style="font-size:0.9em;"><?php l('Camps obligatoris');?></em></td><td></td></tr>
+					<tr><td class="label"><?php l('Telèfon mòbil');?>*</td><td><input type="text" name="client_mobil" value="<?php echo $row['client_mobil']?>"/></td></tr>
+					<tr><td class="label"><?php l('Ens vols deixar una altre telèfon?');?></td><td><input type="text" name="client_telefon" value="<?php echo $row['client_telefon']?>"/></td></tr>
+					<tr><td class="label">Email*</td><td><input type="text" name="client_email" value="<?php echo $row['client_email']?>"/></td></tr>
+					<tr><td class="label"><?php l('Nom');?>*</td><td><input type="text" name="client_nom" value="<?php echo $row['client_nom']?>"/></td></tr>
+					<tr><td class="label"><?php l('Cognoms');?>*</td><td><input type="text" name="client_cognoms" value="<?php echo $row['client_cognoms']?>"/></td></tr>
+					<tr><td class="label"><?php //l('Client_id');?></td><td><input type="hidden" name="client_id" value="<?php echo $row['client_id']?>"/></textarea></td></tr>
+					
+					<tr><td ></td><td>
+					  <div class="ui-corner-all info-legal caixa" style="width:496px;">
             <?php l('NO_COBERTS_OBSERVACIONS');?>
           </div>
-
-                                        
-                                        <div><label class="label" for=""><?php l('Observacions');?>
-                     <a href="#" id="info-observacions" class="info-ico"><img src="css/info.png" title="<?php l('Ajuda');?>" style="width:16px;height:auto;margin-left:8px"/></a>
-					</label><textarea type="text" name="observacions"> <?php echo $row['observacions']?></textarea>
-					</div>
-                                            
-                                            </td></tr>
-					<tr><td >
-			
-							  
+					  
 
 					  
 					</td></tr>
+					<tr><td class="label" style="vertical-align:top;"><?php l('Observacions');?></td>
+					<td style="padding-left:10px;vertical-align:top;">				
+					
+					<textarea type="text" name="observacions"> <?php echo $row['observacions']?></textarea>
+
+					
+					</td></tr>
 				</table>
 				<div style="clear:both"></div>
-				<div class="ui-corner-all info-legal info-legal-dades caixa">
+				<div class="ui-corner-all info-legal caixa">
 					<?php l('LLEI');
 					$chek= ($gestor->flagBit($row['reserva_info'],7)?'checked="checked"':'');
 
@@ -548,7 +525,7 @@ else
 		<!-- *******************************  SUBMIT ********************************************************   -->
 		<!-- *******************************  SUBMIT ********************************************************   -->
 		<a id="scroll-seccio-submit"></a>
-                <div class="fr-seccio ui-corner-all fr-seccio-submit"> 
+		<div class="fr-seccio ui-corner-all fr-seccio-submit"> 
 				<h1 class="titol"><span class="number">6</span><?php l('Envia la sol·licitud');?></h1>
 								
 				<div class="ui-corner-all caixa resum">
@@ -564,9 +541,10 @@ else
 				<?php $t=(isset($_POST['idr']) && $_POST['idr']>5000)?'Modificar reserva':'Sol·licitar reserva'; ?>
 				<button id="submit"><?php l($t);?></button>
 				
-				
+				<div style="clear:both"></div>
 				<div id="error_validate" class="ui-helper-hidden"><?php l("Hi ha errors al formulari. Revisa les dades, si us plau"); ?></div>
 		</div>
+			
 	</div>
 
 </form>	<!--
@@ -575,9 +553,9 @@ else
 <div id="peu" style="margin-top:50px;	text-align:center;padding:15px;background:#FFFFFF"><b>Restaurant CAN BORRELL:</b> <span class="dins" style="text-align:right">93 692 97 23 / 93 691 06 05 </span>  /  <a href="mailto:<?php echo MAIL_RESTAURANT;?>" class="dins"><?php echo MAIL_RESTAURANT;?></a>
 </div>
 	
-		</td>
-	</tr>
-</table>
+		</TD>
+	</TR>
+</TABLE>
 	
 	
 
@@ -613,11 +591,11 @@ else
 <div id="popup" title="<?php l("Connexió amb el sistema de reserves")?>"><img src="css/loading.gif"/></div>
 <div id="help" title="<?php l("Necessites ajuda?")?>"><?php l('ALERTA_INFO_INICIAL');?></div>
 
-<div id="popupInfo" class="ui-helper-hidden">
+<div id="popupInfo" CLASS="ui-helper-hidden">
 	<?php l('ALERTA_INFO');?>
 </div>
 
-<div id="popupInfoUpdate" class="ui-helper-hidden">
+<div id="popupInfoUpdate" CLASS="ui-helper-hidden">
 	<?php l('ALERTA_INFO_UPDATE');?>
 </div>
 
@@ -626,5 +604,5 @@ else
 </div>
 
 
-</body>
-</html>
+</BODY>
+</HTML>

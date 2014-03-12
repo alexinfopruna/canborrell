@@ -22,35 +22,11 @@ var resub=false;
 
 var SECCIO_INICIAL="fr-seccio-quants";
 
-var dlg={
-		autoOpen: false,
-		modal:true,
-		width: '400px',
-		buttons: {
-			"Continuar": function() { 
-				$(this).dialog("close"); 
-                                //$(this).dialog('destroy');
-				//if (!SECCIO) seccio(SECCIO_INICIAL);
-				SECCIO_INICIAL=null;
-			} 
-		},
-                close: tanca_dlg
-	};
-    
-    
-    
-    
-
-
-
 if (browser_malo) 
 {
 	alert("El sistema de reservas requiere Internet Explorer 7 o superior\n\nVersión utilizada:\n Microsoft Internet Explorer "+$.browser.version);
 	document.location.href="../";
 }
-
-
-        
 
 /* PROBLEMA IE indexOf */
 if (!Array.prototype.indexOf)
@@ -75,9 +51,13 @@ if (!Array.prototype.indexOf)
     return -1;
   };
 }
+/* PROBLEMA IE indexOf */
+/*
+	ONLOAD, PRESENTACIO UI
+*/
 
 $(function(){
-	
+		/* popup */		
 	/* popupGrups */
 	$("#popupGrups").dialog({
 		autoOpen: false,
@@ -99,11 +79,26 @@ $(function(){
 		buttons: {
 			"Continuar": function() { 
 				
+				//window.location.href="../index.html";
 				$(this).dialog("close"); 
 				} 
 			}
 		}
 	);
+	$("#help").dialog({
+		autoOpen: false,
+		modal:true,
+		width: 400,
+		buttons: {
+			"Continuar": function() { 
+				$(this).dialog("close"); 
+				if (!SECCIO) seccio(SECCIO_INICIAL);
+				SECCIO_INICIAL=null;
+			} 
+		}
+	}
+	);
+
 	$(".ncoberts").html(PERSONES_GRUP-1);
 	var t=setTimeout("timer()",TIMER_INTERVAL);
 
@@ -122,16 +117,16 @@ $(function(){
 	
 	$('#form-reserves').resetForm();
 
-	$("#selectorComensals").buttonset();$( "#selectorComensals" ).find("label").unbind("mouseup");
-	$("#selectorJuniors").buttonset();$( "#selectorJuniors" ).find("label").unbind("mouseup");
-	$("#selectorNens").buttonset();$( "#selectorNens" ).find("label").unbind("mouseup");
-	$("#selectorCotxets").buttonset();$( "#selectorCotxets" ).find("label").unbind("mouseup");
-	$("#selectorCadiraRodes").buttonset();$( "#selectorCadiraRodes" ).find("label").unbind("mouseup");
+	//$("#selectorComensals").buttonset();
+	//$("#selectorJuniors").buttonset();
+	//$("#selectorNens").buttonset();
+	//$("#selectorCotxets").buttonset();
+	//$("#selectorCadiraRodes").buttonset();
 	
-	$("input[type=submit]").button();$( "input[type=submit]" ).find("label").unbind("mouseup");
+	//$("input[type=submit]").button();
 	
 	$("#selectorComensals input[value=grups]").click(function(){window.location.href="form_grups.php";return false;})
-	$("button, .bt").button();$( "button, .bt" ).find("label").unbind("mouseup");
+	//$("button, .bt").button();
 
 	
 	
@@ -142,6 +137,11 @@ $(function(){
 	$("#cotxets2A").click(function(){$(".fr-seccio-quants input[name=amplaCotxets]").val(2);});
 	$("#cotxets2L").click(function(){$(".fr-seccio-quants input[name=amplaCotxets]").val(3);});
 
+	/**/
+	
+	
+	
+	
 	$("#info_reserves").click(function(){
 		$("#popup").html($("#reserves_info").html())
 		$("#popup").unbind("dialogclose");
@@ -149,22 +149,21 @@ $(function(){
 		return false;
 	});
 	
+	
 	validacio();
 	
 	/********  AMAGA PANELLS ********/	
 	
+	
 	if (!IDR && !DEBUG )
 	{
-	/**/
-	
+	/*
+	*/
 		$(".fr-seccio-dia").amaga();	
 		$(".fr-seccio-hora").amaga();
 		$(".fr-seccio-carta").amaga();
 		$(".fr-seccio-client").amaga();
 		$(".fr-seccio-submit").amaga();
-                //$(".fr-seccio-submit").css("visibility","hidden");
-               //comportamentClient();
-             
 	}
 	
 	if (IDR)
@@ -193,25 +192,12 @@ $(function(){
 	$(document).change(function(e) {clearTimeout(th);	if (SECCIO) th=setTimeout('timer_help("'+l(SECCIO)+'")',TIMER_HELP_INTERVAL);});
 	
 	$("body").fadeIn("slow");
-    
-$("#help").dialog(dlg);
-help($("#help").html());
-
-$(".info-ico").click(function(e){
-    
-    id=$(this).attr("id");
-   // $( "#help" ).dialog( "option", "position", { my: "center bottom", at: "center bottom",of: e} );
-    help($("."+id).html());
-    e.preventDefault();});
+	
 
 
+//MOBIL $("#help").dialog("open");
 
 $("textarea[name='observacions']").change(observacions_cotxets);
-/* RESET HELP ON ANY INPUT */
-$('*').bind('blur change click dblclick error focus focusin focusout keydown keypress keyup load mousedown  mouseleave    mouseup resize scroll select submit', function(){
-  	  clearTimeout(th);	if (SECCIO) th=setTimeout('timer_help("'+l(SECCIO)+'")',TIMER_HELP_INTERVAL);
-
-});
 
 }); //ONLOAD, PRESENTACIO UI
 /************************************************************************************************************/
@@ -244,61 +230,43 @@ $('*').bind('blur change click dblclick error focus focusin focusout keydown key
 function comportamentQuantsSou()
 {
 	//ADULTS
-        SECCIO="fr-seccio-quants";
-	$(".fr-seccio-quants").change(function(e){
+	$("#selectorComensals").change(function(){
 		ADULTS=$("input[name='selectorComensals']:checked").val();
 		$("input[name='adults']").val(ADULTS)
 		totalPersones();
 		//$("#selectorComensals").buttonset("destroy");
 		//$("#selectorComensals").buttonset();
-                if (!ADULTS) return;
-                
+
 		if ($(".fr-seccio-dia").is(":hidden")) 
 		{
 			monta_calendari("#calendari");
 			$(".fr-seccio-dia").show();
-			//seccio("fr-seccio-dia");
-                        
-                        clearTimeout(th);//
-                        th=setTimeout('timer_help("'+l("fr-seccio-dia")+'")',TIMER_HELP_INTERVAL);
-                        SECCIO="fr-seccio-dia";
-                       
+			seccio("fr-seccio-dia");
 			updateCalendari();
 		}
-                
-         
-                 
-                
-              
-                 
 		//return false;
 	});
-        
-	$("input[name=selectorComensals]").change(function(){ $.scrollTo("#titol_SelectorJuniors",600);});	
+	
 	//JUNIORS
 	$("input[name=selectorJuniors]").change(function(){
 		JUNIORS=$("input[name='selectorJuniors']:checked").val();
 		$("input[name='nens10_14']").val(JUNIORS)
 		totalPersones();
-                $.scrollTo("#titol_SelectorNens",600);
 		//return false;
 	});
 	
 	//NENS
 	$("input[name=selectorNens]").change(function(){
 		NENS=$("input[name='selectorNens']:checked").val();
-		$("input[name='nens4_9']").val(NENS);
+		$("input[name='nens4_9']").val(NENS)
 		totalPersones();
-                $.scrollTo("#titol_SelectorCotxets",600);
 		//return false;
 	});
 	
 	//COTXETS
 	$("input[name=selectorCotxets]").change(function(){
 		COTXETS=$("input[name='selectorCotxets']:checked").val();
-                help(l("NENS_COTXETS"));
-               // $.scrollTo("#titol_SelectorCadiraRodes",600,function(){help(l("NENS_COTXETS"));});
-		//BARREJA NENS COTXETS!!
+		timer_help(l("NENS_COTXETS"));//BARREJA NENS COTXETS!!
 		totalPersones();
 		//return false;
 	});	
@@ -394,13 +362,11 @@ function recargaHores()
 		var txt="";
 		if ((obj.dinar+obj.dinarT2)=="") txt=l("Cap taula o restaurant tancat");
 		$("#selectorHora").html(obj.dinar+obj.dinarT2+txt);
-		$("#selectorHora").buttonset();
-                $( "#selectorHora" ).find("label").unbind("mouseup");
+		//MOBIL $("#selectorHora").buttonset();
 		txt="";
 		if (obj.sopar=="") txt=l("Cap taula o restaurant tancat");
 		$("#selectorHoraSopar").html(obj.sopar+txt);		
-		$("#selectorHoraSopar").buttonset();
-                $( "#selectorHoraSopar" ).find("label").unbind("mouseup");
+		//MOBIL  $("#selectorHoraSopar").buttonset();
 		
 		//ALERTA SI NO HI HA TAULA
 		if ((obj.dinar+obj.dinarT2+obj.sopar)=="")
@@ -428,7 +394,11 @@ function recargaHores()
 			updateResum();
 		
 		})
-		$(".fr-seccio-hora").trigger("change");
+		$("#selectorHora").trigger("create");
+                //$("#selectorHora").trigger("enhance")
+		//$(".fr-seccio-hora").trigger("create");
+               // $(".fr-seccio-hora").trigger("enhance")
+		//$(".fr-seccio-hora").trigger("change");
 	});
 
 }
@@ -467,7 +437,6 @@ function comportamentCarta()
 	if ($(".fr-seccio-carta").is(":hidden")) $(".fr-seccio-carta").slideDown("slow",function(){seccio("fr-seccio-carta");});
 	
 	$("#bt-no-carta").click(function(){
-          //  $("textarea[name='observacions']").val("comportamentCarta -CLICK ");/******/
 		comportamentClient();		
 		return false;
 	});	
@@ -478,13 +447,6 @@ function comportamentCarta()
 */
 function comportamentClient()
 {		
-/*    $("textarea[name='observacions']").val("comportamentClient");
-    
-                          $(".fr-seccio-submit").show();
-                        $(".fr-seccio-submit").css("display","block");
-                        $(".fr-seccio-submit").css("visibility","visible");
-*****/
-    
 	$("input[name='client_mobil']").change(function(){		
 		var n=$("input[name='client_mobil']").val();
 		if (n.length>=9 && isNumber(n)) 	updateClient();
@@ -495,44 +457,22 @@ function comportamentClient()
 	
 
 	if ($(".fr-seccio-client").is(":hidden")) $(".fr-seccio-client").slideDown("slow",function(){seccio("fr-seccio-client");});
-        $(".fr-seccio-client input").bind('blur change ', validaDadesClient);
-        $(".fr-seccio-client").bind('blur change ', validaDadesClient);
-
+	$(".fr-seccio-client").change(validaDadesClient);
+	$(".fr-seccio-client").keyup(validaDadesClient);
+	$(".fr-seccio-client").keypress(validaDadesClient);
+	$(".fr-seccio-client input").blur(validaDadesClient);
 }
 
 function validaDadesClient(){
-    
-   // $("textarea[name='observacions']").val("zz");
 		var ok=true;
 		ok = ok && $("input[name='client_mobil']").val();
 		ok = ok && $("input[name='client_nom']").val();
 		ok = ok && $("input[name='client_cognoms']").val();
-               
-                var t="--------";
-                t+=" ok= "+(ok?"ok ":"nok ");
-                t+=$("input[name='client_nom']").val();
-                t+=" ** ";
-                t+=$("input[name='client_cognoms']").val();
-                t+=($(".fr-seccio-submit").is(':hidden')?" HID ":" VIS ");
-                //$("textarea[name='observacions']").val(t);
-               /*
-                */     
-                updateResum();
-		if (ok) 
+		if (ok &&  $(".fr-seccio-submit").is(':hidden')) 
 		{
-  			if ($(".fr-seccio-submit").is(":hidden")) {
-                               $(".fr-seccio-submit").show();
-                               $(".fr-seccio-submit").css("display","block");
-                               $(".fr-seccio-submit").css("visibility","visible");
-                              
-                               $.scrollTo( "#scroll-seccio-submit", 800 );
-                      }
-                       
+			if ($(".fr-seccio-submit").is(":hidden")) $(".fr-seccio-submit").slideDown("slow",function(){seccio("fr-seccio-submit");});
+			updateResum();
 		}
-            
-                else{ 
-                    //alert(t);
-                }
 	}
 
 /********************************************************************************************************************/
@@ -578,8 +518,7 @@ function updateClient()
 			$(".fr-seccio-client input[name='client_telefon']").attr("readonly", "readonly"); 
 			client_auto=true;
 			if ($(".fr-seccio-submit").is(":hidden")) $(".fr-seccio-submit").slideDown("slow",function(){seccio("fr-seccio-submit");});
-			validaDadesClient();
-                        updateResum();
+			updateResum();
 		}
 	});	
 }
@@ -603,8 +542,8 @@ function resetClient()
 */
 function updateResum()
 {
-	
-	
+	//if( $(".fr-seccio-submit").is(':hidden') ) return;
+	//var adults=parseInt($("input[name='adults']").val());
 	if (parseInt($("input[name='selectorComensals']:checked").val()) > ADULTS) adults=$("input[name='selectorComensals']:checked").val();
 	
 	$("#resum-data").html($("#calendari").val());
@@ -855,14 +794,14 @@ function controlSubmit()
 			else 
 			{
 				var err="Error de servidor";
-				if (obj && obj.error) err=obj.error+"\n "+l(obj.error)+" \n\n"+l("err_contacti");
+				if (obj && obj.error) err=obj.error+"\n"+l(obj.error)+" \n\n"+l("err_contacti");
 				if (obj.error=="err10") return;//DOBLE SUBMIT?????????
 				$("#popup").html("ERROR: "+err);
 				$('#submit').show();
 			}
 			
 			$("#popup").dialog('open');
- 			//return false;
+			//return false;
 		}); 
 		return false;
 	});
@@ -884,18 +823,12 @@ function timer()
 function timer_help(txt)
 {
 	if (!SECCIO) return clearInterval(th);
-	
-        //$( "#help" ).dialog( dlg);
-       
-        //$( "#help" ).dialog( "option", "position",{ 'my': 'bottom center', 'at': 'center', 'of':window});
-	
-    
-    help(txt);
+	$("#help").html(txt);
+	$("#help").dialog("open");
 	
 	SECCIO=null;
 	clearInterval(th);
 }
-
 
 function roundNumber(num, dec) {
 	var result = Math.round(num*Math.pow(10,dec))/Math.pow(10,dec);
@@ -936,7 +869,7 @@ function loginoff()
 function seccio(selector_seccio){
 	if (!selector_seccio) return;
 	
-	$.scrollTo( "."+selector_seccio, 800 );
+	$.scrollTo( $("."+selector_seccio), 800 );
 	
 	clearTimeout(th);//
 	th=setTimeout('timer_help("'+l(selector_seccio)+'")',TIMER_HELP_INTERVAL);
@@ -955,17 +888,3 @@ function observacions_cotxets()
   
 }
 
-
-
-function help(txt){
-    if ($.browser.name=="opera") $("#td_contingut").addClass("fals-overlay");
-    $("#help").html(txt);
-    
-    $("#help").dialog("open");
-}
-
-function tanca_dlg(){
- //   $("#taula-estructura").removeClass("fals-overlay");
-    $("#td_contingut").removeClass("fals-overlay");
-    if (!SECCIO) seccio(SECCIO_INICIAL);
-}

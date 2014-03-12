@@ -67,41 +67,39 @@ $row['observacions']=null;
 
 ?>
 <!DOCTYPE HTML>
-<HTML>
-<HEAD>
+<html>
+<head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" pageEncoding="UTF-8"/>
-<TITLE> Masia Can Borrell </TITLE>
-	<LINK rel="stylesheet" type="text/css" href="../estils.css">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title> Masia Can Borrell </title>
+	
 	
 <!-- this goes into the <head> tag ALEX ESTILS! -->
 <link type="text/css" href="../taules/css/blitzer/jquery-ui-1.8.9.custom.css" rel="stylesheet" />	
 <link type="text/css" href="css/custom-theme/jquery-ui-1.8.16.custom.css" rel="stylesheet" />	
 <link type="text/css" href="css/custom-theme/jquery.ui.all.css" rel="stylesheet" />	
-<link type="text/css" href="../estils.css" rel="stylesheet" />	
+<!--<link type="text/css" href="../estils.css" rel="stylesheet" />	-->
 <link type="text/css" href="css/form_reserves_grups.css" rel="stylesheet" />	
+<link type="text/css" href="css/form_reserves_grups_mob.css" rel="stylesheet" />	
 <link type="text/css" href="css/jquery.tooltip.css" rel="stylesheet" />	
     
-		<!--<script type="text/javascript">
-			document.write("\<script src='//ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js' type='text/javascript'>\<\/script>");
-		</script>				
-		<script type="text/javascript" src="../taules/js/jquery-1.5.min.js"></script>-->
+	<!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js"></script>-->
 
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js"></script>
+               <?php echo Gestor::loadJQuery(); ?>
 
-
-
-		<script type="text/javascript" src="../taules/js/ui/js/jquery-ui-1.8.9.custom.min.js"></script>
 		<script type="text/javascript" src="../taules/js/ui/dev/ui/i18n/jquery.ui.datepicker-ca.js"></script>
 		<script type="text/javascript" src="../taules/js/ui/dev/ui/i18n/jquery.ui.datepicker-es.js"></script>
 		<script type="text/javascript" src="../taules/js/jquery.metadata.js"></script>
-		<script type="text/javascript" src="../taules/js/jquery.validate.pack.js"></script>
+		<script type="text/javascript" src="../taules/js/jquery.validate.min.js"></script>
 		<script type="text/javascript" src="../taules/js/jquery.timers.js"></script>
 		<script type="text/javascript" src="../taules/js/jquery.form.js"></script>
-		<script type="text/javascript" src="js/jquery.scrollTo-1.4.2-min.js"></script>
+		<script type="text/javascript" src="../taules/js/jquery.scrollTo.min.js"></script>
 		<script type="text/javascript" src="js/json2.js"></script>
 		<script type="text/javascript" src="../js/dynmenu.js"></script>
 		<script type="text/javascript" src="js/jquery.amaga.js"></script>
 		<script type="text/javascript" src="js/jquery.tooltip.js"></script>
+		<script type="text/javascript" src="../taules/js/jquery.browser.js"></script>
 		
 
 <?php
@@ -129,22 +127,24 @@ require_once('translate_grups_'.$gestor->lng.'.php');
 		<script type="text/javascript" src="js/control_carta.js?<?php echo time();?>"></script>
 		<script type="text/javascript" src="js/form_reserves_grups.js?<?php echo time();?>"></script>
 
-</HEAD>
-<BODY style="display:none" class="<?php echo DEV?" dev ":""; echo LOCAL?" local ":"" ?>">
+</head>
+<body style="display:none" class="<?php echo DEV?" dev ":""; echo LOCAL?" local ":"" ?>">
 
-<TABLE BGCOLOR="#F8F8F0" CELLPADDING="0" CELLSPACING="0" WIDTH="775"  BORDER="0" align="center">
-	<TR height="114">
-		<TD BACKGROUND="../img/fons_9a.jpg" COLSPAN="2" ALIGN="RIGHT"><A HREF="../index.htm"><IMG SRC="../img/lg_sup.gif" WIDTH="303" HEIGHT="114" BORDER="0" TITLE="INICI"></A></TD>
-	</TR>
-	<TR height="18">
-		<TD BGCOLOR="#570600" COLSPAN="2" ALIGN="">
-			<TABLE CELLPADDING="0" CELLSPACING="0" WIDTH="761" HEIGHT="19" BORDER="0">
+<table bgcolor="#F8F8F0" cellpadding="0" cellspacing="0"   border="0" align="center">
+	<tr height="114">
+		<td colspan="2" align="RIGHT"><a HREF="../index.htm">
+                        <img src="../img/lg_sup.gif" width="303" height="114" border="0" title="INICI"></a>
+                 </td>
+	</tr>
+	<tr height="18">
+		<td bgcolor="#570600" colspan="2" align="">
+			<table cellpadding="0" cellspacing="0" width="761" height="19" border="0">
 				<?php //require_once($ruta_lang."menu.php");?>
-			</TABLE>
-		</TD>
-	</TR>
-	<TR height="18">
-		<TD id="td_contingut" BGCOLOR="#F8F8F0" COLSPAN="2" ALIGN="">
+			</table>
+		</td>
+	</tr>
+	<tr height="18">
+		<td id="td_contingut" bgcolor="#F8F8F0" colspan="2" align="">
 
 <?php 				
 if (isset($_POST['incidencia']))
@@ -172,7 +172,11 @@ else
 		
 <h2 CLASS="titol"><?php  l('Sol·licitud de reserva per a GRUPS');?><a href="info_reserves.html" id="info_reserves"><img src="css/info.png" title="<?php l("Informació de reserves");?>" style="width:16px;height:auto;margin-left:8px"/></a></h2>
 		<div class="fr-seccio ui-corner-all fr-seccio-quants"> 
-			<h1 class="titol"><span class="number">1</span><?php l('Quants sou?');?></h1>
+			<h1 class="titol"><span class="number">1</span><?php l('Quants sou?');?>
+                        <a href="#" id="info-quants" class="info-ico"><img src="css/info.png" title="<?php l('Ajuda');?>" style="width:16px;height:auto;margin-left:8px"/></a>
+                        </h1>
+                        
+                        
 			<h4><?php l('Adults (més de 14 anys)');?>:</h4>
       <?php l('ADULTS_TECLAT');?>
 			
@@ -191,12 +195,12 @@ else
 				
 			<div>
 				<!-- ******  INFO  ********   -->
-				<div class="caixa dere ui-corner-all" style="float:right;"><?php l('INFO_QUANTS_SOU_GRUPS');?>
+				<div class="caixa dere ui-corner-all info-quants" style="float:right;"><?php l('INFO_QUANTS_SOU_GRUPS');?>
 					 <input id="totalComensals" type="text" name="totalComensals" value="0" readonly="readonly" class="coberts"/></b>
 					<!--Tingue's present que si vols modificar aquest nombre més endavant no podem garantir la disponibilitat de taula.<br/><br/>-->
 				</div>
 				<!-- ******  JUNIOR  ********   -->
-			<h4><?php l('Juniors (de 10 a 14 anys):');?></h4>
+			<h4  id="titol_SelectorJuniors"><?php l('Juniors (de 10 a 14 anys):');?></h4>
 				<div id="selectorJuniors" class="col_dere">
 				 <input type="text" id="junior" name="nens10_14" value=""  style="width:35px;font-size:1.2em;padding-left:0;padding-right:0" class="ui-button ui-widget ui-state-default ui-button-text-only coberts"/><label for="comGrupsN" ><?php //l('Més de ');//echo ($PERSONES_GRUP+14)?></label>
 				 &lArr;
@@ -205,13 +209,13 @@ else
 					for ($i=0;$i<=$max_juniors_grup;$i++)
 					{
 						$k=$i;if (!$i) $k=l("Cap",false);
-						print '<input type="radio" id="junior'.$i.'" name="selectorJuniors" value="'.$i.'" '.($i?'':'checked="checked"').' class="junior"/><label for="junior'.$i.'" >'.$k.'</label>';
+						print '<input type="radio" id="junior'.$i.'" name="selectorJuniors" value="'.$i.'" '.($i?'':'NOOchecked="checked"').' class="junior"/><label for="junior'.$i.'" >'.$k.'</label>';
 						
 					}
 				?>
 				</div>
 				<!-- ******  NENS  ********   -->
-				<h4><?php l('Nens (de 4 a 9 anys)');?>:</h4>
+				<h4 id="titol_SelectorNens"><?php l('Nens (de 4 a 9 anys)');?>:</h4>
 				<div id="selectorNens" class="col_dere">
 				 <input type="text" id="nens" name="nens4_9" value=""  style="width:35px;font-size:1.2em;padding-left:0;padding-right:0" class="ui-button ui-widget ui-state-default ui-button-text-only coberts"/><label for="comGrupsN" ><?php //l('Més de ');//echo ($PERSONES_GRUP+14)?></label>
 				 &lArr;
@@ -219,20 +223,21 @@ else
 					for ($i=0;$i<=$max_nens_grup;$i++)
 					{
 						$k=$i;if (!$i) $k=l("Cap",false);
-						print '<input type="radio" id="nens'.$i.'" name="selectorNens" value="'.$i.'" '.($i?'':'checked="checked"').' class="nens"/><label for="nens'.$i.'" >'.$k.'</label>';
+						print '<input type="radio" id="nens'.$i.'" name="selectorNens" value="'.$i.'" '.($i?'':'NOOOchecked="checked"').' class="nens"/><label for="nens'.$i.'" >'.$k.'</label>';
 					}
 				?>
 				</div>
 				<!-- ******  COTXETS  ********   -->
-				<h4><?php l('Cotxets de nadó');?>:</h4>
+				<h4  id="titol_SelectorCotxets"><?php l('Cotxets de nadó');?>:</h4>
 				<div id="selectorCotxets" class="col_dere">
-					<input type="radio" id="cotxets0" name="selectorCotxets" value="0"  checked="checked" /><label for="cotxets0"><?php l("Cap");?></label>
+					<input type="radio" id="cotxets0" name="selectorCotxets" value="0"   /><label for="cotxets0"><?php l("Cap");?></label>
 					<input type="radio" id="cotxets1" name="selectorCotxets" value="1"  /><label for="cotxets1">1 simple</label>
 					<input type="radio" id="cotxets2A" name="selectorCotxets" value="1"  /><label for="cotxets2A"><?php l("Doble ample");?></label>
 					<input type="radio" id="cotxets2L" name="selectorCotxets" value="1"  /><label for="cotxets2L"><?php l("Doble llarg");?></label>
 				</div>
 				
-				<h4><?php l('Cadira de rodes');?>:</h4>
+				<!-- ******  CADIRA RODES  ********   -->
+				<h4  id="titol_selectorCadiraRodes"><?php l('Cadira de rodes');?>:</h4>
 				<div id="selectorCadiraRodes" class="col_dere">
 					<?php	
 						$estat=$gestor->decodeInfo($row['reserva_info']);
@@ -253,9 +258,13 @@ else
 		<!-- *******************************  QUIN DIA ********************************************************   -->
 		<a id="scroll-seccio-dia"></a>
 		<div class="fr-seccio ui-corner-all fr-seccio-dia"> 
-				<h1 class="titol"><span class="number">2</span><?php l("Quin dia voleu venir?")?></h1>
+				<h1 class="titol"><span class="number">2</span><?php l("Quin dia voleu venir?")?>
+                        <a href="#" id="info-data" class="info-ico"><img src="css/info.png" title="<?php l('Ajuda');?>" style="width:16px;height:auto;margin-left:8px"/></a>
+                               
+                                
+                                </h1>
 				<!-- ******  INFO  ********   -->
-				<div class="caixa dere ui-corner-all">
+				<div class="caixa dere ui-corner-all info-data">
 					<?php l('INFO_DATA');?>	
 					<input type="hidden" id="valida_calendari" name="selectorData"/>
 					
@@ -274,9 +283,12 @@ else
 		<!-- *******************************  QUINA HORA ********************************************************   -->
 				<a id="scroll-seccio-hora"></a>
 				<div class="fr-seccio ui-corner-all fr-seccio-hora" > 
-				<h1 class="titol"><span class="number">3</span><?php l('A quina hora?');?></h1>
+				<h1 class="titol"><span class="number">3</span><?php l('A quina hora?');?>
+                        <a href="#" id="info-hora" class="info-ico"><img src="css/info.png" title="<?php l('Ajuda');?>" style="width:16px;height:auto;margin-left:8px"/></a>
+                               
+                                </h1>
 				<!-- ******  INFO  ********   -->
-				<div class="ui-corner-all caixa dere hores">
+				<div class="ui-corner-all caixa dere hores info-hora">
 					<?php l('INFO_HORES');?>	
 				</div>
 				<!-- ******  DINAR  ********   -->
@@ -300,8 +312,11 @@ else
 		<!-- *******************************  CARTA  *********************************   -->
 		<!-- *******************************  CARTA  *********************************   -->
 		<a id="scroll-seccio-carta"></a>
-		<div class="fr-seccio ui-corner-all fr-seccio-carta"> 
-				<h1 class="titol"><span class="number">4</span><?php l('Escull els menús');?></h1>
+		<div class="fr-seccio ui-corner-all fr-seccio-carta "> 
+				<h1 class="titol"><span class="number">4</span><?php l('Escull els menús');?>
+                        <a href="#" id="info-comanda" class="info-ico"><img src="css/info.png" title="<?php l('Ajuda');?>" style="width:16px;height:auto;margin-left:8px"/></a>
+                               
+                                </h1>
 				<div id="carta" class="col_derexx">
               <input id="te-comanda" name="te_comanda" type="text" value="" style="display:none "> 
 					<!-- ******  COMANDA  ********   -->
@@ -352,24 +367,40 @@ else
 		<!-- *******************************  CLIENT ********************************************************   -->
 		<a id="scroll-seccio-client"></a>
 		<div class="fr-seccio ui-corner-all fr-seccio-client"> 
-				<h1 class="titol"><span class="number">5</span><?php l('Donan´s algunes dades de contacte');?></h1>
+				<h1 class="titol"><span class="number">5</span><?php l('Donan´s algunes dades de contacte');?>
+                                         <a href="#" id="info-legal" class="info-ico"><img src="css/info.png" title="<?php l('Ajuda');?>" style="width:16px;height:auto;margin-left:8px"/></a>
+              
+                                </h1>
 				<table id="dades-client" class="col_dere">
-					<tr><td class="label"><?php l('Telèfon mòbil');?>*</td><td><input type="text" name="client_mobil"/></td></tr>
-					<tr><td class="label"><?php l('Ens vols deixar una altre telèfon?');?></td><td><input type="text" name="client_telefon"/></td></tr>
-					<tr><td class="label">Email*</td><td><input type="text" name="client_email"/></td></tr>
-					<tr><td class="label"><?php l('Nom');?>*</td><td><input type="text" name="client_nom"/></td></tr>
-					<tr><td class="label"><?php l('Cognoms');?>*</td><td><input type="text" name="client_cognoms"/></td></tr>
-					<tr><td class="label"><?php //l('Client_id');?></td><td><input type="hidden" name="client_id"/></td></tr>
-					<tr><td class="label"><?php l('Observacions');?></td><td><textarea type="text" name="observacions"></textarea></td></tr>
+					<tr><td class="label" >* <em style="font-size:0.9em;"><?php l('Camps obligatoris');?></em>
+					<div><label class="label" for="client_mobil"><?php l('Telèfon mòbil');?>*</label><input type="text" name="client_mobil" value="<?php echo $row['client_mobil']?>"/></div>
+                                        <div><label class="label" for="client_telefon"><?php l('Ens vols deixar una altre telèfon?');?></label><input type="text" name="client_telefon" value="<?php echo $row['client_telefon']?>"/></div>
+                                        <div><label class="label" for="client_email">Email*</label><input type="email" name="client_email" value="<?php echo $row['client_email']?>"/></div>
+                                        <div><label class="label" for="client_nom"><?php l('Nom');?>*</label><input type="text" name="client_nom" value="<?php echo $row['client_nom']?>"/></div>
+					<div><label class="label" for="client_cognoms"><?php l('Cognoms');?>*</label><input type="text" name="client_cognoms" value="<?php echo $row['client_cognoms']?>"/></div>
+					<div><label class="label" for="client_id"><?php //l('Client_id');?></label><input type="hidden" name="client_id" value="<?php echo $row['client_id']?>"/></div>
+                                        <div class="ui-corner-all info-legal info-observacions  caixa" style="width:496px;">
+            <?php l('NO_COBERTS_OBSERVACIONS');?>
+          </div>
 
+                                        
+                                        <div><label class="label" for=""><?php l('Observacions');?>
+                                                                       <a href="#" id="info-observacions" class="info-ico"><img src="css/info.png" title="<?php l('Ajuda');?>" style="width:16px;height:auto;margin-left:8px"/></a>
 
-					<tr><td class="label"><?php //l('Vull rebre factura ProForma');?></td><td>
+					</label><textarea type="text" name="observacions"> <?php echo $row['observacions']?></textarea>
+					</div>
+                                            
+                                            </td></tr>
+					<tr><td>
 					<input type="checkbox" id="cb_factura" name="factura[]"/><label for="cb_factura" style="margin-left:10px;"><?php l('Vull rebre factura ProForma');?></label>
-					<!--<input id="cb_factura" type="checkbox" name="factura[]"/></td></tr>-->
-					<tr class="factura"><td class="label"><?php l('CIF');?>*</td><td><input type="text" name="factura_cif"/></td></tr>
-					<tr class="factura"><td class="label"><?php l('Nom');?>*</td><td><input type="text" name="factura_nom"/></td></tr>
-					<tr class="factura"><td class="label"><?php l('Adreça');?></td><td><textarea type="text" name="factura_adresa"></textarea></td></tr>
-				</table>				
+					<div class="factura"><label class="label" for="factura_cif"><?php l('CIF');?>*</label><input type="text" name="factura_cif"/></div>
+					<div class="factura"><label class="label " for="factura_nom"><?php l('Nom');?>*</label><input type="text" name="factura_nom"/></div>
+					<div class="factura"><label class="label " for="factura_adresa"><?php l('Adreça');?>*</label><textarea type="text" name="factura_adresa"></textarea></div>
+
+                                        
+                                        
+                                        
+          			</table>				
 				
 				
 				
@@ -417,9 +448,9 @@ else
 <div id="peu" style="text-align:center;margin-bottom:10px;"><b>Restaurant CAN BORRELL:</b> <span class="dins" style="text-align:right">93 692 97 23 / 93 691 06 05 </span>  /  <a href="mailto:<?php echo MAIL_RESTAURANT;?>" class="dins"><?php echo MAIL_RESTAURANT;?></a>
 </div>
 	
-		</TD>
-	</TR>
-</TABLE>
+		</td>
+	</tr>
+</table>
 	
 	
 
@@ -470,5 +501,5 @@ else
 </div>
 
 
-</BODY>
-</HTML>
+</body>
+</html>

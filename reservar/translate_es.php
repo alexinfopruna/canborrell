@@ -64,6 +64,7 @@ $translate['ERROR_CONTACTAR']='<div id="caixa_reserva_consulta_online" class="ui
 	$translate['CONTACTAR_OK']='<div id="caixa_reserva_consulta_online" class="ui-corner-bottom caixa resum " style="color:green">Mensaje enviado. </div>';
 
 
+	$translate['Ajuda']='Ayuda';
 	$translate['Correu electrònic']='Correo electrónico';
 	$translate['Pel dia:']='Para el día:';
 	$translate['Cap']='Ninguno';
@@ -162,7 +163,7 @@ $translate['ADULTS_TECLAT']='<span class="gris-ajuda">&#8625;Puedes teclear el n
 
 $translate['Juniors (de 10 a 14 anys):']="Juniors (de 10 a 14 años )";
 $translate['Nens (de 4 a 9 anys)']="Niños menores de 9 años <b>sin cochecito</b>";
-$translate['Cotxets de nadó']="Niños en cochecito de bebé. <b>El niño ocupará el cochecito <br/>y no una silla/trona</b>";
+$translate['Cotxets de nadó']="Niños en cochecito de bebé. <br/><b style='font-size:0.8em'>El niño ocupará el cochecito y no una silla/trona</b>";
 $translate['Grups']="Solicitud de reserva para Grupos";
 $translate['A quina hora?']="¿A qué hora?";
 $translate['Dinar']="Comida";
@@ -189,7 +190,7 @@ $translate['Comanda']="Pedido";
 $translate['Hora']="Hora";
 $translate['plats']="platos";
 $translate['Continuar']="Continuar";
-$translate['Veure la carta']="Ver la carta";
+$translate['Carta']="Carta";
 $translate['Donan´s algunes dades de contacte']="Dános algunos datos de contacto";
 $translate['Sense']="Sin";
 $translate['Sol·licitar reserva']="Solicitar reserva";
@@ -259,7 +260,7 @@ $translateJS['COTXET DOBLE LLARG'] = 'COCHECITO DOBLE LARGO';
 $translateJS['Per menys de'] = 'Este formulario es para reservas a partir de '.$PERSONES_GRUP.' personas';
 $translateJS['No hi ha cap plat seleccionat'] = 'No hay ningún plato seleccionado';
 
-$translateJS['Veure els menús']='Ver los menús';
+$translateJS['Menús']='Menús';
 $translateJS['Menús Nadal']='Menús Navidad';
 $translateJS['NENS_COTXETS']='<b>La suma de niños más cochecitos ha de ser el número real de niños que van a venir</b><br/>No cuentes un mismo niño como menor de 9 y cochecito a la vez. Para no duplicar plazas, si incluyes un cochecito en el que permanecerá un niño, no lo anotes en el grupo anterior (Niños menores de 9 años).';
 $translateJS['OBSERVACIONS_COTXETS']='Debes especificar los cochecitos de bebé en la sección 1 del formulario.<br/><br/> No podemos garantizar el espacio para cochecitos si lo indicas como observaciones';

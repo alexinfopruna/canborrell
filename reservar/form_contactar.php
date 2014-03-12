@@ -1,4 +1,4 @@
-<div id="caixa_reserva_consulta_online" class="ui-corner-bottom " style="background:#FCFCFF;border:#AAA solid 1px;">
+<div id="caixa_reserva_consulta_online" class="ui-button ui-widget ui-state-default ui-button-text-only ui-corner-all" style="">
 			  <a href="#" id="a_consulta_online" class="r-petita"><?php  l("[Contactar amb el restaurant]");?></a>	
 	<form id="form_contactar" name="form_contactar" method="POST" action="<?php echo $_SERVER['PHP_SELF'];?>" class="r-petita" accept-charset="utf-8" style="display:none">
 		<br/>

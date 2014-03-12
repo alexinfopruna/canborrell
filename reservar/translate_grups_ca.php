@@ -580,6 +580,27 @@ Macarrones, pollo rebozado o croquetas con patatas, refresco y helado<br/>
 	
 $translateJS['MENUS_COMENSALS']="Has d\'escollir tants menús com comensals (adults + juniors + nens)";
  
+/*******************************************************     ERRORS   ***********************************/	
+$translateJS['err33'] = 'Test error33';
+$translateJS['err0'] = 'No ha estat possible crear la reserva.';
+$translateJS['err1'] = 'Test error1';
+$translateJS['err2'] = 'Test error2';
+$translateJS['err3'] = 'No hem trobat taula disponoble';
+$translateJS['err4'] = 'El mòbil no és correcte';
+$translateJS['err5'] = 'El camp nom no és correcte';
+$translateJS['err6'] = 'El camp cognoms no és correcte';
+$translateJS['err7'] = 'El nombre de comensals no és correcte';
+$translateJS['err8'] = 'No hi ha taula per l´hora que has demanat';
+$translateJS['err10'] = 'Para esta fecha debes seleccionar un menú para cada comensal';
+$translateJS['err99'] = 'Test error';
+$translateJS['err100'] = 'Error de sessió';
+$translateJS['err_contacti'] = 'Contacti amb el restaurant: 936929723 / 936910605';
+
+$translate['err20'] = '<b>Ja tens una reserva feta a Can Borrell!!</b><br/><br/>Pots modificar-la o eliminar-la, però no pots crear més d´una reserva online.<br/><em>(Per editar o cancel·lar utilitza l´enllaç que trobarà més amunt, sota la barra de navegació d´aquesta pàgina)</em><br/><br/><br/>Si ho desitges posa´t en contacte amb nosaltres:<br/><b>936929723 / 936910605</b><br/><br/><br/>La reserva que ens consta es pel dia ';
+$translateDirectJS['err21'] = '<b>No podemos hacer la reserva on-line a causa de algún problema con una reserva anterior</b><br/><br/>Por favor, para reservar contacta con el restaurant:936929723 / 936910605';
+$translateDirectJS['err20'] = '<b>Ya tienes una reserva hecha en Can Borrell!</b><br/><br/>Puedes modificarla o eliminarla pero no puedes crear más de una reserva online<br/><em>(Para editar o cancelar, utiliza el enlace que hay arriba, bajo la barra de navegación de esta página )</em><br/><br/><br/><br/><br/>Si lo deseas ponte en contacto con nosotros:<br/><b>936929723 / 936910605</b><br/><br/><br/>La reserva que nos consta es para el dia ';
+$translate['err21'] = '<b>No podem fer-te la reserva on-line a causa d´una reserva anterior!!</b><br/><br/>Si us plau, per reservar contacta amb el restaurant:936929723 / 936910605';
+$translateDirectJS['CAP_TAULA']="No tenemos ninguna mesa disponible para la fecha/cubiertos/cochecitos que nos pides.<br/><br/>Inténtalo para otra fecha";
         
         require_once('translate_ca.php');
 	         

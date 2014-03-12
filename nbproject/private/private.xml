@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
-    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="5">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="9">
         <file>
-            <url>taules/gestor_reserves.php</url>
-            <bookmark id="4">
+            <url>reservar/js/form_reserves.js</url>
+            <bookmark id="8">
                 <name/>
-                <line>333</line>
+                <line>262</line>
                 <key/>
             </bookmark>
-            <bookmark id="5">
+            <bookmark id="9">
                 <name/>
-                <line>868</line>
+                <line>893</line>
                 <key/>
             </bookmark>
         </file>
@@ -27,18 +27,38 @@
                 <key/>
             </bookmark>
         </file>
+        <file>
+            <url>taules/gestor_reserves.php</url>
+            <bookmark id="4">
+                <name/>
+                <line>333</line>
+                <key/>
+            </bookmark>
+            <bookmark id="5">
+                <name/>
+                <line>868</line>
+                <key/>
+            </bookmark>
+            <bookmark id="6">
+                <name/>
+                <line>1495</line>
+                <key/>
+            </bookmark>
+            <bookmark id="7">
+                <name/>
+                <line>1549</line>
+                <key/>
+            </bookmark>
+        </file>
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/xampp/htdocs/cbdev.can-borrell.com/reservar/filtre_carta.php</file>
-            <file>file:/C:/xampp/htdocs/cbdev.can-borrell.com/reservar/js/form_filtre_carta.js</file>
-            <file>file:/C:/xampp/htdocs/cbdev.can-borrell.com/reservar/update_carta_ACTIVA_ARTICLES.php</file>
-            <file>file:/C:/xampp/htdocs/cbdev.can-borrell.com/editar/pagament.php</file>
-            <file>file:/C:/xampp/htdocs/cbdev.can-borrell.com/editar/llistat_historic.php</file>
-            <file>file:/C:/xampp/htdocs/cbdev.can-borrell.com/panel/js/hores.js</file>
-            <file>file:/C:/xampp/htdocs/cbdev.can-borrell.com/taules/DBTable/DBTableHead.php</file>
-            <file>file:/C:/xampp/htdocs/cbdev.can-borrell.com/panel/factures.php</file>
-            <file>file:/C:/xampp/htdocs/cbdev.can-borrell.com/editar/llistat.php</file>
+            <file>file:/C:/xampp/htdocs/cbdev.can-borrell.com/reservar/Gestor_form.php</file>
+            <file>file:/C:/xampp/htdocs/cbdev.can-borrell.com/reservar/js/control_carta.js</file>
+            <file>file:/C:/xampp/htdocs/cbdev.can-borrell.com/reservar/form.php</file>
+            <file>file:/C:/xampp/htdocs/cbdev.can-borrell.com/reservar/js/form_reserves.js</file>
+            <file>file:/C:/xampp/htdocs/cbdev.can-borrell.com/reservar/css/form_reserves_mob.css</file>
+            <file>file:/C:/xampp/htdocs/cbdev.can-borrell.com/reservar/translate_grups_ca.php</file>
         </group>
     </open-files>
 </project-private>
