@@ -2,11 +2,18 @@
 <HTML>
 <HEAD>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
 <TITLE> Masia Can Borrell </TITLE>
-	<meta name="Keywords" content="Plats t�pics, Restaurant, Sant Cugat del Vall�s">
+	<meta name="Keywords" content="Plats típics, Restaurant, Sant Cugat del Vallès">
 	<meta name="Description" content="Restaurant Masia Can Borrell">
 	<meta name="Author" content="topeweb.com">
 <link type="text/css" href="reservar/css/custom-theme/jquery-ui-1.8.16.custom.css" rel="stylesheet" />	
+
+<script  type="text/javascript" src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+
+<script  type="text/javascript">window.jQuery || document.write('<script  type="text/javascript" src="../taules/js/jquery-1.11.0.min.js"><script>')</script>
+
+
 <STYLE TYPE="text/css">
 BODY {font-family:verdana, arial, helvetica; font-size: 13px;}
 TD {font-family:verdana, arial, helvetica; font-size: 13px;}
@@ -38,11 +45,16 @@ box-shadow: 4px 4px 4px #ccc;
 
 
 img.img-porro{max-width:80%}
+ object, embed {
+max-width: 730px;
+height: auto;
+}
+
 
 @media all and (max-width:500px) {
-    .novetat{font-size:2em;}
+    .novetat{font-size:1.1em;}
 
-    #lang a{font-size:2em;}
+    #lang a{font-size:1.1em;}
 }
 </STYLE>
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/swfobject/2.2/swfobject.js"></script>
@@ -68,12 +80,15 @@ img.img-porro{max-width:80%}
 	</TR>
 	<TR>
 		<TD VALIGN="TOP"><A HREF="http://www.topeweb.com" TARGET="_blank"><IMG SRC="img/hp_credits.gif" WIDTH="10" HEIGHT="111" BORDER="0" TITLE="www.topeweb.com"></A></TD>
-		<TD id="animacio" ALIGN="CENTER"><script type="text/javascript">startIeFix();</script><object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=5,0,0,0" width="730" height="550">
-<param name=movie value="img/porro.swf">
-<param name=quality value=high>
-<PARAM NAME=bgcolor VALUE=#F8F8F0>
-<EMBED SRC="img/porro.swf" quality=high pluginspage="http://www.macromedia.com/shockwave/download/index.cgi?P1_Prod_Version=ShockwaveFlash" type="application/x-shockwave-flash" width="730" height="550" loop="false"></EMBED>
-</object><!-- --><script type="text/javascript">endIeFix();</script></TD>
+		<TD id="animacio" ALIGN="CENTER">
+                    
+                    <object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=5,0,0,0" width="100%">
+<param name=movie value="img/porro.swf" />
+<param name=quality value=high />
+<PARAM NAME=bgcolor VALUE=#F8F8F0 />
+    <param name="scale" value="exactfit">
+<EMBED id="fls" SRC="img/porro.swf" quality=high pluginspage="http://www.macromedia.com/shockwave/download/index.cgi?P1_Prod_Version=ShockwaveFlash" type="application/x-shockwave-flash" width="100%"    loop="false"></EMBED>
+</object><!-- --></TD>
 		<TD ROWSPAN="2" VALIGN="TOP"><IMG SRC="img/pix.gif" WIDTH="10" HEIGHT="1" BORDER="0"></TD>
 	</TR>
 	<TR>
@@ -89,7 +104,15 @@ img.img-porro{max-width:80%}
 </BODY>
     
     <script type="text/javascript">
-    if (swfobject.getFlashPlayerVersion().major !== 0) {a=0}
-    else   document.getElementById("animacio").innerHTML='<img src="img/porro.gif" class="img-porro" />';
+    if (swfobject.getFlashPlayerVersion().major !== 0 ) {a=0}
+    else   document.getElementById("animacio").innerHTML='<a href="/cat/index.html"><img src="img/porro.gif" class="img-porro" /></a>';
+    
+    var tube = [];
+$(document).ready(function() {    
+   resize_flash();
+    $(window).resize(resize_flash);
+});
+
+function resize_flash(){$("#fls").height($("#fls").width()*0.8)};
 </script>
 </HTML>

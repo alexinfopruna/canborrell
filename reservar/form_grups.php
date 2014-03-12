@@ -132,7 +132,7 @@ require_once('translate_grups_'.$gestor->lng.'.php');
 
 <table bgcolor="#F8F8F0" cellpadding="0" cellspacing="0"   border="0" align="center">
 	<tr height="114">
-		<td colspan="2" align="RIGHT"><a HREF="../index.htm">
+		<td  id="poma-fons"  colspan="2" align="RIGHT"><a HREF="../index.htm">
                         <img src="../img/lg_sup.gif" width="303" height="114" border="0" title="INICI"></a>
                  </td>
 	</tr>
