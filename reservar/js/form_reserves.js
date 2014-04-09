@@ -108,7 +108,9 @@ $(function(){
 	var t=setTimeout("timer()",TIMER_INTERVAL);
 
 	$("#flogin").hide();	
-	$("#a_editar_reserva").click(function(){if ($("#form_contactar").is(':visible')) $("#form_contactar").toggle('low');$("#flogin").toggle('low');});	
+	//$("#a_editar_reserva")
+         $(".cb-contacte").click(function(){ $.scrollTo("#table_menu",600);$("#a_consulta_online.r-petita").trigger("click")});
+       $("#a_editar_reserva").click(function(){if ($("#form_contactar").is(':visible')) $("#form_contactar").toggle('low');$("#flogin").toggle('low');});	
 
 	$("#form_contactar.r-petita").hide();	
 	$("#a_consulta_online.r-petita").click(function(){if ($("#flogin").is(':visible')) $("#flogin").toggle('low');$("#form_contactar").toggle('low'); });	

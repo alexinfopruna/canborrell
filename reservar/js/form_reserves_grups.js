@@ -47,6 +47,7 @@ $(function(){
 	$("#form_contactar.r-petita").hide();	
 	$("#a_consulta_online.r-petita").click(function(){if ($("#flogin").is(':visible')) $("#flogin").toggle('low');$("#form_contactar").toggle('low'); });	
 
+         $(".cb-contacte").click(function(){ $.scrollTo("#table_menu",600);$("#a_consulta_online.r-petita").trigger("click")});
 
 
 	$(".ncoberts").html(PERSONES_GRUP-1);
