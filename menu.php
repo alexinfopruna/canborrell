@@ -47,7 +47,7 @@
 		<table id="table_menu" style="margin:auto auto;">
 			<TR id="tr_menu">
 				<TD ALIGN="CENTER">
-					<A <?php active('index.html')?>><?php l("CAN BORRELL");?></A>  
+					<A <?php active('index.php')?>><?php l("CAN BORRELL");?></A>  
 					<IMG SRC="../img/separa_mn.gif" WIDTH="1" HEIGHT="8" BORDER="0"> 
 					
 					<A <?php active('fotos.html')?> ><?php l("FOTOS-VIDEO");?></A> 

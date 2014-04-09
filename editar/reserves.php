@@ -211,7 +211,7 @@ function mail_plantilla($id=false)
             //$t->p("OUT");
 
 
-    $subject = "..::Reserva Can Borrell::.."; 
+    $subject = "Can-Borrell: SOL·LICITUD DE RESERVA PER GRUP"; 
     $headers = "From: Restaurant Can Borrell ".MAIL_RESTAURANT."\r\n";
     $headers .= "MIME-Version: 1.0\r\n";
     $headers .= "Content-type: text/html; charset=iso-8859-1\r\n";

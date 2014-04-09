@@ -351,7 +351,7 @@ FROM client
 	if ($this->garjola($num,$mail)){
 		if ($row['id_reserva_grup']) $row['data']=$row['data_grup'];
 		$row['data']=$this->cambiaf_a_normal($row['data']);
-		$row['err']="21";
+		$row['err']="21"." $num $mail";
 	}
 /* TRAMPA PER FER PROVES!!!!	*/
 	if ($num=="999212121")
@@ -600,7 +600,9 @@ public function submit()
 	//$mensa = $this->l("RESERVA_CREADA");
 	$this->enviaSMS($idr, $mensa);	
 	//envia MAIL
-	if ($_POST['client_email']) $mail=$this->enviaMail($idr);
+        
+        $extres['subject']="Can-Borrell: CONFIRMACIÓ DE RESERVA ONLINE";
+	if ($_POST['client_email']) $mail=$this->enviaMail($idr,"confirmada_",FALSE,$extres);
 	$resposta['mail']=$mail;
 	$resposta['virtual']=$taulaVirtual;
 	$_SESSION['last_submit']=time();//PARTXE SUBMITS REPETITS
@@ -742,7 +744,8 @@ public function salvaUpdate()
 	$this->enviaSMS($idr,$mensa);	
 
 //envia MAIL
-	if ($_POST['client_email']) $mail=$this->enviaMail($_POST['id_reserva'], "mail_res_modificada_");
+        $extres['subject']="Can-Borrell: MODIFICACIÓ RESERVA ONLINE ".$_POST['id_reserva'];
+	if ($_POST['client_email']) $mail=$this->enviaMail($_POST['id_reserva'], "mail_res_modificada_",FALSE,$extres);
 
 
 //PREPARA RESPOSTA JSON	
@@ -761,7 +764,8 @@ public function cancelReserva($mob,$idr)
 		$_SESSION['permisos']=$perm;	
 		
 		//ENVIA MAIL
-		$mail=$this->enviaMail($idr,"cancelada_");
+                $extres['subject']="Can-Borrell: RESERVA CANCELADA ".$_POST['id_reserva'];
+		$mail=$this->enviaMail($idr,"cancelada_",FALSE,$extres);
 		
 		$deleteSQL = "DELETE FROM ".T_RESERVES." WHERE id_reserva=$idr";
 		$this->qry_result = $this->log_mysql_query($deleteSQL, $this->connexioDB) or die(mysql_error());

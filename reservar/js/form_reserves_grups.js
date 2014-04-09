@@ -454,7 +454,7 @@ function updateClient()
 			if (obj.id_reserva || obj.err)
 			{
 				//alert(l(obj.err)+obj.data);
-				$("#popup").html(l(obj.err)+obj.data);
+				$("#popup").html(l("err"+obj.err)+obj.data);
 				$("#popup").dialog("open");
 				
 				resetClient();

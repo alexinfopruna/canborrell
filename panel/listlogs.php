@@ -12,7 +12,11 @@ if (!$gestor->valida_sessio(64))
 }
 $ar=scandir(ROOT.INC_FILE_PATH.'log');
 
-foreach ($ar as $k=>$file) echo '<a target="_blank" href="'.READER_SCRIPT.ROOT.INC_FILE_PATH.'log/'.$file.'" class=" bt ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only">'.$file.'</a><br/>';
+foreach ($ar as $k=>$file) {
+    $nomfile=$file." >>>    ".date("Y-m-d  >  H:i:s",filemtime(ROOT.INC_FILE_PATH.'log/'.$file));
+    
+    echo '<a target="_blank" href="'.READER_SCRIPT.ROOT.INC_FILE_PATH.'log/'.$file.'" class=" bt ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only">'.$nomfile.'</a><br/>';    
+}
 
 ?>
 

@@ -555,7 +555,7 @@ function updateClient()
 			var obj=JSON.parse(dades);
 			if (obj.id_reserva || obj.err)
 			{
-				$("#popup").html(l(obj.err)+obj.data);
+				$("#popup").html(l("err"+obj.err));
 				$("#popup").dialog("open");
 				
 				resetClient();
@@ -855,7 +855,7 @@ function controlSubmit()
 			else 
 			{
 				var err="Error de servidor";
-				if (obj && obj.error) err=obj.error+"\n "+l(obj.error)+" \n\n"+l("err_contacti");
+				if (obj && obj.error) err=obj.error+"\n "+l("err"+obj.error)+" \n\n"+l("err_contacti");
 				if (obj.error=="err10") return;//DOBLE SUBMIT?????????
 				$("#popup").html("ERROR: "+err);
 				$('#submit').show();
@@ -943,7 +943,8 @@ function seccio(selector_seccio){
 function observacions_cotxets()
 {
   var obs=$("textarea[name='observacions']").val();
-  if (obs.indexOf("cochec")!==-1 || obs.indexOf("cotxet")!==-1) {
+  //if (obs.indexOf("cochec")!==-1 || obs.indexOf("cotxet")!==-1) {
+  if (obs.match(/cotxet|carret|person|nen|comensal|cobert|cochecito|carrito|niñ|cubierto/gi)){
 	  $("#help").html(l("OBSERVACIONS_COTXETS"));
 	  $("#help").dialog("open");
 	  clearTimeout(th);	if (SECCIO) th=setTimeout('timer_help("'+l(SECCIO)+'")',TIMER_HELP_INTERVAL);

@@ -196,7 +196,8 @@ class gestor_reserves extends Gestor
       $this->enviaSMS($id_reserva, $mensa);
       $this->paperera_reserves($id_reserva);
     //ENVIA MAIL
-      $mail=$this->enviaMail($id_reserva,"cancelada_");
+        $extres['subject']="Can-Borrell: RESERVA CANCELADA $id_reserva";
+      $mail=$this->enviaMail($id_reserva,"cancelada_",FALSE,$extres);
     }   
     
       $deleteSQL = "DELETE FROM ".T_RESERVES." WHERE id_reserva=$id_reserva";
@@ -450,7 +451,9 @@ class gestor_reserves extends Gestor
         
         $this->enviaSMS($idr, $mensa);          
         //ENVIA MAIL
-        $mail=$this->enviaMail($idr);
+        
+	$extres['subject']="Can-Borrell: Confirmació de reserva $idr";
+        $mail=$this->enviaMail($idr,"confirmada_",FALSE,$extres);
       }
         
      
@@ -556,7 +559,7 @@ class gestor_reserves extends Gestor
      * De vegades falla misteriosament, per això transition i, per això dos intents
      */
     for ($i=0;$i<2;$i++){ 
-        echo "PERMUTA INTENT #$i";
+        //echo "PERMUTA INTENT #$i";
             $this->reg_log("PERMUTA INTENT $i *************************************");
             $rollback=false;
             
@@ -564,6 +567,7 @@ class gestor_reserves extends Gestor
                 ////////////////////////////////
                 mysql_query("START TRANSACTION");    
                $observacions=Gestor::SQLVal($_POST['observacions']);
+               $_POST['cotxets']=$_POST['cotxets']?$_POST['cotxets']:0;
                 //ELIMINA LA RESERVA DE LA TAULA VELLA
                 $query="UPDATE ".T_RESERVES." 
                 SET data='$data',
@@ -2311,7 +2315,7 @@ ORDER BY `estat_hores_data` DESC";
     $query="SELECT * FROM ".T_RESERVES."
     LEFT JOIN client ON ".T_RESERVES.".client_id=client.client_id
       WHERE id_reserva=$idr";
-  
+    
     if (floor($idr)>SEPARADOR_ID_RESERVES)
     {
       $this->qry_result = mysql_query($query, $this->connexioDB) or die(mysql_error());
@@ -2319,15 +2323,13 @@ ORDER BY `estat_hores_data` DESC";
         
       if (!mysql_num_rows($this->qry_result)) return "err10";
     }
-    $row['aixoesunarray']=1;
+   $row['aixoesunarray']=1;
     if ($extres) $row=array_merge($row,$extres);
     //Gestor::printr($row);
-  
     $avui=date("d/m/Y");
     $ara=date("H:i");
     $file=$plantilla.$this->lng.".lbi";
     $t=new Template('.','comment');
-  
     if (is_array($extres))  foreach ($row as $k=>$v) $t->set_var($k,$v);
   
     $t->set_file("page", $file);
@@ -2353,10 +2355,11 @@ ORDER BY `estat_hores_data` DESC";
     $html=$t->get("OUT");
     if ($destinatari) $recipient=$destinatari;
     else $recipient=$row['client_email'];
-  
+  //$recipient="alex@infopruna.net";
+    
     if (isset($row['subject'])) $subject=$row['subject'];
     else $subject="..::Reserva Can Borrell::..";
-  
+ 
     try
     {
       $r=mailer($recipient, $subject , $html, $altbdy,null,false,MAIL_CCO);

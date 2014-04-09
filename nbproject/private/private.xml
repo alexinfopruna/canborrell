@@ -2,6 +2,29 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="9">
         <file>
+            <url>taules/gestor_reserves.php</url>
+            <bookmark id="4">
+                <name/>
+                <line>334</line>
+                <key/>
+            </bookmark>
+            <bookmark id="5">
+                <name/>
+                <line>871</line>
+                <key/>
+            </bookmark>
+            <bookmark id="6">
+                <name/>
+                <line>1498</line>
+                <key/>
+            </bookmark>
+            <bookmark id="7">
+                <name/>
+                <line>1552</line>
+                <key/>
+            </bookmark>
+        </file>
+        <file>
             <url>reservar/js/form_reserves.js</url>
             <bookmark id="8">
                 <name/>
@@ -27,38 +50,21 @@
                 <key/>
             </bookmark>
         </file>
-        <file>
-            <url>taules/gestor_reserves.php</url>
-            <bookmark id="4">
-                <name/>
-                <line>333</line>
-                <key/>
-            </bookmark>
-            <bookmark id="5">
-                <name/>
-                <line>868</line>
-                <key/>
-            </bookmark>
-            <bookmark id="6">
-                <name/>
-                <line>1495</line>
-                <key/>
-            </bookmark>
-            <bookmark id="7">
-                <name/>
-                <line>1549</line>
-                <key/>
-            </bookmark>
-        </file>
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/C:/xampp/htdocs/cbdev.can-borrell.com/reservar/translate_es.php</file>
+            <file>file:/C:/xampp/htdocs/cbdev.can-borrell.com/reservar/translate.php</file>
             <file>file:/C:/xampp/htdocs/cbdev.can-borrell.com/reservar/form.php</file>
-            <file>file:/C:/xampp/htdocs/cbdev.can-borrell.com/reservar/js/control_carta.js</file>
+            <file>file:/C:/xampp/htdocs/cbdev.can-borrell.com/cat/index.php</file>
+            <file>file:/C:/xampp/htdocs/cbdev.can-borrell.com/reservar/contactar_restaurant_ca.lbi</file>
+            <file>file:/C:/xampp/htdocs/cbdev.can-borrell.com/form_contacte.php</file>
             <file>file:/C:/xampp/htdocs/cbdev.can-borrell.com/reservar/js/form_reserves_grups.js</file>
-            <file>file:/C:/xampp/htdocs/cbdev.can-borrell.com/reservar/form_grups.php</file>
-            <file>file:/C:/xampp/htdocs/cbdev.can-borrell.com/index.htm</file>
-            <file>file:/C:/xampp/htdocs/cbdev.can-borrell.com/reservar/css/form_reserves_grups_mob.css</file>
+            <file>file:/C:/xampp/htdocs/cbdev.can-borrell.com/reservar/js/form_reserves.js</file>
+            <file>file:/C:/xampp/htdocs/cbdev.can-borrell.com/taules/DBTable/DBTableHead.php</file>
+            <file>file:/C:/xampp/htdocs/cbdev.can-borrell.com/taules/gestor_reserves.php</file>
+            <file>file:/C:/xampp/htdocs/cbdev.can-borrell.com/esp/index.php</file>
+            <file>file:/C:/xampp/htdocs/cbdev.can-borrell.com/reservar/translate_ca.php</file>
         </group>
     </open-files>
 </project-private>

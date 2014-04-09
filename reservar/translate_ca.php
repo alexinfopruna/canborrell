@@ -65,7 +65,7 @@ $translate['INFO_COMANDA']="Pots escollir diferents menús o diferents plats de 
 	$translate['Adults']="Adults (més de 14 anys):";
   $translate['ADULTS_TECLAT']='<span class="gris-ajuda">&#8625;Pots teclejar el número si no apareix un botó amb el valor adequat</span>';
 	
-	$translate['Cotxets de nadó']="Nens en cotxet de nadó. <br/><b style='font-size:0.8em'>El nen ocuparà el cotxet i no una cadira/trona</b>";
+	$translate['Cotxets de nadó']="Nens en cotxet de nadó <br/><em style='font-size:0.8em;'>(Malauradament només disposem d'espai per un cotxet per taula)</em>. <br/><b style='font-size:0.8em'>El nen ocuparà el cotxet i no una cadira/trona</b>";
 
 	
 	$translate['INFO_QUANTS_SOU']='<b>Digue\'ns quantes persones vindreu</b>, indicant, en primer lloc els majors de 14 anys seguit de juniors i nens. 
@@ -139,6 +139,18 @@ $translate['Necessites ajuda?']="Necessites ajuda?";
 $translate['Contrassenya (ID)']="ID de reserva";
 
 
+$translate['subject_contactar_restaurant_']="CONTACTAR DES DE FORMULARI RESERVES";
+
+$translate['INFO_CONTACTE_HOME']="Utilitza aquest formulari per a qualsevol dubte o comentari. Sempre responem en un breu interval de temps"
+        . "<br/><br/>"
+        . "Per realitzar, anul·lar o modificar reserves (comensals, data, hora, etc.) ves a <br/><a href='/reservar/'>RESERVES</a>";
+        
+$translate['INFO_TEL']="Si tens alguna incidència que no puguis solucionar des dels nostres formularis, pots trucar-nos al 936929723 / 936910605 / Fax: 936924057";
+$translate['Formulari de contacte']="Formulari de contacte";
+       
+
+
+
 /****************************************************************************************************/	
 /*******************************************************     JS   ***********************************/	
 /****************************************************************************************************/	
@@ -151,9 +163,14 @@ $translate['Contrassenya (ID)']="ID de reserva";
 // Es pot escriure tilde: ´
 
 $translateJS['HOLA']="hole";
-$translateJS['Ho semtim.\n\nNo podem reservar per la data que ens demanes']='Ho semtim.\n\nNo podem reservar per la data que ens demanes';
+$translateJS['Hoe semtim.\n\nNo podem reservar per la data que ens demanes']='Ho semtim.\n\nNo podem reservar per la data que ens demanes';
 $translateJS['NENS_COTXETS']='<b>La suma de nens més cotxets ha de ser el nombre real de nens que vindran</b><br/>No comptis un mateix nen com a menor de 9 i com a cotxet simultàniament. Per no duplicar places, si inclous un cotxet en el que s&#39;estarà un nen, no l&#39;anotis al grup anterior (Nens menors de 9 anys).';
-$translateJS['OBSERVACIONS_COTXETS']='Cal que especifiquis els cotxets de nadó a la secció 1 del formulari.<br/><br/> No podem garantir l&#39;espai pels cotxets que indiquis a les observacions';
+//$translateJS['OBSERVACIONS_COTXETS']='Cal que especifiquis els cotxets de nadó a la secció 1 del formulari.<br/><br/> No podem garantir l&#39;espai pels cotxets que indiquis a les observacions';
+$translateJS['OBSERVACIONS_COTXETS']='No tindrem en compte les indicacions que ens facis al camp observacions referents a coberts de nens/adults o cotxets de nadó'
+ . '<br/><br/>'
+        . 'Disposem de recursos limitats i només podem garantitzar el que ens demanes a la primera secció d&#39;aquest formulari'
+        . '<br/><br/>'
+        . 'Gracies la teva comprensió';
 
 /**/
 $translateJS["fr-seccio-quants"] = 'En aquesta secció has d&quot;indicar exactament quantes persones (adults, júniors i nens) vindran. <br/>A més, opcionalment, pots indicar si portareu cotxet i si us acompanya algú amb mobilitat reduïda o cadira de rodes. <br/><b>La suma de nens més cotxets ha de ser el nombre real de nens que vindran.</b>	<br/><br/><br/>		<b>Reservarem espai pels comensals que ens indiquis aquí. La reserva no serà vàlida per un nombre de persones que no coincideixi amb el que has sol·licitat</b><br/><br/>Aquest formulari és per a reserves de grups petits. Si sou més de '.($PERSONES_GRUP-1).' persones cal que premis a <b>Sol·licitud de reserva per Grups</b><br/><br/><br/><br/>Disposem d&quot;un nombre limitat de trones i no en podem garantir la disponibilitat.<br/><br/>Només permetem l&#39;entrada de gossos pigall acompanyant invidents<br/><br/>Un cop omplis aquestes dades, accediràs al pas 2, més avall ';
@@ -188,7 +205,7 @@ $translateJS['err100'] = 'Error de sessió';
 $translateJS['err_contacti'] = 'Contacti amb el restaurant:936929723 / 936910605';
 
 $translate['err20'] = '<b>Ja tens una reserva feta a Can Borrell!!</b><br/><br/>Pots modificar-la o eliminar-la, però no pots crear més d&#39;una reserva online.<br/><em>(Per editar o cancel·lar utilitza l&#39;enllaç que trobarà més amunt, sota la barra de navegació d&#39;aquesta pàgina)</em><br/><br/><br/>Si ho desitges posa&#39;t en contacte amb nosaltres:<br/><b>936929723 / 936910605</b><br/><br/><br/>La reserva que ens consta es pel dia ';
-$translateDirectJS['err21'] = '<b>No podem fer-te la reserva on-line a causa d&#39;algun problema amb una reserva anterior!!</b><br/><br/>Si us plau, per reservar contacta amb el restaurant:936929723 / 936910605';
+$translateDirectJS['err21'] = '<b>No podem fer-te la reserva on-line a causa d&#39;algun problema amb una reserva anterior!!</b><br/><br/>Si us plau, per reservar contacta amb el restaurant:936929723 / 936910605 /';
 $translateDirectJS['err20'] = '<b>Ja tens una reserva feta a Can Borrell!!</b><br/><br/>Pots modificar-la o eliminar-la, però no pots crear més d&#39;una reserva online.<br/><em>(Per editar o cancel·lar utilitza l&#39;enllaç que trobarà més amunt, sota la barra de navegació d&#39;aquesta pàgina)</em><br/><br/><br/>Si ho desitges posa&#39;t en contacte amb nosaltres:<br/><b>936929723 / 936910605</b><br/><br/><br/>La reserva que ens consta es pel dia ';
 $translateDirectJS['CAP_TAULA']="No tenim cap taula disponible per la data/coberts/cotxets que ens demanes.<br/><br/>Intenta-ho per una altra data";
 

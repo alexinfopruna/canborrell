@@ -235,12 +235,12 @@ function mail_cli($id=false, $plantilla="templates/recordatori_cli.lbi")
 			$t->set_var('adults',(int)$fila['adults']);
 			$t->set_var('nens10_14',(int)$fila['nens10_14']);
 			$t->set_var('nens4_9',(int)$fila['nens4_9']);
-             //$t->set_var('txt_1'," menú: ".$fila['txt_1']);
-            //$t->set_var('txt_2'," menú: ".$fila['txt_2']);
-            $t->set_var('txt_1',"");
-            $t->set_var('txt_2',"");
-            $t->set_var('cresposta',$txt[79][$lang]);
-            $t->set_var('resposta',$fila['resposta']);
+                        //$t->set_var('txt_1'," menú: ".$fila['txt_1']);
+                       //$t->set_var('txt_2'," menú: ".$fila['txt_2']);
+                       $t->set_var('txt_1',"");
+                       $t->set_var('txt_2',"");
+                       $t->set_var('cresposta',$txt[79][$lang]);
+                       $t->set_var('resposta',$fila['resposta']);
 			$t->set_var('cotxets',(int)$fila['cotxets']);
 			$t->set_var('observacions',$fila['observacions']);
 			$t->set_var('preu_reserva',$fila['preu_reserva']);
@@ -250,7 +250,7 @@ function mail_cli($id=false, $plantilla="templates/recordatori_cli.lbi")
 			
             //$t->p("OUT");
 	$recipient=$fila['email'];
-    $subject="..::Reserva Can Borrell::..";
+    $subject="..::Reserva Can Borrell: Recordatori reserva";
     $r=mailer($recipient, $subject , $html, $altbdy, null, false, MAIL_CCO);
     $nreserva=$fila['id_reserva'];
     print_log("Enviament RECORDATORI($r): $nreserva -- $recipient, $subject: $copia");

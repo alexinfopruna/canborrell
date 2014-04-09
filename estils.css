@@ -278,3 +278,9 @@ box-shadow: 4px 4px 4px #ccc;
 .novetat a:link{	color: red;}
 .novetat a:visited{	color: red;}
 .novetat a:hover{	color: red;}
+.ui-button-icon-only .ui-icon {
+left: 0%;
+top: 0px;
+}
+
+.error{display:block;color:red}

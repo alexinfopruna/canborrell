@@ -572,7 +572,7 @@ else
 </form>	<!--
 	
 	-->
-<div id="peu" style="margin-top:50px;	text-align:center;padding:15px;background:#FFFFFF"><b>Restaurant CAN BORRELL:</b> <span class="dins" style="text-align:right">93 692 97 23 / 93 691 06 05 </span>  /  <a href="mailto:<?php echo MAIL_RESTAURANT;?>" class="dins"><?php echo MAIL_RESTAURANT;?></a>
+<div id="peu" style="margin-top:50px;	text-align:center;padding:15px;background:#FFFFFF"><b>Restaurant CAN BORRELL:</b> <span class="dins cd-contacte" style="text-align:right">93 692 97 23 / 93 691 06 05 </span>  /  <a href="mailto:<?php echo MAIL_RESTAURANT;?>" class="dins"><?php echo MAIL_RESTAURANT;?></a>
 </div>
 	
 		</td>

@@ -196,7 +196,7 @@ else
 					///////////////////////////
 			
 			$recipient = MAIL_RESTAURANT;  
-			$subject = "RESERVA ".$fila['id_reserva']." PAGADA PER TRANSFERENCIA. REF: ".$_POST['referencia']; 
+			$subject = "Can-Borrell: RESERVA ".$fila['id_reserva']." PAGADA PER TRANSFERENCIA. REF: ".$_POST['referencia']; 
 			$r=mailer($recipient, $subject, $html, $altbdy);
 		
 			$nreserva=$fila['id_reserva'];

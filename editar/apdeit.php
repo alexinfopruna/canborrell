@@ -107,19 +107,21 @@ function mail_SMS_cli($id=false,$SMS=null)
  	
 	switch ((int)$fila['estat'])
 	{
-	  case 2:
+          case 2: // RESRVA CONFIRMADA
 		$v=10;      
 		$aki="<a href='http://www.can-borrell.com/editar/pagament.php?id=".$fila["id_reserva"]."&lang=$lang_cli' class='dins'>AQUI</a>";
         $copia="Reserva CONFIRMADA";
+        $subject="Can-Borrell: RESERVA CONFIRMADA";
         $altbdy="Su reserva para el Restaurante Can Borrel ha sido confirmada. \n\nDebido a que su cliente de correo no puede interpretar correctamente este mensaje no es posible automatizar el proceso de pago.\n\n Por favor, póngase en contacto con el restaurante llamando al 936 929 723 o al 936 910 605. \n\nDisculpe las molestias";
  	  break;
 	
-	  case 3:
+          case 3: // PAGAMENT OK
 		$v=20;
 		$preu=$fila['preu_reserva'];
 	//    $datat=cambiaf_a_normal($fila['data']).", ".$fila['hora']."h";
 		$datat=data_llarga($fila['data'],$lang).", ".$fila['hora']."h";
         $copia="Reserva PAGADA";
+        $subject="Can-Borrell: NOTIFICACIÓ DE PAGAMENT REBUDA";
 		if ($fila['factura']) 
 		{
 			$attach=factura($fila,"../",false);
@@ -134,15 +136,18 @@ function mail_SMS_cli($id=false,$SMS=null)
 		
 	  break;
 	
-	  case 4:
+          case 4: // RESERVA DENEGADA
 		$v=30;
 		$aki="<a href='http://www.can-borrell.com/cat/contactar.php?id=".$fila["id_reserva"]."&lang=$lang_cli' class='dins'>AQUÍ</a>";
         $altbdy="Lamentamos informarle que la reserva que solicitó para el restaurante Can Borrell ha sido denegada por encontrarse el comedor lleno.\n\n Para más información, por favor, póngase en contacto con el restaurante llamando al 936 929 723 o al 936 910 605. \n\nDisculpe las molestias";
     $copia="Reserva DENEGADA";
+    $subject="Can-Borrell: RESERVA DENEGADA";
 	  break;
 	  
 	  default:
+               $subject="..::Reserva Can Borrell::..";
 		 return 0;
+              
 	  break;
 	}
 	
@@ -234,7 +239,7 @@ function mail_SMS_cli($id=false,$SMS=null)
 			//$t->p("OUT");
 			//exit();
 	$recipient=$fila['email'];
-    $subject="..::Reserva Can Borrell::..";
+    //$subject="..::Reserva Can Borrell::..";
     if (!isset($attach))$attach=null;
     $r=mailer($recipient, $subject , $html, $altbdy,$attach,false,MAIL_CCO);
     $nreserva=$fila['id_reserva'];
@@ -355,7 +360,7 @@ function mail_restaurant($id=false)
 	
 	
     $recipient = MAIL_RESTAURANT;  
-    $subject = "..::Reserva Can Borrell::.."; 
+    $subject = "..::Reserva Can Borrell: Confirmació pagament reserva de grup"; 
 
     $r=mailer($recipient, $subject, $html, $altbdy);
     $nreserva=$fila['id_reserva'];

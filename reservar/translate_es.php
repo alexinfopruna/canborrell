@@ -163,7 +163,7 @@ $translate['ADULTS_TECLAT']='<span class="gris-ajuda">&#8625;Puedes teclear el n
 
 $translate['Juniors (de 10 a 14 anys):']="Juniors (de 10 a 14 años )";
 $translate['Nens (de 4 a 9 anys)']="Niños menores de 9 años <b>sin cochecito</b>";
-$translate['Cotxets de nadó']="Niños en cochecito de bebé. <br/><b style='font-size:0.8em'>El niño ocupará el cochecito y no una silla/trona</b>";
+$translate['Cotxets de nadó']="Niños en cochecito de bebé <br/><em style='font-size:0.8em'>(desafortunaamente solo disponemos de espacio para un cochecito por mesa)</em>. <br/><b style='font-size:0.8em'>El niño ocupará el cochecito y no una silla/trona</b>";
 $translate['Grups']="Solicitud de reserva para Grupos";
 $translate['A quina hora?']="¿A qué hora?";
 $translate['Dinar']="Comida";
@@ -207,6 +207,15 @@ $translate['Per la data seleccionada és necessari escollir menú per tots els c
 $translate['Necessites ajuda?']="¿Necesitas ayuda?";
 
 
+$translate['subject_contactar_restaurant']="CONTACTAR DES DE FORMULARI RESERVES";
+
+$translate['INFO_CONTACTE_HOME']="Utiliza este formulario para cualquier duda o comentario. Siempre respondemos en un breve intervalo de tiempo"
+        . "<br/><br/>"
+        . "Para realizar, anular o modificar reservas (comensales, fecha, hora, etc.) ves a <br/><a href='/reservar/'>RESERVAS</a>";
+        
+$translate['INFO_TEL']="Si tienes alguna incidencia que no puedas solucionar desde nuestros formularios, puedes llamarnos al 936929723 / 936910605 / Fax: 936924057";
+$translate['Formulari de contacte']="Formulario de contacto";
+       
 
 /****************************************************************************************************/	
 /*******************************************************     JS   ***********************************/	
@@ -263,7 +272,11 @@ $translateJS['No hi ha cap plat seleccionat'] = 'No hay ningún plato selecciona
 $translateJS['Menús']='Menús';
 $translateJS['Menús Nadal']='Menús Navidad';
 $translateJS['NENS_COTXETS']='<b>La suma de niños más cochecitos ha de ser el número real de niños que van a venir</b><br/>No cuentes un mismo niño como menor de 9 y cochecito a la vez. Para no duplicar plazas, si incluyes un cochecito en el que permanecerá un niño, no lo anotes en el grupo anterior (Niños menores de 9 años).';
-$translateJS['OBSERVACIONS_COTXETS']='Debes especificar los cochecitos de bebé en la sección 1 del formulario.<br/><br/> No podemos garantizar el espacio para cochecitos si lo indicas como observaciones';
+//$translateJS['OBSERVACIONS_COTXETS']='<br/><br/> No podemos garantizar el espacio para cochecitos si lo indicas como observaciones';
+$translateJS['OBSERVACIONS_COTXETS']='No tendremos en cuenta las indicaciones que nos hagas en el campo observaciones referentes a cubiertos de niños/adultos o cochecitos de bebé. '
+        . '<br/><br/>'
+        . 'Disponemos de recursos limitados y <b>solo podemos garantizarte lo que solicites en la primera sección</b> de este formulario'
+        . '<br/><br/>Gracias por tu comprensión';
 
 
 /*******************************************************     ERRORS   ***********************************/	

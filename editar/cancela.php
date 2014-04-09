@@ -149,7 +149,7 @@ function mail_restaurant($id=false)
 	
 	
     $recipient = MAIL_RESTAURANT;  
-    $subject = "..::Reserva Can Borrell::.."; 
+    $subject = "Can-Borrell: RESERVA GRUP CANCEL·LADA: ".$fila['id_reserva']; 
 
     $r=mailer($recipient, $subject, $html, $altbdy);
     $nreserva=$fila['id_reserva'];

@@ -1,6 +1,7 @@
 <?php
 define("ROOT", "../taules/");
 define("READER_SCRIPT", "read.php?f=");
+define("LOG_LIST", "listlogs.php");
 require_once(ROOT."gestor_reserves.php");
 $gestor=new gestor_reserves();   
 
@@ -179,9 +180,9 @@ $(function(){$("#panel").accordion({collapsible:true,active:false,heightStyle: "
 		<!-- -->
 		<!-- -->
 		<h4 >LOGS</h4>
-		<a target="_blank" href="<?php echo READER_SCRIPT.ROOT.INC_FILE_PATH.LOG_FILE;?>" class=" bt ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only">LOG D'ACCIONS</a>
+		<a target="_blank" href="<?php echo READER_SCRIPT.ROOT.INC_FILE_PATH.LOG_FILE;?>" class=" bt ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only">DARRER LOG D'ACCIONS</a>
 		<!-- -->
-		<a target="_blank" href="<?php echo READER_SCRIPT.ROOT.INC_FILE_PATH.LOG_QUERYS_FILE;?>" class=" bt ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only">LOG DE QUERYS A LA BBDD</a>
+		<a target="_blank" href="<?php echo LOG_LIST;?>" class=" bt ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only">LLISTA LOGS</a>
 		<!-- -->
 		<a target="_blank" href="<?php echo READER_SCRIPT.ROOT.INC_FILE_PATH."log/logTPV.txt"?>" class=" bt ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only">LOG D'OPERACIONS AL TPV</a>
 		<!-- -->

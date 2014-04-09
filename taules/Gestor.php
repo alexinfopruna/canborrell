@@ -9,7 +9,7 @@
 
 /**********************************************************************************************************************/
 // SI VOLEM UN HANDLER D'ERRORS
-//require_once("errorHandler.php"); // DEBUG, MOSTRAR ERRORS I NOTICES
+require_once("errorHandler.php"); // DEBUG, MOSTRAR ERRORS I NOTICES
 /**********************************************************************************************************************/
 
 

@@ -1,10 +1,59 @@
-<HTML>
+<?php
+            define('ROOT',"../taules/");
+            require_once (ROOT."gestor_reserves.php");  
+            $g=new gestor_reserves();
+             
+            $extres['subject']="Can Borrell: FORMULARI DE CONTACTE HOME";
+		$extres['reserva_consulta_online']=$_POST['reserva_consulta_online'];
+		$extres['client_email']=$_POST['client_email'];
+		$extres['client_nom']=$_POST['client_nom'];
+		$extres['client_cognoms']="";
+                
+            if ($_REQUEST['client_email']){
+                $g->enviaMail(null, "../reservar/contactar_restaurant_",MAIL_RESTAURANT,$extres);
+                header("Location: ".  $_SERVER['PHP_SELF']."?snd");
+                echo '<script>var ENVIAT=true;</script>';
+            }
+           include("../reservar/translate_es.php");
+?><HTML>
 <HEAD>
-<TITLE> Masia Can Borrell </TITLE>
-<meta http-equiv="refresh" content="0; url=index.php" />
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<TITLE> Masia Can Borrell </TITLE>
+
+	 <?php 
+     
+         echo Gestor::loadJQuery(); 
+         
+         /* CONTACTE */
+         
+            
+            if (isset($_REQUEST['snd'])) echo '<script>var ENVIAT=true;</script>';
+         ?>
+ 	<script type="text/javascript" src="../js/dynmenu.js"></script>
+        <script type="text/javascript" src="../taules/js/jquery.metadata.js"></script>
+	<script type="text/javascript" src="../taules/js/jquery.validate.min.js"></script>
+	<script type="text/javascript" src="../taules/js/jquery.validate_es.js"></script>
+
+       <link type="text/css" href="../taules/css/blitzer/jquery-ui-1.8.9.forms.css" rel="stylesheet" />	
 	<LINK rel="stylesheet" type="text/css" href="../estils.css">
-	<script type="text/javascript" src="../js/dynmenu.js"></script>
+
+        <script>
+            $(function(){
+                if (typeof ENVIAT != 'undefined') $(".cb-contacte").html('<span style="color:green">Correo enviado!</span>');
+                else   $(".cb-contacte").html("<button>Contacto</button>").click(function(){$("#caixa_contacte").dialog("open")});
+                
+        $("#caixa_contacte").dialog({
+                    autoOpen:false,
+                    title:"Formulario de contacto",
+                });
+                $("#form_contactar").validate({
+                    errorElement: "em",
+                });
+                
+            });
+        </script>
+
+
 	
 	
 </HEAD>
@@ -37,8 +86,8 @@
 		<TD style="background-image:url(../img/fons_1b.jpg); background-repeat:no-repeat;" HEIGHT="100%" WIDTH="154" ALIGN="RIGHT" VALIGN="BOTTOM"><B>Masia Can Borrell<BR>
 Sant Cugat del Vall&egrave;s</B><BR>
 <span class="cb-contacte">Tel.: 93 692 97 23<BR>
-93 691 06 05</span><BR>
-Fax: 93 692 40 57<BR>
+93 691 06 05<BR>
+Fax: 93 692 40 57</span><BR>
 <IMG SRC="../img/pix.gif" WIDTH="1" HEIGHT="38" BORDER="0"></TD>
 		<TD style="background-image:url(../img/fons_1c.jpg); background-repeat:no-repeat;" WIDTH="621" ALIGN="CENTER" VALIGN="TOP">
 		<TABLE CELLPADDING="0" CELLSPACING="0" WIDTH="490" BORDER="0">
@@ -56,7 +105,13 @@ Esta bella masía disfruta de un paisaje forestal y agrícola que nos hace reenc
 		</TABLE>
 		</TD>
 	</TR>
+        <tr><td><BR><BR><BR></TD><td></TD></TR>
 </TABLE>
 </CENTER>
+<?php
+
+  include("../form_contacte.php");
+?>
+
 </BODY>
 </HTML>

@@ -262,7 +262,7 @@ function mail_cli($id=false,$lang="esp")
             $ini_file = "TPV.txt";	
 
 	$recipient=$fila['email'];
-    $subject="..::Reserva Can Borrell::..";
+    $subject="Can-Borrell: CONFIRMACIÓ DE PAGAMENT DE RESERVA PER GRUP";
     $altbdy="El pago de la reserva se ha realizado correctamente.";
 
 		$r=mailer($recipient, $subject , $html, $altbdy,$attach,$test_mail)?"...OK":"KO!!!!";
@@ -356,7 +356,8 @@ function mail_restaurant($id=false)
     //        $t->p("OUT"); 
 //////////////////
 //////////////////
-    $subject = "..::Reserva Can Borrell::.."; 
+    
+    $subject="Can-Borrell: CONFIRMACIÓ DE PAGAMENT DE RESERVA PER GRUP";
     $altbdy="S'ha registrat el pagament de la reserva ".$fila['id_reserva'];
 	
     $recipient = MAIL_RESTAURANT;  
