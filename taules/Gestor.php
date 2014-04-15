@@ -83,7 +83,6 @@ class Gestor
 		$this->conf=new Configuracio();
 		$this->connectaBD();	
 		$_SESSION['admin_id']='0';
-		
 	}
 		
 	
@@ -702,7 +701,7 @@ class Gestor
 /******************************************************************************************************/
 	public function configVars($nom)
 	{
-		return $this->conf->configVars[$nom];
+        	return $this->conf->configVars[$nom];
 	}
 /******************************************************************************************************/
 	public function dumpJSVars($tags)

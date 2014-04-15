@@ -48,6 +48,8 @@ $PERSONES_GRUP=$gestor->configVars("persones_grup");
 define("PERSONES_GRUP",$PERSONES_GRUP);
 $max_nens=$gestor->configVars("max_nens");
 $max_juniors=$gestor->configVars("max_juniors");
+
+$gestor->netejaImpagatsTpv(); // TPV I IMPAGATS
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html>
@@ -301,7 +303,9 @@ else
 					for ($i=2;$i<$PERSONES_GRUP;$i++)
 					{
 						$chek=($i==$row['adults']?'checked="checked"':'');
-						print '<input type="radio" id="com'.$i.'" name="selectorComensals" value="'.$i.'" '.$chek.'/><label for="com'.$i.'">'.$i.'</label>';
+                                                $tpv=($i>=persones_paga_i_senyal?"ptpv":"");
+                                                $title=($i>=persones_paga_i_senyal?"Paga i senyal necessària":"Reserva gratuïta");
+						print '<input type="radio" id="com'.$i.'" name="selectorComensals" value="'.$i.'" '.$chek.'/><label for="com'.$i.'" class="'.$tpv.'" title="'.$title.'">'.$i.'</label>';
 					}
 				?>
 				<input type="radio" id="comGrups" name="selectorComensals" value="grups"  /><label id="labelGrups" for="comGrups" style="font-size:1.2em"><?php l('Grups');?></label>
@@ -570,6 +574,10 @@ else
 	</div>
 
 </form>	
+
+
+
+
 	
 <!--	
 <div id="peu" style="margin-top:50px;	text-align:center;padding:15px;background:#FFFFFF" ><b>Restaurant CAN BORRELL:</b> <span class="dins cb-contacte" style="text-align:right">93 692 97 23 / 93 691 06 05 </span>  /  <a href="mailto:<?php echo MAIL_RESTAURANT;?>" class="dins"><?php echo MAIL_RESTAURANT;?></a>
@@ -580,6 +588,14 @@ else
 
 		</td>
 	</tr>
+    
+    <tr><td>
+        
+ <?php 
+ //echo import_paga_i_senyal;
+ echo $gestor->generaFormTpv('20110101',$gestor->configVars("import_paga_i_senyal"),"TEST_TPV"); ?> 
+            
+        </td></tr>
 </table>
 	
 	

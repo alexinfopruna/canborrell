@@ -322,7 +322,10 @@ function totalPersones()
 	var total=na+nj+nn;
 	
 	$("input[name='totalComensals']").val(total);
-	$("input[name='totalCotxets']").val("/ "+$("input[name='selectorCotxets']:checked").val());
+        
+        var cotxets=$("input[name='selectorCotxets']:checked").val()?$("input[name='selectorCotxets']:checked").val():'0';
+        
+	$("input[name='totalCotxets']").val("/ "+cotxets);
 	if (total>=PERSONES_GRUP) 	{monta_calendari("#calendari");comportamentDia();}
 	
 	if ($(".fr-seccio-hora").is(":visible")) recargaHores();
@@ -829,7 +832,7 @@ function controlSubmit()
 			$("#popup").dialog('open');		
 		}
 		
-		$('#submit').hide();
+		//$('#submit').hide();
 
 		$('#form-reserves').ajaxSubmit(function(dades) { 
 			if (dades.substring(0,11)!='{"resposta"') dades='{"resposta":"ko","error":"err0","email":false}';
@@ -839,21 +842,45 @@ function controlSubmit()
 			
 			if (obj.resposta=="ok") 
 			{
+                                   $("#popup").bind( "dialogclose", function(event, ui) {
+                                            window.location.href="../"+lang+"/on.html";
+                                    });
+                                    
 				SUBMIT_OK=true;
-				var text= (obj.request=="create")?$("#popupInfo").html():$("#popupInfoUpdate").html();
-				$("#popup").html(text+$(".resum").html());
-				$("#popup").html(text+$(".resum").html());
-				$("#popup").bind( "dialogclose", function(event, ui) {
-					window.location.href="../"+lang+"/on.html";
-				});
-				
-				/*
-				if (!resub){
-					resub=true;
-					$('#form-reserves').submit();
-				}
-				*/
-			}
+                                SECCIO=null;
+                                /** PAGA I SENYAL */
+                                if(obj.TPV=="TPV"){
+                                    var idr="214" + obj.idr;
+                                    
+                                   // $("#popup").html('<iframe id="frame-tpv" name="frame-tpv" style="width:100%;height:100%"></iframe>');
+                            $("#tpv_order").val(idr);
+                            nom=$("input[name=client_nom").val()+" "+$("input[name=client_cognoms").val();
+                            $("#tpv_titular").val(nom);         
+                            $("#tpv_signature").val(obj.signature);         
+                           
+                            //$("#td_contingut").html('<iframe id="frame-tpv" name="frame-tpv" style="width:100%;height:500px"></iframe>');
+                           var info=l('PAGA_I_SENYAL');                                       
+                                       $("#popup").html(info+'<iframe id="frame-tpv" name="frame-tpv" style="width:100%;height:500px"></iframe>');
+                           
+                            $(" .ui-button-text").html("Cancel·la la reserva");
+                           // $("#popup").dialog('close');
+                           //$.scrollTo( "#td_contingut", 800 );
+                           timer = setTimeout(function(){
+                            clearTimeout(timer);
+                             $("#popup").html('SESSIÓ CADUCADA');
+                            $("#popup").dialog('close');
+                                    }, temps_paga_i_senyal*60000);
+                            $("#compra").submit();
+                                    // window.location.href="pagament.php?id="+idr;
+                                     
+                                     
+                                }
+                                else{
+                                    var text= (obj.request=="create")?$("#popupInfo").html():$("#popupInfoUpdate").html();
+                                    $("#popup").html(text+$(".resum").html());
+
+                                 }
+                        }                        
 			else 
 			{
 				var err="Error de servidor";
@@ -968,3 +995,4 @@ function tanca_dlg(){
     $("#td_contingut").removeClass("fals-overlay");
     if (!SECCIO) seccio(SECCIO_INICIAL);
 }
+

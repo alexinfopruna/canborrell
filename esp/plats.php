@@ -776,9 +776,11 @@ Aceptamos tarjetas <B>Visa</B>, <B>Eurocard</B> y <B>Mastercard</B>.<BR>
 La empresa se reserva el drerecho de modificar los art&iacute;culos<BR>
 y el precio de los men&uacute;s.<BR>
 &nbsp;<BR>
+<!--
 Para m&aacute;s informaci&oacute;n:<BR>
 <FONT CLASS="titol"><B>Tel.: 93 692 97 23</B></FONT><BR>
 &nbsp;<BR>
+-->
 &nbsp;</TD>
 			</TR>
 		</TABLE>

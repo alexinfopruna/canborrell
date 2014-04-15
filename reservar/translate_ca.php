@@ -70,6 +70,12 @@ $translate['INFO_COMANDA']="Pots escollir diferents menús o diferents plats de 
 	
 	$translate['INFO_QUANTS_SOU']='<b>Digue\'ns quantes persones vindreu</b>, indicant, en primer lloc els majors de 14 anys seguit de juniors i nens. 
 			<br/><br/>
+                        <div style="background:rgb(255, 255, 161);padding:4px;"><b>Si sou més de '.(persones_paga_i_senyal-1).' persones, 
+                            caldrà que realitzeu una paga i senyal de '.import_paga_i_senyal.'€ amb targeta de crèdit</b>.
+                              Aquest import se us descomptarà del preu final de les consumicions, de manera que no representarà cap despresa extra.
+                                El pagament es realitzarà a través d\'una passarel·la bancària segura. Can Borrell no tindrà accés a les dades introduïdes. 
+             </div>
+                        <br/><br/>
 			<b>Reservarem espai pels comensals que ens indiquis aquí. La reserva no serà vàlida per un nombre de persones que no coincideixi amb el que has sol·licitat</b>
 			<br/><br/>
 			
@@ -78,7 +84,9 @@ $translate['INFO_COMANDA']="Pots escollir diferents menús o diferents plats de 
 			Només permetem l\'entrada de gossos pigall acompanyant invidents<br/><br/>
 					<em>Si, en total, sou més de <b>'.($PERSONES_GRUP-1).'</b> persones, marca el botó "Grups"</em><br/><br/>
 					<b>TOTAL PERSONES/COTXETS:';
-					
+
+        
+        
 	$translate['ALERTA_GRUPS']='<b>Has indicat més de <span style="font-size:1.2em"><?php echo $PERSONES_GRUP-1?></span> persones en total.</b><br/><br/> Cal que omplis el formulari de Grups o redueixis el nombre de comensals.<br/><br/> Si vols anar al formulari de Grups prem "Reserva per grups". Si vols reduïr el nombre de comensals prem "Modificar"';
 
 	
@@ -147,6 +155,7 @@ $translate['INFO_CONTACTE_HOME']="Utilitza aquest formulari per a qualsevol dubt
         
 $translate['INFO_TEL']="Si tens alguna incidència que no puguis solucionar des dels nostres formularis, pots trucar-nos al 936929723 / 936910605 / Fax: 936924057";
 $translate['Formulari de contacte']="Formulari de contacte";
+
        
 
 
@@ -187,6 +196,11 @@ $translateJS["grups-fr-seccio-carta"] = "Per reserves de grups cal que ens indiq
 $translateJS["grups-fr-seccio-client"] =$translateJS["fr-seccio-client"];
 $translateJS["grups-fr-seccio-submit"] =$translateJS["fr-seccio-submit"];
 
+$translateJS["PAGA_I_SENYAL"] ="<div>A continuació cal que realitzis el pagament de ".import_paga_i_senyal."€ per garantitzar l&#39;assistència el dia de la reserva. "
+        . "Aquest import serà descomptat del compte total.<br/><br/>"
+        . "Et transferim a una passarel·la bancària externa a Can Borrell. El restaurant no tindrà accés a les dades que introdueixis"
+        . "<br/><br/></div>";
+
 
 
 $translateJS['err0'] = 'No ha estat possible crear la reserva.';
@@ -203,7 +217,14 @@ $translateJS['err10'] = 'Per aquesta data cal que seleccionis un menú per cada 
 $translateJS['err99'] = 'El camp cognom no és correcte';
 $translateJS['err100'] = 'Error de sessió';
 $translateJS['err_contacti'] = 'Contacti amb el restaurant:936929723 / 936910605';
-
+/*
+$translateJS['INFO_PAGA_I_SENYAL'] = 'Per confirmar la reserva <b>cal que realitzi una paga i senyal de '.IMPORT_PAGA_I_SENYAL.'€</b>\n\n'
+        . 'El transferirem a la passarel·la bancària del Banc de Sabadell per tal que pugui finalitzar el procés de reserva realitzant el pagament amb tarja de crèdit.\n\n'
+        . '\n-Cal que disposi de una tarja activada per a compres per internet'
+        . '\n-L&#39;import abonat li serà descomptat del preu final, de manera que <b>no representarà cap despesa extra</b>'
+        . '\n-El Banc de Sabadell gestionarà el pagament en un entorn segur. El restaurant, en cap cas, tindrà accès a les dades de la seva targeta';
+        
+*/
 $translate['err20'] = '<b>Ja tens una reserva feta a Can Borrell!!</b><br/><br/>Pots modificar-la o eliminar-la, però no pots crear més d&#39;una reserva online.<br/><em>(Per editar o cancel·lar utilitza l&#39;enllaç que trobarà més amunt, sota la barra de navegació d&#39;aquesta pàgina)</em><br/><br/><br/>Si ho desitges posa&#39;t en contacte amb nosaltres:<br/><b>936929723 / 936910605</b><br/><br/><br/>La reserva que ens consta es pel dia ';
 $translateDirectJS['err21'] = '<b>No podem fer-te la reserva on-line a causa d&#39;algun problema amb una reserva anterior!!</b><br/><br/>Si us plau, per reservar contacta amb el restaurant:936929723 / 936910605 /';
 $translateDirectJS['err20'] = '<b>Ja tens una reserva feta a Can Borrell!!</b><br/><br/>Pots modificar-la o eliminar-la, però no pots crear més d&#39;una reserva online.<br/><em>(Per editar o cancel·lar utilitza l&#39;enllaç que trobarà més amunt, sota la barra de navegació d&#39;aquesta pàgina)</em><br/><br/><br/>Si ho desitges posa&#39;t en contacte amb nosaltres:<br/><b>936929723 / 936910605</b><br/><br/><br/>La reserva que ens consta es pel dia ';

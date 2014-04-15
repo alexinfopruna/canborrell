@@ -497,9 +497,11 @@ public function submit()
 			
 	//INSERT INTO RESERVES TAULES
 		if (!isset($_POST['resposta'])) $_POST['resposta'] = '';
-		
+		$estat=$this->paga_i_senyal($coberts)?2:100;
+		$import_reserva=$this->configVars("import_paga_i_senyal");
+                
 		$insertSQL = sprintf("INSERT INTO ".T_RESERVES." ( id_reserva, client_id, data, hora, adults, 
-		  nens4_9, nens10_14, cotxets,lang,observacions, resposta, estat, usuari_creacio, reserva_navegador, reserva_info) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)",
+		  nens4_9, nens10_14, cotxets,lang,observacions, resposta, estat, preu_reserva, usuari_creacio, reserva_navegador, reserva_info) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)",
 							   $this->SQLVal($_POST['id_reserva'], "text"),
 							  $this->SQLVal($idc, "text"),
 							   $this->SQLVal($_POST['selectorData'], "datePHP"),
@@ -512,13 +514,15 @@ public function submit()
 		             $this->SQLVal($_POST['observacions'], "text"),
 							  
 							   $this->SQLVal($_POST['resposta'], "text"),
-							   $this->SQLVal(100, "text"),
+							   $this->SQLVal($estat, "text"),
+							   $this->SQLVal($import_reserva, "text"),
    							 $this->SQLVal($idc, "text"),							   
 							   $this->SQLVal($_SERVER['HTTP_USER_AGENT'], "text"),
 							   $this->SQLVal($info, "zero"));
 
 							  // Gestor::printr($_POST);
- 							 // echo $insertSQL;die();
+ 							  //echo $insertSQL;die();
+            
 		  $this->qry_result = $this->log_mysql_query($insertSQL, $this->connexioDB) or die(mysql_error());
 		  $idr=mysql_insert_id($this->connexioDB);
 	
@@ -605,6 +609,13 @@ public function submit()
 	if ($_POST['client_email']) $mail=$this->enviaMail($idr,"confirmada_",FALSE,$extres);
 	$resposta['mail']=$mail;
 	$resposta['virtual']=$taulaVirtual;
+        $resposta['TPV']=$this->paga_i_senyal($coberts)?"TPV":"";
+        $resposta['idr']=$idr;
+        if ($resposta['TPV']){
+                             
+
+            $resposta['signature']=$this->signatureTpv('214'.$idr,import_paga_i_senyal,$_SERVER['HTTP_HOST'].'/reservar/Gestor_form.php?a=repostaTPV');
+        }
 	$_SESSION['last_submit']=time();//PARTXE SUBMITS REPETITS
 	return $this->jsonOK("Reserva creada",$resposta);		
 }	
@@ -883,8 +894,175 @@ WHERE  `client`.`client_id` =$idc;
 		return $carta->TTmenu($id);
 		
 	}
+        
+        
 
 	/**********************************************************************************************************/	
+	/**********************************************************************************************************/	
+	/**********************************************************************************************************/	
+        public function paga_i_senyal($comensals){
+            
+                return ($comensals>=$this->configVars("persones_paga_i_senyal") && $comensals<$this->configVars("persones_grup")); 
+        }
+        
+	/**********************************************************************************************************/	
+	/**********************************************************************************************************/	
+	/**********************************************************************************************************/	
+        public function generaFormTpv($id_reserva,$import, $nom){
+                include(INC_FILE_PATH.'TPV.php'); 
+                $lang=$this->lang;
+                  $order=substr(time(),0,3).$id_reserva;
+                  $order=$id_reserva;
+                    
+                $name='Restaurant Can Borrell';
+                $amount=$import*100;
+               
+                  
+                //$urlMerchant='http://www.can-borrell.com/editar/TPV/respostaTPV.php';
+                $urlMerchant=$_SERVER['HTTP_HOST'].'/reservar/Gestor_form.php?a=repostaTPV';
+                $producte="Reserva restaurant Can Borrell";
+                $titular=$nom;
+                $urlOK="http://www.can-borrell.com/editar/TPV/pagamentOK.php?id=$id&lang=$lang";
+                $urlKO="http://www.can-borrell.com/editar/TPV/pagamentKO.php?id=$id&lang=$lang";
+                $idioma=($lang=="cat")?"003":"001";
+                $boto['cat']="Realitzar Pagament";
+                $boto['esp']="Realizar Pago";
+                //$url_tpvv="https://sis-t.redsys.es:25443/sis/realizarPago";
+                
+                $HTML="    <script language=JavaScript>
+    function calc() { 
+	
+		
+    document.getElementById('boto').style.display = 'none';
+    vent=window.open('','frame-tpv','width=725,height=600,scrollbars=no,resizable=yes,status=yes,menubar=no,location=no');
+   // vent.moveTo(eje_x,eje_y);
+    document.compra.submit();}
+    </script>
+";
+                     $hidden="hidden"; 
+                $HTML .= "<form id='compra' name='compra' action='$url_tpvv' method='post' target='frame-tpv'  style='display:none'>
+                          
+                <input type=$hidden name=Ds_Merchant_Amount value='$amount'>
+                <input type=$hidden name=Ds_Merchant_Currency value='$currency'>
+                <input id=tpv_order type=$hidden name=Ds_Merchant_Order  value='$order'>
+                <input type=$hidden name=Ds_Merchant_MerchantCode value='$code'>
+                <input type=$hidden name=Ds_Merchant_Terminal value='$terminal'>
+                <input type=$hidden name=Ds_Merchant_TransactionType value='$transactionType'>
+                <input type=$hidden name=Ds_Merchant_ProductDescription value='$producte'>
+                <input id=tpv_titular type=$hidden name=Ds_Merchant_Titular value='$titular'>
+                <input type=$hidden name=Ds_Merchant_UrlOK value='$urlOK'>
+                <input type=$hidden name=Ds_Merchant_UrlKO value='$urlKO'>
+                <input type=$hidden name=Ds_Merchant_ConsumerLanguage value='$idioma'>
+                <input type=$hidden name=Ds_Merchant_MerchantURL value='$urlMerchant'>";
+                
+               
+                
+                $HTML.= "<input id=tpv_signature type=$hidden name=Ds_Merchant_MerchantSignature value='------------'>
+                    <input id='boto' type='submit' name='Submit' value='".$this->l('Realizar Pago',false)."' onclick='javascript:calc(); '/>
+                </form>";										  
+                         
+                   
+                return $HTML; 
+        }
+        
+        private function signatureTpv($order,$import,$urlMerchant='http://www.can-borrell.com/editar/TPV/respostaTPV.php'){
+                include(INC_FILE_PATH.'TPV.php'); 
+                //echo $amount." / ".$order." / ".$code." / ".$currency." / ".$transactionType." / ".$urlMerchant." / ".$clave;
+                $amount=$import*100;
+                $message = $amount.$order.$code.$currency.$transactionType.$urlMerchant.$clave;
+                return strtoupper(sha1($message));
+            
+        }
+        
+         /**********************************************************************************************************/	
+	/**********************************************************************************************************/	
+	/**********************************************************************************************************/	
+	/**********************************************************************************************************/	
+        /***************************************************/
+       //
+       // CODIFICACIO ESTAT
+       //
+       // 1 PENDENT
+       // 2 CONFIRMADA
+       // 3 PAGAT TRANSF 
+       // 4 DENEGADA
+       // 5 ELIMINADA
+       // 6 CADUCADA
+       // 7 PAGAT TPV
+       // 100 RES.PETITA
+       /***************************************************/
+       public function respostaTPV(){
+            if (!isset($_POST["Ds_Amount"])) $_POST["Ds_Amount"]='';
+            if (!isset($_POST["Ds_Order"])) $_POST["Ds_Order"]='';
+            if (!isset($_POST["Ds_MerchantCode"])) $_POST["Ds_MerchantCode"]='';
+            if (!isset($_POST["Ds_Currency"])) $_POST["Ds_Currency"]='';
+            if (!isset($_POST["Ds_Response"])) $_POST["Ds_Response"]='';
+            if (!isset($_POST["Ds_Hour"])) $_POST["Ds_Hour"]='';
+            if (!isset($_POST["Ds_Date"])) $_POST["Ds_Date"]='';
+            if (!isset($_POST["Ds_Signature"])) $_POST["Ds_Signature"]='';            
+            if (!isset($_GET["sig"])) $_GET["sig"]='';
+            
+            
+            $lang=((int)$_POST["Ds_ConsumerLanguage"])==3?$lang="cat":$lang="esp";
+            $message = $_POST["Ds_Amount"].$_POST["Ds_Order"].$_POST["Ds_MerchantCode"].$_POST["Ds_Currency"].$_POST["Ds_Response"].$clave;
+            $signature = strtoupper(sha1($message));
+            $resposta=(int)$_POST["Ds_Response"];
+            
+            $k=substr($_POST["Ds_Order"],3,6);
+            $id=(int)$k;
+            //$id=(int)($k)-100000;
+
+            $referer=$_SERVER['REMOTE_ADDR'];           
+           
+            if (($_POST["Ds_Signature"]==$signature) && ($resposta>=0) && ($resposta<=99))
+            {
+                    //fwrite($fp, "PAGAMENT AMB TARJA: RESERVA=$id, IMPORT=".$_POST["Ds_Amount"]."\n");
+               // $txxt="RESPOSTA-".date("d M Y H:i")."\n";  
+                /******************************************************************************/	
+               $query="UPDATE ".T_RESERVES." SET estat=100 WHERE id_reserva=$id";
+                $result = $this->log_mysql_query($query, $this->connexioDB) or die(mysql_error());
+              
+               if ($result) //ACTUALITZADA BBDD
+               {
+                   echo "PAGAMENT OK ".$id;
+                   //$this->log;
+//fwrite($fp, "PAGAMENT TARJA id: $id >> QUERY: ".$query."\n"); 
+               }
+               else
+               {
+                   echo "PAGAT OK però ERROR DDBB $id";
+                //fwrite($fp, ">> PAGAMENT TARJA id: $id >> QUERY: ERROR EXECUTANT QUERY\n"); }          
+                }
+            }
+            else //ERROR
+            {
+                if ($_POST["Ds_Signature"]!=$signature) echo "ERROR DE SIGNATURE $id";
+                   // if ($_POST["Ds_Signature"]!=$signature)     fwrite($fp, ">> ERROR SIGNATURE "); 
+
+                //fwrite($fp, ">> RESPOSTA NO VÀLIDA\n"); 
+            }
+
+        }       
+        
+        
+        /**********************************************************************************************************/	
+	/**********************************************************************************************************/	
+	/**********************************************************************************************************/	
+        public function testTPV($idr){
+               $query="SELECT estat FROM ".T_RESERVES." WHERE id_reserva=$idr";
+               $result = $this->log_mysql_query($query, $this->connexioDB) or die(mysql_error());
+               $estat=  mysql_result($result, 0);
+               if ($estat!=2) die("Aquesta reserva no està pendent de pagament");
+               
+               $resposta="PAGA TARJA ";
+               $query="UPDATE ".T_RESERVES." SET estat=100,resposta='$resposta' WHERE id_reserva=$idr";
+               echo $query;
+               echo "<br><br>";
+              $result = $this->log_mysql_query($query, $this->connexioDB) or die(mysql_error());
+                echo $result;
+        }
+        
+        /**********************************************************************************************************/	
 	/**********************************************************************************************************/	
 	/**********************************************************************************************************/	
 	public function test($t) //over

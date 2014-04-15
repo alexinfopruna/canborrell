@@ -85,9 +85,16 @@ $translate['ERROR_CONTACTAR']='<div id="caixa_reserva_consulta_online" class="ui
 	
 $translate["Hi ha errors al formulari. Revisa les dades, si us plau"]='Hay errores en el formulario. Revisa los datos, por favor';
 
-
+$translate['Paga i senyal necessària']="Paga i señal necesaria";
 $translate['INFO_QUANTS_SOU']='<b> Dinos cuántas personas vendrán </b>, indicando, en primer lugar los mayores de 14 años
  seguido de juniors y niños. 
+<br/> 
+                         <div style="background:rgb(255, 255, 161);padding:4px;"> <b> Si sois más de '. (persones_paga_i_senyal-1).' personas,
+será necesario que realices una paga y señal de '. import_paga_i_senyal.'€ con tarjeta de crédito </ b>.
+Este importe se te descontará del precio final de las consumiciones, por lo que no representará ningún gasto extra.
+El pago se realizará a través de una pasarela bancaria segura. Can Borrell no tendrá acceso a los datos introducidos.
+              </div> 
+<br/> <br/> 
 		<b>Reservaremos espacio para los comensales que nos indicas aquí. La reserva no será válida para un número de persones que no coincida con el solicitado</b>
 		 <br/> <br/>
 		
@@ -277,6 +284,12 @@ $translateJS['OBSERVACIONS_COTXETS']='No tendremos en cuenta las indicaciones qu
         . '<br/><br/>'
         . 'Disponemos de recursos limitados y <b>solo podemos garantizarte lo que solicites en la primera sección</b> de este formulario'
         . '<br/><br/>Gracias por tu comprensión';
+
+$translateJS["PAGA_I_SENYAL"] ="<div>A continuación has de realizar el pago de ".import_paga_i_senyal."€ para garantizar la asistència el día de la reserva. "
+        . "Este importe será descontado de la cuenta total.<br/><br/>"
+        . "Te transferimos a una passarela bancaria externa a Can Borrell. El restaurant no tendrá acceso a los datos que introduzcas"
+        . "<br/><br/></div>";
+
 
 
 /*******************************************************     ERRORS   ***********************************/	

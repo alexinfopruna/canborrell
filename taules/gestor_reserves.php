@@ -1878,7 +1878,6 @@ EOHTML;
       if (!isset($_SESSION['refresh'])) $_SESSION['refresh']='2010-01-01';
       $data=$_SESSION['data'];
       $data_refresh=$_SESSION['refresh'];
-      //return ($data_refresh);
       
       $data_BASE = $this->data_BASE;
       $query = "SELECT * FROM ".ESTAT_TAULES."
@@ -1894,8 +1893,8 @@ EOHTML;
       
       $Result1 = mysql_query($query,  $this->connexioDB) or die(mysql_error());
       
-      
-      if (mysql_num_rows($Result1 ))  
+      $impagats=$this->netejaImpagatsTpv();
+      if ($impagats || mysql_num_rows($Result1 ))  
       {
         $row = mysql_fetch_array($Result1);
         $_SESSION['refresh'] = $row['estat_taules_timestamp'];
@@ -2769,6 +2768,36 @@ public function decodeInfo($info)
   {
     
     parent::greg_log($txt,null,$request);
+  }
+
+/************************************************************************************************************************/
+  public function netejaImpagatsTpv($t=12)
+  {
+      $interval=$this->configVars("temps_paga_i_senyal");
+      
+      $query="SELECT COUNT( estat ) AS c FROM  ".T_RESERVES."  WHERE estat=2 AND data_creacio < NOW() - INTERVAL $interval MINUTE";
+        $Result1 = mysql_query($query, $this->connexioDB) or die(mysql_error());
+        $files=mysql_result($Result1,0);
+        if (!$files) {
+            //echo "NO HI HA PENDENTS TPV";
+            return false;
+        }
+             
+   $query="UPDATE ".ESTAT_TAULES." 
+LEFT JOIN ".T_RESERVES." ON reserva_id=id_reserva 
+SET reserva_id=0
+WHERE estat=2 and data_creacio < NOW() - INTERVAL $interval MINUTE;";
+    /*
+   $query="DELETE ".ESTAT_TAULES." FROM `estat_taules`
+LEFT JOIN ".T_RESERVES." ON reserva_id=id_reserva 
+
+WHERE estat=2 and data_creacio < NOW() - INTERVAL $interval MINUTE";*/
+   $Result1 = mysql_query($query, $this->connexioDB) or die(mysql_error());
+   
+    $query="DELETE FROM ".T_RESERVES." WHERE estat=2 and data_creacio < NOW() - INTERVAL $interval MINUTE";
+    $Result1 = mysql_query($query, $this->connexioDB) or die(mysql_error());
+    //echo " <br/><br/> ".$query." ... ".  mysql_affected_rows();
+    return true;
   }
 
 

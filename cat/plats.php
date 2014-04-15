@@ -782,9 +782,11 @@ Aceptem targetes <B>Visa</B>, <B>Eurocard</B> i <B>Mastercard</B>.<BR>
 L'empresa es reserva el dret de modificar els articles<BR>
 i el preu dels men&uacute;s.<BR>
 &nbsp;<BR>
+<!--
 Per m&eacute;s informaci&oacute;:<BR>
 <FONT CLASS="titol"><B>Tel.: 93 692 97 23</B></FONT><BR>
 &nbsp;<BR>
+-->
 &nbsp;</TD>
 			</TR>
 			<TR>

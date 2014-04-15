@@ -235,7 +235,7 @@ display:block;
 #form_contactar input{width:180px;}
 #form_contactar{padding:4px;text-align:justify;}
 #caixa_reserva_consulta_online{margin:0px 25px 45px 25px;width:300px;color:#999;text-align:center;padding:3px;float:right;}
-#caixa_reserva_consulta_online textarea{width:100	%;height:60px;}
+#caixa_reserva_consulta_online textarea{width:100%;height:60px;}
 #bt_reserva_consulta_online{float:right;}
 #cancel_reserva{font-size:0.8em;}
 
@@ -249,3 +249,5 @@ display:block;
 #help{font-size:1.4em}
 
  .tooltip-red{z-index:1100 !important;}
+ 
+ label.ptpv{background:yellow !important;}
