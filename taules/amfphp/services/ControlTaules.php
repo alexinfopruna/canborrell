@@ -50,6 +50,7 @@ class ControlTaules
 		{							
 			$client = $row['client_cognoms'].", ".$row['client_nom']."\n(".$row['client_mobil']." - ".$row['client_telefon'].")\n".$row['client_email'];
 			$online=$row['reserva_info'] & 1;
+                        $row['observacions']=$row['observacions']." ".$row['resposta'];
 			$taula = new TaulaVO($row['estat_taula_taula_id'],$row['estat_taula_nom'] ,$row['estat_taula_persones'], $row['estat_taula_cotxets'],
 								$row['estat_taula_grup'], $row['estat_taula_x'], $row['estat_taula_y'], $row['reserva_id'],
 								$row['adults'], $row['nens4_9'], $row['nens10_14'], $row['cotxets'], $row['data'], $row['hora'],

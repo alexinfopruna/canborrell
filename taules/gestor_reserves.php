@@ -2771,35 +2771,47 @@ public function decodeInfo($info)
   }
 
 /************************************************************************************************************************/
-  public function netejaImpagatsTpv($t=12)
+  public function netejaImpagatsTpv()
   {
       $interval=$this->configVars("temps_paga_i_senyal");
-      
       $query="SELECT COUNT( estat ) AS c FROM  ".T_RESERVES."  WHERE estat=2 AND data_creacio < NOW() - INTERVAL $interval MINUTE";
         $Result1 = mysql_query($query, $this->connexioDB) or die(mysql_error());
         $files=mysql_result($Result1,0);
         if (!$files) {
-            //echo "NO HI HA PENDENTS TPV";
             return false;
         }
              
    $query="UPDATE ".ESTAT_TAULES." 
-LEFT JOIN ".T_RESERVES." ON reserva_id=id_reserva 
-SET reserva_id=0
-WHERE estat=2 and data_creacio < NOW() - INTERVAL $interval MINUTE;";
-    /*
-   $query="DELETE ".ESTAT_TAULES." FROM `estat_taules`
-LEFT JOIN ".T_RESERVES." ON reserva_id=id_reserva 
-
-WHERE estat=2 and data_creacio < NOW() - INTERVAL $interval MINUTE";*/
-   $Result1 = mysql_query($query, $this->connexioDB) or die(mysql_error());
+            LEFT JOIN ".T_RESERVES." ON reserva_id=id_reserva 
+            SET reserva_id=0
+            WHERE estat=2 and data_creacio < NOW() - INTERVAL $interval MINUTE;";
+    $Result1 = mysql_query($query, $this->connexioDB) or die(mysql_error());
    
     $query="DELETE FROM ".T_RESERVES." WHERE estat=2 and data_creacio < NOW() - INTERVAL $interval MINUTE";
     $Result1 = mysql_query($query, $this->connexioDB) or die(mysql_error());
-    //echo " <br/><br/> ".$query." ... ".  mysql_affected_rows();
+    
+    $this->greg_log("netejaImpagatsTpv:$files",LOG_FILE_TPVPK);
     return true;
   }
 
+/************************************************************************************************************************/
+  public function cancelPagaISenyal($idr=0)
+  {
+      
+   if (!$idr) return false;
+              
+   $query="UPDATE ".ESTAT_TAULES." LEFT JOIN ".T_RESERVES." ON reserva_id=id_reserva SET reserva_id=0 WHERE estat=2 AND id_reserva=$idr";
+   $Result1 = mysql_query($query, $this->connexioDB) or die(mysql_error());
+   echo $query;
+
+    $query="DELETE FROM ".T_RESERVES." WHERE estat=2 AND id_reserva=$idr";
+    $Result1 = mysql_query($query, $this->connexioDB) or die(mysql_error());
+    //echo " <br/><br/> ".$query." ... ".  mysql_affected_rows();
+   echo "...". $query;
+   
+   $this->greg_log("cancelPagaISenyal:$idr",LOG_FILE_TPVPK);
+    return true;
+  }
 
 /************************************************************************************************************************/
 }

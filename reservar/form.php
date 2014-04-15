@@ -202,7 +202,7 @@ echo $gestor->dumpJSVars(true);
 </script>
 
 		<script type="text/javascript" src="js/control_carta.js"></script>
-		<script type="text/javascript" src="js/form_reserves.js?<?php echo time();?>"></script>
+		<script type="text/javascript" src="js/form_reserves.js<?php //echo '?'.time();?>"></script>
 
 </head>
 <body class="amagat <?php echo DEV?" dev ":""; echo LOCAL?" local ":"" ?>" onload="loadMenu()" >

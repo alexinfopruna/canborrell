@@ -962,7 +962,8 @@ WHERE  `client`.`client_id` =$idc;
                 </form>";										  
                          
                    
-                return $HTML; 
+                 $this->greg_log("generaFormTpv:$id_reserva > $import > $nom",LOG_FILE_TPVPK);/*LOG*/
+               return $HTML; 
         }
         
         private function signatureTpv($order,$import,$urlMerchant='http://www.can-borrell.com/editar/TPV/respostaTPV.php'){
@@ -992,6 +993,8 @@ WHERE  `client`.`client_id` =$idc;
        // 100 RES.PETITA
        /***************************************************/
        public function respostaTPV(){
+           /*LOG*/
+            $this->greg_log("RespostaTPV (".$_POST["Ds_Date"]." ".$_POST["Ds_Hour"]." ):".$_POST["Ds_Order"]." >> Response: ".$_POST["Ds_Response"]." >> Signture: ".$_POST["Ds_Signature"]." >> Amount: ".$_POST["Ds_Amount"],LOG_FILE_TPVPK);
             if (!isset($_POST["Ds_Amount"])) $_POST["Ds_Amount"]='';
             if (!isset($_POST["Ds_Order"])) $_POST["Ds_Order"]='';
             if (!isset($_POST["Ds_MerchantCode"])) $_POST["Ds_MerchantCode"]='';
@@ -1003,43 +1006,56 @@ WHERE  `client`.`client_id` =$idc;
             if (!isset($_GET["sig"])) $_GET["sig"]='';
             
             
-            $lang=((int)$_POST["Ds_ConsumerLanguage"])==3?$lang="cat":$lang="esp";
+           $lang=((int)$_POST["Ds_ConsumerLanguage"])==3?$lang="cat":$lang="esp";
+            include (INC_FILE_PATH."TPV.php");
             $message = $_POST["Ds_Amount"].$_POST["Ds_Order"].$_POST["Ds_MerchantCode"].$_POST["Ds_Currency"].$_POST["Ds_Response"].$clave;
+            //echo $message;
             $signature = strtoupper(sha1($message));
             $resposta=(int)$_POST["Ds_Response"];
             
             $k=substr($_POST["Ds_Order"],3,6);
             $id=(int)$k;
-            //$id=(int)($k)-100000;
-
+                
+            /**
+             * 
+             * DOBLE PAGAMENT
+             * 
+             */
+              $query="SELECT estat FROM ".T_RESERVES." WHERE id_reserva=$id";
+              $result = mysql_query($query, $this->connexioDB) or die(mysql_error());
+              $estat=  mysql_result($result, 0);
+              if ($estat!=2) {
+                    echo $msg="PAGAMENT INAPROPIAT RESERVA???: ".$id." estat: $estat";
+                    $this->greg_log($msg,LOG_FILE_TPVPK);/*LOG*/
+                    $extres['subject']="Can-Borrell: !!!! $msg!!!";
+                    $mail=$this->enviaMail($idr,"confirmada_",MAIL_RESTAURANT,$extres);
+              }
+              
             $referer=$_SERVER['REMOTE_ADDR'];           
            
             if (($_POST["Ds_Signature"]==$signature) && ($resposta>=0) && ($resposta<=99))
             {
-                    //fwrite($fp, "PAGAMENT AMB TARJA: RESERVA=$id, IMPORT=".$_POST["Ds_Amount"]."\n");
-               // $txxt="RESPOSTA-".date("d M Y H:i")."\n";  
-                /******************************************************************************/	
-               $query="UPDATE ".T_RESERVES." SET estat=100 WHERE id_reserva=$id";
+                /******************************************************************************/
+               $import= $_POST["Ds_Amount"]/100;
+               $resposta="PAGA I SENYAL TPV: ".$import."Euros (".$_POST["Ds_Date"]." ".$_POST["Ds_Hour"].")";
+               $query="UPDATE ".T_RESERVES." SET estat=100,resposta='$resposta' WHERE id_reserva=$id";
                 $result = $this->log_mysql_query($query, $this->connexioDB) or die(mysql_error());
-              
+             
                if ($result) //ACTUALITZADA BBDD
                {
                    echo "PAGAMENT OK ".$id;
-                   //$this->log;
-//fwrite($fp, "PAGAMENT TARJA id: $id >> QUERY: ".$query."\n"); 
+                    $this->greg_log("PAGAMENT+UPDATE OK ".$query." >> ".$result,LOG_FILE_TPVPK);/*LOG*/
                }
                else
                {
                    echo "PAGAT OK però ERROR DDBB $id";
-                //fwrite($fp, ">> PAGAMENT TARJA id: $id >> QUERY: ERROR EXECUTANT QUERY\n"); }          
+                    $this->greg_log("PAGAMENT OK+UPDATE KO ".$query." >> ".$result,LOG_FILE_TPVPK);/*LOG*/
                 }
             }
             else //ERROR
             {
                 if ($_POST["Ds_Signature"]!=$signature) echo "ERROR DE SIGNATURE $id";
-                   // if ($_POST["Ds_Signature"]!=$signature)     fwrite($fp, ">> ERROR SIGNATURE "); 
-
-                //fwrite($fp, ">> RESPOSTA NO VÀLIDA\n"); 
+                $this->greg_log("SIGNTURE KO!!!! ".$_POST["Ds_Signature"]." >> ".$signature." >> MESSAGE: ???????$xxxmessage",LOG_FILE_TPVPK);/*LOG*/
             }
 
         }       
@@ -1049,7 +1065,9 @@ WHERE  `client`.`client_id` =$idc;
 	/**********************************************************************************************************/	
 	/**********************************************************************************************************/	
         public function testTPV($idr){
-               $query="SELECT estat FROM ".T_RESERVES." WHERE id_reserva=$idr";
+  		if (!$this->valida_sessio(63)) die("Sense permisos");
+                
+             $query="SELECT estat FROM ".T_RESERVES." WHERE id_reserva=$idr";
                $result = $this->log_mysql_query($query, $this->connexioDB) or die(mysql_error());
                $estat=  mysql_result($result, 0);
                if ($estat!=2) die("Aquesta reserva no està pendent de pagament");
@@ -1060,7 +1078,11 @@ WHERE  `client`.`client_id` =$idc;
                echo "<br><br>";
               $result = $this->log_mysql_query($query, $this->connexioDB) or die(mysql_error());
                 echo $result;
+                
+                $this->greg_log("TEEEST!!!!!!! testTPV:$idr >> $query >> $result",LOG_FILE_TPVPK);
         }
+        
+        
         
         /**********************************************************************************************************/	
 	/**********************************************************************************************************/	

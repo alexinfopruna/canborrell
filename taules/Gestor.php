@@ -429,9 +429,10 @@ class Gestor
 	}
 
 /*****************************************************************************************/
-	public static function greg_log($text,$file=LOG_FILE,$reqest=true)
+	public static function greg_log($text,$file=false,$reqest=true)
 	{
-		$file=ROOT.INC_FILE_PATH.LOG_FILE;
+		if (!$file) $file=LOG_FILE;
+                $file=ROOT.INC_FILE_PATH.$file;
 		//if (DEV === true) return;
 		
 		if ($reqest){
@@ -447,7 +448,7 @@ class Gestor
 		//$text+="\n\n";
 		error_log($text.$req.EOL, 3, $file);
 		
-		Gestor::rename_big_file($file,1000000);
+		Gestor::rename_big_file($file,10000000);
 	}
 
 /*****************************************************************************************/

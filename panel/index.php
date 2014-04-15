@@ -34,7 +34,7 @@ if (isset($_GET['exit']))
 
 <style>
 	.admin{display:none}
-	body{backgroun-image:none;	}
+	body{backgroun-image:none;font-size:10px;	}
 	a.bt,a.bt:link,a.bt:visited{display:block;color:#666;text-align:left;}
 	a.bt:hover{background:#570600;color:white;}
 	
@@ -184,9 +184,9 @@ $(function(){$("#panel").accordion({collapsible:true,active:false,heightStyle: "
 		<!-- -->
 		<a target="_blank" href="<?php echo LOG_LIST;?>" class=" bt ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only">LLISTA LOGS</a>
 		<!-- -->
-		<a target="_blank" href="<?php echo READER_SCRIPT.ROOT.INC_FILE_PATH."log/logTPV.txt"?>" class=" bt ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only">LOG D'OPERACIONS AL TPV</a>
+		<a target="_blank" href="<?php echo READER_SCRIPT.ROOT.INC_FILE_PATH.LOG_FILE_TPV  ?>" class=" bt ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only">LOG D'OPERACIONS AL TPV</a>
 		<!-- -->
-		<a target="_blank" href="<?php echo READER_SCRIPT.ROOT.INC_FILE_PATH."log/log_mail.html"?>" class=" bt ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only">DARRER EMAIL GENERAT</a>
+		<a target="_blank" href="<?php echo READER_SCRIPT.ROOT.INC_FILE_PATH.LOG_FILE_TPVPK  ?>" class=" bt ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only">LOG TPV PAGA I SENYAL</a>
 		<!-- -->
 		<br/>
 		<br/>

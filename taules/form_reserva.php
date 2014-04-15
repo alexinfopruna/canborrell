@@ -370,6 +370,10 @@ else
 		<td nowrap="nowrap" align="right">observacions:</td>
 		<td align="left"><input type="text" name="observacions" value="<?php echo ($row_reserva['observacions']); ?>" size="50" /></td>
 	  </tr>
+	  <tr valign="baseline">
+		<td nowrap="nowrap" align="right">Paga i senyal:</td>
+		<td align="left"><input type="text" name="Resposta" readonly="readonly" value="<?php echo ($row_reserva['resposta']); ?>" size="50" /></td>
+	  </tr>
 	  <?php 
 	  
 			$subject="Restaurant Can Borrell - Reserves id:".$row_reserva['id_reserva'];
