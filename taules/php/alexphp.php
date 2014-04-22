@@ -79,12 +79,12 @@ class alexphp
 		$a=$b;
 		
 		// ERRORS		
-		error_reporting($e_error); // 0 E_ALL E_WARNING E_PARSE E_NOTICE
+		//error_reporting($e_error); // 0 E_ALL E_WARNING E_PARSE E_NOTICE
 		
-		ini_set('display_errors',$e_error);
+		//ini_set('display_errors','ON');
 		//date_default_timezone_set('Europe/Madrid');
 		// durada sessio=5h
-		ini_set("session.gc_maxlifetime", "18000");
+		//ini_set("session.gc_maxlifetime", "18000");
 
 		// definicions per host
 		/*

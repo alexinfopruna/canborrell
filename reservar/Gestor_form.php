@@ -605,15 +605,14 @@ public function submit()
 	$this->enviaSMS($idr, $mensa);	
 	//envia MAIL
         
-        $extres['subject']="Can-Borrell: CONFIRMACIÓ DE RESERVA ONLINE";
-	if ($_POST['client_email']) $mail=$this->enviaMail($idr,"confirmada_",FALSE,$extres);
+        $TPV=$this->paga_i_senyal($coberts);
+      $extres['subject']="Can-Borrell: CONFIRMACIÓ DE RESERVA ONLINE";
+	if ($_POST['client_email'] && !$TPV) $mail=$this->enviaMail($idr,"confirmada_",FALSE,$extres);
 	$resposta['mail']=$mail;
 	$resposta['virtual']=$taulaVirtual;
-        $resposta['TPV']=$this->paga_i_senyal($coberts)?"TPV":"";
+        $resposta['TPV']=$TPV?"TPV":"";
         $resposta['idr']=$idr;
-        if ($resposta['TPV']){
-                             
-
+        if ($TPV){
             $resposta['signature']=$this->signatureTpv('214'.$idr,import_paga_i_senyal,$_SERVER['HTTP_HOST'].'/reservar/Gestor_form.php?a=repostaTPV');
         }
 	$_SESSION['last_submit']=time();//PARTXE SUBMITS REPETITS
@@ -1021,14 +1020,19 @@ WHERE  `client`.`client_id` =$idc;
              * DOBLE PAGAMENT
              * 
              */
-              $query="SELECT estat FROM ".T_RESERVES." WHERE id_reserva=$id";
+              echo $query="SELECT estat, client_email "
+                      . "FROM ".T_RESERVES." "
+                      . "LEFT JOIN client ON client.client_id=".T_RESERVES.".client_id "
+                      . "WHERE id_reserva=$id";
               $result = mysql_query($query, $this->connexioDB) or die(mysql_error());
-              $estat=  mysql_result($result, 0);
+              $row=  mysql_fetch_assoc($result);
+              $estat=  $row['estat'];
+              $mail=$row['client_email'];
               if ($estat!=2) {
-                    echo $msg="PAGAMENT INAPROPIAT RESERVA???: ".$id." estat: $estat";
+                    echo $msg="PAGAMENT INAPROPIAT RESERVA???: ".$id." estat: $estat  $mail";
                     $this->greg_log($msg,LOG_FILE_TPVPK);/*LOG*/
                     $extres['subject']="Can-Borrell: !!!! $msg!!!";
-                    $mail=$this->enviaMail($idr,"confirmada_",MAIL_RESTAURANT,$extres);
+                    $mail=$this->enviaMail($id,"confirmada_",MAIL_RESTAURANT,$extres);
               }
               
             $referer=$_SERVER['REMOTE_ADDR'];           
@@ -1040,7 +1044,11 @@ WHERE  `client`.`client_id` =$idc;
                $resposta="PAGA I SENYAL TPV: ".$import."Euros (".$_POST["Ds_Date"]." ".$_POST["Ds_Hour"].")";
                $query="UPDATE ".T_RESERVES." SET estat=100,resposta='$resposta' WHERE id_reserva=$id";
                 $result = $this->log_mysql_query($query, $this->connexioDB) or die(mysql_error());
-             
+
+                $extres['subject']="Can-Borrell: CONFIRMACIÓ DE RESERVA ONLINE AMB PAGA I SENYAL";
+                if ($mail) echo $this->enviaMail($id,"confirmada_",FALSE,$extres);
+
+                
                if ($result) //ACTUALITZADA BBDD
                {
                    echo "PAGAMENT OK ".$id;

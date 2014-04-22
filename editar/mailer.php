@@ -35,7 +35,7 @@ function mailer($addr,$subject,$body,$altbody,$attach=null, $test=false, $cco=nu
 
 //Enviamos el correo  
   
-    if ($cco)   $mail->AddBCC($cco);
+    //if ($cco)   $mail->AddBCC($cco);
   
 
   if ($addr=="info@can-borrell.com" && isset($_POST['client_email']))  $mail->From=$_POST['client_email'];
@@ -65,11 +65,11 @@ function mailer($addr,$subject,$body,$altbody,$attach=null, $test=false, $cco=nu
 	  $exito = $mail->Send();
 	}
 
-  $intentos=1; 
-  while ((!$exito) && ($intentos < 5)) {
+  $intentos=0; 
+  while ((!$exito) && ($intentos < 3)) {
 		if (true) 
 		{
-			sleep(5);
+			if ($intentos) sleep(3);
 			$exito = $mail->Send();	
 		}
      	$intentos=$intentos+1;	
@@ -77,7 +77,24 @@ function mailer($addr,$subject,$body,$altbody,$attach=null, $test=false, $cco=nu
    
    
    
-   if(!$exito)
+   
+   if ($cco) {
+       $mail->ClearAllRecipients(); 
+               $mail->AddAddress($cco);
+               $body=str_replace('<img src="http://www.can-borrell.com/img/lg_sup.gif" alt="img" width="303" height="114" border="0" title="INICI" />', "", $body);
+               $mail->Body=$body;
+               $intentos=0;
+               $exito2=false;
+        while ((!$exito2) && ($intentos < 3)) {
+                       if (true) 
+                       {
+                               if ($intentos) sleep(3);
+                               $exito2 = $mail->Send();	
+                       }
+               $intentos=$intentos+1;	
+   }
+      
+     if(!$exito)
    {
       print_log("<span style='color:red'>MAILER ERROR:</span> Enviat mail TO:$addr $cco SUBJECT: $subject");
       return false;
@@ -87,5 +104,7 @@ function mailer($addr,$subject,$body,$altbody,$attach=null, $test=false, $cco=nu
       print_log("<span style='color:green'>MAILER SUCCESS:</span>: Enviat mail TO:$addr $cco SUBJECT: $subject");
      return true;
    } 
+     
+   }
 }
 ?>

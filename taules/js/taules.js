@@ -56,55 +56,6 @@ $(".fr").mouseout(function(){if (taulaSel!=$(this).attr("taula") && true) getFla
 
 controlNumMobil();
 if (permisos<64) $(".sense-numero").hide();
-/*
-$("#autoc_client_inserta_res").autocomplete("gestor_reserves.php?a=autocomplete_clients",{minChars:4});
-$("#autoc_client_inserta_res").result(function(event, data, formatted) {
-
-	$("#campsClient input[name='client_mobil']").focus(function(){
-		if (!isNaN(data[1])){ 
-			$("#campsClient input[name='client_cognoms']").focus();
-		}
-		$("#campsClient input[name='client_mobil']").unbind("focus");
-	});	
-	
-	if (data[0].substring(0,3)=="+++") 
-		{
-			$("#campsClient input[name='client_id']").val(0);
-			if (isNaN(data[1])){ 
-				$("#campsClient input[name='client_mobil']").val("");
-				$("#campsClient input[name='client_cognoms']").val(data[1].toUpperCase());
-				$("#campsClient input[name='client_mobil']").focus();
-			}
-			else 
-			{
-				$("#campsClient input[name='client_mobil']").val(data[1].toUpperCase());
-				$("#campsClient input[name='client_cognoms']").focus();
-			}
-		}
-		$.ajax({url:'gestor_reserves.php?a=load_client&p='+data[1]+'&q=1',success:function(dt){
-			var obj = JSON.parse(dt);
-			$.each(obj, function(key, val) {
-				$("#campsClient input[name="+key+"]").val(val);
-			  });
-			 if(obj.llista_negra_mobil!=null || obj.llista_negra_mail!=null) alert("ATENCIÓ: Aquest client està a la GARJOLA!!!");
-			 $("#campsClient input[name='client_mobil']").focus();
-			 $("#inserta_res_radio input:first").focus();
-		}});
-	});
-
-$("#autoc_client_accordion").autocomplete("gestor_reserves.php?a=autocomplete_clients",{minChars:4});
-$("#autoc_client_accordion").result(function(event, data, formatted) {
-	
-	
-	if (data) cercaClients(data[0]);
-});
-
-$("#autoc_reserves_accordion").autocomplete("gestor_reserves.php?a=autocomplete_reserves",{matchSubset:false,cacheLength:1,minChars:4});
-$("#autoc_reserves_accordion").result(function(event, data, formatted) {
-	$("#autoc_reserves_accordion").addClass("cercador-actiu");
-	if (data) cercaReserves(data[0]);
-});
-*/
 $("#resetCercaRes").click(function(){
 	$("#autoc_reserves_accordion").removeClass("cercador-actiu");
 	$("#autoc_reserves_accordion").val("");
@@ -1137,7 +1088,6 @@ function comprova_backup()
 	var desti="gestor_reserves.php?a=reserves_orfanes";
 	$.post(desti,{r:rand},function(datos){
 		if (datos.substr(0,14)=="<!--ORFANES-->") alert("ATENCIO!!!\nS'han detectat reserves perdudes: Per més detalls, ves al Panel de control > Eines avançades > Reserves perdudes"); 
-
 	});
 	if (!BACKUP_INTERVAL) return;
     var d = new Date();

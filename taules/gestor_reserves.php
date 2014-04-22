@@ -2346,6 +2346,7 @@ ORDER BY `estat_hores_data` DESC";
     $t->set_var('comanda',$this->plats_comanda($idr));
     $t->set_var('nom',$row['client_nom']." ".$row['client_cognoms']);
     $t->set_var('observacions',$row['observacions']);
+    $t->set_var('resposta',$row['resposta']);
   
     $altbdy='HTML NOT PROCESSED';
   

@@ -67,7 +67,7 @@ or die("No se pudo seleccionar la Base de Datos: ". mysql_error());
 
 /* Se busca las tablas en la base de datos */
 if ( empty($tablas) ) {
-    $consulta = "SHOW TABLES FROM $bd;";
+    $consulta = "SHOW TABLES FROM `$bd`";
     $respuesta = mysql_query($consulta, $conexion)
     or die("No se pudo ejecutar la consulta: ".mysql_error());
     while ($fila = mysql_fetch_array($respuesta, MYSQL_NUM)) {
@@ -103,6 +103,7 @@ $dump = <<<EOT
 # +-------------------------------------------------------------------
 
 EOT;
+
 foreach ($tablas as $tabla) {
     
     $drop_table_query = "";
