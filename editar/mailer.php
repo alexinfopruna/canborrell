@@ -16,6 +16,10 @@ function mailer($addr,$subject,$body,$altbody,$attach=null, $test=false, $cco=nu
   $mail = new phpmailer();
   if (defined('CHARSET')) $mail->CharSet = CHARSET;
   $mail->CharSet = 'UTF-8';  
+  
+  /* SENSE IMATGE CAPSALERA */
+  if ($addr==MAIL_RESTAURANT) $body=str_replace('<img src="http://www.can-borrell.com/img/lg_sup.gif" alt="img" width="303" height="114" border="0" title="INICI" />', "", $body);
+
  /*
   $mail->IsSMTP();
   $mail->Host = "mail.can-borrell.com";
@@ -40,6 +44,8 @@ function mailer($addr,$subject,$body,$altbody,$attach=null, $test=false, $cco=nu
 
   if ($addr=="info@can-borrell.com" && isset($_POST['client_email']))  $mail->From=$_POST['client_email'];
   if ($addr==MAIL_RESTAURANT && isset($_POST['client_email']))  $mail->From=$_POST['client_email'];
+  
+ 
   
   if ($attach) $mail->AddAttachment($attach,basename($attach));
  

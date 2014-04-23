@@ -1026,9 +1026,9 @@ són reserves perdudes que perden el link amb una taula
       $online=$row['reserva_info'] & 1?'<div class="online" title="Reserva ONLINE">'.$sobret.'</div>':'';
       if ($row['client_nom']=="SENSE_NOM") $row['client_nom']="";
       $nom="<br/>".substr($row['client_cognoms'].", ".$row['client_nom'],0,25);
-      
+      $paga_i_senyal=$row['preu_reserva']?'<span style="color:red;float:right"> /  '.$row['preu_reserva'].'€</span>':'';
       $html .= <<< EOHTML
-          <h3 $deleted><a n="$n" href="form_reserva.php?edit={$row['id_reserva']}&id={$row['id_reserva']}" class="fr" taula="{$row['estat_taula_taula_id']}" id="accr-{$row['id_reserva']}">{$row['reserva_id']}&rArr;{$this->cambiaf_a_normal($row['data'],"%d/%m")} {$row['hora']} | {$row['estat_taula_nom']}&rArr;{$comensals}/{$row['cotxets']} $online  $nom </a></h3>
+          <h3 $deleted><a n="$n" href="form_reserva.php?edit={$row['id_reserva']}&id={$row['id_reserva']}" class="fr" taula="{$row['estat_taula_taula_id']}" id="accr-{$row['id_reserva']}">{$row['reserva_id']}&rArr;{$this->cambiaf_a_normal($row['data'],"%d/%m")} {$row['hora']} | {$row['estat_taula_nom']}&rArr;{$comensals}/{$row['cotxets']} $online  $nom $paga_i_senyal</a></h3>
           <div style="border:#eeeeee solid 2px;marginn:3px;padding:5px;height:280px;">
             ID:<b> {$row['reserva_id']}</b>
             <table cellspacing="0" cellpadding="0">
@@ -1264,6 +1264,8 @@ EOHTML;
       //$comanda=$this->plats_comanda($row['id_reserva']);
       //$amagat = empty($row['observacions'])?" amagat":" mostrat";
       $comanda=$this->plats_comanda($row['id_reserva']);
+      $resposta='<span style="color:red">  >> '.$row['resposta'].'</span>';
+      $row['observacions'].=($row['resposta']?$resposta:'');
       $saltaobs = empty($row['observacions'])?"":"<br/>";
       $amagat=" amagat";
       

@@ -1,10 +1,14 @@
 <?php
 //$message = "1234000000002085078125713978000qwertyasdf0123456789";
+define('ROOT',"../taules/");
+require_once (ROOT."Gestor.php");
+if ($_SESSION['permisos']<200) die("error:sin permisos") ;
+
 
 print_r($_SESSION);
 //ini_set('display_errors', 'On');
 //error_reporting(E_ALL);
-include ("../../canBorrell_inc_LOCAL/TPV.php");
+include (INC_FILE_PATH."TPV.php");
  $message = "300".$_REQUEST['order'].$code.$currency."000".$clave;
 //echo "<br/>";
  $signature = strtoupper(sha1($message));

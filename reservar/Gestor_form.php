@@ -1042,7 +1042,7 @@ WHERE  `client`.`client_id` =$idc;
                 /******************************************************************************/
                $import= $_POST["Ds_Amount"]/100;
                $resposta="PAGA I SENYAL TPV: ".$import."Euros (".$_POST["Ds_Date"]." ".$_POST["Ds_Hour"].")";
-               $query="UPDATE ".T_RESERVES." SET estat=100,resposta='$resposta' WHERE id_reserva=$id";
+               $query="UPDATE ".T_RESERVES." SET estat=100, preu_reserva='$import', resposta='$resposta' WHERE id_reserva=$id";
                 $result = $this->log_mysql_query($query, $this->connexioDB) or die(mysql_error());
 
                 $extres['subject']="Can-Borrell: CONFIRMACIÓ DE RESERVA ONLINE AMB PAGA I SENYAL";
