@@ -16,9 +16,7 @@ require_once(ROOT."gestor_reserves.php");
 require_once(ROOT."Menjador.php");
 require_once(ROOT."EstatTaula.php");
 
-
 require_once(ROOT."TaulesDisponibles.php");
-
 /**********************************************************************************************************/	
 class Gestor_form extends gestor_reserves
 {
@@ -411,7 +409,7 @@ public function submit()
 	$_POST['reserva_info']=1;
 	//TODO COTXETS
 	//comensals
-	
+            
 	if (!$_POST['selectorComensals']) $_POST['selectorComensals']=$_POST['adults'];
 	$total_coberts=$_POST['selectorComensals']+$_POST['selectorNens']+$_POST['selectorJuniors'];
 	if ($total_coberts<2 || $total_coberts>300) return $this->jsonErr(7,$resposta);// "err7 adults";
@@ -455,6 +453,7 @@ public function submit()
 		// VALIDA SI HEM TROBAT TAULA
 		if (!$taules=$this->taulesDisponibles->taulesDisponibles())  return $this->jsonErr(3,$resposta);
 		$taula=$taules[0]->id;
+                //print_r($taules);
 		
 		// VALIDA SI HEM TROBAT HORA
 		if (!$this->taulesDisponibles->horaDisponible($hora)) return $this->jsonErr(8,$resposta);
@@ -467,7 +466,6 @@ public function submit()
 			$taules[0]->guardaTaula();
 		}
 		if ($taula<1) return $this->jsonErr(3,$resposta); 
-		
 		//dades client?
 		if (empty($_POST['client_mobil'])) return $this->jsonErr(4,$resposta);// "err4 mobil";
 		if (empty($_POST['client_nom'])) return $this->jsonErr(5,$resposta);// "err5 nom";
@@ -494,7 +492,6 @@ public function submit()
 		if ($selectorCadiraRodes){
 			$_POST['observacions']='Portem cadira de rodes '.$_POST['observacions'];
 		}
-			
 	//INSERT INTO RESERVES TAULES
 		if (!isset($_POST['resposta'])) $_POST['resposta'] = '';
 		$estat=$this->paga_i_senyal($coberts)?2:100;
@@ -613,7 +610,9 @@ public function submit()
         $resposta['TPV']=$TPV?"TPV":"";
         $resposta['idr']=$idr;
         if ($TPV){
-            $resposta['signature']=$this->signatureTpv('214'.$idr,import_paga_i_senyal,$_SERVER['HTTP_HOST'].'/reservar/Gestor_form.php?a=repostaTPV');
+            $resposta['signature']=$this->signatureTpv('214'.$idr,import_paga_i_senyal,'http://'.$_SERVER['HTTP_HOST'].'/reservar/Gestor_form.php?a=respostaTPV');
+            //$resposta['signature']=$this->signatureTpv('214'.$idr,import_paga_i_senyal,'http://'.$_SERVER['HTTP_HOST'].'/reservar/respostaTPV.php');
+            //$resposta['signature']=$this->signatureTpv('214'.$idr,import_paga_i_senyal,'http://www.can-borrell.com/reservar/Gestor_form.php?a=respostaTPV');
         }
 	$_SESSION['last_submit']=time();//PARTXE SUBMITS REPETITS
 	return $this->jsonOK("Reserva creada",$resposta);		
@@ -907,6 +906,19 @@ WHERE  `client`.`client_id` =$idc;
 	/**********************************************************************************************************/	
 	/**********************************************************************************************************/	
 	/**********************************************************************************************************/	
+        public function estatReserva($idr){
+            
+               $query="SELECT estat "
+                      . "FROM ".T_RESERVES." "
+                      . "WHERE id_reserva=$idr";
+              $result = mysql_query($query, $this->connexioDB) or die(mysql_error());
+              //$row=  mysql_fetch_assoc($result);
+              return mysql_result($result,0);
+       }
+        
+	/**********************************************************************************************************/	
+	/**********************************************************************************************************/	
+	/**********************************************************************************************************/	
         public function generaFormTpv($id_reserva,$import, $nom){
                 include(INC_FILE_PATH.'TPV.php'); 
                 $lang=$this->lang;
@@ -918,7 +930,8 @@ WHERE  `client`.`client_id` =$idc;
                
                   
                 //$urlMerchant='http://www.can-borrell.com/editar/TPV/respostaTPV.php';
-                $urlMerchant=$_SERVER['HTTP_HOST'].'/reservar/Gestor_form.php?a=repostaTPV';
+                $urlMerchant='http://'.$_SERVER['HTTP_HOST'].'/reservar/Gestor_form.php?a=respostaTPV';
+                //$urlMerchant='http://'.$_SERVER['HTTP_HOST'].'/reservar/respostaTPV.php';
                 $producte="Reserva restaurant Can Borrell";
                 $titular=$nom;
                 $urlOK="http://www.can-borrell.com/editar/TPV/pagamentOK.php?id=$id&lang=$lang";
@@ -993,6 +1006,15 @@ WHERE  `client`.`client_id` =$idc;
        /***************************************************/
        public function respostaTPV(){
            /*LOG*/
+           echo "respostaTPV >> ".date(" / d-m-y H:i:s");
+           
+           
+            $f=fopen("log_TPV.txt","a");
+            fwrite($f,date("\n<br/>+++ d-m-y H:i:s >> "));
+            fwrite($f,"RESPOSTA TPV >>> IDR:");
+            fwrite($f,$_POST["Ds_Order"]);
+            //fclose($f);
+           if (!isset($_POST["Ds_Signature"])) echo " >> FALTA SIGNATURE ";
             $this->greg_log("RespostaTPV (".$_POST["Ds_Date"]." ".$_POST["Ds_Hour"]." ):".$_POST["Ds_Order"]." >> Response: ".$_POST["Ds_Response"]." >> Signture: ".$_POST["Ds_Signature"]." >> Amount: ".$_POST["Ds_Amount"],LOG_FILE_TPVPK);
             if (!isset($_POST["Ds_Amount"])) $_POST["Ds_Amount"]='';
             if (!isset($_POST["Ds_Order"])) $_POST["Ds_Order"]='';
@@ -1020,7 +1042,7 @@ WHERE  `client`.`client_id` =$idc;
              * DOBLE PAGAMENT
              * 
              */
-              echo $query="SELECT estat, client_email "
+              $query="SELECT estat, client_email "
                       . "FROM ".T_RESERVES." "
                       . "LEFT JOIN client ON client.client_id=".T_RESERVES.".client_id "
                       . "WHERE id_reserva=$id";
@@ -1029,7 +1051,7 @@ WHERE  `client`.`client_id` =$idc;
               $estat=  $row['estat'];
               $mail=$row['client_email'];
               if ($estat!=2) {
-                    echo $msg="PAGAMENT INAPROPIAT RESERVA???: ".$id." estat: $estat  $mail";
+                    $msg="PAGAMENT INAPROPIAT RESERVA???: ".$id." estat: $estat  $mail";
                     $this->greg_log($msg,LOG_FILE_TPVPK);/*LOG*/
                     $extres['subject']="Can-Borrell: !!!! $msg!!!";
                     $mail=$this->enviaMail($id,"confirmada_",MAIL_RESTAURANT,$extres);
@@ -1045,24 +1067,30 @@ WHERE  `client`.`client_id` =$idc;
                $query="UPDATE ".T_RESERVES." SET estat=100, preu_reserva='$import', resposta='$resposta' WHERE id_reserva=$id";
                 $result = $this->log_mysql_query($query, $this->connexioDB) or die(mysql_error());
 
-                $extres['subject']="Can-Borrell: CONFIRMACIÓ DE RESERVA ONLINE AMB PAGA I SENYAL";
+                $extres['subject']=$this->l("Can-Borrell: RESERVA CONFIRMADA",false);
+                //$extres['subject'].=$this->l("<br>REBUT PAGAMENT",false);;
+                //$extres['subject']="  ".$import."€";
+                
                 if ($mail) echo $this->enviaMail($id,"confirmada_",FALSE,$extres);
 
                 
                if ($result) //ACTUALITZADA BBDD
                {
                    echo "PAGAMENT OK ".$id;
-                    $this->greg_log("PAGAMENT+UPDATE OK ".$query." >> ".$result,LOG_FILE_TPVPK);/*LOG*/
+                    fwrite($f,"...OK");
+                   $this->greg_log("PAGAMENT+UPDATE OK ".$query." >> ".$result,LOG_FILE_TPVPK);/*LOG*/
                }
                else
                {
-                   echo "PAGAT OK però ERROR DDBB $id";
+                   fwrite($f,"...OK !!! PAGAT OK però ERROR DDBB $id");
+                   echo "OK !!!  PAGAT OK però ERROR DDBB $id";
                     $this->greg_log("PAGAMENT OK+UPDATE KO ".$query." >> ".$result,LOG_FILE_TPVPK);/*LOG*/
                 }
             }
             else //ERROR
             {
                 if ($_POST["Ds_Signature"]!=$signature) echo "ERROR DE SIGNATURE $id";
+                fwrite($f,"...KO ERROR DE SIGNATURE $id");
                 $this->greg_log("SIGNTURE KO!!!! ".$_POST["Ds_Signature"]." >> ".$signature." >> MESSAGE: ???????$xxxmessage",LOG_FILE_TPVPK);/*LOG*/
             }
 
@@ -1146,7 +1174,7 @@ if (isset($accio) && !empty($accio))
   	}
   	
   	
-  	if (!$gestor->valida_sessio(1)) {echo "err100";	die();}
+  	if (!$gestor->valida_sessio(1) && $accio!='respostaTPV') {echo "err100";	die();}
   	$gestor->out(call_user_func(array($gestor, $accio),$_REQUEST['b'],$_REQUEST['c'],$_REQUEST['d'],$_REQUEST['e'],$_REQUEST['f'],$_REQUEST['g']));
   }	
 }

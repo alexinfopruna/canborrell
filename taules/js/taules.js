@@ -494,6 +494,11 @@ jQuery.validator.addMethod("personesInsert", function(value, element) {
 
 	addHandlersEditCli();	
         cb_autocompletes();
+        
+        $(window).focus(function() {
+            comprova_refresh();
+        });
+
 	
 }); // FINAL READY
 

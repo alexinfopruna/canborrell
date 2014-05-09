@@ -110,7 +110,7 @@ class TaulesDisponibles extends Gestor
 		$mydata=$this->data;
 		$torn=$this->torn;
 		$persones=$this->persones;
-		$cotxets=$this->cotxets;
+		$cotxets=(int)$this->cotxets?$this->cotxets:0;
 	
 	
 		$base=$this->data_BASE;
@@ -145,10 +145,9 @@ class TaulesDisponibles extends Gestor
 
 	ORDER BY   estat_taula_persones, estat_taula_cotxets,estat_taula_data DESC";
 //echo $query." ///// <br/>";
-		$Result1 = mysql_query($query,  $this->connexioDB);// or die(mysql_error());
+		$Result1 = mysql_query($query,  $this->connexioDB) or die(mysql_error());
 		
 /**/
-
 
   		////////////////////////////////////////////////////////////////////////////////////////////////////
 		//  T A U L A      P R O P I A

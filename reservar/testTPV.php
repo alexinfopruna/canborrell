@@ -9,7 +9,7 @@ print_r($_SESSION);
 //ini_set('display_errors', 'On');
 //error_reporting(E_ALL);
 include (INC_FILE_PATH."TPV.php");
- $message = "300".$_REQUEST['order'].$code.$currency."000".$clave;
+ $message = "100".$_REQUEST['order'].$code.$currency."000".$clave;
 //echo "<br/>";
  $signature = strtoupper(sha1($message));
 
@@ -30,7 +30,7 @@ include (INC_FILE_PATH."TPV.php");
   </p>
   <p>
     Ds_Amount   
-    <input type="text" name="Ds_Amount" value="300" />
+    <input type="text" name="Ds_Amount" value="100" />
   </p>
   <p>
     Ds_Currency   

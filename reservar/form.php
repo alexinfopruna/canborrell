@@ -5,7 +5,6 @@ define('ROOT',"../taules/");
 require_once (ROOT."Gestor.php");
 //require_once(ROOT."php/Mobile_Detect.php");
 
-if (defined("CB_FORA_DE_SERVEI") && CB_FORA_DE_SERVEI === true) header("Location:fora_de_servei.html");
 
 define("LLISTA_DIES_NEGRA",INC_FILE_PATH."llista_dies_negra_online.txt");
 define("LLISTA_DIES_BLANCA",INC_FILE_PATH."llista_dies_blanca.txt");
@@ -32,6 +31,10 @@ $_SESSION['permisos']=$_SESSION['uSer']->permisos;
 
 require_once("Gestor_form.php");
 $gestor=new Gestor_form();
+
+
+if (defined("CB_FORA_DE_SERVEI") && CB_FORA_DE_SERVEI === true && !$gestor->valida_login()) header("Location:fora_de_servei.html");
+
 
 require_once(INC_FILE_PATH.'alex.inc');
 require_once(INC_FILE_PATH."llista_dies_taules.php");

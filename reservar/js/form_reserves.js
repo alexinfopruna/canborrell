@@ -97,10 +97,14 @@ $(function(){
 		modal:true,
 		width: 800,
 		buttons: {
-			"Continuar": function() { 
+			"Continuar":{
+                            text:'Continuar',
+                            id:'bt-continuar',
+                            click:function() { 
 				
 				$(this).dialog("close"); 
 				} 
+                            }                               
 			}
 		}
 	);
@@ -214,6 +218,7 @@ $('*').bind('blur change click dblclick error focus focusin focusout keydown key
   	  clearTimeout(th);	if (SECCIO) th=setTimeout('timer_help("'+l(SECCIO)+'")',TIMER_HELP_INTERVAL);
 
 });
+
 
 }); //ONLOAD, PRESENTACIO UI
 /************************************************************************************************************/
@@ -867,13 +872,25 @@ function controlSubmit()
                                    var info=l('PAGA_I_SENYAL');                                       
                                    $("#popup").html(info+'<iframe id="frame-tpv" name="frame-tpv" style="width:100%;height:500px"></iframe>');
 
-                                   $(" .ui-button-text").html("Cancel·la la reserva");
+                                   $("#bt-continuar .ui-button-text").html("Tanca");
+                                   
+                                   /** 
+                                    * TIMER TEMPS MAXIM
+                                    */
                                    timer = setTimeout(function(){  // RESET 
                                                 clearTimeout(timer);
-                                                //$("#popup").html('SESSIÓ CADUCADA');
-                                                alert("La sessió ha caducat");
-                                                $("#popup").dialog('close');
-                                            }, temps_paga_i_senyal*60000);
+                                                
+                                                $.post(GESTOR+"?a=estatReserva&b="+obj.idr,function(d){
+                                                    if (d==2){
+                                                        alert("La sessió ha caducat");
+                                                        $("#popup").dialog('close');                                                     
+                                                    }else{
+                                                        alert("Can-Borrell: Hem registrat correctament el pagament");
+                                                        $("#bt-continuar .ui-button-text").html("Finalitzar");
+
+                                                    }
+                                                });
+                                             }, temps_paga_i_senyal*60000);
                                     $("#compra").submit();
                                 }
                                 /*

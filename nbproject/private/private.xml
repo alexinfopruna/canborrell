@@ -5,17 +5,17 @@
             <url>reservar/js/form_reserves.js</url>
             <bookmark id="8">
                 <name/>
-                <line>245</line>
+                <line>250</line>
                 <key/>
             </bookmark>
             <bookmark id="14">
                 <name/>
-                <line>840</line>
+                <line>845</line>
                 <key/>
             </bookmark>
             <bookmark id="9">
                 <name/>
-                <line>928</line>
+                <line>945</line>
                 <key/>
             </bookmark>
         </file>
@@ -36,12 +36,12 @@
             <url>reservar/Gestor_form.php</url>
             <bookmark id="10">
                 <name/>
-                <line>499</line>
+                <line>496</line>
                 <key/>
             </bookmark>
             <bookmark id="11">
                 <name/>
-                <line>615</line>
+                <line>612</line>
                 <key/>
             </bookmark>
         </file>
@@ -70,12 +70,6 @@
         </file>
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group>
-            <file>file:/C:/xampp/htdocs/cbdev.can-borrell.com/reservar/Gestor_form.php</file>
-            <file>file:/C:/xampp/htdocs/cbdev.can-borrell.com/reservar/form.php</file>
-            <file>file:/C:/xampp/htdocs/cbdev.can-borrell.com/taules/print.php</file>
-            <file>file:/C:/xampp/htdocs/cbdev.can-borrell.com/reservar/js/form_reserves.js</file>
-            <file>file:/C:/xampp/htdocs/cbdev.can-borrell.com/taules/gestor_reserves.php</file>
-        </group>
+        <group/>
     </open-files>
 </project-private>
