@@ -70,7 +70,7 @@ $translate['INFO_COMANDA']="Pots escollir diferents menús o diferents plats de 
 	
 	$translate['INFO_QUANTS_SOU']='<b>Digue\'ns quantes persones vindreu</b>, indicant, en primer lloc els majors de 14 anys seguit de juniors i nens. 
 			<br/><br/>
-                        <div style="background:rgb(255, 255, 161);padding:4px;"><b>Si sou més de '.(persones_paga_i_senyal-1).' persones, 
+                        <div class=info-paga-i-senyal><b>Si sou més de '.(persones_paga_i_senyal-1).' persones, 
                             caldrà que realitzeu una paga i senyal de '.import_paga_i_senyal.'€ amb targeta de crèdit</b>.
                               Aquest import se us descomptarà del preu final de les consumicions, de manera que no representarà cap despresa extra.
                                 El pagament es realitzarà a través d\'una passarel·la bancària segura. Can Borrell no tindrà accés a les dades introduïdes. 
@@ -183,7 +183,7 @@ $translateJS['OBSERVACIONS_COTXETS']='No tindrem en compte les indicacions que e
 
 /**/
 $translateJS["fr-seccio-quants"] = 'En aquesta secció has d&quot;indicar exactament quantes persones (adults, júniors i nens) vindran. <br/>'
-        . '<br/><div class=paga><b>Si sou més de '.(persones_paga_i_senyal-1).' persones, '
+        . '<br/><div class=info-paga-i-senyal paga><b>Si sou més de '.(persones_paga_i_senyal-1).' persones, '
         . 'caldrà que realitzeu una paga i senyal de '.import_paga_i_senyal.'€ amb targeta de crèdit.</b></div><br/>'
         . 'A més, opcionalment, pots indicar si portareu cotxet i si us acompanya algú amb mobilitat reduïda o cadira de rodes. <br/><b>La suma de nens més cotxets ha de ser el nombre real de nens que vindran.</b>	<br/><br/><br/>		<b>Reservarem espai pels comensals que ens indiquis aquí. La reserva no serà vàlida per un nombre de persones que no coincideixi amb el que has sol·licitat</b><br/><br/>Aquest formulari és per a reserves de grups petits. Si sou més de '.($PERSONES_GRUP-1).' persones cal que premis a <b>Sol·licitud de reserva per Grups</b><br/><br/><br/><br/>Disposem d&quot;un nombre limitat de trones i no en podem garantir la disponibilitat.<br/><br/>Només permetem l&#39;entrada de gossos pigall acompanyant invidents<br/><br/>Un cop omplis aquestes dades, accediràs al pas 2, més avall ';
 $translateJS["fr-seccio-dia"] = 'Assegura&#39;t que el nombre d&#39;adults/nens/juniors és correcte i <b>selecciona el dia al calendari</b>.<br/><br/> Alguns dies apareixen desactivats perquè el resturant està tancat o perquè els menjadors ja estan plens. En el següent pas podràs seleccionar l&#39;hora ';

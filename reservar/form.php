@@ -53,6 +53,11 @@ $max_nens=$gestor->configVars("max_nens");
 $max_juniors=$gestor->configVars("max_juniors");
 
 $gestor->netejaImpagatsTpv(); // TPV I IMPAGATS
+
+
+$paga_i_senyal=$PERSONES_GRUP>=persones_paga_i_senyal;
+
+
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html>
@@ -205,8 +210,13 @@ echo $gestor->dumpJSVars(true);
 </script>
 
 		<script type="text/javascript" src="js/control_carta.js"></script>
-		<script type="text/javascript" src="js/form_reserves.js<?php //echo '?'.time();?>"></script>
+		<script type="text/javascript" src="js/form_reserves.js<?php //echo '?'.time();?>"></script>		
 
+		<style>
+		  <?php 
+		     if (!$paga_i_senyal) echo ".info-paga-i-senyal{display:none}";
+		  ?>
+		</style>
 </head>
 <body class="amagat <?php echo DEV?" dev ":""; echo LOCAL?" local ":"" ?>" onload="loadMenu()" >
 <table id="taula-estructura" bgcolor="#F8F8F0" cellpadding="0" cellspacing="0"   border="0" align="center">
@@ -307,7 +317,7 @@ else
 					{
 						$chek=($i==$row['adults']?'checked="checked"':'');
                                                 $tpv=($i>=persones_paga_i_senyal?"ptpv":"");
-                                                $title=($i>=persones_paga_i_senyal?"Paga i senyal necessària":"Reserva gratuïta");
+                                                $title=($i>=persones_paga_i_senyal?"Paga i senyal necessària":"Reserva sense paga i senyal");
 						print '<input type="radio" id="com'.$i.'" name="selectorComensals" value="'.$i.'" '.$chek.'/><label for="com'.$i.'" class="'.$tpv.'" title="'.$title.'">'.$i.'</label>';
 					}
 				?>

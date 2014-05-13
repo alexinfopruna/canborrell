@@ -1,5 +1,4 @@
 <?php 
 echo $a['q'];
-a=b;
+//a=b;
 echo "WW";
-?>
