@@ -887,6 +887,7 @@ function controlSubmit()
                                                     }else{
                                                         alert("Can-Borrell: Hem registrat correctament el pagament");
                                                         $("#bt-continuar .ui-button-text").html("Finalitzar");
+                                                        $("#popup").dialog('close');	
 
                                                     }
                                                 });

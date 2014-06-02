@@ -7,9 +7,13 @@ define("LLISTA_DIES_BLANCA",INC_FILE_PATH."llista_dies_blanca.txt");
 
  
 require_once("gestor_reserves.php");
-$gestor=new gestor_reserves();   
+$gestor=new gestor_reserves();  
+
+//echo "VALIDEM...";
+
 if (!$gestor->valida_sessio())  header("Location: index.php");
 
+//die("...Print OK...");
 $torn[1]=" - Dinar Torn 1";
 $torn[2]=" - Dinar Torn 2";
 $torn[3]=" - Sopar";

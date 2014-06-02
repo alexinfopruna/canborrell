@@ -1,5 +1,7 @@
 <?php 
+
 $RedirectLoginSuccess="taules.php";
+
 
 if (!isset($_SESSION)) session_start();
 $_SESSION['config']="config.xml";
@@ -7,7 +9,17 @@ $_SESSION['config']="config.xml";
 require_once("gestor_reserves.php");
 
 $gestor=new gestor_reserves();
-if ($gestor->valida_login()) header("Location: ". $RedirectLoginSuccess );
+echo "INTENT LOGGIN...";
+
+if ($gestor->valida_login()) {
+    $_COOKIE['logged']=TRUE;
+    if (isset($_GET['cpp'])) {
+         die("Logged in...");
+        
+    }
+    header("Location: ". $RedirectLoginSuccess );
+    
+}
 
 $estil="winterblues.css";?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">

@@ -19,6 +19,8 @@ if (isset($_GET['exit']))
 	$gestor->tanca_sessio();
 	header("Location: login.php");	
 }
+
+
 ?>
 <!DOCTYPE HTML>
 <HTML>

@@ -495,7 +495,8 @@ public function submit()
 	//INSERT INTO RESERVES TAULES
 		if (!isset($_POST['resposta'])) $_POST['resposta'] = '';
 		$estat=$this->paga_i_senyal($coberts)?2:100;
-		$import_reserva=$this->configVars("import_paga_i_senyal");
+		//$import_reserva=$this->configVars("import_paga_i_senyal");
+		$import_reserva=0;
                 
 		$insertSQL = sprintf("INSERT INTO ".T_RESERVES." ( id_reserva, client_id, data, hora, adults, 
 		  nens4_9, nens10_14, cotxets,lang,observacions, resposta, estat, preu_reserva, usuari_creacio, reserva_navegador, reserva_info) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)",
