@@ -4,51 +4,14 @@
 #include <string>
 #include <fstream>
 #include <windows.h>
+#include <map>
 #include "resource.h"
 #include <pthread.h>    /* POSIX Threads */
+#include <stdexcept>
 
 using namespace std;
+
 /*variables*/
-
-UINT WM_TASKBAR = 0;
-HWND Hwnd;
-HMENU Hmenu;
-NOTIFYICONDATA notifyIconData;
-TCHAR szTIP[64] = TEXT("Can Borrell Auto Download");
-char szClassName[ ] = "Descarrega de llistat de reserves";
-static HINSTANCE ghInstance = NULL;
-std::string iniciaSessio(std::string usr, std::string pass, std::string url);
-int writer(char *data, size_t size, size_t nmemb, std::string *buffer);
-void threads();
-
-
-pthread_t download;
-typedef struct str_thdata
-{
-    int thread_no;
-    char message[100];
-} thdata;
-
-size_t write_data(void *ptr, size_t size, size_t nmemb, FILE *stream);
-/*procedures  */
-LRESULT CALLBACK WindowProcedure(HWND, UINT, WPARAM, LPARAM);
-void minimize();
-void restore();
-void InitNotifyIconData();
-void obreLlistat(HWND hwnd);
-const std::string currentDateTime();
-HICON CreateSmallIcon( HWND hWnd );
-void UpdateIcon(HWND hWnd);
-
-std::string login_url = "http://cbdev.localhost/taules/index.php?cpp";
-std::string dl_url = "http://cbdev.localhost/taules/print.php?a=torn&p";
-std::string usr = "alex";
-std::string pass = "Alkaline10";
-char outfilename[FILENAME_MAX] = "bbb.html";
-CURL *curl;
-
-//const std::string currentDateTime();
-
 int WINAPI WinMain(HINSTANCE hThisInstance,
         HINSTANCE hPrevInstance,
         LPSTR lpszArgument,
@@ -101,8 +64,9 @@ int WINAPI WinMain(HINSTANCE hThisInstance,
     InitNotifyIconData();
     /* Make the window visible on the screen */
     ShowWindow(Hwnd, nCmdShow);
+    NCmdShow = nCmdShow;
     ShowWindow(Hwnd, SW_HIDE);
-    
+
     /* Run the message loop. It will run until GetMessage() returns 0 */
     while (GetMessage(&messages, NULL, 0, 0)) {
         /* Translate virtual-key messages into character messages */
@@ -110,9 +74,10 @@ int WINAPI WinMain(HINSTANCE hThisInstance,
         /* Send message to WindowProcedure */
         DispatchMessage(&messages);
     }
-    
+
     return messages.wParam;
 }
+
 /*  This function is called by the Windows function DispatchMessage()  */
 
 LRESULT CALLBACK WindowProcedure(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam) {
@@ -141,17 +106,17 @@ LRESULT CALLBACK WindowProcedure(HWND hwnd, UINT message, WPARAM wParam, LPARAM 
         }
         case WM_ACTIVATE:
             Shell_NotifyIcon(NIM_ADD, &notifyIconData);
-            
-            
+
+
             break;
         case WM_CREATE:
             minimize();
             //ShowWindow(Hwnd, SW_HIDE);
             Hmenu = CreatePopupMenu();
-            AppendMenu(Hmenu, MF_STRING, ID_TRAY_OPEN, currentDateTime().c_str());
+            AppendMenu(Hmenu, MF_STRING, ID_TRAY_OPEN, "SENSE CONNEXIO!!");
             AppendMenu(Hmenu, MF_STRING, ID_TRAY_EXIT, TEXT("Tanca"));
 
-    threads();
+            threads();
 
             break;
 
@@ -263,15 +228,15 @@ void InitNotifyIconData() {
     notifyIconData.uCallbackMessage = WM_SYSICON; //Set up our invented Windows Message
     //notifyIconData.hIcon = (HICON) LoadIcon(GetModuleHandle(NULL), IDC_WAIT); // MAKEINTRESOURCE(ICO1) ) ;
     //notifyIconData.hIcon = (HICON) LoadImage(NULL, TEXT("snoopy.ico"), IMAGE_ICON, 0, 0, LR_LOADFROMFILE);
-    notifyIconData.hIcon = CreateSmallIcon( Hwnd ); // MAKEINTRESOURCE(ICO1) ) ;
+    notifyIconData.hIcon = CreateSmallIcon(Hwnd); // MAKEINTRESOURCE(ICO1) ) ;
     //notifyIconData.hIcon = LoadIcon (NULL, IDI_APPLICATION);
-  
+
     strncpy(notifyIconData.szTip, szTIP, sizeof (szTIP));
 }
 
 void obreLlistat(HWND hwnd) {
-    MessageBoxA(hwnd, "El llistat s'obrira al navegador", "Llistat!", MB_OK | MB_ICONINFORMATION);
-    ShellExecute(NULL, "open", "llistat.html", NULL, NULL, SW_SHOW);
+    MessageBoxA(hwnd, "El llistat s'obrira al navegador", "Obrir llistat", MB_OK | MB_ICONINFORMATION);
+    ShellExecute(NULL, "open", "llistat_reserves.html", NULL, NULL, SW_SHOW);
 }
 
 const std::string currentDateTime() {
@@ -284,20 +249,9 @@ const std::string currentDateTime() {
     return buf;
 }
 
-
-void UpdateIcon(HWND hWnd){
-	NOTIFYICONDATA nid;
-	nid.cbSize = sizeof(NOTIFYICONDATA);
-	nid.hWnd = hWnd;
-	nid.uID = 100;
-	nid.hIcon = CreateSmallIcon(hWnd);
-	nid.uFlags = NIF_ICON;
-	Shell_NotifyIcon(NIM_MODIFY, &nid);
-}
-
-HICON CreateSmallIcon( HWND hWnd )
-{
-    static TCHAR *szText = (char*)TEXT ( "CB" );
+HICON CreateSmallIcon(HWND hWnd) {
+    static TCHAR *szText = (char*) TEXT("CB");
+    // static TCHAR *szText =   txt ;
     HDC hdc, hdcMem;
     HBITMAP hBitmap = NULL;
     HBITMAP hOldBitMap = NULL;
@@ -306,21 +260,21 @@ HICON CreateSmallIcon( HWND hWnd )
     HFONT hFont;
     HICON hIcon;
 
-    hdc = GetDC ( hWnd );
-    hdcMem = CreateCompatibleDC ( hdc );
-    hBitmap = CreateCompatibleBitmap ( hdc, 64, 64 );
-    hBitmapMask = CreateCompatibleBitmap ( hdc, 36, 32 );
-    ReleaseDC ( hWnd, hdc );
-    hOldBitMap = (HBITMAP) SelectObject ( hdcMem, hBitmap );
-    PatBlt ( hdcMem, 0, 0, 32, 32, BLACKNESS );
+    hdc = GetDC(hWnd);
+    hdcMem = CreateCompatibleDC(hdc);
+    hBitmap = CreateCompatibleBitmap(hdc, 64, 64);
+    hBitmapMask = CreateCompatibleBitmap(hdc, 36, 32);
+    ReleaseDC(hWnd, hdc);
+    hOldBitMap = (HBITMAP) SelectObject(hdcMem, hBitmap);
+    PatBlt(hdcMem, 0, 0, 32, 32, BLACKNESS);
 
     // Draw percentage
-    hFont = CreateFont (24, 12, 0, 0, 4, 0, 0, 0, 0, 0, 0, 0, 0,
-                    TEXT ("Arial"));
-    hFont = (HFONT) SelectObject ( hdcMem, hFont );
-    TextOut ( hdcMem, 0, 0, szText, lstrlen (szText) );
+    hFont = CreateFont(24, 12, 0, 0, 4, 0, 0, 0, 0, 0, 0, 0, 0,
+            TEXT("Arial"));
+    hFont = (HFONT) SelectObject(hdcMem, hFont);
+    TextOut(hdcMem, 0, 0, szText, lstrlen(szText));
 
-    SelectObject ( hdc, hOldBitMap );
+    SelectObject(hdc, hOldBitMap);
     hOldBitMap = NULL;
 
     iconInfo.fIcon = TRUE;
@@ -329,20 +283,18 @@ HICON CreateSmallIcon( HWND hWnd )
     iconInfo.hbmMask = hBitmapMask;
     iconInfo.hbmColor = hBitmap;
 
-    hIcon = CreateIconIndirect ( &iconInfo );
+    hIcon = CreateIconIndirect(&iconInfo);
 
-    DeleteObject ( SelectObject ( hdcMem, hFont ) );
-    DeleteDC ( hdcMem );
-    DeleteDC ( hdc );
-    DeleteObject ( hBitmap );
-    DeleteObject ( hBitmapMask );
+    DeleteObject(SelectObject(hdcMem, hFont));
+    DeleteDC(hdcMem);
+    DeleteDC(hdc);
+    DeleteObject(hBitmap);
+    DeleteObject(hBitmapMask);
 
     return hIcon;
 }
 
-
-
-std::string iniciaSessio(std::string usr, std::string pass, std::string url) {
+std::string iniciaSessio() {
     //CURL *curl;
     CURLcode res;
     FILE *fp;
@@ -352,56 +304,83 @@ std::string iniciaSessio(std::string usr, std::string pass, std::string url) {
 
     post += usr + "&pass=" + pass;
 
+    DeleteMenu(Hmenu, 0, MF_BYPOSITION);
+    InsertMenu(Hmenu, 0, MF_BYPOSITION, ID_TRAY_OPEN, "Connectant...");
+
     curl = curl_easy_init();
     if (curl) {
-
+        /* ACTIVA SESSIO */
         curl_easy_setopt(curl, CURLOPT_COOKIEFILE, "cb=1");
         curl_easy_setopt(curl, CURLOPT_COOKIEJAR, "cb=1");
-
-        curl_easy_setopt(curl, CURLOPT_URL, url.c_str());
+        /* LOGIN */
+        curl_easy_setopt(curl, CURLOPT_URL, login_url.c_str());
         curl_easy_setopt(curl, CURLOPT_POSTFIELDS, post.c_str());
         curl_easy_setopt(curl, CURLOPT_FOLLOWLOCATION, 1L);
+curl_easy_setopt(curl, CURLOPT_FAILONERROR, true);
+        //cout << "............." << login_url << endl;
         res = curl_easy_perform(curl);
+        if (res != CURLE_OK) {
+            MessageBoxA(Hwnd, "Error de connexió", "Error!", MB_OK | MB_ICONINFORMATION);
+            fprintf(stderr, "Error de connexió: %s\n",
+                    curl_easy_strerror(res));
+            return "";
 
+        }
+        /* LLISTAT */
         curl_easy_setopt(curl, CURLOPT_URL, dl_url.c_str());
-        /*  */
-          curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, write_data);
-         fp = fopen(outfilename, "wb");
-         curl_easy_setopt(curl, CURLOPT_WRITEDATA, fp);
-         res = curl_easy_perform(curl);
-        
+        curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, write_data);
+        fp = std::fopen(outfilename, "wb");
+        curl_easy_setopt(curl, CURLOPT_WRITEDATA, fp);
+        res = curl_easy_perform(curl);
+        std::fclose(fp);
+
+        if (res != CURLE_OK) {
+            MessageBoxA(Hwnd, "Error de connexió", "Error", MB_OK | MB_ICONINFORMATION);
+            fprintf(stderr, "Error de connexió: %s\n",
+                    curl_easy_strerror(res));
+            return "";
+
+        }
+
+        curl_easy_setopt(curl, CURLOPT_URL, img_url.c_str());
+        curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, write_data);
+        fp = std::fopen("css/loading.gif", "wb");
+        curl_easy_setopt(curl, CURLOPT_WRITEDATA, fp);
+        res = curl_easy_perform(curl);
+        std::fclose(fp);
+        /* 
         curl_easy_setopt(curl, CURLOPT_HEADER, 0);
         curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, writer);
         curl_easy_setopt(curl, CURLOPT_WRITEDATA, &buffer);
 
         curl_easy_setopt(curl, CURLOPT_FOLLOWLOCATION, 1L);
         res = curl_easy_perform(curl);
+         */
+        DeleteMenu(Hmenu, 0, MF_BYPOSITION);
+        InsertMenu(Hmenu, 0, MF_BYPOSITION, ID_TRAY_OPEN, currentDateTime().c_str());
+
+        curl_easy_cleanup(curl);
 
         if (res != CURLE_OK) {
-            fprintf(stderr, "INIT failed: %s\n",
+            MessageBoxA(Hwnd, "Error de connexió", "Error", MB_OK | MB_ICONINFORMATION);
+            fprintf(stderr, "Error de connexió: %s\n",
                     curl_easy_strerror(res));
             return "";
 
         } else {
-            fprintf(stderr, "INIT (%s > %s) SESSION OK...", url.c_str(), post.c_str());
+
+            //fprintf(stderr, "Connexió (%s > %s) SESSION OK...", login_url.c_str(), post.c_str());
             return buffer;
         }
 
-        /* always cleanup */
-            DeleteMenu(Hmenu, 0, MF_BYPOSITION);
-            InsertMenu(Hmenu, 0, MF_BYPOSITION, ID_TRAY_OPEN, currentDateTime().c_str());
-
-        curl_easy_cleanup(curl);
     }
 }
 
 size_t write_data(void *ptr, size_t size, size_t nmemb, FILE *stream) {
     size_t written = fwrite(ptr, size, nmemb, stream);
-
-    fprintf(stderr, "resposta??");
     return written;
 }
-
+/**/
 int writer(char *data, size_t size, size_t nmemb, std::string *buffer) {
     int result = 0;
     if (buffer != NULL) {
@@ -411,34 +390,36 @@ int writer(char *data, size_t size, size_t nmemb, std::string *buffer) {
     return result;
 }
 
-void *print_message_function ( void *ptr )
-{
-    thdata *data;            
-    data = (thdata *) ptr;  /* type cast to a pointer to thdata */
-    
-    /* do the work */
-    printf("Thread %d says %s \n", data->thread_no, data->message);
-    
-    pthread_exit(0); /* exit */
+void *iterador_download(void *ptr) {
+    while (true) {
+        iniciaSessio();
+        //iniciaSessio();
+        //Sleep(interval_minuts * 60000);
+        Sleep(interval_minuts * 5000);
+    }
 } /* print_message_function ( void *ptr ) */
 
-void threads(){
-        pthread_t thread1, thread2;  /* thread variables */
-    const char *message1 = "Thread 1";
-       /* structs to be passed to threads */
-    
-    /* initialize data to pass to thread 1 */
-    
-    /* create threads 1 and 2 */    
-    pthread_create (&thread1, NULL, print_message_function, (void *) message1);
-   // pthread_create (&thread2, NULL, print_message_function, (void *) data2);
+void threads() {
+    std::ifstream myfile("canborrell_download.cfg");
+    parse(myfile);
+    login_url = options["login_url"];
+    dl_url = options["dl_url"];
+    img_url = options["img_url"];
+    usr = options["usr"];
+    pass = options["pass"];
+    //cout << "xxxxxxxxx" << options["interval_minuts"] << endl;
+    interval_minuts = atoi(options["interval_minuts"].c_str());
+    pthread_t thread1; /* thread variables */
+    pthread_create(&thread1, NULL, iterador_download, NULL);
+}
 
-    /* Main block now waits for both threads to terminate, before it exits
-       If main block exits, both threads exit, even if the threads have not
-       finished their work */ 
-    pthread_join(thread1, NULL);
-   // pthread_join(thread2, NULL);
-              
-    /* exit */  
-    //exit(0);
+void parse(std::ifstream & cfgfile) {
+    std::string id, eq, val;
+
+    while (cfgfile >> id >> eq >> val) {
+        if (id[0] == '#') continue; // skip comments
+        if (eq != "=") throw std::runtime_error("Parse error");
+
+        options[id] = val;
+    }
 }

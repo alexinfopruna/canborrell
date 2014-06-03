@@ -20,4 +20,40 @@
 #define ID_TRAY_OPEN        1003
 #define WM_SYSICON          (WM_USER + 1)
 
+std::map<std::string, std::string> options; // global?
+//std::ifstream myfile ("canborrell_download.cfg");
+void parse(std::ifstream & cfgfile);
+
+std::string login_url = "xxxhttp://cbdev.localhost/taules/index.php?cpp";
+std::string dl_url = "xxxhttp://cbdev.localhost/taules/print.php?a=torn&p";
+std::string img_url = "xxxhttp://cbdev.localhost/taules/print/print.png";
+std::string usr = "xxxxalex";
+std::string pass = "xxxxAlkaline10";
+int interval_minuts = 10;
+char outfilename[FILENAME_MAX] = "llistat_reserves.html";
+CURL *curl;
+
+
+UINT WM_TASKBAR = 0;
+HWND Hwnd;
+HMENU Hmenu;
+NOTIFYICONDATA notifyIconData;
+TCHAR szTIP[64] = TEXT("Can Borrell Auto Download");
+char szClassName[ ] = "Descarrega de llistat de reserves";
+static HINSTANCE ghInstance = NULL;
+int NCmdShow;
+std::string iniciaSessio();
+int writer(char *data, size_t size, size_t nmemb, std::string *buffer);
+size_t write_data(void *ptr, size_t size, size_t nmemb, FILE *stream);
+void threads();
+/*procedures  */
+LRESULT CALLBACK WindowProcedure(HWND, UINT, WPARAM, LPARAM);
+void minimize();
+void restore();
+void InitNotifyIconData();
+void obreLlistat(HWND hwnd);
+const std::string currentDateTime();
+HICON CreateSmallIcon( HWND hWnd );
+void UpdateIcon(HWND hWnd);
+
 #endif	/* RESOURCE_H */

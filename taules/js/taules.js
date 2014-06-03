@@ -6,7 +6,7 @@ var client=0;
 var timeractiu=false;
 var FILTRE_RES=1;
 var FILTRE_CLI=1;
-
+var PRINT=false;
 var taulaSel;
 var TAULA, N, P,C,F,CERCA;
 var ONLOAD_BLOC_CALEND=false;
@@ -74,6 +74,7 @@ flashvars['DEBUG']=DEBUG;
 flashvars['URL']=url_base;
 flashvars['DATA']=0;// NO S'UTILITZA
 flashvars['TORN']=0;// NO S'UTILITZA
+flashvars['PRINT']=1;// NO S'UTILITZA
 var params = {
   wmode: "opaque"
 };
@@ -481,6 +482,7 @@ jQuery.validator.addMethod("personesInsert", function(value, element) {
 
 	$("#bt_print").click(function()
 	{
+            PRINT=true;
 		getFlashMovie("flash").print();	
 		return false;
 		
@@ -1088,11 +1090,15 @@ function upercase(selector)
 	$(selector+'  textarea').bestupper(); 
 }
 
+/**
+// CRON BACKUP +o- CADA 30 min
+*/
 function comprova_backup()
 { 
 	var desti="gestor_reserves.php?a=reserves_orfanes";
 	$.post(desti,{r:rand},function(datos){
 		if (datos.substr(0,14)=="<!--ORFANES-->") alert("ATENCIO!!!\nS'han detectat reserves perdudes: Per més detalls, ves al Panel de control > Eines avançades > Reserves perdudes"); 
+                if (datos=="no_download") alert("Sembla que no s'estan fent descàrregues automàtiques del llistat de reserves ");
 	});
 	if (!BACKUP_INTERVAL) return;
     var d = new Date();
@@ -1100,6 +1106,7 @@ function comprova_backup()
 	var desti="dumpBD.php?drop&file";
 	$.post(desti,{r:rand},function(datos){
 		if (datos=="backup" && permisos>64) alert("S'ha realitzat una còpia de la base de dades");
+               
 	});
 
 	var desti="esborra_clients_llei.php";
@@ -1107,8 +1114,15 @@ function comprova_backup()
 	});
 }
 
+/**
+// CRON REFRESH +o- CADA 12 segons
+*/
 function comprova_refresh()
 {  
+	
+
+
+	
     var d = new Date();
     var rand = d.getTime();
 	var desti="gestor_reserves.php?a=refresh&r="+rand;
@@ -1124,7 +1138,11 @@ function comprova_refresh()
 	var img=$("#imgCalendari").attr("src").split("?")[0];
     $("#imgCalendari").attr("src", img+"?" + rand);	
 	$("#refresh").slideDown().delay(500).slideUp();
-		
+                if (getFlashMovie("flash")) {
+                    //PRINT=false;
+                    getFlashMovie("flash").print();
+                }	
+		//alert("PRINT");
 };
 	
 function refresh()
@@ -1132,6 +1150,8 @@ function refresh()
 	getFlashMovie("flash").canviData($("#calendari").val());	
 	recargaAccordionClients();
 }
+
+
 
 function timer(activa)
 {

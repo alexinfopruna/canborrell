@@ -9,11 +9,14 @@ $_SESSION['config']="config.xml";
 require_once("gestor_reserves.php");
 
 $gestor=new gestor_reserves();
-echo "INTENT LOGGIN...";
+//echo "INTENT LOGGIN...";
 
 if ($gestor->valida_login()) {
     $_COOKIE['logged']=TRUE;
     if (isset($_GET['cpp'])) {
+        $f=fopen("last_access","w");
+        fwrite($f,date("Y-m-d H:i:s"));
+        fclose($f);    
          die("Logged in...");
         
     }

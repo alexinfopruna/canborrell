@@ -7,7 +7,9 @@ function getFlashMovie(movieName) {
 
 function fromAS3_print()
 {
-	window.location="print.php?p";
+    if (!PRINT) return;
+    PRINT=false;
+    window.location="print.php?p";
 }
 
 function fromAS3_flash_ready()

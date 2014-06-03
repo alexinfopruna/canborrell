@@ -11,7 +11,7 @@
 // SI VOLEM UN HANDLER D'ERRORS
 //ini_set('display_errors','Off');
 //ini_set('error_reporting',0);
-require_once("errorHandler.php"); // DEBUG, MOSTRAR ERRORS I NOTICES
+//require_once("errorHandler.php"); // DEBUG, MOSTRAR ERRORS I NOTICES
 /**********************************************************************************************************************/
 
 
