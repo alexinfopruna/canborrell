@@ -29,7 +29,7 @@ std::string dl_url = "xxxhttp://cbdev.localhost/taules/print.php?a=torn&p";
 std::string img_url = "xxxhttp://cbdev.localhost/taules/print/print.png";
 std::string usr = "xxxxalex";
 std::string pass = "xxxxAlkaline10";
-int interval_minuts = 10;
+int interval_segons = 10;
 char outfilename[FILENAME_MAX] = "llistat_reserves.html";
 CURL *curl;
 

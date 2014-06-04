@@ -235,7 +235,7 @@ void InitNotifyIconData() {
 }
 
 void obreLlistat(HWND hwnd) {
-    MessageBoxA(hwnd, "El llistat s'obrira al navegador", "Obrir llistat", MB_OK | MB_ICONINFORMATION);
+    //MessageBoxA(hwnd, "El llistat s'obrira al navegador", "Obrir llistat", MB_OK | MB_ICONINFORMATION);
     ShellExecute(NULL, "open", "llistat_reserves.html", NULL, NULL, SW_SHOW);
 }
 
@@ -244,7 +244,7 @@ const std::string currentDateTime() {
     struct tm tstruct;
     char buf[80];
     tstruct = *localtime(&now);
-    strftime(buf, sizeof (buf), "Derrer llistat: %Y-%m-%d %X", &tstruct);
+    strftime(buf, sizeof (buf), "Darrer llistat: %Y-%m-%d %X", &tstruct);
 
     return buf;
 }
@@ -316,7 +316,7 @@ std::string iniciaSessio() {
         curl_easy_setopt(curl, CURLOPT_URL, login_url.c_str());
         curl_easy_setopt(curl, CURLOPT_POSTFIELDS, post.c_str());
         curl_easy_setopt(curl, CURLOPT_FOLLOWLOCATION, 1L);
-curl_easy_setopt(curl, CURLOPT_FAILONERROR, true);
+        curl_easy_setopt(curl, CURLOPT_FAILONERROR, true);
         //cout << "............." << login_url << endl;
         res = curl_easy_perform(curl);
         if (res != CURLE_OK) {
@@ -341,7 +341,7 @@ curl_easy_setopt(curl, CURLOPT_FAILONERROR, true);
             return "";
 
         }
-
+        //cout << img_url << endl;
         curl_easy_setopt(curl, CURLOPT_URL, img_url.c_str());
         curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, write_data);
         fp = std::fopen("css/loading.gif", "wb");
@@ -380,6 +380,7 @@ size_t write_data(void *ptr, size_t size, size_t nmemb, FILE *stream) {
     size_t written = fwrite(ptr, size, nmemb, stream);
     return written;
 }
+
 /**/
 int writer(char *data, size_t size, size_t nmemb, std::string *buffer) {
     int result = 0;
@@ -394,8 +395,8 @@ void *iterador_download(void *ptr) {
     while (true) {
         iniciaSessio();
         //iniciaSessio();
-        //Sleep(interval_minuts * 60000);
-        Sleep(interval_minuts * 5000);
+        Sleep(interval_segons * 1000);
+        //Sleep(interval_minuts * 5000);
     }
 } /* print_message_function ( void *ptr ) */
 
@@ -408,7 +409,7 @@ void threads() {
     usr = options["usr"];
     pass = options["pass"];
     //cout << "xxxxxxxxx" << options["interval_minuts"] << endl;
-    interval_minuts = atoi(options["interval_minuts"].c_str());
+    interval_segons = atoi(options["interval_segons"].c_str());
     pthread_t thread1; /* thread variables */
     pthread_create(&thread1, NULL, iterador_download, NULL);
 }
