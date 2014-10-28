@@ -80,7 +80,7 @@ else
 	//$row['']=null;
 	
 	$comanda=null;
-	
+        
 }
 
 ?><form class="form_edit <?php echo $class;?>" method="post" name="frmEditReserva" action="<?php echo $editFormAction;  ?>" >
@@ -392,16 +392,39 @@ else
 			
 			if ($id){
 		?>
+          
 	  <tr valign="baseline">
 		<td nowrap="nowrap" align="right">Email:</td>
 		
-		<td align="left"><a href="mailto:<?php echo $querystring; ?>"><?php echo ($row_reserva['client_email']); ?></a></td>
+		<td align="left">
+                    <a href="mailto:<?php echo $querystring; ?>"><?php echo ($row_reserva['client_email']); ?></a>
+                </td>
 	  </tr>
 	  
+          <?php }?>
+  
+ 	  <tr valign="baseline">
+		<td nowrap="nowrap" align="right"></td>
+		
+		<td align="left"  style="">
+                   <label id="label-pastis" for="<?php echo trim($class) ?>RESERVA_PASTIS" >PASTIS </label> <!---->
+                    <input type="checkbox" id="<?php echo trim($class) ?>RESERVA_PASTIS" name="RESERVA_PASTIS" value="on" <?php echo  $row_reserva['reserva_pastis']?'checked="checked"':""?>/>
+                    <?php $pastis=$row_reserva['reserva_pastis'];
+                            $pastis_info=$pastis?$row_reserva['reserva_info_pastis']:'';
+                    ?>
+                    <input id="INFO_PASTIS" name="INFO_PASTIS" class="pastis_toggle" value="<?php echo $pastis_info ?>"/>
+                  </td>
+	  </tr>
 	  
+ 
+          <?php if ($id){ ?>
 	  <tr valign="baseline" >
 		<td nowrap="nowrap" align="right">Comanda:</td>
-		<td align="left" class="ui-corner-all info-comanda" style=""><?php echo $gestor->plats_comanda($row_reserva['id_reserva']);?></td>
+		<td align="left" class="ui-corner-all info-comanda" style="">
+                    
+                    <?php echo $gestor->plats_comanda($row_reserva['id_reserva']);?>
+                
+                </td>
 	  </tr>	  
 	  <?php }?>
 	  

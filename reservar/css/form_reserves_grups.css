@@ -72,6 +72,10 @@
 /*	 margin-top:-500px;*/
 	/* padding-bottom:50px;*/
 	}
+        
+        .item-carta a:link, .item-carta a:visited{
+            color: #570600
+        }
 
 	.fr-seccio{
             //overflow:hidden;
@@ -235,4 +239,4 @@ padding: .4em .8em;
   display:block;
   }
   
-  .tooltip-red{z-index:1100 !important;}
+  .tooltip-red{z-index:2100 !important;}

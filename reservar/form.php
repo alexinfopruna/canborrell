@@ -155,6 +155,8 @@ if (isset($_POST['cancel_reserva']) && $_POST['cancel_reserva']=="Eliminar reser
 				l("ERROR_LOAD_RESERVA");
 				$_REQUEST['idr']=$_POST['idr']=null;
 			}
+                        
+                        
 		}
 	}
 	else{
@@ -472,6 +474,17 @@ else
               <input id="te-comanda" name="te_comanda" type="text" value="" style="display:none"> 
 					<!-- ******  COMANDA  ********   -->
 					<div class="caixa dere ui-corner-all" >
+                            
+                                            <input type="checkbox" id="RESERVA_PASTIS" name="RESERVA_PASTIS" value="on" <?php echo  $row['reserva_pastis']?'checked="checked"':""?>/><label for="RESERVA_PASTIS" ><?php l("RESERVA_PASTIS")?></label>
+                                            <?php $pastis=$row['reserva_pastis'];
+                                                    $pastis_info=$row['reserva_info_pastis'];
+                                            ?>
+                                            <label for="INFO_PASTIS" class="pastis_toggle" style="margin-left:25px;">
+                                                <?php l("INFO_PASTIS")?>
+                                            </label>
+                                            <textarea id="INFO_PASTIS" name="INFO_PASTIS" style="margin-left:25px;" class="pastis_toggle">
+                                                <?php echo $pastis_info ?>
+                                            </textarea>
 						<table id="caixa-carta" class="col_dere">
 							<tr>
 								<td class="mesX"></td>

@@ -59,6 +59,8 @@ ni en el cas que canvieu el nombre de comensals en confirmar la reserva.
 $translate['INFO_COMANDA_GRUPS']="Per les reserves de grups has d'escollir, com a mínim, un menú per cada comensal (comptant adults, juniors nens)";
 $translate['MENUS_COMENSALS']="Has d'escollir tants menús com comensals (adults + juniors + nens)";
 
+
+
 // LLISTAT MENUS
 
 /*******************************************************************************************/

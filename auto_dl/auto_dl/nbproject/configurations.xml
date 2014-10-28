@@ -39,7 +39,7 @@
       </toolsSet>
       <compileType>
         <linkerTool>
-          <commandLine>-mwindows -lcurl -lboost_system-mt -lpthread -std=gnu++11</commandLine>
+          <commandLine>-mwindows -lcurl -lboost_system-mt -lpthread -std=gnu++11 -m32</commandLine>
         </linkerTool>
       </compileType>
       <item path="canborrell_download.cfg" ex="false" tool="3" flavor2="0">

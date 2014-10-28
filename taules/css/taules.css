@@ -4,7 +4,7 @@ html, body {margin:0;font-family:verdana,arial;width:980px;margin:0 auto;}
 .dev{background-image:url(obres.png)}
 .local{background-image:url(local.png)}
 
-em{color:#777777;font-size:0.9em}
+em, .fluixet{color:#777777;font-size:0.9em}
 
 .amagat{display:none}
 .block{display:block}

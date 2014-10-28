@@ -24,6 +24,8 @@ $translate['INFO_QUANTS_SOU_GRUPS']='<b>Dinos cuantas personas vendrán,</b> ind
 Para vegetarianos disponemos de un menú de verduras a la brasa por 25€. Añade un comentario en el campo <b>Observaciones</b>, en el siguiente paso, para hacérnoslo saber.';
      
 
+        
+        
 $translate['Escull el menú']='Escoge el menú';
 $translate['Menú per a adults']='Menú para adultos';
 $translate['Menú per a juniors']='Menú para juniors (niños de 10 a 14 años)';

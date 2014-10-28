@@ -129,7 +129,6 @@ require_once('translate_grups_'.$gestor->lng.'.php');
 
 </head>
 <body style="display:none" class="<?php echo DEV?" dev ":""; echo LOCAL?" local ":"" ?>">
-
 <table bgcolor="#F8F8F0" cellpadding="0" cellspacing="0"   border="0" align="center">
 	<tr height="114">
 		<td  id="poma-fons"  colspan="2" align="RIGHT"><a HREF="../index.htm">

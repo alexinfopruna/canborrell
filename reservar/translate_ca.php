@@ -158,6 +158,10 @@ $translate['Formulari de contacte']="Formulari de contacte";
 
        
 
+$translate['RESERVA_PASTIS']='<span class="pastis">Vols pastís de celebració?</span><br>'
+        . '<span style="font-style: italic;">Pastís de la casa tipus Massini, ració = 3,60€ / pastís 500g (6 a8 raciones)=21.60€ / pastis 1000g (12 a 15 raciones) = 43.20 </span>';
+//$translate['RESERVA_PASTIS']="Voldràs pastís de celebració (Pastís de la casa tipus Massini)";
+$translate['INFO_PASTIS']="Comentaris pel pastís (Què celebreu?, Si és un aniversari, quants anys?)";
 
 
 /****************************************************************************************************/	

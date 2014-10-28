@@ -1,24 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
-    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="14">
-        <file>
-            <url>reservar/js/form_reserves.js</url>
-            <bookmark id="8">
-                <name/>
-                <line>250</line>
-                <key/>
-            </bookmark>
-            <bookmark id="14">
-                <name/>
-                <line>845</line>
-                <key/>
-            </bookmark>
-            <bookmark id="9">
-                <name/>
-                <line>945</line>
-                <key/>
-            </bookmark>
-        </file>
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="16">
         <file>
             <url>reservar/js/form_reserves_grups.js</url>
             <bookmark id="1">
@@ -34,14 +16,24 @@
         </file>
         <file>
             <url>reservar/Gestor_form.php</url>
+            <bookmark id="16">
+                <name/>
+                <line>287</line>
+                <key/>
+            </bookmark>
             <bookmark id="10">
                 <name/>
-                <line>496</line>
+                <line>497</line>
                 <key/>
             </bookmark>
             <bookmark id="11">
                 <name/>
-                <line>612</line>
+                <line>613</line>
+                <key/>
+            </bookmark>
+            <bookmark id="15">
+                <name/>
+                <line>890</line>
                 <key/>
             </bookmark>
         </file>
@@ -68,14 +60,26 @@
                 <key/>
             </bookmark>
         </file>
+        <file>
+            <url>reservar/js/form_reserves.js</url>
+            <bookmark id="8">
+                <name/>
+                <line>250</line>
+                <key/>
+            </bookmark>
+            <bookmark id="14">
+                <name/>
+                <line>845</line>
+                <key/>
+            </bookmark>
+            <bookmark id="9">
+                <name/>
+                <line>945</line>
+                <key/>
+            </bookmark>
+        </file>
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group>
-            <file>file:/C:/xampp/htdocs/cbdev.can-borrell.com/taules/.htaccess</file>
-            <file>file:/C:/xampp/htdocs/cbdev.can-borrell.com/taules/index.php</file>
-            <file>file:/C:/xampp/htdocs/cbdev.can-borrell.com/taules/last_access</file>
-            <file>file:/C:/xampp/htdocs/cbdev.can-borrell.com/taules/js/taules.js</file>
-            <file>file:/C:/xampp/htdocs/cbdev.can-borrell.com/taules/js/as3.js</file>
-        </group>
+        <group/>
     </open-files>
 </project-private>

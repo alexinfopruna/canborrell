@@ -4,7 +4,7 @@ if (!defined('ROOT')) define('ROOT', "");
 require_once(ROOT."Gestor.php");
 
 if (!defined('LLISTA_DIES_NEGRA')) define("LLISTA_DIES_NEGRA",INC_FILE_PATH."llista_dies_negra.txt");
-if (!defined('LLISTA_NITS_NEGRA')) define("LLISTA_DIES_NEGRA",INC_FILE_PATH."llista_dies_negra.txt");
+if (!defined('LLISTA_NITS_NEGRA')) define("LLISTA_NITS_NEGRA",INC_FILE_PATH."llista_dies_negra.txt");
 if (!defined('LLISTA_DIES_BLANCA')) define("LLISTA_DIES_BLANCA",INC_FILE_PATH."llista_dies_blanca.txt");
 
 require_once(ROOT."Menjador.php");
@@ -362,7 +362,8 @@ class gestor_reserves extends Gestor
     /***/
     
     $insertSQL = sprintf("INSERT INTO ".T_RESERVES." ( id_reserva, client_id, data, hora, adults, 
-      nens4_9, nens10_14, cotxets, observacions, resposta, estat, usuari_creacio, reserva_navegador, reserva_info) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)",
+      nens4_9, nens10_14, cotxets, reserva_pastis, reserva_info_pastis, observacions, resposta, estat, usuari_creacio, reserva_navegador, reserva_info) 
+      VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)",
                  $this->SQLVal($_POST['id_reserva'], "text"),
                 $this->SQLVal($_POST['client_id'], "text"),
                  $this->SQLVal($_POST['data'], "datePHP"),
@@ -371,6 +372,8 @@ class gestor_reserves extends Gestor
                  $this->SQLVal($_POST['nens4_9'], "zero"),
                  $this->SQLVal($_POST['nens10_14'], "zero"),
                  $this->SQLVal($_POST['cotxets'], "zero"),
+                 $this->SQLVal($_POST['RESERVA_PASTIS']=='on', "zero"),
+                 $this->SQLVal($_POST['INFO_PASTIS'], "text"),
                  $this->SQLVal($_POST['observacions'], "text"),
                  $this->SQLVal($_POST['resposta'], "text"),
                  $this->SQLVal(100, "text"),
@@ -501,7 +504,7 @@ class gestor_reserves extends Gestor
          * 
          */
       $updateSQL = sprintf("UPDATE ".T_RESERVES." SET  id_reserva=%s, client_id=%s, data=%s, hora=%s, adults=%s,nens4_9=%s, 
-      nens10_14 = %s, cotxets = % s, observacions = %s, resposta = %s, estat=%s, reserva_info=%s WHERE id_reserva=%s",
+      nens10_14 = %s, cotxets = % s, reserva_pastis= %s, reserva_info_pastis = %s, observacions = %s, resposta = %s, estat=%s, reserva_info=%s WHERE id_reserva=%s",
                  $this->SQLVal($_POST['id_reserva'], "text"),
                 $this->SQLVal($_POST['client_id'], "text"),
                  $this->SQLVal($_POST['data'], "datePHP"),
@@ -510,6 +513,8 @@ class gestor_reserves extends Gestor
                  $this->SQLVal($_POST['nens4_9'], "text"),
                  $this->SQLVal($_POST['nens10_14'], "text"),
                  $this->SQLVal($_POST['cotxets'], "text"),
+                 $this->SQLVal($_POST['RESERVA_PASTIS']=='on'?1:0, "zero"),
+                 $this->SQLVal($_POST['INFO_PASTIS'], "text"),
                  $this->SQLVal($_POST['observacions'], "text"),
                  $this->SQLVal($_POST['resposta'], "text"),
                  $this->SQLVal(100, "text"),
@@ -568,6 +573,7 @@ class gestor_reserves extends Gestor
                 mysql_query("START TRANSACTION");    
                $observacions=Gestor::SQLVal($_POST['observacions']);
                $_POST['cotxets']=$_POST['cotxets']?$_POST['cotxets']:0;
+                $_POST['RESERVA_PASTIS']=($_POST['RESERVA_PASTIS']=='on')?1:0;
                 //ELIMINA LA RESERVA DE LA TAULA VELLA
                 $query="UPDATE ".T_RESERVES." 
                 SET data='$data',
@@ -577,10 +583,13 @@ class gestor_reserves extends Gestor
                 nens4_9={$_POST['nens4_9']},
                 cotxets={$_POST['cotxets']},
 
+                reserva_pastis={$_POST['RESERVA_PASTIS']},
+                reserva_info_pastis='{$_POST['INFO_PASTIS']}',
+
                 observacions={$observacions},      
                 resposta='{$_POST['resposta']}'      
                 WHERE id_reserva=$reserva"; 
-                //echo $query;
+               //echo $query;
                 $result = $this->log_mysql_query($query, $this->connexioDB) or  $rollback = mysql_query("ROLLBACK").$query;
                  $this->reg_log("PERMUTA ($reserva): ACTUALITZO RESERVA (data,hora) >> ".($this->qry_result?"OK":"KO"));
                 if (!$result)   $rollback = mysql_query("ROLLBACK").$query;     
@@ -588,6 +597,7 @@ class gestor_reserves extends Gestor
                 //ACTUALITZA DADES DE LA RESERVA
                 $query="UPDATE ".ESTAT_TAULES." SET reserva_id=0
                 WHERE reserva_id=$reserva"; 
+                
                 $result = $this->log_mysql_query($query, $this->connexioDB) or  $rollback = mysql_query("ROLLBACK").$query;
                  $this->reg_log("PERMUTA ($reserva): ELIMINO LA RESERVA DE L'ESTAT ORIGEN >> ".($this->qry_result?"OK":"KO"));
                 if (!$result)   $rollback = mysql_query("ROLLBACK").$query;     

@@ -60,7 +60,7 @@ LDLIBSOPTIONS=
 
 ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/auto_dl.exe: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
-	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/auto_dl ${OBJECTFILES} ${LDLIBSOPTIONS} -mwindows -lcurl -lboost_system-mt -lpthread -std=gnu++11
+	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/auto_dl ${OBJECTFILES} ${LDLIBSOPTIONS} -mwindows -lcurl -lboost_system-mt -lpthread -std=gnu++11 -m32
 
 ${OBJECTDIR}/main.o: main.cpp 
 	${MKDIR} -p ${OBJECTDIR}

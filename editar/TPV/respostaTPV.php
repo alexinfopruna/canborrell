@@ -16,7 +16,7 @@
 if (!defined('ROOT')) define('ROOT', "../../taules/");
 require(ROOT."Gestor.php");
 require(ROOT."gestor_reserves.php");
-
+echo "RAwwA";die();
 if (isset($_REQUEST['testTPV'])) $testTPV=$_REQUEST['testTPV'];
 else $testTPV=false; //Simula enviament mails, però no envia realment
 $ini_file = ROOT.INC_FILE_PATH."log/logTPV.txt";	
@@ -61,7 +61,7 @@ $signature = strtoupper(sha1($message));
 /////////////////
 if ($testTPV)
 {
-	$test_mail=isset($_REQUEST['testMAIL'])?$_REQUEST['testMAIL']:null;
+	$test_mail=isset($_REQUEST['testMAIL'])?$_REQUEST['testMAIL']:FALSE;
 	if ($_GET["sig"]=="OK") $signature=$_POST["Ds_Signature"];
 
 	$_POST["Ds_Response"]="000";
@@ -79,7 +79,7 @@ if ($testTPV)
 
 	$k=substr($_POST["Ds_Order"],6,6);
 	$id=(int)($k)-100000;
-
+echo "RAA";die();
 /////////////////
 /////////////////
 /////////////////
@@ -101,7 +101,7 @@ $lang=((int)$_POST["Ds_ConsumerLanguage"])==3?$lang="cat":$lang="esp";
 
 
 $query="UPDATE reserves SET estat=7 WHERE id_reserva=$id";
-
+echo "AKIII1";
 fwrite($fp, $txxt);
 fwrite($fp, ">> Hora TPV: ".$_POST["Ds_Date"]." ".$_POST["Ds_Hour"]."\n");
 fwrite($fp, ">> Import: ".$_POST["Ds_Amount"]."\n");
@@ -129,11 +129,13 @@ if (($_POST["Ds_Signature"]==$signature) && ($resposta>=0) && ($resposta<=99))
    {
     fwrite($fp, ">> PAGAMENT TARJA id: $id >> QUERY: ERROR EXECUTANT QUERY\n"); }
 
-    fwrite($fp,"PAGAMENT RESERVA INI ENVIO MAILCLI: $id\n");
-    mail_cli($id, $lang); 
+   fwrite($fp,"PAGAMENT RESERVA INI ENVIO MAILCLI: $id\n");
+    $r=mail_cli($id, $lang); 
+    fwrite($fp,"RESULTAT: $r\n");
     fwrite($fp,"PAGAMENT RESERVA INI ENVIO MAIL_REST: $id\n");
-    mail_restaurant($id);
-}
+    $r=mail_restaurant($id);
+    fwrite($fp,"RESULTAT: $r\n");
+} 	
 else
 {
 	if ($_POST["Ds_Signature"]!=$signature)     fwrite($fp, ">> ERROR SIGNATURE "); 
@@ -264,7 +266,6 @@ function mail_cli($id=false,$lang="esp")
 	$recipient=$fila['email'];
     $subject="Can-Borrell: CONFIRMACIÓ DE PAGAMENT DE RESERVA PER GRUP";
     $altbdy="El pago de la reserva se ha realizado correctamente.";
-
 		$r=mailer($recipient, $subject , $html, $altbdy,$attach,$test_mail)?"...OK":"KO!!!!";
 		if ($test_mail) $r="OK_TEST";
     $nreserva=$fila['id_reserva'];

@@ -50,12 +50,15 @@ class Gestor_form extends gestor_reserves
 		AND ".T_RESERVES.".id_reserva='".$id_reserva."' AND client_mobil='".$mob."'";
 
 		$this->qry_result = mysql_query($query, $this->connexioDB) or die(mysql_error());
-		if ($this->total_rows = mysql_num_rows($this->qry_result))	
+
+                if ($this->total_rows = mysql_num_rows($this->qry_result))	
 		{
 			$this->last_row = mysql_fetch_assoc($this->qry_result);
 			$usr=new Usuari($this->last_row['client_id'],$this->last_row['client_nom'],1);
 			$_SESSION['uSer']=$usr;
 
+                       
+                        
 			return $this->last_row;
 		}
 		
@@ -285,7 +288,7 @@ ORDER BY carta_subfamilia_order,carta_plats_nom_es , carta_plats_nom_ca";
 </td>
 				<td class="menys"><div  class="d-menys ui-corner-all" ><a href"#">-</a></div></td>
 				<td class="borra" style="display:none"></td>
-				<td class="resum-carta-nom" href="Gestor_form.php?a=TTmenu&b='.$val['id'].'">'.$val['nom'].'</td>
+				<td><a class="resum-carta-nom" href="Gestor_form.php?a=TTmenu&b='.$val['id'].'" >'.$val['nom'].'</a></td>
 				<td class="td-carta-preu"><span class="carta-preu">'.$preu.'</span>&euro; </td>
 				<!--<td class="carta-subtotal"><em>(subtotal: <span class="carta-preu-subtotal">0</span>&euro; )</em></td></tr>-->
                                            
@@ -349,7 +352,8 @@ FROM client
 	if ($this->garjola($num,$mail)){
 		if ($row['id_reserva_grup']) $row['data']=$row['data_grup'];
 		$row['data']=$this->cambiaf_a_normal($row['data']);
-		$row['err']="21"." $num $mail";
+		//$row['err']="21"." $num $mail";
+		$row['err']="21";
 	}
 /* TRAMPA PER FER PROVES!!!!	*/
 	if ($num=="999212121")
@@ -494,12 +498,16 @@ public function submit()
 		}
 	//INSERT INTO RESERVES TAULES
 		if (!isset($_POST['resposta'])) $_POST['resposta'] = '';
+                if (!isset($_POST['RESERVA_PASTIS'])) $_POST['INFO_PASTIS']=NULL;
+                
 		$estat=$this->paga_i_senyal($coberts)?2:100;
 		//$import_reserva=$this->configVars("import_paga_i_senyal");
 		$import_reserva=0;
                 
 		$insertSQL = sprintf("INSERT INTO ".T_RESERVES." ( id_reserva, client_id, data, hora, adults, 
-		  nens4_9, nens10_14, cotxets,lang,observacions, resposta, estat, preu_reserva, usuari_creacio, reserva_navegador, reserva_info) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)",
+		  nens4_9, nens10_14, cotxets,lang,observacions, reserva_pastis, reserva_info_pastis,
+                  resposta, estat, preu_reserva, usuari_creacio, 
+                  reserva_navegador, reserva_info) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)",
 							   $this->SQLVal($_POST['id_reserva'], "text"),
 							  $this->SQLVal($idc, "text"),
 							   $this->SQLVal($_POST['selectorData'], "datePHP"),
@@ -509,8 +517,12 @@ public function submit()
 							   $this->SQLVal($_POST['selectorJuniors'], "zero"),
 							   $this->SQLVal($_POST['selectorCotxets'], "zero"),
  							   $this->SQLVal($_POST['lang'], "text"),							   
-		             $this->SQLVal($_POST['observacions'], "text"),
+                                                            $this->SQLVal($_POST['observacions'], "text"),
 							  
+                                                           $this->SQLVal($_POST['RESERVA_PASTIS']=='on', "zero"),
+                                                           $this->SQLVal($_POST['INFO_PASTIS'], "text"),
+                        
+                        
 							   $this->SQLVal($_POST['resposta'], "text"),
 							   $this->SQLVal($estat, "text"),
 							   $this->SQLVal($import_reserva, "text"),
@@ -887,6 +899,7 @@ WHERE  `client`.`client_id` =$idc;
 	/**********************************************************************************************************/	
 	public function TTmenu($id) //over
 	{
+           
 		require_once(ROOT."Carta.php");
 		$carta=new Carta();
 		
@@ -1109,7 +1122,7 @@ WHERE  `client`.`client_id` =$idc;
                $estat=  mysql_result($result, 0);
                if ($estat!=2) die("Aquesta reserva no està pendent de pagament");
                
-               $resposta="PAGA TARJA ";
+               $resposta="TEST!!!! PAGA TARJA ";
                $query="UPDATE ".T_RESERVES." SET estat=100,resposta='$resposta' WHERE id_reserva=$idr";
                echo $query;
                echo "<br><br>";

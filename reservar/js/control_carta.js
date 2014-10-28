@@ -49,8 +49,7 @@ $(function(){
 		$( "#fr-menu-tabs" ).tabs( "option", "selected", 0 );
 		return false;
 	});
-        
-        $("#carta_MENUS .resum-carta-nom").tooltip({cssClass:"tooltip-red",delay : 100});
+    $("#carta_MENUS .resum-carta-nom").tooltip({cssClass:"tooltip-red",delay : 100});
         
        
 //CONTROL CARTA	

@@ -548,7 +548,7 @@ $(function() {
         comprova_refresh();
     });
 
-
+onNovaReserva();
 }); // FINAL READY
 
 
@@ -919,6 +919,13 @@ function addHandlersEditReserva()
     });
 
     $(document).oneTime(3000, 'missatgeLlegit', missatgeLlegit);
+    
+    $('#updata_resRESERVA_PASTIS').button();/**/
+    $('#updata_resRESERVA_PASTIS').change(function () {                
+     $('.pastis_toggle').toggle(this.checked);
+     $('#label-pastis').toggleClass("fluixet",!this.checked);
+  }).change(); //ensure visible state matches initially
+
 }
 
 function reservaEntrada()
@@ -999,11 +1006,11 @@ function onClickAmpliaReserva()
 
     $(".fr").mouseover(function() {
         taulaSel = $(this).attr("taula");
-        getFlashMovie("flash").seleccionaTaula(taulaSel);
+        if (typeof getFlashMovie("flash") === "undefined")        getFlashMovie("flash").seleccionaTaula(taulaSel);
     });
     $(".fr").mouseout(function() {
         taulaSel = $(this).attr("taula");
-        getFlashMovie("flash").seleccionaTaula(0);
+         if (typeof getFlashMovie("flash") === "undefined")         getFlashMovie("flash").seleccionaTaula(0);
     });
     $(".fr").click(obreDetallReserva);
 
@@ -1151,6 +1158,15 @@ function onNovaReserva()
     }
     $('#insertReserva').dialog('open');
     $("#autoc_client_inserta_res").focus();
+    
+    $('#inserta_resRESERVA_PASTIS').button();
+        $('#inserta_resRESERVA_PASTIS').change(function () {                
+     $('.pastis_toggle').toggle(this.checked);
+     $('#label-pastis').toggleClass("fluixet",!this.checked);
+  }).change(); //ensure visible state matches initially
+
+
+    
 }
 ;
 

@@ -50,8 +50,12 @@ function mailer($addr,$subject,$body,$altbody,$attach=null, $test=false, $cco=nu
   if ($attach) $mail->AddAttachment($attach,basename($attach));
  
   $occo='';
+  print_log("TEST".$test);
+  print_log("ENVIA".(ENVIA_MAILS?"SI":"NO"));
+  
   if ($test || ENVIA_MAILS===false)
   {
+      
 	  $exito=true;
 	  $o='<meta http-equiv="Content-Type" content="text/html; charset=utf-8" pageEncoding="UTF-8"/>';
 	  $o.= "<br/>charset=".CHARSET." *** mailer: ".$mail->CharSet."<br/>";
@@ -70,7 +74,7 @@ function mailer($addr,$subject,$body,$altbody,$attach=null, $test=false, $cco=nu
    {
 	  $exito = $mail->Send();
 	}
-
+/*
   $intentos=0; 
   while ((!$exito) && ($intentos < 3)) {
 		if (true) 
@@ -80,7 +84,7 @@ function mailer($addr,$subject,$body,$altbody,$attach=null, $test=false, $cco=nu
 		}
      	$intentos=$intentos+1;	
    }
-   
+ */  
    
    
    
@@ -102,7 +106,8 @@ function mailer($addr,$subject,$body,$altbody,$attach=null, $test=false, $cco=nu
       
      if(!$exito)
    {
-      print_log("<span style='color:red'>MAILER ERROR:</span> Enviat mail TO:$addr $cco SUBJECT: $subject");
+         $err=$mail->ErrorInfo;
+      print_log("<span style='color:red'>MAILER ERROR:$err - </span> Enviat mail TO:$addr $cco SUBJECT: $subject");
       return false;
    }
    else

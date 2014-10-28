@@ -320,8 +320,8 @@ std::string iniciaSessio() {
         //cout << "............." << login_url << endl;
         res = curl_easy_perform(curl);
         if (res != CURLE_OK) {
-            MessageBoxA(Hwnd, "Error de connexió", "Error!", MB_OK | MB_ICONINFORMATION);
-            fprintf(stderr, "Error de connexió: %s\n",
+            MessageBoxA(Hwnd, "Error de connexio", "Can Borrell Auto-Descarrega!", MB_OK | MB_ICONINFORMATION);
+            fprintf(stderr, "Error de connexio: %s\n",
                     curl_easy_strerror(res));
             return "";
 

@@ -223,6 +223,9 @@ $translate['INFO_CONTACTE_HOME']="Utiliza este formulario para cualquier duda o 
 $translate['INFO_TEL']="Si tienes alguna incidencia que no puedas solucionar desde nuestros formularios, puedes llamarnos al 936929723 / 936910605 / Fax: 936924057";
 $translate['Formulari de contacte']="Formulario de contacto";
        
+$translate['RESERVA_PASTIS']='<span class="pastis">¿Quieres pastel de celebración?</span><br>'
+        . '<span style="font-style: italic;">Pastel de la casa tipo Massini, ración = 3,60€ / pastel 500g (6 a8 raciones)=21.60€ / pastel 1000g (12 a 15 raciones) = 43.20 </span>';
+$translate['INFO_PASTIS']="<br/><br/>Comentarios pel pastel (¿Qué celebráis?, ¿Si es un cumpleañoscuántos años?)";
 
 /****************************************************************************************************/	
 /*******************************************************     JS   ***********************************/	

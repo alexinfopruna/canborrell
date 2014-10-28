@@ -9,8 +9,8 @@
 
 /**********************************************************************************************************************/
 // SI VOLEM UN HANDLER D'ERRORS
-//ini_set('display_errors','Off');
-//ini_set('error_reporting',0);
+ini_set('display_errors','Off');
+ini_set('error_reporting',0);
 //require_once("errorHandler.php"); // DEBUG, MOSTRAR ERRORS I NOTICES
 /**********************************************************************************************************************/
 
@@ -81,7 +81,7 @@ class Gestor
 	protected function __construct($fitxer_dades_conn="FITXER DADES DB SENSE DEFINIR",$usuari_minim=-1)
 	{			
 		if ($usuari_minim==-1) $usuari_minim=$this->PERMISOS;
-		define('PERMISOS',$usuari_minim);
+		if (!defined('PERMISOS')) define('PERMISOS',$usuari_minim);
 		$this->conf=new Configuracio();
 		$this->connectaBD();	
 		$_SESSION['admin_id']='0';
@@ -148,6 +148,7 @@ class Gestor
 		$a=isset($_SESSION['uSer']);
 		$b=!empty($_SESSION['uSer']);
 		//$sessuser=unserialize($_SESSION['uSer']);
+                
 		$sessuser=$_SESSION['uSer'];
 		$c=$sessuser->id;
 		$d=($_COOKIE['tok']==$sessuser->tok);

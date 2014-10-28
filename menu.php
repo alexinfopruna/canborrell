@@ -40,7 +40,7 @@
 		
 		$self=substr($self,0,strlen($dest));
 		
-		if ($dest==$self) $class='menu-active';
+		$class=($dest==$self)?'menu-active':'';
 		echo ' href="'.$ruta_lang.$desti.'" class="'.$class.'" ';
 	}
 ?>

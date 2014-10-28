@@ -31,8 +31,8 @@ img{border-style: none;}
 .col-dere{width:500px;float:left;}
 .fr-seccio-carta .ui-button{width:170px;}
 #bt-no-carta{color:#570600}
-#bt-carta{color:#570600;float:right;margin-top:8px;}
-#bt-menu{color:#570600;float:right;margin-top:8px;margin-bottom:8px;}
+#bt-carta{color:#570600;margin-top:8px;}
+#bt-menu{color:#570600;margin-top:8px;margin-bottom:8px;}
 /*	#bt-carta:hover,#bt-no-carta:hover{color:white;}*/
 /*	#bt-menu:hover,#bt-no-menu:hover{color:white;}*/
 
@@ -276,7 +276,10 @@ em.error {
 
 #help{font-size:1.4em}
 
-.tooltip-red{z-index:1100 !important;}
+.tooltip-red{z-index:2100 !important;}
+        .item-carta a:link, .item-carta a:visited{
+            color: #570600
+        }
 
 /* ESTILS.CSS*/
 a:link
@@ -478,3 +481,4 @@ h4{padding-top: 15px;}
  .paga{background:rgb(255, 255, 161);padding:4px;}
  
 .info-paga-i-senyal{background:rgb(255, 255, 161);padding:4px;}
+.pastis{background:rgb(255, 255, 161);padding:4px;}

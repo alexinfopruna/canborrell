@@ -1,5 +1,8 @@
 <?php
 //MENU
+if (!defined('TRANSLATE_DEBUG')) define('TRANSLATE_DEBUG', FALSE);
+
+
 	$translate['CAN BORRELL']='CAN BORRELL';
 
 	$translate['FOTOS-VIDEO']='FOTOS-VÍDEO';
@@ -27,6 +30,7 @@ function l($text,$echo=true)
 {
 	global $translate;//	return $translate[$text];
 	global $notrans;
+        
 	if (TRANSLATE_DEBUG)
 	{
 		/*

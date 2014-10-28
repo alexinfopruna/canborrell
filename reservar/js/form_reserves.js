@@ -219,6 +219,12 @@ $('*').bind('blur change click dblclick error focus focusin focusout keydown key
 
 });
 
+$('.pastis_toggle').toggle($('#RESERVA_PASTIS').prop("checked"));
+$('#RESERVA_PASTIS').change(function () {                
+     $('.pastis_toggle').toggle(this.checked);
+  }).change(); //ensure visible state matches initially
+
+
 
 }); //ONLOAD, PRESENTACIO UI
 /************************************************************************************************************/
