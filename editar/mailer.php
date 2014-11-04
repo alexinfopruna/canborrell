@@ -87,7 +87,7 @@ function mailer($addr,$subject,$body,$altbody,$attach=null, $test=false, $cco=nu
  */  
    
    
-   
+   if ($cco == $addr) $cco=NULL;
    if ($cco) {
        $mail->ClearAllRecipients(); 
                $mail->AddAddress($cco);

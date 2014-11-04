@@ -2,6 +2,24 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="16">
         <file>
+            <url>reservar/js/form_reserves.js</url>
+            <bookmark id="8">
+                <name/>
+                <line>256</line>
+                <key/>
+            </bookmark>
+            <bookmark id="14">
+                <name/>
+                <line>851</line>
+                <key/>
+            </bookmark>
+            <bookmark id="9">
+                <name/>
+                <line>951</line>
+                <key/>
+            </bookmark>
+        </file>
+        <file>
             <url>reservar/js/form_reserves_grups.js</url>
             <bookmark id="1">
                 <name/>
@@ -18,22 +36,22 @@
             <url>reservar/Gestor_form.php</url>
             <bookmark id="16">
                 <name/>
-                <line>287</line>
+                <line>290</line>
                 <key/>
             </bookmark>
             <bookmark id="10">
                 <name/>
-                <line>497</line>
+                <line>502</line>
                 <key/>
             </bookmark>
             <bookmark id="11">
                 <name/>
-                <line>613</line>
+                <line>624</line>
                 <key/>
             </bookmark>
             <bookmark id="15">
                 <name/>
-                <line>890</line>
+                <line>901</line>
                 <key/>
             </bookmark>
         </file>
@@ -46,35 +64,17 @@
             </bookmark>
             <bookmark id="5">
                 <name/>
-                <line>871</line>
+                <line>881</line>
                 <key/>
             </bookmark>
             <bookmark id="6">
                 <name/>
-                <line>1500</line>
+                <line>1510</line>
                 <key/>
             </bookmark>
             <bookmark id="7">
                 <name/>
-                <line>1554</line>
-                <key/>
-            </bookmark>
-        </file>
-        <file>
-            <url>reservar/js/form_reserves.js</url>
-            <bookmark id="8">
-                <name/>
-                <line>250</line>
-                <key/>
-            </bookmark>
-            <bookmark id="14">
-                <name/>
-                <line>845</line>
-                <key/>
-            </bookmark>
-            <bookmark id="9">
-                <name/>
-                <line>945</line>
+                <line>1564</line>
                 <key/>
             </bookmark>
         </file>

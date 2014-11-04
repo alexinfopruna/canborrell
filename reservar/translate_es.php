@@ -224,8 +224,8 @@ $translate['INFO_TEL']="Si tienes alguna incidencia que no puedas solucionar des
 $translate['Formulari de contacte']="Formulario de contacto";
        
 $translate['RESERVA_PASTIS']='<span class="pastis">¿Quieres pastel de celebración?</span><br>'
-        . '<span style="font-style: italic;">Pastel de la casa tipo Massini, ración = 3,60€ / pastel 500g (6 a8 raciones)=21.60€ / pastel 1000g (12 a 15 raciones) = 43.20 </span>';
-$translate['INFO_PASTIS']="<br/><br/>Comentarios pel pastel (¿Qué celebráis?, ¿Si es un cumpleañoscuántos años?)";
+        . '<span style="font-style: italic;">Pastel de la casa tipo Massini, pastel 500g (5 a 8 raciones) = 23.70€ / pastel 1000g (10 a 14 raciones) = 37.80 </span>';
+$translate['INFO_PASTIS']="<br/><br/>Comentarios pel pastel (¿Qué celebráis?, ¿Si es un cumpleaños, cuántos años?)";
 
 /****************************************************************************************************/	
 /*******************************************************     JS   ***********************************/	

@@ -500,7 +500,7 @@ function comportamentClient()
                         $(".fr-seccio-submit").css("display","block");
                         $(".fr-seccio-submit").css("visibility","visible");
 *****/
-    
+        $("#bt-no-carta").hide();
 	$("input[name='client_mobil']").change(function(){		
 		var n=$("input[name='client_mobil']").val();
 		if (n.length>=9 && isNumber(n)) 	updateClient();
@@ -759,7 +759,7 @@ function validacio()
 			totalComensals: {
 				required: true,
 				min: 2,
-				max: PERSONES_GRUP
+				max: PERSONES_GRUP-1
 			},
 			valida_calendari:"required",
 			hora: "required",
@@ -778,7 +778,7 @@ function validacio()
 			totalComensals: {
 				required: l("TOTAL!!!"),
 				min: l("Selecciona, com a a mínim, dos adults"),
-				max: l("Si sou més de "+PERSONES_GRUP+" comensals, selecciona la reserva per GRUPS")
+				max: l("Si sou més de "+(PERSONES_GRUP-1)+" comensals, selecciona la reserva per GRUPS")
 			},
 			valida_calendari:l("Cal que indiquis el dia"),
 			hora: l("Selecciona l´hora"), 
@@ -913,7 +913,8 @@ function controlSubmit()
 			else 
 			{
 				var err="Error de servidor";
-				if (obj && obj.error) err=obj.error+"\n "+l("err"+obj.error)+" \n\n"+l("err_contacti");
+				//if (obj && obj.error) err=obj.error+"\n "+l("err"+obj.error)+" \n\n"+l("err_contacti");
+				if (obj && obj.error) err=obj.error+"\n <br>"+l(obj.error)+" <br><br>\n\n"+l("err_contacti");
 				if (obj.error=="err10") return;//DOBLE SUBMIT?????????
 				$("#popup").html("ERROR: "+err);
 				$('#submit').show();

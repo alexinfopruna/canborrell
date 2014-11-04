@@ -159,7 +159,7 @@ $translate['Formulari de contacte']="Formulari de contacte";
        
 
 $translate['RESERVA_PASTIS']='<span class="pastis">Vols pastís de celebració?</span><br>'
-        . '<span style="font-style: italic;">Pastís de la casa tipus Massini, ració = 3,60€ / pastís 500g (6 a8 raciones)=21.60€ / pastis 1000g (12 a 15 raciones) = 43.20 </span>';
+        . '<span style="font-style: italic;">Pastís de la casa tipus Massini, pastís 500g (5 a 8 raciones) = 23.70€ / pastis 1000g (10 a 14 raciones) = 37.80 </span>';
 //$translate['RESERVA_PASTIS']="Voldràs pastís de celebració (Pastís de la casa tipus Massini)";
 $translate['INFO_PASTIS']="Comentaris pel pastís (Què celebreu?, Si és un aniversari, quants anys?)";
 
@@ -176,7 +176,7 @@ $translate['INFO_PASTIS']="Comentaris pel pastís (Què celebreu?, Si és un ani
 // Es pot escriure tilde: ´
 
 $translateJS['HOLA']="hole";
-$translateJS['Hoe semtim.\n\nNo podem reservar per la data que ens demanes']='Ho semtim.\n\nNo podem reservar per la data que ens demanes';
+$translateJS['Ho semtim.\n\nNo podem reservar per la data que ens demanes']='Ho semtim.\n\nNo podem reservar per la data que ens demanes';
 $translateJS['NENS_COTXETS']='<b>La suma de nens més cotxets ha de ser el nombre real de nens que vindran</b><br/>No comptis un mateix nen com a menor de 9 i com a cotxet simultàniament. Per no duplicar places, si inclous un cotxet en el que s&#39;estarà un nen, no l&#39;anotis al grup anterior (Nens menors de 9 anys).';
 //$translateJS['OBSERVACIONS_COTXETS']='Cal que especifiquis els cotxets de nadó a la secció 1 del formulari.<br/><br/> No podem garantir l&#39;espai pels cotxets que indiquis a les observacions';
 $translateJS['OBSERVACIONS_COTXETS']='No tindrem en compte les indicacions que ens facis al camp observacions referents a coberts de nens/adults o cotxets de nadó'

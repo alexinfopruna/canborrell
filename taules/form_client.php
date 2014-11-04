@@ -35,18 +35,18 @@ else
 	 
 	  <tr valign="baseline">
 		<td nowrap="nowrap" align="right">Mòbil/Fixe 1:</td>
-		<td align="left"><input type="text" name="client_mobil" value="<?php echo ($row_client['client_mobil']); ?>" size="10"  class="required number"   title="Ha de ser numèric"/>
-	Mòbil/Fixe 2:<input type="text" name="client_telefon" value="<?php echo $row_client['client_telefon']; ?>" size="10" />
+		<td align="left"><input type="text" name="client_mobil"  tabindex="1"  value="<?php echo ($row_client['client_mobil']); ?>" size="10"  class="required number"   title="Ha de ser numèric"/>
+	Mòbil/Fixe 2:<input type="text" name="client_telefon"  tabindex="-1"  value="<?php echo $row_client['client_telefon']; ?>" size="10" />
 		</td>
 	  </tr>
 	  
 	  <tr valign="baseline">
 		<td nowrap="nowrap" align="right">cognoms:</td>
 		<td align="left">
-			<input type="text" name="client_cognoms" value="<?php echo $row_client['client_cognoms'] ?>" size="32"   class="required"  title="Has d´omplir aquest valor"/>
+			<input type="text" name="client_cognoms" tabindex="1" value="<?php echo $row_client['client_cognoms'] ?>" size="32"   class="required"  title="Has d´omplir aquest valor"/>
 		</td>
 	  </tr>
-	  
+	  <!---->
 	  <tr valign="baseline">
 		<td nowrap="nowrap" align="right">nom:</td>
 		<td align="left">

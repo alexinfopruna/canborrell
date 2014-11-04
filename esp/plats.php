@@ -32,6 +32,7 @@ function openFoto(url,target,width,height) {
 </SCRIPT>
 </HEAD>
 <BODY onload="loadXMLDoc()">
+    <A NAME="0">
 <CENTER>
 <TABLE BGCOLOR="#F8F8F0" CELLPADDING="0" CELLSPACING="0" WIDTH="775" HEIGHT="100%" BORDER="0">
 	<TR>
@@ -41,7 +42,7 @@ function openFoto(url,target,width,height) {
 		<TD id="td_menu" BGCOLOR="#570600" COLSPAN="2" ALIGN="CENTER">
 		<TABLE CELLPADDING="0" CELLSPACING="0" WIDTH="761" HEIGHT="18" BORDER="0">
 			<TR>
-				<TD><A HREF="index.html">CAN BORRELL</A> <IMG SRC="../img/separa_mn.gif" WIDTH="1" HEIGHT="8" BORDER="0"> <A HREF="fotos.html">FOTOS-VIDEO</A> <A NAME="0"><IMG SRC="../img/separa_mn.gif" WIDTH="1" HEIGHT="8" BORDER="0"></A> <FONT COLOR="#FFFFFF"><B>CARTA Y MEN&Uacute;</B></FONT> <IMG SRC="../img/separa_mn.gif" WIDTH="1" HEIGHT="8" BORDER="0">  <A HREF="on.html">MAPA</A> <IMG SRC="../img/separa_mn.gif" WIDTH="1" HEIGHT="8" BORDER="0"> <A HREF="excursions.html">EXCURSIONES</A> <IMG SRC="../img/separa_mn.gif" WIDTH="1" HEIGHT="8" BORDER="0"> <A HREF="historia.html">HISTORIA</A></TD>
+				<TD><A HREF="index.html">CAN BORRELL</A> <IMG SRC="../img/separa_mn.gif" WIDTH="1" HEIGHT="8" BORDER="0"> <A HREF="fotos.html">FOTOS-VIDEO</A> <A NAME="c0"><IMG SRC="../img/separa_mn.gif" WIDTH="1" HEIGHT="8" BORDER="0"></A> <FONT COLOR="#FFFFFF"><B>CARTA Y MEN&Uacute;</B></FONT> <IMG SRC="../img/separa_mn.gif" WIDTH="1" HEIGHT="8" BORDER="0">  <A HREF="on.html">MAPA</A> <IMG SRC="../img/separa_mn.gif" WIDTH="1" HEIGHT="8" BORDER="0"> <A HREF="excursions.html">EXCURSIONES</A> <IMG SRC="../img/separa_mn.gif" WIDTH="1" HEIGHT="8" BORDER="0"> <A HREF="historia.html">HISTORIA</A></TD>
 				<TD ALIGN="RIGHT"><A HREF="horaris.html">HORARIOS</A> <IMG SRC="../img/separa_mn.gif" WIDTH="1" HEIGHT="8" BORDER="0"> <A HREF="reserves.html">RESERVAS</A> <IMG SRC="../img/separa_mn.gif" WIDTH="1" HEIGHT="8" BORDER="0"> <A HREF="contactar.php">CONTACTAR</A></TD>
 			</TR>
 		</TABLE>
@@ -109,6 +110,12 @@ function openFoto(url,target,width,height) {
 			</TR>
 			<TR>
 				<TD CLASS="transparent"><A HREF="#9">Men&uacute; Bodas</A></TD>
+			</TR>
+			<TR>
+				<TD>&nbsp;</TD>
+			</TR>
+			<TR>
+				<TD CLASS="transparent"><A HREF="#90060">Men&uacute; Vegetariano</A></TD>
 			</TR>
 			<TR>
 				<TD>&nbsp;</TD>
@@ -526,7 +533,7 @@ Tarta Selva trufa<BR>
 <B>ENTRANTES</B>
 <UL>
   <strong>Variado de verduras</strong><br />
-  <i>(Plato por comensal) <br /><br />
+  <i>(Plato por comensal) </i><br /><br />
 	Escalivada<br />
 	Girgolas<br />
 	Esp&aacute;rragos <br />
@@ -590,7 +597,7 @@ Tarta Selva trufa<BR>
 <B>ENTRANTES</B>
 <UL>
 CAL&Ccedil;OTS (temporada)<BR>
-Incluye repetici&oacute;n<BR>
+Incluye repetici&oacute;n hasta 25 unidades<BR>
 &nbsp;<BR>
 Jud&iacute;as con tocino<BR>
 Patatas fritas<BR>
@@ -770,6 +777,45 @@ Agua y refrescos<BR>
 &nbsp;<BR>
 &nbsp;<BR>
 &nbsp;<BR>
+
+
+
+
+<A NAME="990060">&nbsp;</A><BR>
+<FONT CLASS="titol"><B>MEN&Uacute; VEGETARIANO</B></FONT>
+<HR SIZE="1">
+&nbsp;<BR>
+
+En este manú se puede elegir de primero y de segundo los siguientes platos: 
+<ul style="font-weight:800">
+<li>Xatonada</li>
+<li>Ensalada</li>
+<li>Girgolas</li>
+<li>Espárragos</li>
+<li>Escalivada</li>
+<li>Alcachofas (temporada)</li>
+<li>calçots (temporada) </li>
+<li>Parrillada de verduras</li>
+</ul>
+<BR>
+Incluyendo los acompañamientos (judias y patatas frits allioli pan tostado con tomate y ajo)
+<BR>
+<b>Bebida y cafés</b>
+
+<B>PRECIO</B>
+<UL>
+<BR><BR>
+<?php echo $carta->preuPlat(2021); ?>  Euros (IVA incluido)<BR>
+
+</UL>
+<A HREF="#0"><IMG SRC="../img/bt_amunt.gif" WIDTH="15" HEIGHT="15" BORDER="0" ALT="Amunt"></A><BR>
+&nbsp;<BR>
+&nbsp;<BR>
+&nbsp;<BR>
+
+
+
+
 <B>En todos los precios est&aacute; incluido el IVA</B><BR>
 Aceptamos tarjetas <B>Visa</B>, <B>Eurocard</B> y <B>Mastercard</B>.<BR>
 &nbsp;<BR>

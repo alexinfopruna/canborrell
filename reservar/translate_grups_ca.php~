@@ -553,21 +553,20 @@ Copa sorbet llimona<BR>
 	$translate['titol_menu_990060']=$translate['titol_menu_vegetaria']='MEN&Uacute; VEGETARIÀ';
 	$translate['menu_990060']=$translate['menu_vegetaria']='En aquest Menú es pot escollir de primer i de segon els següents plats: 
 <ul>
-<li>Xatonada</li>
-<li>Amanida</li>
-<li>Gírgoles</li>
-<li>Espàrrecs</li>
-<li>Escalivada</li>
-<li>Carxofes (temporada)</li>
-<li>Calçots (temporada) </li>
-<li>Graellada de verdures</li>
+<li>xatonada</li>
+<li>amanida</li>
+<li>gírgoles</li>
+<li>espàrrecs</li>
+<li>escalivada</li>
+<li>carxofes (temporada)</li>
+<li>calçots (temporada) </li>
+<li>graellada de verdures</li>
 <BR>
 
 Incloent-hi els complements (mongetes i patates fregides all i oli pa torrat amb tomàquet i alls, beguda i cafès
-<BR><BR>
 <B>PREU</B>
-
-
+<BR>
+<BR>
 
 {preu_990060} Euros (IVA incl&ograve;s)<BR>
 ';

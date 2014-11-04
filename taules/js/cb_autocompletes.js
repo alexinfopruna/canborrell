@@ -56,7 +56,7 @@ function cb_autocompletes(){
 		$("#campsClient input[name='client_mobil']",FORMULARI_INSERTA_RES).unbind("focus");
 	});
         a=this.value;
-        if (ui.item.label.substring(0,3)=="+++") 
+        if (ui.item.label.substring(0,3)=="xx+++") 
          {
                 $("#campsClient input", FORMULARI_INSERTA_RES).val("");
                 $("#campsClient input[name='client_cognoms']", FORMULARI_INSERTA_RES).val(ui.item.client_cognoms.toUpperCase());

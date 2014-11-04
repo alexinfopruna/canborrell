@@ -16,7 +16,7 @@
 if (!defined('ROOT')) define('ROOT', "../../taules/");
 require(ROOT."Gestor.php");
 require(ROOT."gestor_reserves.php");
-echo "RAwwA";die();
+
 if (isset($_REQUEST['testTPV'])) $testTPV=$_REQUEST['testTPV'];
 else $testTPV=false; //Simula enviament mails, però no envia realment
 $ini_file = ROOT.INC_FILE_PATH."log/logTPV.txt";	
@@ -79,7 +79,6 @@ if ($testTPV)
 
 	$k=substr($_POST["Ds_Order"],6,6);
 	$id=(int)($k)-100000;
-echo "RAA";die();
 /////////////////
 /////////////////
 /////////////////
@@ -101,7 +100,6 @@ $lang=((int)$_POST["Ds_ConsumerLanguage"])==3?$lang="cat":$lang="esp";
 
 
 $query="UPDATE reserves SET estat=7 WHERE id_reserva=$id";
-echo "AKIII1";
 fwrite($fp, $txxt);
 fwrite($fp, ">> Hora TPV: ".$_POST["Ds_Date"]." ".$_POST["Ds_Hour"]."\n");
 fwrite($fp, ">> Import: ".$_POST["Ds_Amount"]."\n");

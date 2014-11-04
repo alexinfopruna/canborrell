@@ -416,7 +416,10 @@ public function submit()
             
 	if (!$_POST['selectorComensals']) $_POST['selectorComensals']=$_POST['adults'];
 	$total_coberts=$_POST['selectorComensals']+$_POST['selectorNens']+$_POST['selectorJuniors'];
-	if ($total_coberts<2 || $total_coberts>300) return $this->jsonErr(7,$resposta);// "err7 adults";
+        
+        
+        $PERSONES_GRUP=$this->configVars("persones_grup");
+	if ($total_coberts<2 || $total_coberts>$PERSONES_GRUP) return $this->jsonErr(7,$resposta);// "err7 adults";
 	
 	//ESBRINA EL TORN	
 	$data=$this->cambiaf_a_mysql($_POST['selectorData']);
@@ -666,6 +669,10 @@ public function salvaUpdate()
 	
 	//hora - torn - taula ok?
 	$coberts=$_POST['adults']+$_POST['nens10_14']+$_POST['nens4_9'];
+        $PERSONES_GRUP=$this->configVars("persones_grup");
+        
+        if ($coberts<2 || $coberts>$PERSONES_GRUP) return $this->jsonErr(7,$resposta);;
+
 	$cotxets=$_POST['selectorCotxets'];
 	
 	if (!isset($_POST['selectorAccesible'])) $_POST['selectorAccesible']=false;

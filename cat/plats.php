@@ -37,7 +37,7 @@ function openFoto(url,target,width,height) {
 //-->
 </SCRIPT>
 </HEAD>
-<BODY>
+<BODY><A NAME="0">
 <CENTER>
 <TABLE BGCOLOR="#F8F8F0" CELLPADDING="0" CELLSPACING="0" WIDTH="775" HEIGHT="100%" BORDER="0">
 	<TR>
@@ -113,6 +113,12 @@ function openFoto(url,target,width,height) {
 			</TR>
 			<TR>
 				<TD CLASS="transparent"><A HREF="#9">Men&uacute; Casaments</A></TD>
+			</TR>
+			<TR>
+				<TD>&nbsp;</TD>
+			</TR>
+			<TR>
+				<TD CLASS="transparent"><A HREF="#990060">Men&uacute; Vegetarià</A></TD>
 			</TR>
 			<TR>
 				<TD>&nbsp;</TD>
@@ -596,7 +602,7 @@ CELLER</B>
 <B>ENTRANTS</B>
 <UL>
 CAL&Ccedil;OTS (temporada)<BR>
-Inclou repetici&oacute;<BR>
+Inclou repetici&oacute; fins a 25 unitats<BR>
 &nbsp;<BR>
 Mongetes amb cansalada<BR>
 Patates fregides<BR>
@@ -776,6 +782,47 @@ Aigua i refrescs<BR>
 &nbsp;<BR>
 &nbsp;<BR>
 &nbsp;<BR>
+
+
+
+
+<A NAME="990060">&nbsp;</A><BR>
+<FONT CLASS="titol"><B>MEN&Uacute; VEGETARIANO</B></FONT>
+<HR SIZE="1">
+&nbsp;<BR>
+
+En aquest Menú es pot escollir de primer i de segon els següents plats: 
+<ul style="font-weight:800">
+<li>Xatonada</li>
+<li>Amanida</li>
+<li>Gírgoles</li>
+<li>Espàrrecs</li>
+<li>Escalivada</li>
+<li>Carxofes (temporada)</li>
+<li>Calçots (temporada) </li>
+<li>Graellada de verdures</li>
+</ul>
+<BR>
+
+Incloent-hi els complements (mongetes i patates fregides all i oli pa torrat amb tomàquet i alls)
+<BR>
+<b>Beguda i cafès</B>
+<BR><BR>
+<B>PREU</B>
+
+<BR>
+<UL>
+<BR><?php echo $carta->preuPlat(2021); ?>  Euros (IVA incluido)<BR>
+</UL>
+
+<A HREF="#0"><IMG SRC="../img/bt_amunt.gif" WIDTH="15" HEIGHT="15" BORDER="0" ALT="Amunt"></A><BR>
+&nbsp;<BR>
+&nbsp;<BR>
+&nbsp;<BR>
+
+
+
+
 <B>En tots els preus est&agrave; incl&ograve;s l'IVA</B><BR>
 Aceptem targetes <B>Visa</B>, <B>Eurocard</B> i <B>Mastercard</B>.<BR>
 &nbsp;<BR>
