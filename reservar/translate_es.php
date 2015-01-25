@@ -293,7 +293,8 @@ $translateJS['OBSERVACIONS_COTXETS']='No tendremos en cuenta las indicaciones qu
 
 $translateJS["PAGA_I_SENYAL"] ="<div>A continuación has de realizar el pago de ".import_paga_i_senyal."€ para garantizar la asistència el día de la reserva. "
         . "Este importe será descontado de la cuenta total.<br/><br/>"
-        . "Te transferimos a una passarela bancaria externa a Can Borrell. El restaurant no tendrá acceso a los datos que introduzcas"
+        . '<div class = "info-paga-i-senyal"> Atención: Si no puedes venir el día de la reserva <b>puedes recuperar la paga y señal si nos avisas con 24 horas de \ antelación</b>. En caso contrario, el \ importe abonado no será devuelto </div> '
+        . "<br/><br/>Te transferimos a una passarela bancaria externa a Can Borrell. El restaurant no tendrá acceso a los datos que introduzcas"
         . "<br/><br/></div>";
 
 

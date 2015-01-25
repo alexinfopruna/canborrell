@@ -615,7 +615,7 @@ public function submit()
 	$persones.='p';
 	$mensa = "Recuerde: reserva en Restaurant Can Borrell el $data a las $hora ($persones).Rogamos comunique cualquier cambio: 936929723 - 936910605.Gracias.(ID:$idr)";
 	//$mensa = $this->l("RESERVA_CREADA");
-	$this->enviaSMS($idr, $mensa);	
+	
 	//envia MAIL
         
         $TPV=$this->paga_i_senyal($coberts);
@@ -630,6 +630,10 @@ public function submit()
             //$resposta['signature']=$this->signatureTpv('214'.$idr,import_paga_i_senyal,'http://'.$_SERVER['HTTP_HOST'].'/reservar/respostaTPV.php');
             //$resposta['signature']=$this->signatureTpv('214'.$idr,import_paga_i_senyal,'http://www.can-borrell.com/reservar/Gestor_form.php?a=respostaTPV');
         }
+        else{
+            $this->enviaSMS($idr, $mensa);	
+        }
+        
 	$_SESSION['last_submit']=time();//PARTXE SUBMITS REPETITS
 	return $this->jsonOK("Reserva creada",$resposta);		
 }	
@@ -1051,19 +1055,21 @@ WHERE  `client`.`client_id` =$idc;
            $lang=((int)$_POST["Ds_ConsumerLanguage"])==3?$lang="cat":$lang="esp";
             include (INC_FILE_PATH."TPV.php");
             $message = $_POST["Ds_Amount"].$_POST["Ds_Order"].$_POST["Ds_MerchantCode"].$_POST["Ds_Currency"].$_POST["Ds_Response"].$clave;
-            //echo $message;
+            //echo $message;die();
             $signature = strtoupper(sha1($message));
             $resposta=(int)$_POST["Ds_Response"];
             
             $k=substr($_POST["Ds_Order"],3,6);
             $id=(int)$k;
                 
+            
+            //echo "<pre>".print_r($_POST)."</pre>";
             /**
              * 
              * DOBLE PAGAMENT
              * 
              */
-              $query="SELECT estat, client_email "
+              $query="SELECT estat, client_email, data, hora, adults, nens10_14, nens4_9 "
                       . "FROM ".T_RESERVES." "
                       . "LEFT JOIN client ON client.client_id=".T_RESERVES.".client_id "
                       . "WHERE id_reserva=$id";
@@ -1073,9 +1079,12 @@ WHERE  `client`.`client_id` =$idc;
               $mail=$row['client_email'];
               if ($estat!=2) {
                     $msg="PAGAMENT INAPROPIAT RESERVA???: ".$id." estat: $estat  $mail";
+                    //echo $msg;
                     $this->greg_log($msg,LOG_FILE_TPVPK);/*LOG*/
                     $extres['subject']="Can-Borrell: !!!! $msg!!!";
-                    $mail=$this->enviaMail($id,"confirmada_",MAIL_RESTAURANT,$extres);
+                    //$mail=$this->enviaMail($id,"confirmada_",MAIL_RESTAURANT,$extres);
+                    $mail=$this->enviaMail($id,"paga_i_senyal_",MAIL_RESTAURANT,$extres);
+                    
               }
               
             $referer=$_SERVER['REMOTE_ADDR'];           
@@ -1083,17 +1092,28 @@ WHERE  `client`.`client_id` =$idc;
             if (($_POST["Ds_Signature"]==$signature) && ($resposta>=0) && ($resposta<=99))
             {
                 /******************************************************************************/
+               // echo "...........................ENVIEM...";
                $import= $_POST["Ds_Amount"]/100;
                $resposta="PAGA I SENYAL TPV: ".$import."Euros (".$_POST["Ds_Date"]." ".$_POST["Ds_Hour"].")";
                $query="UPDATE ".T_RESERVES." SET estat=100, preu_reserva='$import', resposta='$resposta' WHERE id_reserva=$id";
                 $result = $this->log_mysql_query($query, $this->connexioDB) or die(mysql_error());
 
                 $extres['subject']=$this->l("Can-Borrell: RESERVA CONFIRMADA",false);
-                //$extres['subject'].=$this->l("<br>REBUT PAGAMENT",false);;
-                //$extres['subject']="  ".$import."€";
                 
-                if ($mail) echo $this->enviaMail($id,"confirmada_",FALSE,$extres);
+                if ($mail) echo $this->enviaMail($id,"paga_i_senyal_","",$extres);
+                
+                $persones=$row['adults']+$row['nens10_14']+$row['nens4_9'];
+                $persones.='p';
 
+                $data=$this->cambiaf_a_normal($row['data']);
+                $hora=$row['hora'];
+
+                $missatge = "Recuerde: reserva en Restaurant Can Borrell el $data a las $hora ($persones).Rogamos comunique cualquier cambio: 936929723 - 936910605.Gracias.(ID:$id)";
+                $missatge.="\n***\nConserve este SMS como comprobante de la paga y señal de ".$import."€ que le será descontada. También hemos enviado un email que puede imprimir";   
+                
+                //echo $missatge;
+                $this->enviaSMS($id, $missatge);	
+    
                 
                if ($result) //ACTUALITZADA BBDD
                {
@@ -1124,19 +1144,44 @@ WHERE  `client`.`client_id` =$idc;
         public function testTPV($idr){
   		if (!$this->valida_sessio(63)) die("Sense permisos");
                 
-             $query="SELECT estat FROM ".T_RESERVES." WHERE id_reserva=$idr";
+             $query="SELECT estat,  data, hora, adults, nens10_14, nens4_9  FROM ".T_RESERVES." WHERE id_reserva=$idr";
                $result = $this->log_mysql_query($query, $this->connexioDB) or die(mysql_error());
                $estat=  mysql_result($result, 0);
-               if ($estat!=2) die("Aquesta reserva no està pendent de pagament");
+              // if ($estat!=2) die("Aquesta reserva no està pendent de pagament");
                
                $resposta="TEST!!!! PAGA TARJA ";
-               $query="UPDATE ".T_RESERVES." SET estat=100,resposta='$resposta' WHERE id_reserva=$idr";
+               $preu=11.11;
+               $query="UPDATE ".T_RESERVES." SET estat=100,resposta='$resposta', preu_reserva=$preu WHERE id_reserva=$idr";
                echo $query;
                echo "<br><br>";
               $result = $this->log_mysql_query($query, $this->connexioDB) or die(mysql_error());
                 echo $result;
                 
                 $this->greg_log("TEEEST!!!!!!! testTPV:$idr >> $query >> $result",LOG_FILE_TPVPK);
+                
+                
+                               $import= $_POST["Ds_Amount"]/100;
+              // $resposta="PAGA I SENYAL TPV: ".$import."Euros (".$_POST["Ds_Date"]." ".$_POST["Ds_Hour"].")";
+              // $query="UPDATE ".T_RESERVES." SET estat=100, preu_reserva='$import', resposta='$resposta' WHERE id_reserva=$id";
+               // $result = $this->log_mysql_query($query, $this->connexioDB) or die(mysql_error());
+
+                $extres['subject']=$this->l("Can-Borrell: RESERVA CONFIRMADA",false);
+                //$extres['subject'].=$this->l("<br>REBUT PAGAMENT",false);;
+                //$extres['subject']="  ".$import."€";
+                
+                if ($mail) echo $this->enviaMail($id,"paga_i_senyal_",MAIL_RESTAURANT,$extres);
+                
+        $persones=$row['adults']+$row['nens10_14']+$row['nens4_9'];
+	$persones.='p';
+        
+        $data=$this->cambiaf_a_normal($row['data']);
+        $hora=$row['hora'];
+        
+	$missatge = "Recuerde: reserva en Restaurant Can Borrell el $data a las $hora ($persones).Rogamos comunique cualquier cambio: 936929723 - 936910605.Gracias.(ID:$res)";
+          $missatge.="Si lo desea conserve este SMS como comprobante de la paga y señal de $import€ que debe ser descontada. También hemos enviado un email que puede imprimir";   
+                
+                $this->enviaSMS($id, $missatge);	
+
         }
         
         

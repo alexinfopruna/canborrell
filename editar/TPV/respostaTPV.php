@@ -13,6 +13,14 @@
 // 100 RES.PETITA
 /***************************************************/
 
+
+// TEEEEST
+// http://dev.can-borrell.com/editar/TPV/respostaTPV.php?testTPV=1&id=2699&sig=OK
+// http://dev.can-borrell.com/editar/TPV/respostaTPV.php?testTPV=1&id=2699&sig=OK
+// http://dev.can-borrell.com/editar/TPV/respostaTPV.php?testTPV=1&id=2699&sig=OK
+// http://dev.can-borrell.com/editar/TPV/respostaTPV.php?testTPV=1&id=2699&sig=OK
+
+
 if (!defined('ROOT')) define('ROOT', "../../taules/");
 require(ROOT."Gestor.php");
 require(ROOT."gestor_reserves.php");
@@ -61,13 +69,15 @@ $signature = strtoupper(sha1($message));
 /////////////////
 if ($testTPV)
 {
+    fwrite($fp, "testTPV >> id=".$_REQUEST['id']."\n");
+    echo "testTPV >> id=".$_REQUEST['id'];
 	$test_mail=isset($_REQUEST['testMAIL'])?$_REQUEST['testMAIL']:FALSE;
-	if ($_GET["sig"]=="OK") $signature=$_POST["Ds_Signature"];
+	if ($_REQUEST["sig"]=="OK") $signature=$_POST["Ds_Signature"];
 
 	$_POST["Ds_Response"]="000";
 	if (isset($_GET["resp"])) $_POST["Ds_Response"]=$_GET["resp"];
 
-	$id="62";
+	$id="2699";
 	if (isset($_REQUEST['id'])) $id=$_REQUEST['id'];
 	
 	$_POST["Ds_Order"]="xxxxxx10".$id;
@@ -265,7 +275,7 @@ function mail_cli($id=false,$lang="esp")
     $subject="Can-Borrell: CONFIRMACIÓ DE PAGAMENT DE RESERVA PER GRUP";
     $altbdy="El pago de la reserva se ha realizado correctamente.";
 		$r=mailer($recipient, $subject , $html, $altbdy,$attach,$test_mail)?"...OK":"KO!!!!";
-		if ($test_mail) $r="OK_TEST";
+		//if ($test_mail) $r="OK_TEST";
     $nreserva=$fila['id_reserva'];
  	$att=$attach?" -- FACTURA: $attach":"";
 	print_log("TPV: Enviament  mail CLIENT($r) id_reserva: $nreserva -- $recipient, $subject: PAGAMENT OK **** $v");
@@ -363,7 +373,7 @@ function mail_restaurant($id=false)
 
     //$recipient = "tpv@can-borrell.com";  
     $r=mailer($recipient, $subject, $html, $altbdy,false,$test_mail)?"...OK":"KO!!!!";
-	if ($test_mail) $r="OK_TEST";
+	//if ($test_mail) $r="OK_TEST";
 	$nreserva=$fila['id_reserva'];
     print_log("TPV: MAIL ($recipient ($r)) Confirmació pagament tarja. id_reserva: $nreserva -- $recipient, $subject: RESERVA PAGADA");    
 

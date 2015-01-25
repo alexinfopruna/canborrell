@@ -205,7 +205,8 @@ $translateJS["grups-fr-seccio-submit"] =$translateJS["fr-seccio-submit"];
 
 $translateJS["PAGA_I_SENYAL"] ="<div>A continuació cal que realitzis el pagament de ".import_paga_i_senyal."€ per garantitzar l&#39;assistència el dia de la reserva. "
         . "Aquest import serà descomptat del compte total.<br/><br/>"
-        . "Et transferim a una passarel·la bancària externa a Can Borrell. El restaurant no tindrà accés a les dades que introdueixis"
+        . '<div class="info-paga-i-senyal">Atenció: Si no podeu venir el dia de la reserva <b>pots recuperar la paga i senyal si ens avises amb 24 hores d&#39;antelació</b>. En cas contrari, l&#39;import abonat no serà retornat</div>'
+        . "<br/><br/>Et transferim a una passarel·la bancària externa a Can Borrell. El restaurant no tindrà accés a les dades que introdueixis"
         . "<br/><br/></div>";
 
 

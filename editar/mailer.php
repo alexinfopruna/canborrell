@@ -35,7 +35,7 @@ function mailer($addr,$subject,$body,$altbody,$attach=null, $test=false, $cco=nu
   $mail->AltBody = $altbody;
   $mail->IsHTML(true);
   */
-   include(INC_FILE_PATH."mailer_profile.php");
+   include(ROOT.INC_FILE_PATH."mailer_profile.php");
 
 //Enviamos el correo  
   

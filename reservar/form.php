@@ -57,7 +57,6 @@ $gestor->netejaImpagatsTpv(); // TPV I IMPAGATS
 
 $paga_i_senyal=$PERSONES_GRUP>=persones_paga_i_senyal;
 
-
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html>

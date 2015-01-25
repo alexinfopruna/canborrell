@@ -53,8 +53,12 @@ Sempre contestem les sol·licituds en un plaç d´un dia.
 		
 <br/><br/>
 L\'import de la paga senyal serà descomptat del preu final, de manera que no representarà cap despesa extra, 
-ni en el cas que canvieu el nombre de comensals en confirmar la reserva.				
-<br/><br/>Gracies per utilitzar aquest servei.<br/><br/>';
+ni en el cas que canvieu el nombre de comensals en confirmar la reserva.'
+        
+. '<div class="info-paga-i-senyal">Atenció: Si no podeu venir el dia de la reserva <b>pots recuperar la paga i senyal si ens avises amb 48 hores d&#39;antelació</b>. En cas contrari, l&#39;import abonat no serà retornat</div>'
+
+
+.'<br/><br/>Gracies per utilitzar aquest servei.<br/><br/>';
 
 $translate['INFO_COMANDA_GRUPS']="Per les reserves de grups has d'escollir, com a mínim, un menú per cada comensal (comptant adults, juniors nens)";
 $translate['MENUS_COMENSALS']="Has d'escollir tants menús com comensals (adults + juniors + nens)";

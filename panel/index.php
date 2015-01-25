@@ -12,7 +12,7 @@ if (!$gestor->valida_sessio(64))
 }
 define("SUPER_ADMIN",$gestor->valida_sessio(255)?true:false);
 define("ADMIN",$gestor->valida_sessio(63)?true:false);
-
+echo "WWW";
 
 if (isset($_GET['exit'])) 
 {

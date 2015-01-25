@@ -48,7 +48,7 @@ $mensaini=sms_caducades();
 $mensaini.=historic($canborrell);
 $mensaini.=recordatori($canborrell,0);
 $mensaini.=recordatori($canborrell,1);
-
+//$mensaini.=recordatori_petites($canborrell,1);
 
 if (!empty($mensaini)) 
 {

@@ -4,13 +4,14 @@ define('ROOT',"../taules/");
 require_once (ROOT."Gestor.php");
 if ($_SESSION['permisos']<200) die("error:sin permisos") ;
 
+$amount="222";
 
 print_r($_SESSION);
 //ini_set('display_errors', 'On');
 //error_reporting(E_ALL);
 include (INC_FILE_PATH."TPV.php");
- $message = "100".$_REQUEST['order'].$code.$currency."000".$clave;
-//echo "<br/>";
+ $message = $amount.$_REQUEST['order'].$code.$currency."000".$clave;
+echo $message;
  $signature = strtoupper(sha1($message));
 
 ?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -23,14 +24,14 @@ include (INC_FILE_PATH."TPV.php");
 <body>
 <form id="form1" name="form1" method="post" action="Gestor_form.php?a=respostaTPV">
   <p>Ds_Date   
-    <input type="text" name="Ds_Date" value="15/04/2014" />
+    <input type="text" name="Ds_Date" value="02/01/2015" />
   </p>
   <p>Ds_Hour   
     <input type="text" name="Ds_Hour" value="15:00" />
   </p>
   <p>
     Ds_Amount   
-    <input type="text" name="Ds_Amount" value="100" />
+    <input type="text" name="Ds_Amount" value="<?php echo $amount?>" />
   </p>
   <p>
     Ds_Currency   

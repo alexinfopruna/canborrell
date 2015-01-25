@@ -489,3 +489,13 @@ border-radius: 6px;
 left: 0%;
 top: -10%;
 }
+
+#label-pastis.fluixet{color:lightgrey}
+
+.paga-i-senyal{
+    background:red;
+    color:white;
+    float:right;
+    border-radius: 6px;
+    padding:0 4px;
+}
