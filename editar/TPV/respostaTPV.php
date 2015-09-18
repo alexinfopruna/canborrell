@@ -129,7 +129,7 @@ if (($_POST["Ds_Signature"]==$signature) && ($resposta>=0) && ($resposta<=99))
     $txxt="RESPOSTA-".date("d M Y H:i")."\n";  
     /******************************************************************************/	
    $query="UPDATE reserves SET estat=7 WHERE id_reserva=$id";
-   $result=mysql_query($query,$canborrell);  
+   $result=mysqli_query($canborrell, $query);  
    if ($result) 
    {
 	fwrite($fp, "PAGAMENT TARJA id: $id >> QUERY: ".$query."\n"); }
@@ -169,8 +169,8 @@ function mail_cli($id=false,$lang="esp")
     }
 
     /******************************************************************************/	
-    $Result = mysql_query($query, $canborrell) or die(mysql_error());
-    $fila=mysql_fetch_assoc($Result);
+    $Result = mysqli_query( $canborrell, $query) or die(((is_object($GLOBALS["___mysqli_ston"])) ? mysqli_error($GLOBALS["___mysqli_ston"]) : (($___mysqli_res = mysqli_connect_error()) ? $___mysqli_res : false)));
+    $fila=mysqli_fetch_assoc($Result);
 		$attach='';
 	
 	/*** ENVIA SMS ***/
@@ -280,7 +280,7 @@ function mail_cli($id=false,$lang="esp")
  	$att=$attach?" -- FACTURA: $attach":"";
 	print_log("TPV: Enviament  mail CLIENT($r) id_reserva: $nreserva -- $recipient, $subject: PAGAMENT OK **** $v");
 
-    mysql_free_result($Result);
+    ((mysqli_free_result($Result) || (is_object($Result) && (get_class($Result) == "mysqli_result"))) ? true : false);
     return ($fila['id_reserva']);                                          
 }
 
@@ -299,8 +299,8 @@ function mail_restaurant($id=false)
     /******************************************************************************/	
 
     /******************************************************************************/	
-    $Result = mysql_query($query, $canborrell) or die(mysql_error());
-    $fila=mysql_fetch_assoc($Result);
+    $Result = mysqli_query( $canborrell, $query) or die(((is_object($GLOBALS["___mysqli_ston"])) ? mysqli_error($GLOBALS["___mysqli_ston"]) : (($___mysqli_res = mysqli_connect_error()) ? $___mysqli_res : false)));
+    $fila=mysqli_fetch_assoc($Result);
 
     $avui=date("d/m/Y");
     $ara=date("H:i");
@@ -378,7 +378,7 @@ function mail_restaurant($id=false)
     print_log("TPV: MAIL ($recipient ($r)) Confirmació pagament tarja. id_reserva: $nreserva -- $recipient, $subject: RESERVA PAGADA");    
 
 
-    mysql_free_result($Result);
+    ((mysqli_free_result($Result) || (is_object($Result) && (get_class($Result) == "mysqli_result"))) ? true : false);
     return ($fila['id_reserva']);
 }
 ?>

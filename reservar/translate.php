@@ -1,6 +1,6 @@
 <?php 
 /*********************************************/
-define('TRANSLATE_DEBUG',false);
+if (!defined('TRANSLATE_DEBUG')) define('TRANSLATE_DEBUG', FALSE);
 /*********************************************/
 
 $ruta_lang="../$lang/";

@@ -1,10 +1,18 @@
 <?php
+/**
+ * tespTPV:
+ * 
+ * order=31710
+ * 
+ */
+
+
 //$message = "1234000000002085078125713978000qwertyasdf0123456789";
 define('ROOT',"../taules/");
 require_once (ROOT."Gestor.php");
 if ($_SESSION['permisos']<200) die("error:sin permisos") ;
 
-$amount="222";
+$amount="1500";
 
 print_r($_SESSION);
 //ini_set('display_errors', 'On');
@@ -22,9 +30,14 @@ echo $message;
 </head>
 
 <body>
+     <br/><br/>
+    Exemple: <br/>
+    
+    <b> http://cbdev.localhost/reservar/testTPV.php?order=21431710</b>
+    <br/><br/>
 <form id="form1" name="form1" method="post" action="Gestor_form.php?a=respostaTPV">
   <p>Ds_Date   
-    <input type="text" name="Ds_Date" value="02/01/2015" />
+    <input type="text" name="Ds_Date" value="<?php echo date("d-m-Y")?>" />
   </p>
   <p>Ds_Hour   
     <input type="text" name="Ds_Hour" value="15:00" />

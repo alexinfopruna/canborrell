@@ -29,7 +29,7 @@ $res = $gestor->query($FILTRE);
 
 
 <?php 
-	$row=mysql_fetch_assoc($res);
+	$row=mysqli_fetch_assoc($res);
 	if($row) 
 	{
 	?>	
@@ -68,7 +68,7 @@ $res = $gestor->query($FILTRE);
 			?>
 					</tr>
 			<?php
-				$row=mysql_fetch_assoc($res);
+				$row=mysqli_fetch_assoc($res);
 			}
 			?>
 				</tbody>

@@ -162,10 +162,10 @@ echo $gestor->dumpJSVars(true);
 		
 	
 	include(ROOT.DB_CONNECTION_FILE);
-	mysql_select_db($database_canborrell, $canborrell);
-	mysql_query("SET CHARACTER SET 'utf-8'");
-	mysql_query("SET NAMES 'utf-8'");
-	mysql_query("SET COLLATION CONNECTION 'utf-8'");
+	((bool)mysqli_query( $canborrell, "USE " . $database_canborrell));
+	mysqli_query($GLOBALS["___mysqli_ston"], "SET CHARACTER SET 'utf-8'");
+	mysqli_query($GLOBALS["___mysqli_ston"], "SET NAMES 'utf-8'");
+	mysqli_query($GLOBALS["___mysqli_ston"], "SET COLLATION CONNECTION 'utf-8'");
 	
 	//import_carta($familias,"cart_subfamilia");
 	//import_carta($articulos,"cart_subfamilia");
@@ -177,7 +177,7 @@ echo $gestor->dumpJSVars(true);
 	$file=$ruta_import.$subfamilias;
 
 	$query="TRUNCATE $table";
-	$r=mysql_query($query,$canborrell);
+	$r=mysqli_query($canborrell, $query);
 	
 	$f=fopen($file,"r");
 	//die($file." * $f * ".file_exists($file));
@@ -208,7 +208,7 @@ echo $gestor->dumpJSVars(true);
 		
 		echo "<br/>insertem a $table";
 		$reglog->reg_log( "+insertem a $table");
-		$r=mysql_query($query,$canborrell);
+		$r=mysqli_query($canborrell, $query);
 	}
 	fclose($f);
 /*********************************************************************/
@@ -222,7 +222,7 @@ $reglog->reg_log( "<br/>Finalitzada importació de subfamilies ($k registres)<br
 	$file=$ruta_import.$articulos;
 
 	$query="TRUNCATE $table";
-	$r=mysql_query($query,$canborrell);
+	$r=mysqli_query($canborrell, $query);
 
 	$f=fopen($file,"r");
 	$k=0;
@@ -264,7 +264,7 @@ $reglog->reg_log( $l[4]);
 			
 		if (!$id) break;
 		$k++;
-		$r=mysql_query($query,$canborrell);
+		$r=mysqli_query($canborrell, $query);
 	}	
 	fclose($f);
 	echo "<br/><br/>Finalitzada importació d'articles ($k registres)<br/>";	

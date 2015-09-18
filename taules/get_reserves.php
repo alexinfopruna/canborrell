@@ -48,14 +48,14 @@ class Gestor_chef extends Gestor
 					$order
 					";
 				//trim(observacions) as observacions,
-				$this->qry_result = $this->log_mysql_query($query, $this->connexioDB) or die(mysql_error());		
-				if (!$this->total_rows = mysql_num_rows($this->qry_result)) return $html="";
+				$this->qry_result = $this->log_mysql_query($query, $this->connexioDB) or die(((is_object($GLOBALS["___mysqli_ston"])) ? mysqli_error($GLOBALS["___mysqli_ston"]) : (($___mysqli_res = mysqli_connect_error()) ? $___mysqli_res : false)));		
+				if (!$this->total_rows = mysqli_num_rows($this->qry_result)) return $html="";
 				$cometa="\"";
 				$html="";
 				
 				
 				$l=$this->lng; //IDIOMA!!
-				while ($row= $this->last_row = mysql_fetch_assoc($this->qry_result))
+				while ($row= $this->last_row = mysqli_fetch_assoc($this->qry_result))
 				{
 					$fila=implode(';',$row);
 					$scerca=($this->upperNoTilde($cerca));
@@ -73,9 +73,9 @@ LEFT JOIN carta_plats ON carta_plats_id = comanda_plat_id
 LEFT JOIN carta_subfamilia ON carta_subfamilia_id = carta_plats_subfamilia_id
 WHERE comanda_reserva_id =".$row['id_reserva'];
 
-					$result = $this->log_mysql_query($query_comanda, $this->connexioDB) or die(mysql_error());		
+					$result = $this->log_mysql_query($query_comanda, $this->connexioDB) or die(((is_object($GLOBALS["___mysqli_ston"])) ? mysqli_error($GLOBALS["___mysqli_ston"]) : (($___mysqli_res = mysqli_connect_error()) ? $___mysqli_res : false)));		
 					$i=0;
-					while ($row2= mysql_fetch_assoc($result))
+					while ($row2= mysqli_fetch_assoc($result))
 					{
 						$row2['l']=++$i;
 						$fila2=implode(';',$row2);

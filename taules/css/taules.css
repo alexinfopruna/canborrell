@@ -391,11 +391,12 @@ a.edbase
 .torn1{color:red;font-weight:bold;}
 .torn2{color:#900;font-weight:bold;}
 .torn3{color:blue;font-weight:bold;}
-.loading{width:15px;max-height:15px;
+.loading{width:15px;min-height:15px;max-height:15px;
     display: block;
 	margin-top:30px;
     margin-left: auto;
     margin-right: auto; 
+    background-image: url(../../img/loading.gif);
 }
 
 .bg-loading{width:15px;height:15px;

@@ -1,19 +1,25 @@
 <?php 
 if (!defined('ROOT')) define('ROOT', "../taules/");
+//require_once(ROOT."Gestor.php");
 require(ROOT."gestor_reserves.php");
 $gestor=new gestor_reserves();
-if (!$gestor->valida_sessio())die("USUARI NO AUTORITZAT!");
+//if (!$gestor->valida_sessio())die("USUARI NO AUTORITZAT!");
+$test=isset($_REQUEST['test']);
+$sms_activat=!$test;
 
-define (SMS_ACTIVAT,true);
+define ('SMS_ACTIVAT',$sms_activat);
 
-
- require(ROOT.DB_CONNECTION_FILE); 
- require_once(INC_FILE_PATH.'valors.php'); 
- require_once(INC_FILE_PATH.'alex.inc'); 
- include_once( "SMSphp/EsendexSendService.php" );
- 
+require(ROOT.DB_CONNECTION_FILE); 
+require_once(INC_FILE_PATH.'valors.php'); 
+require_once(INC_FILE_PATH.'alex.inc'); 
+include_once( "SMSphp/EsendexSendService.php" );
 
 $mensaini="";
+
+echo "<br/>**********************************************************************************************<br/>";
+echo "<br/><br/>".date("D d-m-Y H:i:s")." Execució  /home/5500/webs/can-borrell.com/htdocs/editar/caducades.php <br/><br/>";
+echo "<br/><br/><br/>";
+
 ?>
 <?php
 function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDefinedValue = "") 
@@ -44,12 +50,20 @@ function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDe
 /******************************************************************************/	
 // CADUCADES
 include("sms_caducades.php");
-$mensaini=sms_caducades();
-$mensaini.=historic($canborrell);
-$mensaini.=recordatori($canborrell,0);
-$mensaini.=recordatori($canborrell,1);
-//$mensaini.=recordatori_petites($canborrell,1);
+echo "<br/>-------------------------------------------------------------------------------------------<br/>";
 
+$mensaini=sms_caducades();
+echo "<br/>-------------------------------------------------------------------------------------------<br/>";
+
+$mensaini.=historic($canborrell);
+echo "<br/>-------------------------------------------------------------------------------------------<br/>";
+
+$mensaini.=recordatori($canborrell,0);
+echo "<br/>-------------------------------------------------------------------------------------------<br/>";
+
+$mensaini.=$gestor->recordatori_petites_3dies();
+
+echo "<br/>-------------------------------------------------------------------------------------------<br/>";
 if (!empty($mensaini)) 
 {
 	$f=fopen('mensaini.txt','w');
@@ -60,27 +74,27 @@ if (!empty($mensaini))
 }
 else echo "No s'ha enviat cap recordatori";
 
-
-
 function recordatori($canborrell,$dies)
 {
-    $bodi="";
-    
-	$ENVIAT=1000-$dies;
+     $bodi="<br><br> NO HI HA RESERVES PER RECORDATORI <br><br>";
+    $ENVIAT=1000-$dies;
 	
-     $query_reserves = "SELECT * FROM reserves WHERE data_limit <= ADDDATE(CURDATE(), INTERVAL $dies DAY) AND estat=2 AND data>CURDATE() AND  (num_1<$ENVIAT OR num_1<=>NULL) AND  (num_2<>666 OR num_2<=>NULL)";
-    $reserves = mysql_query($query_reserves, $canborrell) or die(mysql_error());
-    $nr=mysql_num_rows($reserves);
+     $query_reserves = "SELECT * FROM reserves WHERE data_limit <= ADDDATE(CURDATE(), INTERVAL $dies DAY) AND data_limit >=CURDATE() AND data >=CURDATE()  AND estat=2 AND data>=CURDATE() AND  (num_1<$ENVIAT OR num_1<=>NULL) AND  (num_2<>666 OR num_2<=>NULL)";
+echo "<br/><br/>RECORDATORI<br/>";
+echo $query_reserves;
+    echo "<br/><br/><br/>";
+    $reserves = mysqli_query( $canborrell, $query_reserves) or die(((is_object($GLOBALS["___mysqli_ston"])) ? mysqli_error($GLOBALS["___mysqli_ston"]) : (($___mysqli_res = mysqli_connect_error()) ? $___mysqli_res : false)));
+    $nr=mysqli_num_rows($reserves);
 
-	if ($dies==0) $sms=" PER MAIL I SMS ";
-   $mensa="\\n\\n\\nS´HAN ENVIAT ELS SEGÜENTS RECORDATORIS $sms(abans $dies dies):\\n\\n\\n"  ;
+    if ($dies==0) $sms=" PER MAIL I SMS ";
+    $mensa="\\n\\n\\nS´HAN ENVIAT ELS SEGÜENTS RECORDATORIS $sms(abans $dies dies):\\n\\n\\n"  ;
 
-    while ($row=mysql_fetch_array($reserves))
+    while ($row=mysqli_fetch_array($reserves))
     {
 		$plantilla="templates/recordatori_cli.lbi";
 		if ($dies==1) $plantilla="templates/recordatori_1dia_cli.lbi";
-        mail_cli($row["id_reserva"],$plantilla);
-        $mensa.="ID Reserva: ".$row["id_reserva"].   " amb data límit per pagar: ".data_llarga($row['data_limit'])." \\n";
+                mail_cli($row["id_reserva"],$plantilla);
+                $mensa.="ID Reserva: ".$row["id_reserva"].   " amb data límit per pagar: ".data_llarga($row['data_limit'])." \\n";
 
 		if ($dies<=1) 
 		{
@@ -88,7 +102,7 @@ function recordatori($canborrell,$dies)
     		$lafecha=$mifecha[3]."/".$mifecha[2]; 
 		
 			print_log( "RECORDATORI enviaSMS({$row['tel']},{$row['preu_reserva']},$lafecha,{$row["id_reserva"]});");
-			if (SMS_ACTIVAT) 
+			if (TRUE) 
 			{
 				enviaSMS($row['tel'],$row['preu_reserva'],$lafecha,$row["id_reserva"],$row["lang"]);
        			$mensa.="SMS ENVIAT: ".$row['tel']." \\n";
@@ -102,8 +116,10 @@ function recordatori($canborrell,$dies)
 			
 		}
 
-        $query_reserves = "UPDATE reserves SET num_1=$ENVIAT WHERE id_reserva=".$row["id_reserva"];
-        $update = mysql_query($query_reserves, $canborrell) or die(mysql_error());
+       $query_reserves = "UPDATE reserves SET num_1=$ENVIAT WHERE id_reserva=".$row["id_reserva"];
+       echo "<br/><br/>".$query_reserves."<br/><br/>";
+        
+       if (SMS_ACTIVAT)  $update = mysqli_query( $canborrell, $query_reserves) or die(((is_object($GLOBALS["___mysqli_ston"])) ? mysqli_error($GLOBALS["___mysqli_ston"]) : (($___mysqli_res = mysqli_connect_error()) ? $___mysqli_res : false)));
     }   
 
     if ($nr>0) $bodi=$mensa;         
@@ -116,16 +132,19 @@ return $bodi;
 function historic($canborrell)
 {
     
-    $bodi="";
+    $bodi="<br><br> NO HI HA RESERVES PER L'HISTORIC <br><br>";
 
     $query_reserves = "SELECT * FROM reserves WHERE CURDATE()>ADDDATE(data , 30) AND (num_2<>666 OR num_2<=>NULL)";
-    $reserves = mysql_query($query_reserves, $canborrell) or die(mysql_error());
-    $nr=mysql_num_rows($reserves);
-    
+    $reserves = mysqli_query( $canborrell, $query_reserves) or die(((is_object($GLOBALS["___mysqli_ston"])) ? mysqli_error($GLOBALS["___mysqli_ston"]) : (($___mysqli_res = mysqli_connect_error()) ? $___mysqli_res : false)));
+    $nr=mysqli_num_rows($reserves);
+
+    echo "<br/><br/>HISTORIC<br/>";
+echo $query_reserves;
+    echo "<br/><br/><br/>";
     
    $mensa="LES SEGÜENTS RESERVES HAN PASSAT A L´HISTÒRIC PER PORTAR 30 DIES CADUCADES\\n\\n\\n"  ;
    // echo "RESERVES ".$nr."   *********<br>";
-    while ($row=mysql_fetch_array($reserves))
+    while ($row=mysqli_fetch_array($reserves))
     {
         $mensa.="ID Reserva: ".$row["id_reserva"].   " pel dia    ".data_llarga($row['data'])." \\n";
     }   
@@ -133,7 +152,7 @@ function historic($canborrell)
     if ($nr>0) $bodi=$mensa;         
       
     $query_reserves = "UPDATE reserves SET num_2=666 WHERE CURDATE()>ADDDATE(data , 30) AND (num_2<>666 OR num_2<=>NULL)";
-    $reserves = mysql_query($query_reserves, $canborrell) or die(mysql_error());
+    if (SMS_ACTIVAT) $reserves = mysqli_query( $canborrell, $query_reserves) or die(((is_object($GLOBALS["___mysqli_ston"])) ? mysqli_error($GLOBALS["___mysqli_ston"]) : (($___mysqli_res = mysqli_connect_error()) ? $___mysqli_res : false)));
    
     return $bodi;
     //exit();
@@ -144,7 +163,7 @@ function mail_cli($id=false, $plantilla="templates/recordatori_cli.lbi")
 {   
     require_once("mailer.php"); 
 	global $camps, $mmenu,$txt,$database_canborrell, $canborrell,$lang,$gestor;
-	session_start();
+	//session_start();
 	
 	if ($id)
 	{
@@ -155,8 +174,8 @@ function mail_cli($id=false, $plantilla="templates/recordatori_cli.lbi")
 	}
 	
 	/******************************************************************************/	
-	$Result = mysql_query($query, $canborrell) or die(mysql_error());
-	$fila=mysql_fetch_assoc($Result);
+	$Result = mysqli_query( $canborrell, $query) or die(((is_object($GLOBALS["___mysqli_ston"])) ? mysqli_error($GLOBALS["___mysqli_ston"]) : (($___mysqli_res = mysqli_connect_error()) ? $___mysqli_res : false)));
+	$fila=mysqli_fetch_assoc($Result);
 	
 	$lang=$lang_cli=$fila['lang'];
 
@@ -181,6 +200,8 @@ function mail_cli($id=false, $plantilla="templates/recordatori_cli.lbi")
 	///////////// TEXTES
     if ($v==50){                   
             $idd=$fila['id_reserva']+100000;
+            
+            $fila['import']="***********";
             $mulink=substr($fila['email'],0,2).substr($fila['nom'],0,2).$idd."***".substr($fila['import'],0,2);
         
 			$t->set_var('ident',$txt[75][$lang]);
@@ -198,9 +219,9 @@ function mail_cli($id=false, $plantilla="templates/recordatori_cli.lbi")
 			$t->set_var('text2',$txt[$v+2][$lang]);
 			$t->set_var('data_limit',$dlim);
 			$t->set_var('contacti',$txt[9][$lang]);
-			$t->set_var('import',$preu);
+			$t->set_var('import',$preu=0);
 			$t->set_var('aki',$aki);
-			$t->set_var('datat',$datat);
+			$t->set_var('datat',$datat=0);
 	
 			$t->set_var('cdata_reserva',$camps[8][$lang]);
 			$t->set_var('cnom',$camps[1][$lang]);
@@ -251,30 +272,31 @@ function mail_cli($id=false, $plantilla="templates/recordatori_cli.lbi")
             //$t->p("OUT");
 	$recipient=$fila['email'];
     $subject="..::Reserva Can Borrell: Recordatori reserva";
-    $r=mailer($recipient, $subject , $html, $altbdy, null, false, MAIL_CCO);
+    
+    if (SMS_ACTIVAT)    $r=mailer($recipient, $subject , $html, $altbdy, null, false, MAIL_CCO);
+    else {
+        echo "<br/>";
+        echo "<br/>";
+        echo "MAIL RECORDATORI $id";
+        echo "<br/>";
+        echo $html;
+        echo "<br/>";
+        echo "<br/>";
+        echo "<br/>";
+    }
     $nreserva=$fila['id_reserva'];
     print_log("Enviament RECORDATORI($r): $nreserva -- $recipient, $subject: $copia");
 
-    // COPIA PER AL RESTAURANT
-	/*
-    $recipient = MAIL_RESTAURANT;  
-    if ($fila['nom']=="montseTPV") $recipient = "montse@topeweb.com";  
-    if ($fila['nom']=="alexTPV") $recipient = "alex@topeweb.com";  
-    if ($fila['nom']=="davidTPV") $recipient = "david@topeweb.com";  
-    $subject="COPIA D'EMAIL ENVIAT A CLIENT: ".$copia;
-    $r=mailer($recipient, $subject, $html, $altbdy);
-    $nreserva=$fila['id_reserva'];
-    print_log("Enviament RECORDATORI($r): $nreserva -- $recipient, $subject");
-	*/
-    mysql_free_result($Result);
+    
+    ((mysqli_free_result($Result) || (is_object($Result) && (get_class($Result) == "mysqli_result"))) ? true : false);
 	return ($fila['id_reserva']);
 }
 
 function enviaSMS($numMobil, $importReserva, $diaReserva, $idReserva, $lang)
 {
 	global $txt;
-	$mensa=$txt[81][$lang];
-	
+	$mensa=$txt[92][$lang];
+	echo "............$mensa.........";
 	$mensa=str_replace("%diaReserva",$diaReserva,$mensa);
 	$mensa=str_replace("%importReserva",$importReserva,$mensa);
 	$mensa=str_replace("%idReserva",$idReserva,$mensa);
@@ -290,17 +312,24 @@ function enviaSMS($numMobil, $importReserva, $diaReserva, $idReserva, $lang)
 	$type = "Text";			// The type of the message in the body (e.g. Text, SmartMessage, Binary or Unicode).
 	$validityPeriod = 0;		// The amount of time in hours until the message expires if it cannot be delivered.
 	$result;			// The result of a service request.
-	$messageIDs = array($idReserva);		// A single or comma-separated list of sent message IDs.
+	//$messageIDs = array($idReserva);		// A single or comma-separated list of sent message IDs.
 	$messageStatus;			// The status of a sent message.
 	
 	$sendService = new EsendexSendService( $username, $password, $accountReference );
-	//echo "TEEEST: $body";
-	$result = $sendService->SendMessage( $recipients, $body, $type );
+        //echo $lang."   ---------------------- TEEEST: $body  ---------------------------<br>";
+	if (SMS_ACTIVAT && ENVIA_SMS) $result = $sendService->SendMessage( $recipients, $body, $type );
 	
+        echo "<br/>";
+        echo "<br/>";
+        echo "SMS RECORDATORI $id";
+        echo "<br/>";
+        echo $html;
+        echo "<br/>";
+        echo "<br/>";
+        echo "<br/>";
 	
-	
-	print_log("ENVIAT SMS: $numMobil RESERVA $idReserva");
-	print_log("RESULTAT ENVIO: ".$result['Result']." / ".$result['MessageIDs']);
+	//print_log("ENVIAT SMS: $numMobil RESERVA $idReserva");
+	//print_log("RESULTAT ENVIO: ".$result['Result']." / ".$result['MessageIDs']);
 }
 
 

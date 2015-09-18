@@ -64,7 +64,7 @@ if ((isset($_POST["MM_update"])) && ($_POST["MM_update"] == "form1")) {
                        GetSQLValueString($_POST['id_reserva'], "int"));
 
   /******************************************************************************/	
-  $Result1 = mysql_query($updateSQL, $canborrell) or die(mysql_error());
+  $Result1 = mysqli_query( $canborrell, $updateSQL) or die(((is_object($GLOBALS["___mysqli_ston"])) ? mysqli_error($GLOBALS["___mysqli_ston"]) : (($___mysqli_res = mysqli_connect_error()) ? $___mysqli_res : false)));
   print_log("Modificació valors: ".$_POST['id_reserva']);
   header("location: llistat.php"); 
 
@@ -75,14 +75,14 @@ if ((isset($_POST["MM_update"])) && ($_POST["MM_update"] == "form1")) {
 /******************************************************************************/	
 $query_reserves = "SELECT * FROM reserves WHERE id_reserva=$id ORDER BY estat ";
 //$query_limit_reserves = sprintf("%s LIMIT %d, %d", $query_reserves, $startRow_reserves, $maxRows_reserves);
-$reserves = mysql_query($query_reserves, $canborrell) or die(mysql_error());
-$row_Recordset1 = mysql_fetch_assoc($reserves);
+$reserves = mysqli_query( $canborrell, $query_reserves) or die(((is_object($GLOBALS["___mysqli_ston"])) ? mysqli_error($GLOBALS["___mysqli_ston"]) : (($___mysqli_res = mysqli_connect_error()) ? $___mysqli_res : false)));
+$row_Recordset1 = mysqli_fetch_assoc($reserves);
 
 if (isset($_GET['totalRows_reserves'])) {
   $totalRows_reserves = $_GET['totalRows_reserves'];
 } else {
-  $all_reserves = mysql_query($query_reserves);
-  $totalRows_reserves = mysql_num_rows($all_reserves);
+  $all_reserves = mysqli_query($GLOBALS["___mysqli_ston"], $query_reserves);
+  $totalRows_reserves = mysqli_num_rows($all_reserves);
 }
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -254,5 +254,5 @@ if (isset($_GET['totalRows_reserves'])) {
 </body>
 </html>
 <?php
-mysql_free_result($reserves);
+((mysqli_free_result($reserves) || (is_object($reserves) && (get_class($reserves) == "mysqli_result"))) ? true : false);
 ?>

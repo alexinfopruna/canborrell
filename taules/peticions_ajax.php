@@ -12,24 +12,37 @@ if (isset($_REQUEST['a']) && !empty($_REQUEST['a']))
 	$logables=array('update_client','esborra_client','inserta_reserva','update_reserva','esborra_reserva','enviaSMS','permuta','permuta_reserva','','','','','','','','','','','');
 	$log=in_array($_REQUEST['a'], $logables);
 		
-	$ip=$ips[$_SERVER['REMOTE_ADDR']]?$ips[$_SERVER['REMOTE_ADDR']]:$_SERVER['REMOTE_ADDR'];
+	$ip=isset($ips[$_SERVER['REMOTE_ADDR']])?$ips[$_SERVER['REMOTE_ADDR']]:$_SERVER['REMOTE_ADDR'];
 	$sessuser=$_SESSION['uSer'];
 		if (isset($sessuser)) $user=$sessuser->id;
-		if ($log)	$gestor->reg_log("/* >>> Petició Gestor reserves:  user: $user ($ip)".$_REQUEST['a']." (b=".$_REQUEST['b'].", c=".$_REQUEST['c'].", d=".$_REQUEST['d']." ---- p=".$_REQUEST['p'].", q=".$_REQUEST['q'].", r=".$_REQUEST['r'].", c=".$_REQUEST['c'].", d=".$_REQUEST['d'].", e=".$_REQUEST['e'].")<<< */".EOL);
+                
+                $a=isset($_REQUEST['a'])?$_REQUEST['a']:'';
+                $b=isset($_REQUEST['b'])?$_REQUEST['b']:'';
+                $c=isset($_REQUEST['c'])?$_REQUEST['c']:'';
+                $d=isset($_REQUEST['d'])?$_REQUEST['d']:'';
+                $e=isset($_REQUEST['e'])?$_REQUEST['e']:'';
+                $f=isset($_REQUEST['f'])?$_REQUEST['f']:'';
+                $g=isset($_REQUEST['g'])?$_REQUEST['g']:'';
+                $p=isset($_REQUEST['p'])?$_REQUEST['p']:'';
+                $q=isset($_REQUEST['q'])?$_REQUEST['q']:'';
+                $r=isset($_REQUEST['r'])?$_REQUEST['r']:'';
+                $term=isset($_REQUEST['term'])?$_REQUEST['term']:'';
+                
+		if ($log)	$gestor->reg_log("/* >>> Petició Gestor reserves:  user: $user ($ip)".$a." (b=".$b.", c=".$c.", d=".$d." ---- p=".$p.", q=".$q.", r=".$r.", c=".$c.", d=".$d.", e=".$e.")<<< */".EOL);
 	
-	switch ($accio=$_REQUEST['a'])
+	switch ($accio=$a)
 	{
 		case "accordion_clients":
-			out( $gestor->accordion_clients($_REQUEST['p']));
+			out( $gestor->accordion_clients($p));
 			$gestor->refresh(true);
 		break;	
 		
 		case "combo_clients":
-			out( $gestor->combo_clients($_REQUEST['p']));
+			out( $gestor->combo_clients($p));
 		break;	
 		
 		case "htmlDadesClient":
-			out( $gestor->htmlDadesClient($_REQUEST['p']));
+			out( $gestor->htmlDadesClient($p));
 		break;
 		
 		case "inserta_client":
@@ -38,7 +51,7 @@ if (isset($_REQUEST['a']) && !empty($_REQUEST['a']))
 		break;
 		
 		case "load_client":
-			out( $gestor->load_client($_REQUEST['p'],$_REQUEST['q']));
+			out( $gestor->load_client($p,$q));
 		break;
 		
 		case "update_client":
@@ -47,7 +60,7 @@ if (isset($_REQUEST['a']) && !empty($_REQUEST['a']))
 		break;	
 		
 		case "esborra_client":
-			out( $gestor->esborra_client($_REQUEST['p']));
+			out( $gestor->esborra_client($p));
 			$gestor->refresh(true);
 		break;	
 		
@@ -62,58 +75,58 @@ if (isset($_REQUEST['a']) && !empty($_REQUEST['a']))
 		break;	
 		
 		case "esborra_reserva":
-			out( $gestor->esborra_reserva($_REQUEST['p'],$_REQUEST['q']));
+			out( $gestor->esborra_reserva($p,$q));
 			$gestor->refresh(true);
 		break;	
 		
 		case "accordion_reserves":
-			out( ($gestor->accordion_reserves($_REQUEST['p'])));
+			out( ($gestor->accordion_reserves($q)));
 			$gestor->refresh(true);
 		break;	
 		
 		case "canvi_data":
-			out( $gestor->canvi_data($_REQUEST['p'],$_REQUEST['q']));
+			out( $gestor->canvi_data($p,$q));
 			$gestor->refresh(true);
 		break;	
 		
 		case "canvi_modo":
-			out( $gestor->canvi_modo($_REQUEST['p']));
+			out( $gestor->canvi_modo($p));
 		break;	
 		
 		case "recupera_hores":
-			out( $gestor->recupera_hores($_REQUEST['c'],$_REQUEST['d'],$_REQUEST['e']));
+			out( $gestor->recupera_hores($c,$d,$e));
 		break;	
 		
 		case "total_coberts_torn":
-			out( $gestor->total_coberts_torn($_REQUEST['p'],$_REQUEST['c']));
+			out( $gestor->total_coberts_torn($p,$c));
 		break;	
 		
 		case "canvi_torn":
-			out( $gestor->canvi_torn($_REQUEST['p']));
+			out( $gestor->canvi_torn($p));
 		break;	
 		
 		case "cerca_reserves":
-			out( $gestor->accordion_reserves($_REQUEST['p'],$_REQUEST['c']));
+			out( $gestor->accordion_reserves($p,$c));
 		break;	
 		
 		case "cerca_clients":
-			out( $gestor->accordion_clients($_REQUEST['p'],$_REQUEST['c']));
+			out( $gestor->accordion_clients($p,$c));
 		break;	
 		
 		case "clientHistoric":
-			out( $gestor->clientHistoric($_REQUEST['p']));
+			out( $gestor->clientHistoric($p));
 		break;	
 		
 		case "valida_reserva":
-			out( $gestor->valida_reserva($_REQUEST['p']));
+			out( $gestor->valida_reserva($p));
 		break;	
 		
 		case "cerca_taula":
-			out( $gestor->cerca_taula($_REQUEST['p'],$_REQUEST['q'],$_REQUEST['r']));
+			out( $gestor->cerca_taula($p,$q,$r));
 		break;	
 		
 		case "recupera_torn":
-			out( $gestor->recupera_torn($_REQUEST['p'],$_REQUEST['q'],$_REQUEST['r']));
+			out( $gestor->recupera_torn($p,$q,$r));
 		break;	
 		
 
@@ -126,65 +139,65 @@ if (isset($_REQUEST['a']) && !empty($_REQUEST['a']))
 		break;
 
 		case "edita_hores":
-			echo( $gestor->edita_hores($_REQUEST['p'],$_REQUEST['q']));
+			echo( $gestor->edita_hores($p,$q));
 		break;
 
 		case "update_hora":
-			out( $gestor->update_hora($_REQUEST['p'],$_REQUEST['c'],$_REQUEST['d'],$_REQUEST['e'],$_REQUEST['f'],$_REQUEST['g']));
+			out( $gestor->update_hora($p,$c,$d,$e,$f,$g));
 		break;
 
 		case "guarda_missatge_dia":
-			out( $gestor->guarda_missatge_dia($_REQUEST['p'],$_REQUEST['c']));
+			out( $gestor->guarda_missatge_dia($p,$c));
 		break;
 		
 		case "recupera_missatge_dia":
-			out( $gestor->recupera_missatge_dia($_REQUEST['p'],$_REQUEST['c']));
+			out( $gestor->recupera_missatge_dia($p,$c));
 		break;
 
 		case "enviaSMS":
-			out( $gestor->enviaSMS($_REQUEST['p'],$_REQUEST['c']));
+			out( $gestor->enviaSMS($p,$c));
 		break;
 
 		case "llistaSMS":
-			out( $gestor->llistaSMS($_REQUEST['p']));
+			out( $gestor->llistaSMS($p));
 		break;
 
 		case "autocomplete_clients":
-			out( $gestor->autocomplete_clients($_REQUEST['term'],$_REQUEST['p']));
+			out( $gestor->autocomplete_clients($term,$p));
 		break;
 
 		case "autocomplete_reserves":
-			out( $gestor->autocomplete_reserves($_REQUEST['term']));
+			out( $gestor->autocomplete_reserves($term));
 		break;
 
 		case "permuta":
-			out( $gestor->permuta($_REQUEST['c'],$_REQUEST['d'],$_REQUEST['r']));
+			out( $gestor->permuta($c,$d,$r));
 			$gestor->refresh(true);
 		break;
 
 		case "permuta_reserva":
-			out( $gestor->permuta_reserva($_REQUEST['c'],$_REQUEST['d'],$_REQUEST['r']));
+			out( $gestor->permuta_reserva($c,$d,$r));
 			$gestor->refresh(true);
 		break;
 
 		case "plats_comanda":
-			out( $gestor->plats_comanda($_REQUEST['p']));
+			out( $gestor->plats_comanda($p));
 		break;
 
 		case "taula_bloquejada":
-			out( $gestor->taula_bloquejada($_REQUEST['p']));
+			out( $gestor->taula_bloquejada($p));
 		break;
 
 		case "bloqueig_taula":
-			out( $gestor->bloqueig_taula($_REQUEST['p'],$_SESSION['data'],$_SESSION['torn'],$_REQUEST['q']));
+			out( $gestor->bloqueig_taula($p,$_SESSION['data'],$_SESSION['torn'],$q));
 		break;
 
 		case "cambiaf_a_mysql":
-			out( $gestor->cambiaf_a_mysql($_REQUEST['p'],$_REQUEST['q']));
+			out( $gestor->cambiaf_a_mysql($p,$q));
 		break;
 
 		case "cambiaf_a_normal":
-			out( $gestor->cambiaf_a_normal($_REQUEST['p'],$_REQUEST['q']));
+			out( $gestor->cambiaf_a_normal($p,$q));
 		break;
 
 		case "sql":
@@ -192,7 +205,7 @@ if (isset($_REQUEST['a']) && !empty($_REQUEST['a']))
 		break;
 
 		case "test":
-			out( "TEST (param P): ".$_REQUEST['p']);			
+			out( "TEST (param P): ".$p);			
 		break;
 
 		
@@ -203,7 +216,7 @@ if (isset($_REQUEST['a']) && !empty($_REQUEST['a']))
 		break;
 		
 		default:
-			$gestor->out(call_user_func(array($gestor, $accio),$_REQUEST['b'],$_REQUEST['c'],$_REQUEST['d'],$_REQUEST['e'],$_REQUEST['f'],$_REQUEST['g']));	
+			$gestor->out(call_user_func(array($gestor, $accio),$b,$c,$d,$e,$f,$g));	
 		break;
 	}
 }

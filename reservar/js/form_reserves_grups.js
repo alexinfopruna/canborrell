@@ -168,6 +168,9 @@ $(".ui-accordion-content").css("overflow","scroll");
 	$("body").fadeIn("slow");	
 	
 	$("#help").dialog("open");
+        $("button").one("click",function(){
+            $(".gris-ajuda").addClass("fliflu");
+        });
         
         $("#te-comanda").change(function(){
             $("#resum-total").after(" ("+$(this).val()+" menús / "+$("#totalComensals").val()+" comensals)");
@@ -187,7 +190,7 @@ $(".info-ico").click(function(e){
     help($("."+id).html());
     e.preventDefault();
 });
-    
+    totalPersones();
 }); //ONLOAD, PRESENTACIO UI
 /************************************************************************************************************/
 /************************************************************************************************************/
@@ -212,6 +215,8 @@ $(".info-ico").click(function(e){
 function comportamentQuantsSou()
 {
 	//ADULTS
+        
+        
 	$("#selectorComensals").change(function(){
 		$("input[name='adults']").val($("input[name='selectorComensals']:checked").val());
 		totalPersones();

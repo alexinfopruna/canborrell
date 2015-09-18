@@ -12,7 +12,6 @@ if (isset($_GET['test']))
 	$lc = new Configuracio();
 	$lc->test();
 }
-
 if (!defined('ROOT')) define('ROOT', ""); //PER DEFECTE
 require_once(ROOT."php/xml2array.php");
 
@@ -88,12 +87,12 @@ class Configuracio
 		require(ROOT.DB_CONNECTION_FILE);
 
 		$query = "SELECT * FROM ".$taula;
-		$r = mysql_query($query, $DBConn);
+		$r = mysqli_query( $GLOBALS["___mysqli_ston"], $query);
 		$array=array();
-		if (!mysql_num_rows($r)) return false;
+		if (!mysqli_num_rows($r)) return false;
 		else
 		{
-			while ($row = mysql_fetch_array($r))
+			while ($row = mysqli_fetch_array($r))
 			{		
 					// DEFINE PER CONSTANT PHP
 					if ($row['config_define']) 
@@ -105,9 +104,9 @@ class Configuracio
 							ORDER BY config_array_index";
 							
 							
-							$ar_r = mysql_query($query, $DBConn);
+							$ar_r = mysqli_query( $DBConn, $query);
 							
-							while ($ar_row = mysql_fetch_array($ar_r))
+							while ($ar_row = mysqli_fetch_array($ar_r))
 							{	
 								if ($ar_row['config_val']==="true" || $ar_row['config_val']==="TRUE") $ar_row['config_val']=true;
 								elseif ($ar_row['config_val']==="false" || $ar_row['config_val']==="FALSE") $ar_row['config_val']=false;
@@ -205,7 +204,7 @@ class Configuracio
 		$query = "UPDATE config SET config_val='$v' $fdesc $fdefine $fjs $fsess WHERE config_var='$k'";
 
 		require(ROOT.DB_CONNECTION_FILE);
-		return mysql_query($query, $DBConn);
+		return mysqli_query( $DBConn, $query);
 
 		
 	}

@@ -20,6 +20,8 @@ class Gestor_filtre_carta extends Gestor_form
   public function recuperaCarta($idr=0,$es_menu=false)
   {
     $lng= $this->lng;
+    $llista="";
+    $class="";
     //CONTROL DIES NOMES CARTA
 
 
@@ -38,9 +40,9 @@ class Gestor_filtre_carta extends Gestor_form
     //ORDER BY (carta_subfamilia_id=2),carta_subfamilia_id";
     //echo $query;
 
-    $Result1 = mysql_query($query, $this->connexioDB) or die(mysql_error());
+    $Result1 = mysqli_query( $this->connexioDB, $query) or die(((is_object($GLOBALS["___mysqli_ston"])) ? mysqli_error($GLOBALS["___mysqli_ston"]) : (($___mysqli_res = mysqli_connect_error()) ? $___mysqli_res : false)));
 
-    while ($row = mysql_fetch_array($Result1))
+    while ($row = mysqli_fetch_array($Result1))
     {
       if (empty($row['carta_plats_nom_ca'])) $row['carta_plats_nom_ca']=$row['carta_plats_nom_es'];
       $plat=array('id'=>$row['carta_plats_id'],'nom'=>$row['carta_plats_nom_'.$lng],'preu'=>$row['carta_plats_preu'],'quantitat'=>$row['comanda_plat_quantitat'],'publicat'=>$row['carta_publicat']);
@@ -53,6 +55,8 @@ class Gestor_filtre_carta extends Gestor_form
 //print "<pre>";
 //print_r($arCarta);
 //print "</pre>";
+    
+    
     foreach ($arCarta as $key => $val)
     {
       $k=$this->normalitzar($key);
@@ -83,8 +87,12 @@ class Gestor_filtre_carta extends Gestor_form
   }
 
   /**********************************************************************************************************/
-  public function  seccioCarta($ar,$k, $class)
+  public function  seccioCarta($ar,$k, $class="")
   {
+    $publicat="";
+    $c=0;
+    $l=0;
+    $tr="";
     $obreTaula='<table id="c1" class="col_dere">'.PHP_EOL;
      
     foreach ($ar[$k] as $key => $val)
@@ -141,13 +149,13 @@ WHERE comanda_reserva_id=0
     $valor = ($valor == 'true');
     $publicat = ($valor)?"TRUE":"FALSE";
     $query = "REPLACE carta_publicat SET carta_publicat=$publicat, carta_publicat_plat_id=".$cpid;
-    $this->qry_result = mysql_query($query, $this->connexioDB) or die(mysql_error());
+    $this->qry_result = mysqli_query( $this->connexioDB, $query) or die(((is_object($GLOBALS["___mysqli_ston"])) ? mysqli_error($GLOBALS["___mysqli_ston"]) : (($___mysqli_res = mysqli_connect_error()) ? $___mysqli_res : false)));
 
     $query = "UPDATE comanda 
         SET comanda_plat_quantitat=$publicat  
         WHERE comanda_reserva_id=0 
         AND comanda_plat_id=".$cpid;
-    $this->qry_result = mysql_query($query, $this->connexioDB) or die(mysql_error());
+    $this->qry_result = mysqli_query( $this->connexioDB, $query) or die(((is_object($GLOBALS["___mysqli_ston"])) ? mysqli_error($GLOBALS["___mysqli_ston"]) : (($___mysqli_res = mysqli_connect_error()) ? $___mysqli_res : false)));
     
 
     return $publicat;  
@@ -161,6 +169,8 @@ WHERE comanda_reserva_id=0
   public function recuperaSorter($idr=0,$es_menu=false)
   {
     $lng= $this->lng;
+    $llista="";
+    $class="";
     //CONTROL DIES NOMES CARTA
 
 
@@ -179,10 +189,10 @@ INNER JOIN carta_plats ON carta_subfamilia_order.carta_subfamilia_id = carta_pla
 INNER JOIN carta_publicat ON carta_plats.carta_plats_id = carta_publicat.carta_publicat_plat_id
 WHERE carta_publicat > 0 AND carta_plats.carta_plats_subfamilia_id<>20
 ORDER BY carta_subfamilia_order";
-    $Result1 = mysql_query($query, $this->connexioDB) or die(mysql_error());
+    $Result1 = mysqli_query( $this->connexioDB, $query) or die(((is_object($GLOBALS["___mysqli_ston"])) ? mysqli_error($GLOBALS["___mysqli_ston"]) : (($___mysqli_res = mysqli_connect_error()) ? $___mysqli_res : false)));
 
 
-    while ($row = mysql_fetch_array($Result1))	  
+    while ($row = mysqli_fetch_array($Result1))	  
 	{
 		$llista.='<li id="order_'.$row['carta_subfamilia_id'].'" class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>'.$row['carta_subfamilia_nom_es'].'</li>';
 	}
@@ -200,7 +210,7 @@ ORDER BY carta_subfamilia_order";
 	foreach ($_GET['order'] as $position => $item)
 	{
 		$query=$sql[] = "UPDATE carta_subfamilia_order SET carta_subfamilia_order = $position WHERE carta_subfamilia_id = $item"; 
-		$Result1 = mysql_query($query, $this->connexioDB) or die(mysql_error());
+		$Result1 = mysqli_query( $this->connexioDB, $query) or die(((is_object($GLOBALS["___mysqli_ston"])) ? mysqli_error($GLOBALS["___mysqli_ston"]) : (($___mysqli_res = mysqli_connect_error()) ? $___mysqli_res : false)));
 	}  
 	
 	print_r ($sql); 
@@ -209,7 +219,7 @@ ORDER BY carta_subfamilia_order";
   
 }
 
-if($accio) {
+if(isset($accio)) {
   
   $gestor=new Gestor_filtre_carta();
   if (method_exists($gestor,$accio)){

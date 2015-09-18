@@ -291,6 +291,8 @@ $translateJS['OBSERVACIONS_COTXETS']='No tendremos en cuenta las indicaciones qu
         . 'Disponemos de recursos limitados y <b>solo podemos garantizarte lo que solicites en la primera sección</b> de este formulario'
         . '<br/><br/>Gracias por tu comprensión';
 
+$translateJS["REDIR_GRUPS"] ="Has indicado más de ".$PERSONES_GRUP." personas. En este caso te transferiremos al formulario de reservas de grupos. \\n¿Es esto correcto?";
+
 $translateJS["PAGA_I_SENYAL"] ="<div>A continuación has de realizar el pago de ".import_paga_i_senyal."€ para garantizar la asistència el día de la reserva. "
         . "Este importe será descontado de la cuenta total.<br/><br/>"
         . '<div class = "info-paga-i-senyal"> Atención: Si no puedes venir el día de la reserva <b>puedes recuperar la paga y señal si nos avisas con 24 horas de \ antelación</b>. En caso contrario, el \ importe abonado no será devuelto </div> '
@@ -301,7 +303,7 @@ $translateJS["PAGA_I_SENYAL"] ="<div>A continuación has de realizar el pago de 
 
 /*******************************************************     ERRORS   ***********************************/	
 $translateJS['err33'] = 'Test error33';
-$translateJS['err0'] = 'No ha estat possible crear la reserva.';
+$translateJS['err0'] = 'El servidor no ha respondido. No ha sido posible crear la reserva. Vuelva a enviar el formulario y, si el problema persiste, contacte con el restaurant';
 $translateJS['err1'] = 'Test error1';
 $translateJS['err2'] = 'Test error2';
 $translateJS['err3'] = 'No hem trobat taula disponoble';
@@ -311,6 +313,7 @@ $translateJS['err6'] = 'El camp cognoms no és correcte';
 $translateJS['err7'] = 'El nombre de comensals no és correcte';
 $translateJS['err8'] = 'No hi ha taula per l´hora que has demanat';
 $translateJS['err10'] = 'Para esta fecha debes seleccionar un menú para cada comensal';
+$translateJS['err11'] = 'Ya no se pueden registrar reservas para hoy';
 $translateJS['err99'] = 'Test error';
 $translateJS['err100'] = 'Error de sessió';
 $translateJS['err_contacti'] = 'Contacti amb el restaurant: 936929723 / 936910605';

@@ -72,9 +72,9 @@ class Carta extends Gestor
 		// CARREGUEM LA TAULA DE PLATS
 		
 		$query="SELECT * FROM carta_plats";
-		$this->qry_result = mysql_query($query, $this->connexioDB) or die(mysql_error());
-		$nr=mysql_num_rows($this->qry_result);
-		while ($row= mysql_fetch_assoc($this->qry_result))
+		$this->qry_result = mysqli_query( $this->connexioDB, $query) or die(((is_object($GLOBALS["___mysqli_ston"])) ? mysqli_error($GLOBALS["___mysqli_ston"]) : (($___mysqli_res = mysqli_connect_error()) ? $___mysqli_res : false)));
+		$nr=mysqli_num_rows($this->qry_result);
+		while ($row= mysqli_fetch_assoc($this->qry_result))
 		{
 			$id=$row['carta_plats_id'];
 			$preuIVA=number_format (round($row['carta_plats_preu']*FACTOR_IVA,2),2);
@@ -102,6 +102,7 @@ class Carta extends Gestor
 // ET TORNA PREU AMB IVA
 	public function preuPlat($id, $iva=true)
 	{
+                if (!$id) return FALSE;
 		if ($iva) return($this->plats[$id]->preuIVA);
 		else return($this->plats[$id]->preu);
 	}

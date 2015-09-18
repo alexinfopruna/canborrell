@@ -34,16 +34,19 @@ $del=$dbdel=$_REQUEST['del']?"canborrell_del.":"";
 if (isset($_REQUEST['sql'])) $query=$_REQUEST['sql'];
 
 //echo $query;
-$res=mysql_query($query); 
+$res=mysqli_query($GLOBALS["___mysqli_ston"], $query); 
 if (!$gestor->valida_sessio(1))  die("Sense permisos. Logat primer al panel!");
-$nr=mysql_num_rows($res);
-$row=mysql_fetch_assoc($res);
+$nr=mysqli_num_rows($res);
+$row=mysqli_fetch_assoc($res);
 $columnes = count($row);
 
 
 
 function controlsTaula($fila)
 {
+  $fila['del_id']=isset($fila['del_id'])?  $fila['del_id']:"";
+
+  
 	$columnes = count($fila);
 	$botons = '<a href="'.$_SERVER['PHP_SELF'].'?d='.$fila['del_id'].'"><span class="ui-icon ui-icon-pencil"></span></a>';
 	$botons .= '<a href="eee"><span class="ui-icon ui-icon-trash"></span></a>';
@@ -239,7 +242,7 @@ function controlsTaula($fila)
 			?>
 					</tr>
 			<?php
-				$row=mysql_fetch_assoc($res);
+				$row=mysqli_fetch_assoc($res);
 			}
 			?>
 				</tbody>

@@ -145,7 +145,7 @@ class TaulesDisponibles extends Gestor
 
 	ORDER BY   estat_taula_persones, estat_taula_cotxets,estat_taula_data DESC";
 //echo $query." ///// <br/>";
-		$Result1 = mysql_query($query,  $this->connexioDB) or die(mysql_error());
+		$Result1 = mysqli_query(  $this->connexioDB, $query) or die(((is_object($GLOBALS["___mysqli_ston"])) ? mysqli_error($GLOBALS["___mysqli_ston"]) : (($___mysqli_res = mysqli_connect_error()) ? $___mysqli_res : false)));
 		
 /**/
 
@@ -164,7 +164,7 @@ class TaulesDisponibles extends Gestor
 			$r=$this->reserva;//=$this->loadReserva($this->reserva_id);
 			if ($r->taula->puntuacioTaula($persones,$cotxets,5000)) $this->arResultatTaula[]=$r->taula;
 		}
-		elseif (!$Result1 || !mysql_num_rows($Result1)) // SI NO, MIREM SI HI HA ALGUNA TAULA
+		elseif (!$Result1 || !mysqli_num_rows($Result1)) // SI NO, MIREM SI HI HA ALGUNA TAULA
 		{
 			$this->addError(29);
 			return array();		
@@ -173,7 +173,7 @@ class TaulesDisponibles extends Gestor
   		////////////////////////////////////////////////////////////////////////////////////////////////////
   		////////////////////////////////////////////////////////////////////////////////////////////////////
 		
-		while ($row = mysql_fetch_array($Result1))//PRIMERA PASSADA
+		while ($row = mysqli_fetch_array($Result1))//PRIMERA PASSADA
 		{						
 			//CREACIO TAULA
 			$hora=0;
@@ -343,11 +343,11 @@ class TaulesDisponibles extends Gestor
 		
 		ORDER BY estat_menjador_data DESC;";
 		
-		$Result1 = mysql_query($query, $this->connexioDB) or die(mysql_error());
-		$nfiles = mysql_num_rows($Result1);
+		$Result1 = mysqli_query( $this->connexioDB, $query) or die(((is_object($GLOBALS["___mysqli_ston"])) ? mysqli_error($GLOBALS["___mysqli_ston"]) : (($___mysqli_res = mysqli_connect_error()) ? $___mysqli_res : false)));
+		$nfiles = mysqli_num_rows($Result1);
 		
 		$bloquejats=null;
-		while ($row = mysql_fetch_array($Result1)) 
+		while ($row = mysqli_fetch_array($Result1)) 
 		{
 			if (isset($arMenjadors[$row['estat_menjador_menjador_id']])) $arMenjadors[$row['estat_menjador_menjador_id']]->bloquejat=true;
 			$bloquejats[$row['estat_menjador_menjador_id']] = $this->menjadors[$row['estat_menjador_menjador_id']];
@@ -387,10 +387,10 @@ class TaulesDisponibles extends Gestor
 				INNER JOIN ".T_RESERVES." ON id_reserva = `reserva_id`
 				WHERE `estat_taula_data` = '$data'
 				AND `estat_taula_torn` =$torn";
-		$Result1 = mysql_query($query,  $this->connexioDB) ;//or die(mysql_error());
-		if (!mysql_num_rows($Result1)) return 0;
+		$Result1 = mysqli_query(  $this->connexioDB, $query) ;//or die(mysql_error());
+		if (!mysqli_num_rows($Result1)) return 0;
 		
-		$row = mysql_fetch_array($Result1);
+		$row = mysqli_fetch_array($Result1);
 		return $row['total'];
 	}
 
@@ -414,8 +414,8 @@ class TaulesDisponibles extends Gestor
 		AND estat_hores_torn=$torn 
 		AND estat_hores_hora='00:00'
 		ORDER BY estat_hores_data DESC";
-		$Result1 = mysql_query($query,  $this->connexioDB) ;//or die(mysql_error());
-		$row=mysql_fetch_array($Result1);
+		$Result1 = mysqli_query(  $this->connexioDB, $query) ;//or die(mysql_error());
+		$row=mysqli_fetch_array($Result1);
 		if ($row[0]<2) $row[0]=20000;
 		return $row[0];
 	}
@@ -435,10 +435,10 @@ class TaulesDisponibles extends Gestor
 			hora='$hora'
 			AND data='$data'";
 			
-			$Result1 = mysql_query($query,  $this->connexioDB) ;//or die(mysql_error());
-			if (!mysql_num_rows($Result1)) return 0;
+			$Result1 = mysqli_query(  $this->connexioDB, $query) ;//or die(mysql_error());
+			if (!mysqli_num_rows($Result1)) return 0;
 			
-			$row = mysql_fetch_array($Result1);
+			$row = mysqli_fetch_array($Result1);
 			return $row['a']+$row['n4']+$row['n10'];
 	}	
 /*********************************************************************************/
@@ -459,8 +459,8 @@ class TaulesDisponibles extends Gestor
 		AND estat_hores_hora='$hora'
 		ORDER BY estat_hores_data DESC";
 		
-		$Result1 = mysql_query($query,  $this->connexioDB) ;//or die(mysql_error());
-		$row=mysql_fetch_array($Result1);
+		$Result1 = mysqli_query(  $this->connexioDB, $query) ;//or die(mysql_error());
+		$row=mysqli_fetch_array($Result1);
 		if ($row[0]<2) $row[0]=20000;
 		return $row[0];	
 	}
@@ -615,7 +615,7 @@ estat_hores_actiu =1 $OR_HORA_RESERVA  )
 ORDER BY  `estat_hores_hora` ASC ";      
 } 
 		//echo $query;
-		$Result1 = mysql_query($query,  $this->connexioDB) ;//or die(mysql_error());
+		$Result1 = mysqli_query(  $this->connexioDB, $query) ;//or die(mysql_error());
 		//
 		///////////////////////////////////////////////////////////////////////////////////////////////	
 		
@@ -627,7 +627,7 @@ ORDER BY  `estat_hores_hora` ASC ";
 		$mensa='';
 		$info='';
 		$radio='';
-		while ($row = mysql_fetch_array($Result1))
+		while ($row = mysqli_fetch_array($Result1))
 		{			
 			if ($hora==$row['estat_hores_hora']) 
 			{
@@ -696,14 +696,14 @@ ORDER BY  `estat_hores_hora` ASC ";
 		
 		ORDER BY estat_hores_hora, estat_hores_id DESC, estat_hores_hora";
 		
-		$Result1 = mysql_query($query,  $this->connexioDB) ;//or die(mysql_error());
+		$Result1 = mysqli_query(  $this->connexioDB, $query) ;//or die(mysql_error());
 		$hora=null;
 		$hora=null;
 		$valor=null;
 		$radio=null;
 		$comensals=null;
 		$disabled=null;
-		while ($row = mysql_fetch_array($Result1))
+		while ($row = mysqli_fetch_array($Result1))
 		{
 			if ($hora==$row['estat_hores_hora']) continue;	
 			$hora=$row['estat_hores_hora'];
@@ -774,10 +774,10 @@ ORDER BY  `estat_hores_hora` ASC ";
     WHERE 
     (estat_crea_taules_data='$mydata' AND estat_crea_taules_torn = '$torn' ) 
     ORDER BY estat_crea_taules_timestamp DESC";
-    $Result1 = mysql_query($query,  $this->connexioDB) or die(mysql_error());
+    $Result1 = mysqli_query(  $this->connexioDB, $query) or die(((is_object($GLOBALS["___mysqli_ston"])) ? mysqli_error($GLOBALS["___mysqli_ston"]) : (($___mysqli_res = mysqli_connect_error()) ? $___mysqli_res : false)));
 		
-		if (!mysql_num_rows($Result1)) return CREA_TAULES;
-    else	return (mysql_result($Result1,0)==1);
+		if (!mysqli_num_rows($Result1)) return CREA_TAULES;
+    else	return (mysqli_result($Result1,0)==1);
 	}
 
 /************************************************************************************************************************/

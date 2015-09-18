@@ -13,10 +13,10 @@ require_once(INC_FILE_PATH.'valors.php');
 require_once('mailer.php');
  
 //$lang='cat';
-mysql_select_db($database_canborrell, $canborrell);
+((bool)mysqli_query( $canborrell, "USE " . $database_canborrell));
 
 $id = $_GET['id'];
-$P_ID = $_POST['P_ID'];
+$P_ID = isset($_POST['P_ID'])?$_POST['P_ID']:FALSE;
 if (isset($_GET["sub"]) && $_GET["sub"]=="Confirmar") $_POST["Submit"]="Confirmar";
 $func=$_POST["Submit"];
 //die("TOT BEEE");
@@ -57,9 +57,9 @@ case "Pendent":
 if (($func=="Eliminar")&&($id==$P_ID))
 {
    $query="DELETE FROM reserves WHERE id_reserva=$id AND estat=5";
-   $result=mysql_query($query,$canborrell);
+   $result=mysqli_query($canborrell, $query);
    $query='UPDATE reserves SET estat=5 WHERE id_reserva='.$id;
-   $result=mysql_query($query,$canborrell);
+   $result=mysqli_query($canborrell, $query);
     print_log("Reserva Esborrada: $id");
    header("location: llistat.php");
 
@@ -70,7 +70,7 @@ else
    $query='UPDATE reserves SET estat='.$estat.', num_1=0, data_limit="'.$d_limit.'" WHERE id_reserva='.$id;
    print_log("Reserva modificada: $id / estat=$estat / data limit=$d_limit ---- $query");
    //echo $query;
-   $result=mysql_query($query,$canborrell);  
+   $result=mysqli_query($canborrell, $query);  
     //mysql_free_result($result);
    
   header("location: llistat.php"); 
@@ -90,9 +90,9 @@ function mail_SMS_cli($id=false,$SMS=null)
 	
 	}
 	
-	mysql_select_db($database_canborrell, $canborrell);
-	$Result = mysql_query($query, $canborrell) or die(mysql_error());
-	$fila=mysql_fetch_assoc($Result);
+	((bool)mysqli_query( $canborrell, "USE " . $database_canborrell));
+	$Result = mysqli_query( $canborrell, $query) or die(((is_object($GLOBALS["___mysqli_ston"])) ? mysqli_error($GLOBALS["___mysqli_ston"]) : (($___mysqli_res = mysqli_connect_error()) ? $___mysqli_res : false)));
+	$fila=mysqli_fetch_assoc($Result);
  	$lang=$lang_cli=$fila['lang'];
 
  	/*** ENVIA SMS ***/ 	
@@ -258,7 +258,7 @@ function mail_SMS_cli($id=false,$SMS=null)
     print_log("Enviament mail($r): $nreserva -- $recipient, $subject $att");
 	*/
 	
-    mysql_free_result($Result);
+    ((mysqli_free_result($Result) || (is_object($Result) && (get_class($Result) == "mysqli_result"))) ? true : false);
 	return ($fila['id_reserva']);
 }
 ///////////////////////////////////////////////////////
@@ -287,11 +287,11 @@ function mail_restaurant($id=false)
 	
 	}
 	
-	mysql_select_db($database_canborrell, $canborrell);
+	((bool)mysqli_query( $canborrell, "USE " . $database_canborrell));
 	
-	mysql_select_db($database_canborrell, $canborrell);
-	$Result = mysql_query($query, $canborrell) or die(mysql_error());
-	$fila=mysql_fetch_assoc($Result);
+	((bool)mysqli_query( $canborrell, "USE " . $database_canborrell));
+	$Result = mysqli_query( $canborrell, $query) or die(((is_object($GLOBALS["___mysqli_ston"])) ? mysqli_error($GLOBALS["___mysqli_ston"]) : (($___mysqli_res = mysqli_connect_error()) ? $___mysqli_res : false)));
+	$fila=mysqli_fetch_assoc($Result);
 	
 	$avui=date("d/m/Y");
 	$ara=date("H:i");
@@ -366,7 +366,7 @@ function mail_restaurant($id=false)
     $nreserva=$fila['id_reserva'];
     print_log("Enviament mail($r): $nreserva -- $recipient, $subject");
 	
-    mysql_free_result($Result);
+    ((mysqli_free_result($Result) || (is_object($Result) && (get_class($Result) == "mysqli_result"))) ? true : false);
 	return ($fila['id_reserva']);
 }
 ?>

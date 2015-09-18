@@ -38,7 +38,9 @@ class EstatTaula extends Gestor{
 	* new EstatTaula(taula_id,torn,data)
     */
     public function EstatTaula($taula_id=null, $nom_o_torn=null, $data=0, $hora=0, $persones=0, $cotxets=0, $plena=0, $x=0, $y=0, $punts=0) {
-		parent::__construct($db_connection_file,$usuari_minim);
+	$db_connection_file = NULL;	
+	$usuari_minim = NULL;	
+        parent::__construct($db_connection_file,$usuari_minim);
 			
 		//COORDENADES MENJADORS		
         $this->data = $data;
@@ -81,8 +83,8 @@ class EstatTaula extends Gestor{
 		AND estat_taula_nom LIKE 'OL%' 
 		AND estat_taula_y = ".CREA_TAULA_Y."
 		ORDER BY estat_taula_x DESC";
-		$Result1 = mysql_query($query,  $this->connexioDB) or die(mysql_error());
-		$cnt=mysql_num_rows($Result1);
+		$Result1 = mysqli_query(  $this->connexioDB, $query) or die(((is_object($GLOBALS["___mysqli_ston"])) ? mysqli_error($GLOBALS["___mysqli_ston"]) : (($___mysqli_res = mysqli_connect_error()) ? $___mysqli_res : false)));
+		$cnt=mysqli_num_rows($Result1);
 		
 		$x = 32 * ($cnt) + 22;   
 		return $x;
@@ -99,9 +101,9 @@ class EstatTaula extends Gestor{
 	/* BASE SOLA */ 	(estat_taula_data = '$base' AND estat_taula_torn=$torn ))
 	ORDER BY estat_taula_data DESC";
 //echo $query;	
-		$Result1 = mysql_query($query,  $this->connexioDB) or die(mysql_error());
-		if (!mysql_num_rows($Result1)) return false;
-		$row = mysql_fetch_array($Result1);
+		$Result1 = mysqli_query(  $this->connexioDB, $query) or die(((is_object($GLOBALS["___mysqli_ston"])) ? mysqli_error($GLOBALS["___mysqli_ston"]) : (($___mysqli_res = mysqli_connect_error()) ? $___mysqli_res : false)));
+		if (!mysqli_num_rows($Result1)) return false;
+		$row = mysqli_fetch_array($Result1);
 		
 		$this->id = $row['estat_taula_taula_id'];
         $this->nom = $row['estat_taula_nom'];
@@ -142,8 +144,8 @@ class EstatTaula extends Gestor{
 					$_SESSION['admin_id'].
 				"')";
 						
-		$Result1 = mysql_query($query,  $this->connexioDB) or die(mysql_error());
-		$idt=mysql_insert_id($this->connexioDB);
+		$Result1 = mysqli_query(  $this->connexioDB, $query) or die(((is_object($GLOBALS["___mysqli_ston"])) ? mysqli_error($GLOBALS["___mysqli_ston"]) : (($___mysqli_res = mysqli_connect_error()) ? $___mysqli_res : false)));
+		$idt=((is_null($___mysqli_res = mysqli_insert_id($this->connexioDB))) ? false : $___mysqli_res);
 		
 		$deleteSQL="DELETE FROM ".ESTAT_TAULES." 
 		WHERE estat_taula_taula_id=".$this->id."
@@ -168,9 +170,10 @@ class EstatTaula extends Gestor{
 		ORDER BY  estat_taula_nom DESC";
 		
 		
-		$Result1 = mysql_query($query,  $this->connexioDB) or die(mysql_error());
-		$row = mysql_fetch_array($Result1);
+		$Result1 = mysqli_query(  $this->connexioDB, $query) or die(((is_object($GLOBALS["___mysqli_ston"])) ? mysqli_error($GLOBALS["___mysqli_ston"]) : (($___mysqli_res = mysqli_connect_error()) ? $___mysqli_res : false)));
+		$row = mysqli_fetch_array($Result1);
 		$p=explode($prefix,$row['estat_taula_nom']);
+                if (!isset($p[1])) $p[1]=0;
 		return $prefix.(floor($p[1])+1);
 	}
 /************************************************************************************************************************/
@@ -211,9 +214,8 @@ class EstatTaula extends Gestor{
 		$punts=0;
 		if (!$this->id) return $this->punts=0;
 
-		
 		// TODO ORDRE MENJADORS
-		$punts+=$this->menjador->ordrePunts;
+		if (is_object($this->menjador)) $punts+=$this->menjador->ordrePunts;
 		
 		// TODO PLENA
 		//$punts+=($row['estat_taula_persones']==$this->persones)?($row['estat_taula_persones']-$this->persones)*1000:0;

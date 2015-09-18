@@ -9,8 +9,13 @@
 
 /**********************************************************************************************************************/
 // SI VOLEM UN HANDLER D'ERRORS
-ini_set('display_errors','Off');
+//ini_set('display_errors','On');
+//error_reporting(E_ALL);
+
 ini_set('error_reporting',0);
+//error_reporting(E_ALL ^ E_DEPRECATED);
+
+//error_reporting(0);
 //require_once("errorHandler.php"); // DEBUG, MOSTRAR ERRORS I NOTICES
 /**********************************************************************************************************************/
 
@@ -31,7 +36,6 @@ require_once(ROOT."Usuari.php");
 if (file_exists(ROOT."php/define.php")) require(ROOT."php/define.php");
 require_once(ROOT."php/Configuracio.php");
 $config=new Configuracio();
-
 //if (defined("CB_FORA_DE_SERVEI") && CB_FORA_DE_SERVEI === true) header("Location:".ROOT."../reservar/fora_de_servei.html");
 
 
@@ -42,6 +46,7 @@ setlocale(LC_TIME,"ca_ES.utf8");
 /**********************************************************************************************************************/
 // DEFINE CARPETA DE TREBALL SOBRE LA ROOT
 if (!defined('INC_FILE_PATH')) define('INC_FILE_PATH', "");
+if (!defined('TRANSLATE_DEBUG')) define('TRANSLATE_DEBUG', FALSE);
 /**********************************************************************************************************************/
 
 /**********************************************************************************************************************/
@@ -53,6 +58,7 @@ class Gestor
 	public static $PERMISOS="16";
 	public static $USUARI_GESTOR="63";
 	public static $USUARI_ADMIN="128";
+	public $USUARI_MINIM=63;
 	
 	protected $lang="esp";
 	public $lng="es";
@@ -103,11 +109,12 @@ class Gestor
 		$this->connexioDB=$canborrell;
 /******************************************************************************/	
 // CONNEXIO BBDD	
-		mysql_select_db($database_canborrell, $canborrell);
-		mysql_query("SET CHARACTER SET 'utf-8'");
-		mysql_query("SET NAMES 'utf-8'");
-		mysql_query("SET COLLATION CONNECTION 'utf-8'");
-		mysql_set_charset('utf8',$canborrell); 
+		((bool)mysqli_query( $canborrell, "USE " . $database_canborrell));
+		mysqli_query($GLOBALS["___mysqli_ston"], "SET CHARACTER SET 'utf-8'");
+		mysqli_query($GLOBALS["___mysqli_ston"], "SET NAMES 'utf-8'");
+		mysqli_query($GLOBALS["___mysqli_ston"], "SET COLLATION CONNECTION 'utf-8'");
+		//mysql_set_charset('utf8',$canborrell); 
+                                                        mysqli_set_charset($canborrell,'utf8'); 
 /******************************************************************************/		
 				
 		//paginacio
@@ -146,11 +153,15 @@ class Gestor
 		if (!$permis_admin) $permis_admin=Gestor::$USUARI_ADMIN;
 		if (!isset($_SESSION)) session_start();
 		$a=isset($_SESSION['uSer']);
+                                                        //if (!$a) return FALSE;
+                                                        
 		$b=!empty($_SESSION['uSer']);
 		//$sessuser=unserialize($_SESSION['uSer']);
                 
 		$sessuser=$_SESSION['uSer'];
 		$c=$sessuser->id;
+                if (!isset($_COOKIE['tok'])) $_COOKIE['tok']=FALSE;//lxlx
+                if (!isset($sessuser->tok)) $sessuser->tok=FALSE;//lxlx
 		$d=($_COOKIE['tok']==$sessuser->tok);
 		//$e=($_SESSION['uSer']->permisos & $permisos); // NOMÉS CAL QUE COMPLEIX ALGUN PERMÍS
 		$e=(($sessuser->permisos & $permisos) >= $permisos);// HA DE CUMPLIR IGUAL O MES DELS PERMISOS DEMANATS
@@ -161,7 +172,7 @@ class Gestor
 		if ($valid)	
 		{
 			$this->usuari=$sessuser;
-			//if (isset($_COOKIE["user"]))
+			
 			setcookie("tok",$sessuser->tok,time()+600);
 			
 			$this->idioma();
@@ -188,11 +199,11 @@ class Gestor
 		  $password=$_REQUEST[$rpass];
 		
 		  $LoginRS__query=sprintf("SELECT admin_id, usr, pass, permisos FROM $taula WHERE usr='%s' AND pass='%s' AND permisos & $permisos",
-			mysql_real_escape_string($loginUsername),mysql_real_escape_string($password)); 
+			((isset($GLOBALS["___mysqli_ston"]) && is_object($GLOBALS["___mysqli_ston"])) ? mysqli_real_escape_string($GLOBALS["___mysqli_ston"], $loginUsername) : ((trigger_error("[MySQLConverterToo] Fix the mysql_escape_string() call! This code does not work.", E_USER_ERROR)) ? "" : "")),((isset($GLOBALS["___mysqli_ston"]) && is_object($GLOBALS["___mysqli_ston"])) ? mysqli_real_escape_string($GLOBALS["___mysqli_ston"], $password) : ((trigger_error("[MySQLConverterToo] Fix the mysql_escape_string() call! This code does not work.", E_USER_ERROR)) ? "" : ""))); 
 			
-		  $LoginRS = mysql_query($LoginRS__query, $this->connexioDB) or die(mysql_error());
-		  $loginFoundUser = mysql_num_rows($LoginRS);
-		  $row=mysql_fetch_assoc($LoginRS);
+		  $LoginRS = mysqli_query( $this->connexioDB, $LoginRS__query) or die(((is_object($GLOBALS["___mysqli_ston"])) ? mysqli_error($GLOBALS["___mysqli_ston"]) : (($___mysqli_res = mysqli_connect_error()) ? $___mysqli_res : false)));
+		  $loginFoundUser = mysqli_num_rows($LoginRS);
+		  $row=mysqli_fetch_assoc($LoginRS);
 		  
 		  
 		  if ($loginFoundUser) {
@@ -250,10 +261,10 @@ class Gestor
 		if ($id<1) return "SENSE DADES";
 	
 		$query = "SELECT usr FROM admin WHERE admin_id=$id";
-		$Result1 = mysql_query($query, $this->connexioDB) or die(mysql_error());
-		$nfiles = mysql_num_rows($Result1);
+		$Result1 = mysqli_query( $this->connexioDB, $query) or die(((is_object($GLOBALS["___mysqli_ston"])) ? mysqli_error($GLOBALS["___mysqli_ston"]) : (($___mysqli_res = mysqli_connect_error()) ? $___mysqli_res : false)));
+		$nfiles = mysqli_num_rows($Result1);
 		
-		if ($nfiles) $row = mysql_fetch_array($Result1);
+		if ($nfiles) $row = mysqli_fetch_array($Result1);
 		return $row['usr'];
 	}
 	
@@ -273,7 +284,8 @@ class Gestor
 /********      INSERT ID     ************/
 	protected function insert_id()
         {
-            return mysql_insert_id();
+            //return ((is_null($___mysqli_res = mysqli_insert_id($GLOBALS["___mysqli_ston"]))) ? false : $___mysqli_res);
+            return mysqli_insert_id($this->connexioDB); 
         }
 		
 		
@@ -297,9 +309,9 @@ class Gestor
 		
 		if (Gestor::stringMultiSearch($query, LOG_QUERYS) && DEBUG===false) 
 		{				
-			$ip=$ips[$_SERVER['REMOTE_ADDR']]?$ips[$_SERVER['REMOTE_ADDR']]:$_SERVER['REMOTE_ADDR'];
+			$ip=isset($ips[$_SERVER['REMOTE_ADDR']])?$ips[$_SERVER['REMOTE_ADDR']]:$_SERVER['REMOTE_ADDR'];
 			$sessuser=$_SESSION['uSer'];	
-			error_log($sep."/* >>>  ".date("d M Y H:i:s")." >>> usr:".$sessuser->id." ($ip) ######## DB QUERY #######	<<< */".EOL, 3, $log_querys_file);
+			error_log("/* >>>  ".date("d M Y H:i:s")." >>> usr:".$sessuser->id." ($ip) ######## DB QUERY #######	<<< */".EOL, 3, $log_querys_file);
 			
 			$query=str_replace("\n"," ",$query);
 			$query=str_replace("\r"," ",$query);
@@ -314,12 +326,11 @@ class Gestor
 		
 		if ($charset) $query=gestor_reserves::charset($query);
 		
-		$r = mysql_query($query, $conn);
-		
+		$r = mysqli_query( $conn, $query);
 		if (Gestor::stringMultiSearch($query, LOG_QUERYS) && DEBUG===false) 
 		{				
-			$insert_id=mysql_insert_id($conn);
-			$affected=mysql_affected_rows($conn);
+			$insert_id=((is_null($___mysqli_res = mysqli_insert_id($conn))) ? false : $___mysqli_res);
+			$affected=mysqli_affected_rows($conn);
 			$result=' -- Affected: '.$affected;
 			if ($insert_id) $result.=' / Insert ID: '.$insert_id;
 			error_log(EOL.$result,3,$log_querys_file);
@@ -374,7 +385,9 @@ class Gestor
 /*****************************************************************************************/
 	protected function jeditmw($id,$val)
 	{
-		if (!$this->valida_sessio($this->USUARI_MINIM)) return $this->mensa_error("Sin permisos para editar este campo (jedit)");
+  		if (!$this->valida_sessio($this->USUARI_MINIM)){
+                                                          return "Sin permisos para editar este campo (jedit)";//$this->mensa_error("Sin permisos para editar este campo (jedit)");
+                                                        }
 		$ar=explode("__",$id);
 		if (count($ar)>2) // taula__camp__id
 		{
@@ -394,8 +407,10 @@ class Gestor
 		if (preg_match($p, trim($val))) $val=$this->cambiaf_a_mysql(trim($val));
 		
 		$val=str_replace("€","&euro;",$val);
-		$val=mysql_real_escape_string($val);	
+		$val=((isset($GLOBALS["___mysqli_ston"]) && is_object($GLOBALS["___mysqli_ston"])) ? mysqli_real_escape_string($GLOBALS["___mysqli_ston"], $val) : ((trigger_error("[MySQLConverterToo] Fix the mysql_escape_string() call! This code does not work.", E_USER_ERROR)) ? "" : ""));	
 		
+                                                        $_REQUEST['p']=isset($_REQUEST['p'])?$_REQUEST['p']:"";
+                                                        
 		if (is_numeric($_REQUEST['p'])) $filtre=$taula."_id='".$_REQUEST['p']."'";
 		elseif (is_numeric($nid)) $filtre=$taula."_id='".$nid."'";
 		else $filtre=$_REQUEST['p']."=".$_REQUEST['p2']."'";
@@ -403,11 +418,11 @@ class Gestor
 		$camp_id=$taula."_id";
 		
 		$query="UPDATE $taula SET $camp='$val' WHERE $filtre";
-		$result = mysql_query($query, $this->connexioDB) or die(mysql_error());
+		$result = mysqli_query( $this->connexioDB, $query) or die(((is_object($GLOBALS["___mysqli_ston"])) ? mysqli_error($GLOBALS["___mysqli_ston"]) : (($___mysqli_res = mysqli_connect_error()) ? $___mysqli_res : false)));
 		$query="SELECT $camp FROM $taula WHERE $filtre";
 		
-		$result = mysql_query($query, $this->connexioDB) or die(mysql_error());
-		$row=mysql_fetch_assoc($result);
+		$result = mysqli_query( $this->connexioDB, $query) or die(((is_object($GLOBALS["___mysqli_ston"])) ? mysqli_error($GLOBALS["___mysqli_ston"]) : (($___mysqli_res = mysqli_connect_error()) ? $___mysqli_res : false)));
+		$row=mysqli_fetch_assoc($result);
 		$ret=$row[$camp];
 			
 		$p='~^((((19|20)(([02468][048])|([13579][26]))-02-29))|((20[0-9][0-9])|(19[0-9][0-9]))-((((0[1-9])|(1[0-2]))-((0[1-9])|(1\d)|(2[0-8])))|((((0[13578])|(1[02]))-31)|(((0[1,3-9])|(1[0-2]))-(29|30)))))$~';
@@ -434,6 +449,7 @@ class Gestor
 /*****************************************************************************************/
 	public static function greg_log($text,$file=false,$reqest=true)
 	{
+                              
 		if (!$file) $file=LOG_FILE;
                 $file=ROOT.INC_FILE_PATH.$file;
 		//if (DEV === true) return;
@@ -441,12 +457,12 @@ class Gestor
 		if ($reqest){
 			$req='<pre>'.print_r($_REQUEST,true).'</pre>';			
 		}
-		$ip=$ips[$_SERVER['REMOTE_ADDR']]?$ips[$_SERVER['REMOTE_ADDR']]:$_SERVER['REMOTE_ADDR'];
+		$ip=isset($ips[$_SERVER['REMOTE_ADDR']])?$ips[$_SERVER['REMOTE_ADDR']]:$_SERVER['REMOTE_ADDR'];
 		$sessuser=$_SESSION['uSer'];
 		if (isset($sessuser)) $user=$sessuser->id;
 		$sep="/* >>> ".date("d M Y H:i:s")." user:$user ($ip) <<< */".EOL;
 		
-		$text=$sep.$text.$rq.$br;
+		$text=$sep.$text.BR;
 		$text=nl2br($text);
 		//$text+="\n\n";
 		error_log($text.$req.EOL, 3, $file);
@@ -520,7 +536,7 @@ class Gestor
 	public static  function cambiaf_a_normal($fecha,$format="%d/%m/%Y"){ 
 		$fecha=str_replace("/","-",$fecha);
 	   preg_match('/([0-9]{2,4})-([0-9]{1,2})-([0-9]{1,2})/', $fecha,$mifecha);
-
+           if (!isset($mifecha[1])) return FALSE;
 	  if (strlen($mifecha[1])!=4) return $fecha;
 		$lafecha=$mifecha[3]."/".$mifecha[2]."/".$mifecha[1]; 
 

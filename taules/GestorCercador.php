@@ -1,5 +1,5 @@
 <?php
-define("ROOT", "../taules/");
+if (!defined('ROOT')) define("ROOT", "../taules/");
 include(ROOT."Gestor.php");
 
 /****************************************************************************************/
@@ -11,6 +11,7 @@ class GestorCercador extends Gestor
 {
 	public function GestorCercador()
 	{
+            if (!isset($usuari_minim)) $usuari_minim=NULL;
 		parent::__construct(DB_CONNECTION_FILE,$usuari_minim);
 	}
 }

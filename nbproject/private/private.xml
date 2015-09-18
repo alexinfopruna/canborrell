@@ -1,103 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
-    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="19">
-        <file>
-            <url>taules/gestor_reserves.php</url>
-            <bookmark id="4">
-                <name/>
-                <line>334</line>
-                <key/>
-            </bookmark>
-            <bookmark id="5">
-                <name/>
-                <line>881</line>
-                <key/>
-            </bookmark>
-            <bookmark id="6">
-                <name/>
-                <line>1510</line>
-                <key/>
-            </bookmark>
-            <bookmark id="7">
-                <name/>
-                <line>1564</line>
-                <key/>
-            </bookmark>
-        </file>
-        <file>
-            <url>reservar/js/form_reserves.js</url>
-            <bookmark id="8">
-                <name/>
-                <line>256</line>
-                <key/>
-            </bookmark>
-            <bookmark id="14">
-                <name/>
-                <line>851</line>
-                <key/>
-            </bookmark>
-            <bookmark id="9">
-                <name/>
-                <line>952</line>
-                <key/>
-            </bookmark>
-        </file>
-        <file>
-            <url>reservar/js/form_reserves_grups.js</url>
-            <bookmark id="1">
-                <name/>
-                <line>173</line>
-                <key/>
-            </bookmark>
-            <bookmark id="2">
-                <name/>
-                <line>685</line>
-                <key/>
-            </bookmark>
-        </file>
-        <file>
-            <url>reservar/Gestor_form.php</url>
-            <bookmark id="16">
-                <name/>
-                <line>290</line>
-                <key/>
-            </bookmark>
-            <bookmark id="10">
-                <name/>
-                <line>505</line>
-                <key/>
-            </bookmark>
-            <bookmark id="18">
-                <name/>
-                <line>617</line>
-                <key/>
-            </bookmark>
-            <bookmark id="11">
-                <name/>
-                <line>627</line>
-                <key/>
-            </bookmark>
-            <bookmark id="15">
-                <name/>
-                <line>912</line>
-                <key/>
-            </bookmark>
-            <bookmark id="19">
-                <name/>
-                <line>1115</line>
-                <key/>
-            </bookmark>
-        </file>
-    </editor-bookmarks>
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/xampp/htdocs/cbdev.can-borrell.com/editar/TPV/respostaTPV.php</file>
-            <file>file:/C:/xampp/htdocs/cbdev.can-borrell.com/editar/editar.php</file>
-            <file>file:/C:/xampp/htdocs/cbdev.can-borrell.com/editar/reserves.php</file>
-            <file>file:/C:/xampp/htdocs/cbdev.can-borrell.com/editar/caducades.php</file>
-            <file>file:/C:/xampp/htdocs/cbdev.can-borrell.com/editar/mailer.php</file>
-            <file>file:/C:/xampp/htdocs/cbdev.can-borrell.com/editar/reserves_grups.php</file>
-            <file>file:/C:/xampp/htdocs/cbdev.can-borrell.com/panel/index.php</file>
+            <file>file:/var/www/canborrell/taules/taules.php</file>
+            <file>file:/var/www/canborrell/taules/js/taules.js</file>
+            <file>file:/var/www/canborrell/taules/gestor_reserves.php</file>
         </group>
     </open-files>
 </project-private>

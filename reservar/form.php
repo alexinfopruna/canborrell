@@ -176,6 +176,8 @@ if (isset($_POST['cancel_reserva']) && $_POST['cancel_reserva']=="Eliminar reser
 		$row['data']=null;
 		$row['hora']=null;
 		$row['observacions']=null;
+		$row['reserva_pastis']=null;
+		$row['reserva_info_pastis']=null;
 		//$row['']=null;
 		
 		$comanda=null;
@@ -425,7 +427,12 @@ else
 				</div>
 				<!-- ******  CALENDARI  ********   -->
 				<div id="data" style="float:left">
-					
+                                    <?php if ($EDITA_RESERVA):?>
+                                    
+                                        <script>
+                                             var BLOQ_DATA='<?php echo $gestor->cambiaf_a_normal($row['data']);?>';
+                                        </script>
+                                    <?php endif?>
 					<div id="calendari"></div>
 				</div>
 					<div style="clear:both"></div>

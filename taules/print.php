@@ -2,12 +2,17 @@
 header('Content-Type: text/html; charset=UTF-8');
 header('Set-Cookie: fileDownload=true');
 
+//define("LLISTA_DIES_NEGRA",INC_FILE_PATH."llista_dies_negra.txt");
+//define("LLISTA_DIES_BLANCA",INC_FILE_PATH."llista_dies_blanca.txt");
+require_once("Gestor.php");
 define("LLISTA_DIES_NEGRA",INC_FILE_PATH."llista_dies_negra.txt");
 define("LLISTA_DIES_BLANCA",INC_FILE_PATH."llista_dies_blanca.txt");
-
  
+
 require_once("gestor_reserves.php");
 $gestor=new gestor_reserves();  
+
+
 
 //echo "VALIDEM...";
 
@@ -65,7 +70,7 @@ if (!isset($_REQUEST['p']))
 
 }
 
-
+echo '<span style="font-size:9px"> Imatge generada: '.date("d/m/Y H:i:s",$last_modify).'</span>';
 if (isset($_GET['img']))
 {
 	$size = @getimagesize($filename);

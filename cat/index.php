@@ -2,6 +2,9 @@
             define('ROOT',"../taules/");
             require_once (ROOT."gestor_reserves.php");  
             $g=new gestor_reserves();
+             $_POST['reserva_consulta_online']=isset( $_POST['reserva_consulta_online'])?$_POST['reserva_consulta_online']:"";
+             $_POST['client_email']=isset( $_POST['client_email'])?$_POST['client_email']:"";
+             $_POST['client_nom']=isset( $_POST['client_nom'])?$_POST['client_nom']:"";
              
             $extres['subject']="Can Borrell: FORMULARI DE CONTACTE HOME";
 		$extres['reserva_consulta_online']=$_POST['reserva_consulta_online'];
@@ -9,7 +12,7 @@
 		$extres['client_nom']=$_POST['client_nom'];
 		$extres['client_cognoms']="";
                 
-            if ($_REQUEST['client_email']){
+            if (isset($_REQUEST['client_email'])){
                 $g->enviaMail(null, "../reservar/contactar_restaurant_",MAIL_RESTAURANT,$extres);
                 header("Location: ".  $_SERVER['PHP_SELF']."?snd");
                 echo '<script>var ENVIAT=true;</script>';

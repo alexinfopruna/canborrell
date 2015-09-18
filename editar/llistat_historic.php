@@ -53,13 +53,13 @@ $order="ORDER BY IF(data < NOW(),1,0), IF(estat = 1,0,1),IF(estat = 2,0,1), IF(e
 $query_reserves .= $were.$order;
 
 $query_limit_reserves = sprintf("%s LIMIT %d, %d", $query_reserves, $startRow_reserves, $maxRows_reserves);
-$reserves = mysql_query($query_limit_reserves, $canborrell) or die(mysql_error());
-$row_reserves = mysql_fetch_assoc($reserves);
+$reserves = mysqli_query( $canborrell, $query_limit_reserves) or die(((is_object($GLOBALS["___mysqli_ston"])) ? mysqli_error($GLOBALS["___mysqli_ston"]) : (($___mysqli_res = mysqli_connect_error()) ? $___mysqli_res : false)));
+$row_reserves = mysqli_fetch_assoc($reserves);
 if (isset($_GET['totalRows_reserves'])) {
   $totalRows_reserves = $_GET['totalRows_reserves'];
 } else {
-  $all_reserves = mysql_query($query_reserves);
-  $totalRows_reserves = mysql_num_rows($all_reserves);
+  $all_reserves = mysqli_query($GLOBALS["___mysqli_ston"], $query_reserves);
+  $totalRows_reserves = mysqli_num_rows($all_reserves);
 }
 $totalPages_reserves = ceil($totalRows_reserves/$maxRows_reserves)-1;
 
@@ -186,7 +186,7 @@ INPUT {
 		  X</a></div>   
           <div align="center"><input type="checkbox" style="background:#999999;" name="pdel[<?php echo $row_reserves['id_reserva'];?>]" value="checkbox" /></div></td> --> 
       </tr>
-      <?php } while ($row_reserves = mysql_fetch_assoc($reserves)); ?>
+      <?php } while ($row_reserves = mysqli_fetch_assoc($reserves)); ?>
       <tr>
         <td class="Estilo2">&nbsp;</td>
         <td class="Estilo2">&nbsp;</td>
@@ -246,5 +246,5 @@ INPUT {
 </body>
 </html>
 <?php
-mysql_free_result($reserves); 
+((mysqli_free_result($reserves) || (is_object($reserves) && (get_class($reserves) == "mysqli_result"))) ? true : false); 
 ?>

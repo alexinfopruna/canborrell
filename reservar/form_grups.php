@@ -28,6 +28,12 @@ $gestor=new Gestor_form();
 require_once(INC_FILE_PATH.'alex.inc');
 require(INC_FILE_PATH."llista_dies_taules.php");
 
+//PERSONES PARAM
+ $na=isset($_REQUEST['b'])?$_REQUEST['b']:0;
+ $nj=isset($_REQUEST['c'])?$_REQUEST['c']:0;
+ $nn=isset($_REQUEST['d'])?$_REQUEST['d']:0;
+ $total=$na+$nj+$nn;
+
 //RECUPERA IDIOMA
 //$lang_default=isset($_REQUEST["lang"])?$_REQUEST["lang"]:'cat';
 $lang=$gestor->idioma();
@@ -181,13 +187,15 @@ else
 			
 			<!-- ******  ADULTS  ********   -->
 			<div id="selectorComensals" class="fr-col-dere">
-<input type="text" id="com" name="adults" value=""  style="width:35px;font-size:1.2em;padding-left:0;padding-right:0" class="ui-button ui-widget ui-state-default ui-button-text-only coberts"/><label for="comGrupsN" ><?php //l('Més de ');//echo ($PERSONES_GRUP+14)?></label>	
+<input type="text" id="com" name="adults" value="<?php echo $na?$na:'' ?>"  style="width:35px;font-size:1.2em;padding-left:0;padding-right:0" class="ui-button ui-widget ui-state-default ui-button-text-only coberts"/><label for="comGrupsN" ><?php //l('Més de ');//echo ($PERSONES_GRUP+14)?></label>	
 &lArr;
 
 			<input type="radio" id="comGrups" name="selectorComensals" value="grups"  /><label for="comGrups" ><?php l('<='.($PERSONES_GRUP-1));?></label>
 				<?php 
-					for ($i=$PERSONES_GRUP;$i<$PERSONES_GRUP+15;$i++)
-						print '<input type="radio" id="com'.$i.'" name="selectorComensals" value="'.$i.'" class="adults "/><label for="com'.$i.'">'.$i.'</label>';
+					for ($i=$PERSONES_GRUP;$i<$PERSONES_GRUP+15;$i++){
+                                                $checked=($i==$na?' checked="checked':'');
+						print '<input type="radio" id="com'.$i.'" name="selectorComensals" value="'.$i.'" '.$checked.' class="adults "/><label for="com'.$i.'">'.$i.'</label>';
+                                        }
 				?>
 				
 			</div>
@@ -195,20 +203,22 @@ else
 			<div>
 				<!-- ******  INFO  ********   -->
 				<div class="caixa dere ui-corner-all info-quants" style="float:right;"><?php l('INFO_QUANTS_SOU_GRUPS');?>
-					 <input id="totalComensals" type="text" name="totalComensals" value="0" readonly="readonly" class="coberts"/></b>
+					 <input id="totalComensals" type="text" name="totalComensals" value="<?php echo $total ?>" readonly="readonly" class="coberts"/></b>
 					<!--Tingue's present que si vols modificar aquest nombre més endavant no podem garantir la disponibilitat de taula.<br/><br/>-->
 				</div>
 				<!-- ******  JUNIOR  ********   -->
 			<h4  id="titol_SelectorJuniors"><?php l('Juniors (de 10 a 14 anys):');?></h4>
 				<div id="selectorJuniors" class="col_dere">
-				 <input type="text" id="junior" name="nens10_14" value=""  style="width:35px;font-size:1.2em;padding-left:0;padding-right:0" class="ui-button ui-widget ui-state-default ui-button-text-only coberts"/><label for="comGrupsN" ><?php //l('Més de ');//echo ($PERSONES_GRUP+14)?></label>
+				 <input type="text" id="junior" name="nens10_14" value="<?php echo $nj?$nj:'' ?>"  style="width:35px;font-size:1.2em;padding-left:0;padding-right:0" class="ui-button ui-widget ui-state-default ui-button-text-only coberts"/><label for="comGrupsN" ><?php //l('Més de ');//echo ($PERSONES_GRUP+14)?></label>
 				 &lArr;
 
 				<?php 
+                                
 					for ($i=0;$i<=$max_juniors_grup;$i++)
 					{
 						$k=$i;if (!$i) $k=l("Cap",false);
-						print '<input type="radio" id="junior'.$i.'" name="selectorJuniors" value="'.$i.'" '.($i?'':'NOOchecked="checked"').' class="junior"/><label for="junior'.$i.'" >'.$k.'</label>';
+                                                $checked=($i==$nj?' checked="checked':'');
+						print '<input type="radio" id="junior'.$i.'" name="selectorJuniors" value="'.$i.'" '.$checked.'  '.($i?'':'NOOchecked="checked"').' class="junior"/><label for="junior'.$i.'" >'.$k.'</label>';
 						
 					}
 				?>
@@ -216,13 +226,14 @@ else
 				<!-- ******  NENS  ********   -->
 				<h4 id="titol_SelectorNens"><?php l('Nens (de 4 a 9 anys)');?>:</h4>
 				<div id="selectorNens" class="col_dere">
-				 <input type="text" id="nens" name="nens4_9" value=""  style="width:35px;font-size:1.2em;padding-left:0;padding-right:0" class="ui-button ui-widget ui-state-default ui-button-text-only coberts"/><label for="comGrupsN" ><?php //l('Més de ');//echo ($PERSONES_GRUP+14)?></label>
+				 <input type="text" id="nens" name="nens4_9" value="<?php echo $nn?$nn:'' ?>"  style="width:35px;font-size:1.2em;padding-left:0;padding-right:0" class="ui-button ui-widget ui-state-default ui-button-text-only coberts"/><label for="comGrupsN" ><?php //l('Més de ');//echo ($PERSONES_GRUP+14)?></label>
 				 &lArr;
 				<?php 
 					for ($i=0;$i<=$max_nens_grup;$i++)
 					{
 						$k=$i;if (!$i) $k=l("Cap",false);
-						print '<input type="radio" id="nens'.$i.'" name="selectorNens" value="'.$i.'" '.($i?'':'NOOOchecked="checked"').' class="nens"/><label for="nens'.$i.'" >'.$k.'</label>';
+                                                $checked=($i==$nn?' checked="checked':'');
+						print '<input type="radio" id="nens'.$i.'" name="selectorNens" value="'.$i.'" '.$checked.' '.($i?'':'NOOOchecked="checked"').' class="nens"/><label for="nens'.$i.'" >'.$k.'</label>';
 					}
 				?>
 				</div>

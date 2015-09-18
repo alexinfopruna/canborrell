@@ -86,8 +86,8 @@ $query = sprintf("INSERT INTO reserves (id_reserva, `data`, client_id, nom, tel,
                        GetSQLValueString($_POST['reserva_info'], "text"));
 	
 	/******************************************************************************/	
-	$Result1 = $gestor->log_mysql_query($query, $canborrell) or die(mysql_error());
-        $idr=$id=mysql_insert_id($canborrell);
+	$Result1 = $gestor->log_mysql_query($query, $canborrell) or die(((is_object($GLOBALS["___mysqli_ston"])) ? mysqli_error($GLOBALS["___mysqli_ston"]) : (($___mysqli_res = mysqli_connect_error()) ? $___mysqli_res : false)));
+        $idr=$id=((is_null($___mysqli_res = mysqli_insert_id($canborrell))) ? false : $___mysqli_res);
         print_log("Recepció de reserva: ".$_POST['id_reserva'].": ".$_POST['client_nom']." ".$_POST['client_cognoms']);
 
         ///////////////////////////////////////////////////////
@@ -98,7 +98,7 @@ $query = sprintf("INSERT INTO reserves (id_reserva, `data`, client_id, nom, tel,
 		VALUES (%s, %s, %s)",
 		   $idr, $_POST['plat_id_'.$i], $_POST['plat_quantitat_'.$i]);
 		   //echo $insertSQL;
-		 $result = $gestor->log_mysql_query($insertSQL, $canborrell) or die(mysql_error());
+		 $result = $gestor->log_mysql_query($insertSQL, $canborrell) or die(((is_object($GLOBALS["___mysqli_ston"])) ? mysqli_error($GLOBALS["___mysqli_ston"]) : (($___mysqli_res = mysqli_connect_error()) ? $___mysqli_res : false)));
        // echo  $cd=mysql_insert_id($canborrell);echo " *** ";
  	}
 
@@ -143,8 +143,8 @@ function mail_plantilla($id=false)
     /******************************************************************************/	
 
     /******************************************************************************/	
-    $Result = mysql_query($query, $canborrell) or die(mysql_error());
-    $fila=mysql_fetch_assoc($Result);
+    $Result = mysqli_query( $canborrell, $query) or die(((is_object($GLOBALS["___mysqli_ston"])) ? mysqli_error($GLOBALS["___mysqli_ston"]) : (($___mysqli_res = mysqli_connect_error()) ? $___mysqli_res : false)));
+    $fila=mysqli_fetch_assoc($Result);
 
     $avui=date("d/m/Y");
     $ara=date("H:i");
@@ -226,7 +226,7 @@ function mail_plantilla($id=false)
  //echo $html;
 	print_log("Enviament mail reserva ".$fila['id_reserva']." ($r): $recipient, $subject");
 
-    mysql_free_result($Result);
+    ((mysqli_free_result($Result) || (is_object($Result) && (get_class($Result) == "mysqli_result"))) ? true : false);
     return ($fila['id_reserva']);
 }
 ?>

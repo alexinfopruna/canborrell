@@ -28,11 +28,11 @@ else
 
 //CADUCADES
 $query_reserves = "UPDATE reserves SET estat=6 WHERE ADDDATE(data_limit,INTERVAL 1 DAY) < NOW() AND data_limit>'2008-01-01' AND estat=2";
-$reserves = mysql_query($query_reserves, $canborrell) or die(mysql_error());
+$reserves = mysqli_query( $canborrell, $query_reserves) or die(((is_object($GLOBALS["___mysqli_ston"])) ? mysqli_error($GLOBALS["___mysqli_ston"]) : (($___mysqli_res = mysqli_connect_error()) ? $___mysqli_res : false)));
 
 if ($id) $query="SELECT * FROM reserves WHERE id_reserva=$id";
-$Result = mysql_query($query, $canborrell) or die(mysql_error());
-$fila=mysql_fetch_assoc($Result);
+$Result = mysqli_query( $canborrell, $query) or die(((is_object($GLOBALS["___mysqli_ston"])) ? mysqli_error($GLOBALS["___mysqli_ston"]) : (($___mysqli_res = mysqli_connect_error()) ? $___mysqli_res : false)));
+$fila=mysqli_fetch_assoc($Result);
 
 $estat=$fila['estat'];
 $import=$fila['preu_reserva'];
@@ -70,7 +70,7 @@ if ($dif<0)
 }
 
 // EXISTEIX???
-if (mysql_num_rows($Result)<=0)
+if (mysqli_num_rows($Result)<=0)
 {
     $titol['cat']="Ho sentim però aquesta reserva no apareix a la base de dades<br><br><br><br><br><br><br><br><br>";
     $titol['esp']="Lo sentimos pero esta reserva no aparece en la base de datos<br><br><br><br><br><br><br><br><br>";
@@ -79,7 +79,7 @@ if (mysql_num_rows($Result)<=0)
 
 
 
-mysql_free_result($Result);
+((mysqli_free_result($Result) || (is_object($Result) && (get_class($Result) == "mysqli_result"))) ? true : false);
 
 ?>
 

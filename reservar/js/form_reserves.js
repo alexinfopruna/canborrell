@@ -292,7 +292,7 @@ function comportamentQuantsSou()
 	$("input[name=selectorJuniors]").change(function(){
 		JUNIORS=$("input[name='selectorJuniors']:checked").val();
 		$("input[name='nens10_14']").val(JUNIORS)
-		totalPersones();
+		//totalPersones();
                 $.scrollTo("#titol_SelectorNens",600);
 		//return false;
 	});
@@ -301,7 +301,7 @@ function comportamentQuantsSou()
 	$("input[name=selectorNens]").change(function(){
 		NENS=$("input[name='selectorNens']:checked").val();
 		$("input[name='nens4_9']").val(NENS);
-		totalPersones();
+		//totalPersones();
                 $.scrollTo("#titol_SelectorCotxets",600);
 		//return false;
 	});
@@ -312,7 +312,7 @@ function comportamentQuantsSou()
                 help(l("NENS_COTXETS"));
                // $.scrollTo("#titol_SelectorCadiraRodes",600,function(){help(l("NENS_COTXETS"));});
 		//BARREJA NENS COTXETS!!
-		totalPersones();
+		//totalPersones();
 		//return false;
 	});	
 }
@@ -325,7 +325,6 @@ function totalPersones()
 	var na=parseInt($("input[name='adults']").val());
 	var nj=parseInt($("input[name='nens10_14']").val());
 	var nn=parseInt($("input[name='nens4_9']").val());
-	var nn=parseInt($("input[name='nens4_9']").val());
 	
 	na=na?na:0;
 	nj=nj?nj:0;
@@ -334,10 +333,30 @@ function totalPersones()
 	
 	$("input[name='totalComensals']").val(total);
         
+        
+        
         var cotxets=$("input[name='selectorCotxets']:checked").val()?$("input[name='selectorCotxets']:checked").val():'0';
         
 	$("input[name='totalCotxets']").val("/ "+cotxets);
-	if (total>=PERSONES_GRUP) 	{monta_calendari("#calendari");comportamentDia();}
+	if (total>=PERSONES_GRUP){
+            monta_calendari("#calendari");
+            comportamentDia();
+            
+            if (confirm(l("REDIR_GRUPS"))){
+                window.location.href = "form_grups.php?a=redir&b="+na+"&c="+nj+"&d="+nn+"&e="+cotxets;
+            } 
+            
+            $("#selectorComensals input").prop('checked', false);
+            $("#selectorComensals").buttonset('refresh');
+            $("#selectorJuniors input").prop('checked', false);
+            $("#selectorJuniors").buttonset('refresh');
+            $("#selectorNens input").prop('checked', false);
+            $("#selectorNens").buttonset('refresh');
+            $("input[name='adults']").val("");
+            $("input[name='nens10_14']").val("");
+            $("input[name='nens4_9']").val("");
+            $("input[name='totalComensals']").val(0);
+    }
 	
 	if ($(".fr-seccio-hora").is(":visible")) recargaHores();
 
@@ -662,6 +681,7 @@ function monta_calendari(selector)
 {
 	//var limit_passat=(arxiu=="del" || historic)?-10000:0;
 	limit_passat=MARGE_DIES_RESERVA_ONLINE;	
+        
 	if (!MARGE_DIES_RESERVA_ONLINE) 
 	{
 		var currentTime = new Date();
@@ -671,6 +691,8 @@ function monta_calendari(selector)
 		limit_passat=entraAvui;
 	}
 	
+        
+        
 	var defData=null;
 	if (RDATA!="") defData=RDATA;
 	$(selector).datepicker("destroy");
@@ -705,6 +727,14 @@ function monta_calendari(selector)
 		 $('.ui-datepicker-calendar .ui-state-active').removeClass('ui-state-active');   
 		 $('.ui-datepicker-calendar .ui-state-hover').removeClass('ui-state-hover');   
 	}
+        
+        
+        /* BLOQUEJA EL DIA SI ESEM EDITANT LA RESERVA PER IMPEDIR QUE ES MODIFIQUI */
+        if (typeof BLOQ_DATA !== 'undefined'){
+                   $(selector).datepicker("option", "minDate", BLOQ_DATA);
+                    $(selector).datepicker("option", "maxDate", BLOQ_DATA); 
+        }
+ 
 		
 }
 
@@ -825,15 +855,14 @@ function validacio()
 /********************************************************************************************************************/
 function controlSubmit()
 {
-	
 	if (browser_malo) $('#submit').click(function(){
 		$('#form-reserves').submit();
 	});
 	$('#form-reserves').submit(function(){	
 	
 		if (!$("#form-reserves").valid()) return false;		
-		
 		clearInterval(th);
+                var control=setTimeout(function(){timer_submit();},15000);
 		
 		
 		if ($("#popup").is(':visible')) SUBMIT_OK=SUBMIT_OK;
@@ -848,7 +877,8 @@ function controlSubmit()
 		$('#form-reserves').ajaxSubmit(function(dades) { 
 			if (dades.substring(0,11)!='{"resposta"') dades='{"resposta":"ko","error":"err0","email":false}';
 			var obj = JSON.parse(dades);
-
+                        clearInterval(th);
+                        clearInterval(control);
 			if (SUBMIT_OK) return;//DOBLE SUBMIT?????????
 			
 			if (obj.resposta=="ok") // RESPOSTA OK
@@ -870,7 +900,7 @@ function controlSubmit()
                                 if(obj.TPV=="TPV"){
                                     var idr="214" + obj.idr;
                                     $("#tpv_order").val(idr);
-                                    nom=$("input[name=client_nom").val()+" "+$("input[name=client_cognoms").val();
+                                    nom=$("input[name=client_nom]").val()+" "+$("input[name=client_cognoms]").val();
                                     $("#tpv_titular").val(nom);         
                                     $("#tpv_signature").val(obj.signature);         
 
@@ -925,6 +955,42 @@ function controlSubmit()
 		}); 
 		return false;
 	});
+}
+
+function timer_submit(){
+    alert(l('err0'));
+    $('#submit').show();
+    
+    var comensals=$("input[name='totalComensals']").val();
+    var tel=$(".fr-seccio-client input[name='client_telefon']").val();
+    /*
+    	$.post(GESTOR + "?a=comprovaSubmit&b="+$("#calendari").val()+"&c="+comensals+"&d="+tel, function(dades) {
+alert("beeeee");
+            var obj = JSON.parse(dades);
+		var txt="";
+     if (obj.result) {
+    $("#popup").dialog('close');	
+    $("#popup").html(l("RESULTAT"));
+    $("#popup").dialog('open');		
+         
+     }       
+        
+     else {
+    $("#popup").dialog('close');	
+    $("#popup").html(l("ERROR_RESERVA"));
+    $("#popup").dialog('open');		
+         
+     }       
+     
+           
+        });
+
+    */      
+ 
+ 
+    $("#popup").dialog('close');	
+    
+
 }
 /********************************************************************************************************************/
 /********************************************************************************************************************/

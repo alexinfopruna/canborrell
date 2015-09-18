@@ -237,6 +237,33 @@ padding: .4em .8em;
   color:#999966;
   margin-left:12px;
   display:block;
+  
+   -webkit-transition: all 1s ease-in-out;
+  -moz-transition: all 1s ease-in-out;
+  -o-transition: all 1s ease-in-out;
+  transition: all 1s ease-in-out;
   }
   
   .tooltip-red{z-index:2100 !important;}
+  
+  
+.fliflu {
+    -webkit-animation: myfirst 2s; /* Chrome, Safari, Opera */
+    animation: myfirst 2s;
+}
+ /* Chrome, Safari, Opera */
+@-webkit-keyframes myfirst {
+    0% {color: #999966;font-size:1em;}
+    40% {color: red;font-size:1em;}
+    50% {color: white;font-size:1em;}
+    65% {color: red;font-size:1em;}
+    100% {color: #999966;font-size:1em;}
+
+/* Standard syntax */
+@keyframes myfirst {
+    0% {color: #999966;font-size:1em;}
+    40% {color: red;font-size:1em;}
+    50% {color: white;font-size:1em;}
+    65% {color: red;font-size:1em;}
+    100% {color: #999966;font-size:1em;}
+}

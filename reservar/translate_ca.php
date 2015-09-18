@@ -115,7 +115,7 @@ Podeu exercir els vostres drets d\'accés, rectificació, cancel·lació i oposi
 			amb un <b>pagament mitjançant targeta de crèdit</b> d\'una paga i senyal que serà descomptada del preu final, de manera que <b>no representarà cap despesa extra</b>. 
 			<br/><br/><b>Cap sol·licitud de reserva tindrà validesa si no s\'ha fet el pagament</b> abans de la data que us indicarem.';
 	$translate['ALERTA_INFO_INICIAL']='Omplint i enviant aquest formulari 
-			<b>realizaràs una reserva formal al restaurant, per un dia i hora concrets</b>. 
+			<b>realitzaràs una reserva formal al restaurant, per un dia i hora concrets</b>. 
 			<br/><br/>
 			Aquest no és un formulari de contacte per fer consultes. 
 			Si el que desitges és plantejar-nos algun dubte, desplega la solapa "Contactar amb el restaurant", 
@@ -203,6 +203,7 @@ $translateJS["grups-fr-seccio-carta"] = "Per reserves de grups cal que ens indiq
 $translateJS["grups-fr-seccio-client"] =$translateJS["fr-seccio-client"];
 $translateJS["grups-fr-seccio-submit"] =$translateJS["fr-seccio-submit"];
 
+$translateJS["REDIR_GRUPS"] ="Has indicat més de $PERSONES_GRUP persones. En aquest cas et transferirem al formulari de reserves de grups. \\nÉs això correcte?";
 $translateJS["PAGA_I_SENYAL"] ="<div>A continuació cal que realitzis el pagament de ".import_paga_i_senyal."€ per garantitzar l&#39;assistència el dia de la reserva. "
         . "Aquest import serà descomptat del compte total.<br/><br/>"
         . '<div class="info-paga-i-senyal">Atenció: Si no podeu venir el dia de la reserva <b>pots recuperar la paga i senyal si ens avises amb 24 hores d&#39;antelació</b>. En cas contrari, l&#39;import abonat no serà retornat</div>'
@@ -211,7 +212,7 @@ $translateJS["PAGA_I_SENYAL"] ="<div>A continuació cal que realitzis el pagamen
 
 
 
-$translateJS['err0'] = 'No ha estat possible crear la reserva.';
+$translateJS['err0'] = 'El servidor no ha respost. No ha estat possible crear la reserva. Torna a enviar el formulari ara i, si el problema persisteix, contacta amb el restaurant';
 $translateJS['err1'] = 'Test error';
 $translateJS['err2'] = 'Test error';
 $translateJS['err3'] = 'No hem trobat taula disponoble';
@@ -222,6 +223,7 @@ $translateJS['err7'] = 'El nombre de comensals no és correcte';
 $translateJS['err8'] = 'No hi ha taula per l&#39;hora que has demanat';
 $translateJS['err9'] = 'No podem modificar la reserva';
 $translateJS['err10'] = 'Per aquesta data cal que seleccionis un menú per cada comensal';
+$translateJS['err11'] = 'Ja no es poden registrar reserves per la data d&#39;avui';
 $translateJS['err99'] = 'El camp cognom no és correcte';
 $translateJS['err100'] = 'Error de sessió';
 $translateJS['err_contacti'] = 'Contacti amb el restaurant:936929723 / 936910605';

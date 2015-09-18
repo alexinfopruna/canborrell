@@ -303,7 +303,7 @@ if (!$error && !function_exists('version_compare'))
 
 // Check if mysql extension is available
 
-if (!$error && !function_exists('mysql_connect'))
+if (!$error && !function_exists('mysqli_connect'))
 { echo ("<p class=\"error\">There is no mySQL extension available in your PHP installation. Sorry!</p>\n");
   $error=true;
 }
@@ -371,24 +371,24 @@ if (!$error && isset($_REQUEST["delete"]) && $_REQUEST["delete"]!=basename($_SER
 // Connect to the database, set charset and execute pre-queries
 
 if (!$error && !TESTMODE)
-{ $dbconnection = @mysql_connect($db_server,$db_username,$db_password);
+{ $dbconnection = @($GLOBALS["___mysqli_ston"] = mysqli_connect($db_server, $db_username, $db_password));
   if ($dbconnection) 
-    $db = mysql_select_db($db_name);
+    $db = ((bool)mysqli_query($GLOBALS["___mysqli_ston"], "USE " . $db_name));
   if (!$dbconnection || !$db) 
-  { echo ("<p class=\"error\">Database connection failed due to ".mysql_error()."</p>\n");
+  { echo ("<p class=\"error\">Database connection failed due to ".((is_object($GLOBALS["___mysqli_ston"])) ? mysqli_error($GLOBALS["___mysqli_ston"]) : (($___mysqli_res = mysqli_connect_error()) ? $___mysqli_res : false))."</p>\n");
     echo ("<p>Edit the database settings in ".$_SERVER["SCRIPT_FILENAME"]." or contact your database provider.</p>\n");
     $error=true;
   }
   if (!$error && $db_connection_charset!=='')
-    @mysql_query("SET NAMES $db_connection_charset", $dbconnection);
+    @mysqli_query( $dbconnection, "SET NAMES $db_connection_charset");
 
   if (!$error && isset ($pre_query) && sizeof ($pre_query)>0)
   { reset($pre_query);
     foreach ($pre_query as $pre_query_value)
-    {	if (!@mysql_query($pre_query_value, $dbconnection))
+    {	if (!@mysqli_query( $dbconnection, $pre_query_value))
     	{ echo ("<p class=\"error\">Error with pre-query.</p>\n");
       	echo ("<p>Query: ".trim(nl2br(htmlentities($pre_query_value)))."</p>\n");
-      	echo ("<p>MySQL: ".mysql_error()."</p>\n");
+      	echo ("<p>MySQL: ".((is_object($GLOBALS["___mysqli_ston"])) ? mysqli_error($GLOBALS["___mysqli_ston"]) : (($___mysqli_res = mysqli_connect_error()) ? $___mysqli_res : false))."</p>\n");
       	$error=true;
       	break;
      }
@@ -494,8 +494,8 @@ if (!$error && !isset($_REQUEST["fn"]) && $filename=="")
 
 if (!$error && !TESTMODE && !isset($_REQUEST["fn"]))
 { 
-  $result = mysql_query("SHOW VARIABLES LIKE 'character_set_connection';");
-  $row = mysql_fetch_assoc($result);
+  $result = mysqli_query($GLOBALS["___mysqli_ston"], "SHOW VARIABLES LIKE 'character_set_connection';");
+  $row = mysqli_fetch_assoc($result);
   if ($row) 
   { $charset = $row['Value'];
     echo ("<p>Note: The current mySQL connection charset is <i>$charset</i>. Your dump file must be encoded in <i>$charset</i> in order to avoid problems with non-latin characters. You can change the connection charset using the \$db_connection_charset variable in bigdump.php</p>\n");
@@ -579,10 +579,10 @@ if (!$error && isset($_REQUEST["start"]) && isset($_REQUEST["foffset"]) && preg_
   if (!$error && $_REQUEST["start"]==1 && $csv_insert_table != "" && $csv_preempty_table)
   { 
     $query = "DELETE FROM $csv_insert_table";
-    if (!TESTMODE && !mysql_query(trim($query), $dbconnection))
+    if (!TESTMODE && !mysqli_query( $dbconnection, trim($query)))
     { echo ("<p class=\"error\">Error when deleting entries from $csv_insert_table.</p>\n");
       echo ("<p>Query: ".trim(nl2br(htmlentities($query)))."</p>\n");
-      echo ("<p>MySQL: ".mysql_error()."</p>\n");
+      echo ("<p>MySQL: ".((is_object($GLOBALS["___mysqli_ston"])) ? mysqli_error($GLOBALS["___mysqli_ston"]) : (($___mysqli_res = mysqli_connect_error()) ? $___mysqli_res : false))."</p>\n");
       $error=true;
     }
   }
@@ -745,10 +745,10 @@ if (!$error && isset($_REQUEST["start"]) && isset($_REQUEST["foffset"]) && preg_
 // DIAGNOSTIC
 // echo ("<p>Query: ".trim(nl2br(htmlentities($query)))."</p>\n");
 
-        if (!TESTMODE && !mysql_query($query, $dbconnection))
+        if (!TESTMODE && !mysqli_query( $dbconnection, $query))
         { echo ("<p class=\"error\">Error at the line $linenumber: ". trim($dumpline)."</p>\n");
           echo ("<p>Query: ".trim(nl2br(htmlentities($query)))."</p>\n");
-          echo ("<p>MySQL: ".mysql_error()."</p>\n");
+          echo ("<p>MySQL: ".((is_object($GLOBALS["___mysqli_ston"])) ? mysqli_error($GLOBALS["___mysqli_ston"]) : (($___mysqli_res = mysqli_connect_error()) ? $___mysqli_res : false))."</p>\n");
           $error=true;
           break;
         }
@@ -904,7 +904,7 @@ skin_close();
 if ($error)
   echo ("<p class=\"centr\"><a href=\"".$_SERVER["PHP_SELF"]."\">Start from the beginning</a> (DROP the old tables before restarting)</p>\n");
 
-if ($dbconnection) mysql_close($dbconnection);
+if ($dbconnection) ((is_null($___mysqli_res = mysqli_close($dbconnection))) ? false : $___mysqli_res);
 if ($file && !$gzipmode) fclose($file);
 else if ($file && $gzipmode) gzclose($file);
 

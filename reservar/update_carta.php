@@ -15,7 +15,8 @@
 		}
 		public function reg_log($txt)
 		{
-			parent::greg_log($txt,ROOT.INC_FILE_PATH.LOG_IMPORT);
+			//parent::greg_log($txt,ROOT.INC_FILE_PATH.LOG_IMPORT);
+			parent::greg_log($txt,LOG_IMPORT);
 		}
 	}
 	$reglog=new Reglog();
@@ -26,10 +27,10 @@
 		
 	
 	include(ROOT.DB_CONNECTION_FILE);
-	mysql_select_db($database_canborrell, $canborrell);
-	mysql_query("SET CHARACTER SET 'utf-8'");
-	mysql_query("SET NAMES 'utf-8'");
-	mysql_query("SET COLLATION CONNECTION 'utf-8'");
+	((bool)mysqli_query( $canborrell, "USE " . $database_canborrell));
+	mysqli_query($GLOBALS["___mysqli_ston"], "SET CHARACTER SET 'utf-8'");
+	mysqli_query($GLOBALS["___mysqli_ston"], "SET NAMES 'utf-8'");
+	mysqli_query($GLOBALS["___mysqli_ston"], "SET COLLATION CONNECTION 'utf-8'");
 	
 	//import_carta($familias,"cart_subfamilia");
 	//import_carta($articulos,"cart_subfamilia");
@@ -41,7 +42,7 @@
 	$file=$ruta_import.$subfamilias;
 
 	$query="TRUNCATE $table";
-	$r=mysql_query($query,$canborrell);
+	$r=mysqli_query($canborrell, $query);
 	
 	$f=fopen($file,"r");
 	//die($file." * $f * ".file_exists($file));
@@ -51,6 +52,7 @@
 	$filedate=date("j/m/y h:i", $last_mod);
 
 	$reglog->reg_log( "INICIEM IMPORTACIÓ DE SUBFAMÍLIES: ".$file."($filedate)<br/><br/>");
+                            
 	while (($l = fgetcsv($f, 1000, ";")) !== FALSE) {
 		print_r($l);
 		
@@ -58,8 +60,8 @@
 		$fam=$l[1];
 		
 		$sc1=explode(" - ",$l[3]);
-		$c1_es=$sc1[0];
-		$c1_ca=$sc1[1];
+		//$c1_es=$sc1[0];
+		//$c1_ca=$sc1[1];
 		
 		$c1_ca=!empty($l[2])?$l[2]:$l[3];
 		$c1_es=$l[3];
@@ -72,7 +74,7 @@
 		
 		echo "<br/>insertem a $table";
 		$reglog->reg_log( "+insertem a $table");
-		$r=mysql_query($query,$canborrell);
+		$r=mysqli_query($canborrell, $query);
 	}
 	fclose($f);
 /*********************************************************************/
@@ -86,7 +88,7 @@ $reglog->reg_log( "<br/>Finalitzada importació de subfamilies ($k registres)<br
 	$file=$ruta_import.$articulos;
 
 	$query="TRUNCATE $table";
-	$r=mysql_query($query,$canborrell);
+	$r=mysqli_query($canborrell, $query);
 
 	$f=fopen($file,"r");
 	$k=0;
@@ -128,7 +130,7 @@ $reglog->reg_log( $l[4]);
 			
 		if (!$id) break;
 		$k++;
-		$r=mysql_query($query,$canborrell);
+		$r=mysqli_query($canborrell, $query);
 		echo "<br/><br/> -- $query <br/><br/>";
 	}	
 	fclose($f);

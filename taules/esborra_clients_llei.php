@@ -1,8 +1,11 @@
 <?php
-require_once 'Gestor.php';
+//require_once 'Gestor.php';
 
-//die(ROOT.INC_FILE_PATH.LOG_FILE);
-//$t=$_GET['t'];
+if (!defined('ROOT')) define('ROOT', "../taules/");
+require(ROOT."gestor_reserves.php");
+$gestor=new gestor_reserves();
+if (!$gestor->valida_sessio())die("USUARI NO AUTORITZAT!");
+
 
 Gestor::greg_log("CRON: esborra_clients_llei.php > reservestaules");
 print esborra_clients_llei('reservestaules');
@@ -15,6 +18,9 @@ function esborra_clients_llei($t)
 {
   require('../Connections/DBConnection.php');
   /******************************************************************************/
+///ini_set('display_errors',1);
+//ini_set('display_startup_errors',1);
+//error_reporting(E_ALL ^ E_DEPRECATED);
 
   $query_reserves = "
   SELECT *, $t.client_id as clid
@@ -33,14 +39,15 @@ function esborra_clients_llei($t)
   WHERE client_id IS NOT NULL AND data >= CURDATE( )
   )
   ";
-  $reserves = mysql_query($query_reserves, $DBConn) or die(mysql_error());
-  $nr=mysql_num_rows($reserves);
+  $reserves = mysqli_query( $DBConn, $query_reserves) or die(((is_object($GLOBALS["___mysqli_ston"])) ? mysqli_error($GLOBALS["___mysqli_ston"]) : (($___mysqli_res = mysqli_connect_error()) ? $___mysqli_res : false)));
+  $nr=mysqli_num_rows($reserves);
   $mensa = "<br/>TROBAT $nr registres:<br/>".$query_reserves ."....................................<br/><br/>";
   Gestor::greg_log( "<br/>TROBATS $nr registres:<br/>".$query_reserves ."....................................<br/><br/>");
-  if (!$nr) return("No hi ha clients pendents d'esborrar a $t<br/>");
+  if (!$nr) return false;
+  //if (!$nr) return("No hi ha clients pendents d'esborrar a $t<br/>");
 
   $mensa.=$nr." Clients per eliminar"."<br/>";
-  while ($row=mysql_fetch_array($reserves))  
+  while ($row=mysqli_fetch_array($reserves))  
   {
     //ESBORRO DADES CLIENT
     $query_reserves="
@@ -49,7 +56,7 @@ function esborra_clients_llei($t)
         WHERE client_id=".$row['clid'];
     	
     $mensa.=$query_reserves."<br/>";
-    mysql_query($query_reserves, $DBConn) or die(mysql_error());
+    mysqli_query( $DBConn, $query_reserves) or die(((is_object($GLOBALS["___mysqli_ston"])) ? mysqli_error($GLOBALS["___mysqli_ston"]) : (($___mysqli_res = mysqli_connect_error()) ? $___mysqli_res : false)));
     	
     $query_reserves="
     UPDATE $t
@@ -57,18 +64,18 @@ function esborra_clients_llei($t)
     WHERE client_id=".$row['clid'];
     	
     $mensa.=$query_reserves."<br/>";
-    mysql_query($query_reserves, $DBConn) or die(mysql_error());
+    mysqli_query( $DBConn, $query_reserves) or die(((is_object($GLOBALS["___mysqli_ston"])) ? mysqli_error($GLOBALS["___mysqli_ston"]) : (($___mysqli_res = mysqli_connect_error()) ? $___mysqli_res : false)));
     	
     //RESETEJO EL FLAG DESBORRAR DADES (per que no estigui actiu despres d'esborrar. Pel futur)
     $query_reserves="
     UPDATE $t
     SET reserva_info=0 WHERE id_reserva=".$row['id_reserva'];
     $mensa.=$query_reserves."<br/>";
-    mysql_query($query_reserves, $DBConn) or die(mysql_error());
+    mysqli_query( $DBConn, $query_reserves) or die(((is_object($GLOBALS["___mysqli_ston"])) ? mysqli_error($GLOBALS["___mysqli_ston"]) : (($___mysqli_res = mysqli_connect_error()) ? $___mysqli_res : false)));
     	
      
     $sms_mensa="RESTAURANT CAN BORRELL: A SOLICITUD SUYA, HEMOS ELIMINADO SUS DATOS DE NUESTRA BASE DE DATOS";
-    if (SMS_ACTIVAT)
+    if (ENVIA_SMS)
     {
       enviaSMS_esborrat($row['client_mobil'],$sms_mensa);
       $mensa.="ESBORRA_CLIENT ".$row["client_id"]." - SMS ENVIAT tel: ".$row['client_mobil']." \\n";
@@ -81,12 +88,13 @@ function esborra_clients_llei($t)
   }
 
 
-  return $mensa;
+  return $nr?$mensa:false;
 }
 
 
 function enviaSMS_esborrat($numMobil,$mensa)
 {
+    $idReserva=0;
   //return;
   /********************/
   /********************/
@@ -111,8 +119,10 @@ function enviaSMS_esborrat($numMobil,$mensa)
   $result = $sendService->SendMessage( $recipients, $body, $type );
 
 
-
-  print_log("ENVIAT SMS ESBORRA_CLIENT: $numMobil RESERVA $idReserva");
-  print_log("RESULTAT ENVIO: ".$result['Result']." / ".$result['MessageIDs']);
+  global $gestor;
+  $gestor->print_log("ENVIAT SMS ESBORRA_CLIENT: $numMobil RESERVA $idReserva");
+  $gestor->print_log("RESULTAT ENVIO: ".$result['Result']." / ".$result['MessageIDs']);
+  
+  
 }
 ?>

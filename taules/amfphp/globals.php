@@ -14,6 +14,7 @@
 	
 	// ALEX: CARREGO LA VARIABLE CONFIG QUIE VER PER GET
 	if (isset($_GET["config"])) define("CONFIG", $_GET["config"]);
+
 	
  	//As an example of what you might want to do here, consider:
 	

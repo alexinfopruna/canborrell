@@ -60,15 +60,15 @@ $tablas = false;
 $compresion = false;
 
 /* Conexion y eso*/
-$conexion = mysql_connect($host, $usurio, $passwd)
-or die("No se conectar con el servidor MySQL: ".mysql_error());
-mysql_select_db($bd, $conexion)
-or die("No se pudo seleccionar la Base de Datos: ". mysql_error());
+$conexion = ($GLOBALS["___mysqli_ston"] = mysqli_connect($host,  $usurio,  $passwd))
+or die("No se conectar con el servidor MySQL: ".((is_object($GLOBALS["___mysqli_ston"])) ? mysqli_error($GLOBALS["___mysqli_ston"]) : (($___mysqli_res = mysqli_connect_error()) ? $___mysqli_res : false)));
+((bool)mysqli_query( $conexion, "USE " . $bd))
+or die("No se pudo seleccionar la Base de Datos: ". ((is_object($GLOBALS["___mysqli_ston"])) ? mysqli_error($GLOBALS["___mysqli_ston"]) : (($___mysqli_res = mysqli_connect_error()) ? $___mysqli_res : false)));
 /******************************************************************************/	
 // CONNEXIO BBDD	
-		mysql_query("SET CHARACTER SET 'utf-8'");
-		mysql_query("SET NAMES 'utf-8'");
-		mysql_query("SET COLLATION CONNECTION 'utf-8'");
+		mysqli_query($GLOBALS["___mysqli_ston"], "SET CHARACTER SET 'utf-8'");
+		mysqli_query($GLOBALS["___mysqli_ston"], "SET NAMES 'utf-8'");
+		mysqli_query($GLOBALS["___mysqli_ston"], "SET COLLATION CONNECTION 'utf-8'");
 		mysql_set_charset('utf8',$conexion); 
 /******************************************************************************/		
 
@@ -76,9 +76,9 @@ or die("No se pudo seleccionar la Base de Datos: ". mysql_error());
 /* Se busca las tablas en la base de datos */
 if ( empty($tablas) ) {
     $consulta = "SHOW TABLES FROM $bd;";
-    $respuesta = mysql_query($consulta, $conexion)
-    or die("No se pudo ejecutar la consulta: ".mysql_error());
-    while ($fila = mysql_fetch_array($respuesta, MYSQL_NUM)) {
+    $respuesta = mysqli_query( $conexion, $consulta)
+    or die("No se pudo ejecutar la consulta: ".((is_object($GLOBALS["___mysqli_ston"])) ? mysqli_error($GLOBALS["___mysqli_ston"]) : (($___mysqli_res = mysqli_connect_error()) ? $___mysqli_res : false)));
+    while ($fila = mysqli_fetch_array($respuesta,  MYSQLI_NUM)) {
         $tablas[] = $fila[0];
     }
 }
@@ -88,7 +88,7 @@ if ( empty($tablas) ) {
 $info['dumpversion'] = "1.1b";
 $info['fecha'] = date("d-m-Y");
 $info['hora'] = date("h:m:s A");
-$info['mysqlver'] = mysql_get_server_info();
+$info['mysqlver'] = ((is_null($___mysqli_res = mysqli_get_server_info($GLOBALS["___mysqli_ston"]))) ? false : $___mysqli_res);
 $info['phpver'] = phpversion();
 ob_start();
 print_r($tablas);
@@ -130,24 +130,24 @@ foreach ($tablas as $tabla) {
     /* Se halla el query que ser� capaz de recrear la estructura de la tabla. */
     $create_table_query = "";
     $consulta = "SHOW CREATE TABLE $tabla;";
-    $respuesta = mysql_query($consulta, $conexion)
-    or die("No se pudo ejecutar la consulta: ".mysql_error());
-    while ($fila = mysql_fetch_array($respuesta, MYSQL_NUM)) {
+    $respuesta = mysqli_query( $conexion, $consulta)
+    or die("No se pudo ejecutar la consulta: ".((is_object($GLOBALS["___mysqli_ston"])) ? mysqli_error($GLOBALS["___mysqli_ston"]) : (($___mysqli_res = mysqli_connect_error()) ? $___mysqli_res : false)));
+    while ($fila = mysqli_fetch_array($respuesta,  MYSQLI_NUM)) {
             $create_table_query = $fila[1].";";
     }
     
     /* Se halla el query que ser� capaz de insertar los datos. */
     $insert_into_query = "";
     $consulta = "SELECT * FROM $tabla;";
-    $respuesta = mysql_query($consulta, $conexion)
-    or die("No se pudo ejecutar la consulta: ".mysql_error());
-    while ($fila = mysql_fetch_array($respuesta, MYSQL_ASSOC)) {
+    $respuesta = mysqli_query( $conexion, $consulta)
+    or die("No se pudo ejecutar la consulta: ".((is_object($GLOBALS["___mysqli_ston"])) ? mysqli_error($GLOBALS["___mysqli_ston"]) : (($___mysqli_res = mysqli_connect_error()) ? $___mysqli_res : false)));
+    while ($fila = mysqli_fetch_array($respuesta,  MYSQLI_ASSOC)) {
             $columnas = array_keys($fila);
             foreach ($columnas as $columna) {
                 if ( gettype($fila[$columna]) == "NULL" ) {
                     $values[] = "NULL";
                 } else {
-                    $values[] = "'".mysql_real_escape_string($fila[$columna])."'";
+                    $values[] = "'".((isset($GLOBALS["___mysqli_ston"]) && is_object($GLOBALS["___mysqli_ston"])) ? mysqli_real_escape_string($GLOBALS["___mysqli_ston"], $fila[$columna]) : ((trigger_error("[MySQLConverterToo] Fix the mysql_escape_string() call! This code does not work.", E_USER_ERROR)) ? "" : ""))."'";
                 }
             }
             $insert_into_query .= "INSERT INTO `$tabla` VALUES (".implode(", ", $values).");\n";

@@ -32,8 +32,8 @@ echo "<DIV align=center><br><br>Gràcies, la seva reserva ha estat cancel·lada 
 $id = intval(substr($_GET['id'],5,5));
 // COMPROVA QUE NO ESTIGUI JA CONFIRMADA
 $query='SELECT * FROM reserves WHERE id_reserva='.$id." AND estat<>1";
-$result=mysql_query($query,$canborrell);
-$norepe=mysql_num_rows($result);
+$result=mysqli_query($canborrell, $query);
+$norepe=mysqli_num_rows($result);
 if (!$norepe) 
 {
     echo '<meta http-equiv="Refresh" content="5;URL=../index.html" />' ;          
@@ -46,7 +46,7 @@ if (!$norepe)
 
 //$query='UPDATE reserves SET estat=1 WHERE id_reserva='.$id;  
 $query='UPDATE reserves SET estat=5 WHERE id_reserva='.$id;  
-$result=mysql_query($query,$canborrell);
+$result=mysqli_query($canborrell, $query);
 print_log("Reserva Cancelada pel client: $id");
 mail_restaurant($id); 
     //mysql_free_result($result);
@@ -84,8 +84,8 @@ function mail_restaurant($id=false)
 	/******************************************************************************/	
 	
 	/******************************************************************************/	
-	$Result = mysql_query($query, $canborrell) or die(mysql_error());
-	$fila=mysql_fetch_assoc($Result);
+	$Result = mysqli_query( $canborrell, $query) or die(((is_object($GLOBALS["___mysqli_ston"])) ? mysqli_error($GLOBALS["___mysqli_ston"]) : (($___mysqli_res = mysqli_connect_error()) ? $___mysqli_res : false)));
+	$fila=mysqli_fetch_assoc($Result);
 	
 	$avui=date("d/m/Y");
 	$ara=date("H:i");
@@ -155,7 +155,7 @@ function mail_restaurant($id=false)
     $nreserva=$fila['id_reserva'];
     print_log("Enviament mail($r): $nreserva -- $recipient, $subject");
 	
-    mysql_free_result($Result);
+    ((mysqli_free_result($Result) || (is_object($Result) && (get_class($Result) == "mysqli_result"))) ? true : false);
 	return ($fila['id_reserva']);
 }
 

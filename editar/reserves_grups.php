@@ -56,7 +56,7 @@ header('Content-Type: text/html; charset=utf-8');
 	$_POST['adults']=$_REQUEST['adults'];
 	$_POST['nens10_14']=$_REQUEST['nens10_14']?$_REQUEST['nens10_14']:0;
 	$_POST['nens4_9']=$_REQUEST['nens4_9']?$_REQUEST['nens4_9']:0;
-	$_POST['cotxets']=$_REQUEST['selectorCotxets']?$_REQUEST['selectorCotxets']:0;
+	$_POST['cotxets']=isset($_REQUEST['selectorCotxets'])?$_REQUEST['selectorCotxets']:0;
 	$_POST['menu']=$_REQUEST['menu_adults']=0;//ATENCIO MENUS PER CARTA!!!
 	$_POST['txt_1']=$_REQUEST['menu_juniors']=0;//ATENCIO MENUS PER CARTA!!!
 	$_POST['txt_2']=$_REQUEST['menu_nens']=0;//ATENCIO MENUS PER CARTA!!!

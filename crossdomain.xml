@@ -3,5 +3,7 @@
 <cross-domain-policy>
 <allow-access-from domain="cb.localhost" />
 <allow-access-from domain="cbdev.localhost" />
+<allow-access-from domain="localhost" />
+<allow-access-from domain="cbdev-localhost" />
 <allow-access-from domain="*" /></allow>
 </cross>

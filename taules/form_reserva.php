@@ -153,7 +153,7 @@ else
 		?>
 		</span>
 		<?php if ($id) echo ' Idr:<span class="data-llarga ui-corner-all" style="margin-left:5px;font-size:0.7em">'.$row_reserva['id_reserva'].'</span>';?>
-		<input type="hidden" name="data" value="<?php  out ($gestor->cambiaf_a_normal($row_reserva['data']))  ?>" size="10" tabindex="-1" class="required"  title="Selecciona una data" readonly="readonly"/>
+                <input type="hidden" name="data" value="<?php  out ($gestor->cambiaf_a_normal($row_reserva['data']))  ?>" size="10" tabindex="-1" class="required"  title="Selecciona una data" readonly="readonly"/>
 		<?php if($id && $row_reserva['data']<=date("Y-m-d")){ 
 			$chek=($row_reserva['reserva_info'] & 32)?'checked="checked" ':'';
 		?>
@@ -161,6 +161,7 @@ else
 				<input type="checkbox" id="reserva_entrada_<?php echo trim($class);?>" name="reserva_entrada" <?php echo $chek;?> value="<?php echo $row_reserva['reserva_info'] ?>" />
 				<label id="label_reserva_entrada" for="reserva_entrada_<?php echo trim($class);?>" class="confirma-data " title="Els comensals ja són a la taula">Els comensals ja són a la taula</label>
 		<?php }?>
+		
 
 		
 		
@@ -408,8 +409,11 @@ else
 		
 		<td align="left"  style="">
                    <label id="label-pastis" for="<?php echo trim($class) ?>RESERVA_PASTIS" >PASTIS </label> <!---->
-                    <input type="checkbox" id="<?php echo trim($class) ?>RESERVA_PASTIS" name="RESERVA_PASTIS" value="on" <?php echo  $row_reserva['reserva_pastis']?'checked="checked"':""?>/>
-                    <?php $pastis=$row_reserva['reserva_pastis'];
+                    <?php $pastis=(isset($row_reserva['reserva_pastis'])?$row_reserva['reserva_pastis']:FALSE);
+                    $row_reserva['reserva_pastis']=$pastis;
+                    ?>
+                   <input type="checkbox" id="<?php echo trim($class) ?>RESERVA_PASTIS" name="RESERVA_PASTIS" value="on" <?php echo  $row_reserva['reserva_pastis']?'checked="checked"':""?>/>
+                    <?php 
                             $pastis_info=$pastis?$row_reserva['reserva_info_pastis']:'';
                     ?>
                     <input id="INFO_PASTIS" name="INFO_PASTIS" class="pastis_toggle" value="<?php echo $pastis_info ?>"/>

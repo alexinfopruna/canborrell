@@ -27,8 +27,8 @@ $recordID = $_GET['id'];
 if (!is_numeric($recordID)) $recordID=(int)substr($recordID,-6);
 $query_DetailRS1 = "SELECT * FROM reserves WHERE id_reserva = $recordID AND (num_2<>666 OR num_2<=>NULL)";
 $query_limit_DetailRS1 = sprintf("%s LIMIT %d, %d", $query_DetailRS1, $startRow_DetailRS1, $maxRows_DetailRS1);
-$DetailRS1 = mysql_query($query_limit_DetailRS1, $canborrell) or die(mysql_error());
-$row_DetailRS1 = mysql_fetch_assoc($DetailRS1);
+$DetailRS1 = mysqli_query( $canborrell, $query_limit_DetailRS1) or die(((is_object($GLOBALS["___mysqli_ston"])) ? mysqli_error($GLOBALS["___mysqli_ston"]) : (($___mysqli_res = mysqli_connect_error()) ? $___mysqli_res : false)));
+$row_DetailRS1 = mysqli_fetch_assoc($DetailRS1);
 
 //foreach($row_DetailRS1 as $k=>$v) $row_DetailRS1[$k]=Gestor::charset($v);
 
@@ -37,8 +37,8 @@ if (isset($_REQUEST['fac']) && $_REQUEST['fac']==1) echo ">>>>>>>>>>>>>>>>>>>> "
 if (isset($_GET['totalRows_DetailRS1'])) {
   $totalRows_DetailRS1 = $_GET['totalRows_DetailRS1'];
 } else {
-  $all_DetailRS1 = mysql_query($query_DetailRS1);
-  $totalRows_DetailRS1 = mysql_num_rows($all_DetailRS1);
+  $all_DetailRS1 = mysqli_query($GLOBALS["___mysqli_ston"], $query_DetailRS1);
+  $totalRows_DetailRS1 = mysqli_num_rows($all_DetailRS1);
 }
 $totalPages_DetailRS1 = ceil($totalRows_DetailRS1/$maxRows_DetailRS1)-1;
 
@@ -342,5 +342,5 @@ function dateChanged(calendar) {
 <?php //factura($row_DetailRS1 ,"../",true);?>
 </body>
 </html><?php
-mysql_free_result($DetailRS1);
+((mysqli_free_result($DetailRS1) || (is_object($DetailRS1) && (get_class($DetailRS1) == "mysqli_result"))) ? true : false);
 ?>

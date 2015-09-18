@@ -12,7 +12,6 @@ if (!$gestor->valida_sessio(64))
 }
 define("SUPER_ADMIN",$gestor->valida_sessio(255)?true:false);
 define("ADMIN",$gestor->valida_sessio(63)?true:false);
-echo "WWW";
 
 if (isset($_GET['exit'])) 
 {
@@ -171,7 +170,7 @@ $(function(){$("#panel").accordion({collapsible:true,active:false,heightStyle: "
 		<a target="_blank" href="../taules/DBTable/bigdump.php" class=" bt ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only">Gestiona Còpies de seguretat de la Base de Dades</a>
 		<!-- -->
     <!-- -->
-    <a target="_blank" href="../taules/gestor_reserves.php?a=reserves_orfanes" class=" bt ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only">Reserves perdudes</a>
+    <a target="_blank" href="../taules/gestor_reserves.php?a=reserves_orfanes&p=1" class=" bt ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only">Reserves perdudes</a>
     <!-- -->
 <?php if (SUPER_ADMIN){?>		
 		<a target="_blank" href="../taules/TaulesDisponibles.php?d=2012-02-29&t=1&p=7&c=0" class=" bt ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only">Test TaulesDisponibles</a>

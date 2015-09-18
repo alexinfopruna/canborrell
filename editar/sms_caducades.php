@@ -3,7 +3,7 @@
 if (!defined('ROOT')) define('ROOT', "../taules/");
 require_once(ROOT."gestor_reserves.php");
 $gestor=new gestor_reserves();
-if (!$gestor->valida_sessio())die("USUARI NO AUTORITZAT!");
+//if (!$gestor->valida_sessio())die("USUARI NO AUTORITZAT!");
 
 
 /***************************************************************************/
@@ -13,12 +13,17 @@ function sms_caducades()
 {
 	require(ROOT.'../Connections/DBConnection.php'); 
 	/******************************************************************************/	
-    $query_reserves = "SELECT * FROM reserves WHERE data_limit < CURDATE() AND data_limit>'2008-01-01' AND estat=2";
-    $reserves = mysql_query($query_reserves, $canborrell) or die(mysql_error());
-    $nr=mysql_num_rows($reserves);
-	
+   //  $query_reserves = "SELECT * FROM reserves WHERE data_limit <= ADDDATE(CURDATE(), INTERVAL 0 DAY) AND data_limit >=CURDATE() AND data >=CURDATE()  AND estat=2 AND data>=CURDATE() AND  (num_1<1000 OR num_1<=>NULL) AND  (num_2<>666 OR num_2<=>NULL)";
+     $query_reserves = "SELECT * FROM reserves WHERE data_limit < CURDATE() AND data_limit>'2008-01-01' AND estat=2";
+    $reserves = mysqli_query( $canborrell, $query_reserves) or die(((is_object($GLOBALS["___mysqli_ston"])) ? mysqli_error($GLOBALS["___mysqli_ston"]) : (($___mysqli_res = mysqli_connect_error()) ? $___mysqli_res : false)));
+    $nr=mysqli_num_rows($reserves);
+echo "<br/><br/>CADUCADES (SMS)<br/>";
+echo $query_reserves;
+    echo "<br/><br/><br/>";
+    if (!$nr) return "NO HI HA CADUCADES";
+	$mensa="";
 	//$mensa="ENVIEM SMS RESERVES CADUCADES. TROBATS $nr REGISTRES";
-    while ($row=mysql_fetch_array($reserves))
+    while ($row=mysqli_fetch_array($reserves))
     {
 			ereg( "([0-9]{2,4})-([0-9]{1,2})-([0-9]{1,2})", $row['data'], $mifecha); 
 			$lafecha=$mifecha[3]."/".$mifecha[2]; 
@@ -37,13 +42,13 @@ function sms_caducades()
 			
 		//MARCA SMS ENVIAT
         $query_reserves = "UPDATE reserves SET num_1=1000 WHERE id_reserva=".$row["id_reserva"];
-        $update = mysql_query($query_reserves, $canborrell) or die(mysql_error());
+        if (SMS_ACTIVAT) $update = mysqli_query( $canborrell, $query_reserves) or die(((is_object($GLOBALS["___mysqli_ston"])) ? mysqli_error($GLOBALS["___mysqli_ston"]) : (($___mysqli_res = mysqli_connect_error()) ? $___mysqli_res : false)));
 	}
 
 		
 		//MARCA RESERVES COM A CADUCADES
 		$query_reserves = "UPDATE reserves SET estat=6 WHERE data_limit < CURDATE() AND data_limit>'2008-01-01' AND estat=2";
-		$reserves = mysql_query($query_reserves, $canborrell) or die(mysql_error());
+		if (SMS_ACTIVAT) $reserves = mysqli_query( $canborrell, $query_reserves) or die(((is_object($GLOBALS["___mysqli_ston"])) ? mysqli_error($GLOBALS["___mysqli_ston"]) : (($___mysqli_res = mysqli_connect_error()) ? $___mysqli_res : false)));
 		
 		return $mensa;
 }   
@@ -63,16 +68,23 @@ function enviaSMS_caducades($numMobil,$mensa)
 	$type = "Text";			// The type of the message in the body (e.g. Text, SmartMessage, Binary or Unicode).
 	$validityPeriod = 0;		// The amount of time in hours until the message expires if it cannot be delivered.
 	$result;			// The result of a service request.
-	$messageIDs = array($idReserva);		// A single or comma-separated list of sent message IDs.
+	//$messageIDs = array();		// A single or comma-separated list of sent message IDs.
 	$messageStatus;			// The status of a sent message.
 	
 	$sendService = new EsendexSendService( $username, $password, $accountReference );
-	$result = $sendService->SendMessage( $recipients, $body, $type );
+	if (SMS_ACTIVAT && ENVIA_SMS) {
+            $result = $sendService->SendMessage( $recipients, $body, $type );
+	print_log("ENVIAT SMS CADUCADA: $numMobil RESERVA $numMobil");
+	print_log("RESULTAT ENVIO: ".$result['Result']." / ".$result['MessageIDs']);
+        
+        }
+        else{
+
+            print_log("TEST SMS CADUCADA (no enviat): $numMobil RESERVA $numMobil");
+        }
 	
 	
 	
-	print_log("ENVIAT SMS CADUCADA: $numMobil RESERVA $idReserva");
-	print_log("RESULTAT ENVIO: ".$result['Result']." / ".$result['MessageIDs']);	
 }	
 /*
 

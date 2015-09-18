@@ -15,7 +15,7 @@ $translate['INFO_QUANTS_SOU_GRUPS']='<b>Dinos cuantas personas vendrán,</b> ind
 <br/> <br/>
 		Solo aceptamos perros guía acompañando a invidentes
 <br/> <br/>
-		<em> Si, en total, sois menos de <b> '. ($PERSONES_GRUP-1 ).'</b> personas, marca el botón "<='. ($PERSONES_GRUP-1 ).'" </em> <br/> <br/>
+		<em> Si, en total, sois menos de <b> '. ($PERSONES_GRUP ).'</b> personas, marca el botón "<='. ($PERSONES_GRUP-1 ).'" </em> <br/> <br/>
 <b> TOTAL PERSONAS: ';
 
 	$translate['INFO_CARTA_GRUPS']='Debes indicar el menú para los adultos.

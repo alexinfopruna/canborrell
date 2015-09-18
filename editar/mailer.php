@@ -1,5 +1,6 @@
 <?php
-require_once ("class.phpmailer.php");
+//equire_once ("class.phpmailer.php");
+require_once ("PHPMailerAutoload.php");
 require_once(ROOT.INC_FILE_PATH.'alex.inc');
 
 if (!defined('CONFIG'))
@@ -57,15 +58,20 @@ function mailer($addr,$subject,$body,$altbody,$attach=null, $test=false, $cco=nu
   {
       
 	  $exito=true;
-	  $o='<meta http-equiv="Content-Type" content="text/html; charset=utf-8" pageEncoding="UTF-8"/>';
+          $o=">>>>>>>".date("d-m-Y")."<br/>";
+	  $o.='<meta http-equiv="Content-Type" content="text/html; charset=utf-8" pageEncoding="UTF-8"/>';
+	  $o.='<meta http-equiv="Content-Type" content="text/html; charset=utf-8" pageEncoding="UTF-8"/>';
 	  $o.= "<br/>charset=".CHARSET." *** mailer: ".$mail->CharSet."<br/>";
 	  $o.= "MAIL TO: $addr  FROM: info@can-borrell.com<br/>";
 	  if ($cco) $occo= "CCO: $cco<br/>";
 	  $o.=$occo;
 	  $o.= "SUBJECT: $subject<br/>";  
 	  $o.= $body.EOL.EOL;
-	  
-	$f = fopen(ROOT.INC_FILE_PATH."log/log_mail.html", 'w');
+	  $o.= "...............................................................................<br/><br/>".EOL.EOL;
+	  $o.= "...............................................................................<br/><br/>".EOL.EOL;
+	  $o.= "...............................................................................<br/><br/>".EOL.EOL;
+          
+	$f = fopen(ROOT.INC_FILE_PATH."log/test_mail.html", 'a');
 	fwrite($f,$o);
 	  
  	if (DEV) $mail->Send();

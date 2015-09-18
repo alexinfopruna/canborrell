@@ -84,7 +84,7 @@ if ($_SERVER['HTTP_HOST']=="localhost" ) $bg = "local";
 			print "var historic=0;\n";
 		}
 // TODO AUTO DEFINE
-		print "var CONFIG='".$CONFIG."';\n";
+		if (isset($CONFIG)) print "var CONFIG='".$CONFIG."';\n";
 		
 	?>
 </script>

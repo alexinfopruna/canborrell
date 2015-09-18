@@ -4,6 +4,7 @@
 /****** CONFIG *******/
 //$CONFIG="config.xml";
 /****** DEV *******/
+$dev=FALSE;
 if (strpos($_SERVER['PHP_SELF'],"dev")) $dev=true;
 if (strpos($_SERVER['HTTP_HOST'],"dev")) $dev=true;
 

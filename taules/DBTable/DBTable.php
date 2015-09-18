@@ -24,7 +24,10 @@ class DBTable extends Gestor
 	
 	public function DBTable($table_query)
 	{
-		parent::__construct(DB_CONNECTION_FILE, $usuari_minim);
+                              $were="";
+                              $order="";
+                              $usuari_minim=63;
+		parent::__construct(DB_CONNECTION_FILE,$usuari_minim);
 		
 		if (!empty($were) && substr($were,0,5)!="WHERE") $were="WHERE ".$were;
 		$were = trim($were); $were = " ".$were;
@@ -75,7 +78,7 @@ class DBTable extends Gestor
 			//$this->FILTRE=$were;
 			//$this->ORDRE=$were;
 			//echo $this->QUERY.$were.$order;
-			$res=mysql_query($this->QUERY.$were.$order); 
+			$res=mysqli_query($GLOBALS["___mysqli_ston"], $this->QUERY.$were.$order); 
 			return $res;
 	}
 	//
@@ -140,7 +143,7 @@ class DBTable extends Gestor
 					$query = "DELETE 
 					FROM $TABLE 
 					WHERE ".$TABLE."_id=".$_REQUEST['ui_icon_trash'];
-					$res=mysql_query($query);
+					$res=mysqli_query($GLOBALS["___mysqli_ston"], $query);
 					self::respostaAJAX("Registre id=".$_REQUEST['ui_icon_trash']." ESBORRAT",0,1);						
 		}	
 	}

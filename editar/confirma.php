@@ -26,8 +26,8 @@ require_once(ROOT."gestor_reserves.php");
 		/******************************************************************************/	
 		
 		$query="SELECT * FROM reserves WHERE id_reserva=".$id;
-		$result=mysql_query($query,$canborrell);
-		$rou=mysql_fetch_array($result);
+		$result=mysqli_query($canborrell, $query);
+		$rou=mysqli_fetch_array($result);
 		$lang=$rou['lang'];
 		$resposta=$rou['resposta'];
 		if (!$rou) 
@@ -59,7 +59,7 @@ if (($_POST['nref']=="confirma")&&($_POST['referencia']!=""))
 		$resposta.="<br><br>PAGADA PER TRANSFERENCIA. REF:".$_POST['referencia'];
 		/******************************************************************************/			
 		$query="UPDATE reserves SET num_2=999, resposta='$resposta' WHERE id_reserva=".$id;
-		$result=mysql_query($query,$canborrell);
+		$result=mysqli_query($canborrell, $query);
 		print_log("Transferència confirmada pel client: $id");		
 		
 		
@@ -76,9 +76,9 @@ if (($_POST['nref']=="confirma")&&($_POST['referencia']!=""))
 else
 {
 		$query="SELECT * FROM reserves WHERE id_reserva=".$id." AND num_2=999";
-		$result=mysql_query($query,$canborrell);
-		$repe=mysql_num_rows($result);
-		$rou=mysql_fetch_array($result);
+		$result=mysqli_query($canborrell, $query);
+		$repe=mysqli_num_rows($result);
+		$rou=mysqli_fetch_array($result);
 		
 		if ($repe) 
 		{
@@ -123,8 +123,8 @@ else
 			/******************************************************************************/	
 			
 			/******************************************************************************/	
-			$Result = mysql_query($query, $canborrell) or die(mysql_error());
-			$fila=mysql_fetch_assoc($Result);
+			$Result = mysqli_query( $canborrell, $query) or die(((is_object($GLOBALS["___mysqli_ston"])) ? mysqli_error($GLOBALS["___mysqli_ston"]) : (($___mysqli_res = mysqli_connect_error()) ? $___mysqli_res : false)));
+			$fila=mysqli_fetch_assoc($Result);
 			
 			$avui=date("d/m/Y");
 			$ara=date("H:i");
@@ -202,7 +202,7 @@ else
 			$nreserva=$fila['id_reserva'];
 			print_log("Enviament mail($r): $nreserva -- $recipient, $subject");
 			
-			mysql_free_result($Result);
+			((mysqli_free_result($Result) || (is_object($Result) && (get_class($Result) == "mysqli_result"))) ? true : false);
 			return ($fila['id_reserva']);
 		}
 

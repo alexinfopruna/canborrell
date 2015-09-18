@@ -4,6 +4,8 @@ header('Content-Type: text/html; charset=utf-8');
 define('ROOT',"../taules/");
 require_once (ROOT."Gestor.php");
 
+if (!defined('USR_FORM_WEB')) define('USR_FORM_WEB',3); //ES LA ID D'USUARI (admin) ANONIM QUE CREA RESERVA ONLINE
+
 $ruta_lang="../";
 /**/
 // ERROR HANDLER
@@ -28,7 +30,7 @@ if (!$gestor->valida_sessio(64))
 
 
 //RECUPERA IDIOMA
-$lang=$gestor->idioma($_REQUEST["lang"]);
+$lang=$gestor->idioma(isset($_REQUEST["lang"])?$_REQUEST["lang"]:"");
 $l=$gestor->lng;
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -69,7 +71,7 @@ require_once(ROOT.'../reservar/translate_'.$gestor->lng.'.php');
   <div id="fr-cartaw-popup" title="<?php l("Publica / Despublica plats de la carta")?>"
     class="carta-menu" style="height: 300px">
     <div id="fr-carta-tabs">
-      <?php echo $gestor->recuperaCarta($row['id_reserva'])?>
+      <?php echo $gestor->recuperaCarta(isset($row['id_reserva'])?$row['id_reserva']:NULL)?>
     </div>
   </div>
 

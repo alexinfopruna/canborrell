@@ -24,7 +24,10 @@ class Reserva extends Gestor
 		private $data_BASE="2011-01-01";
 
 	    public function Reserva($id=null, $data=null, $hora=null, $adults=null, $juniors=null, $nens=null, $cotxets=null, $client=null) {
-			parent::__construct($db_connection_file,$usuari_minim);
+			$usuari_minim=NULL;
+                        $db_connection_file=NULL;
+                        $torn=0;
+                        parent::__construct($db_connection_file,$usuari_minim);
 			
 			$this->id=$id;
 			$this->data=$data;
@@ -55,7 +58,7 @@ class Reserva extends Gestor
 				$this->client['email']=$row['client_email'];		  
 				$this->client['mobil']=$row['client_mobil'];		  
 				$this->client['telefon']=$row['client_telefon'];		  
-				$this->client['observacions']=$row['client_observacions'];		  
+				$this->client['observacions']=$row['observacions'];		  
 				$this->client['conflictes']=$row['client_conflictes'];	
 
 				//$this->last_row=array();
@@ -75,10 +78,10 @@ class Reserva extends Gestor
 			LEFT JOIN client ON ".T_RESERVES.".client_id=client.client_id
 			LEFT JOIN ".ESTAT_TAULES." ON ".T_RESERVES.".id_reserva=".ESTAT_TAULES.".reserva_id
 			WHERE ".T_RESERVES.".id_reserva='".$id_reserva."'";
-			$this->qry_result = mysql_query($query, $this->connexioDB) or die(mysql_error());
+			$this->qry_result = mysqli_query( $this->connexioDB, $query) or die(((is_object($GLOBALS["___mysqli_ston"])) ? mysqli_error($GLOBALS["___mysqli_ston"]) : (($___mysqli_res = mysqli_connect_error()) ? $___mysqli_res : false)));
 			
-			if (!$this->total_rows = mysql_num_rows($this->qry_result))	return false;
-			$r=$this->last_row = mysql_fetch_assoc($this->qry_result);			
+			if (!$this->total_rows = mysqli_num_rows($this->qry_result))	return false;
+			$r=$this->last_row = mysqli_fetch_assoc($this->qry_result);			
 			
 			$this->taula=new EstatTaula($r['estat_taula_taula_id'],$r['estat_taula_nom'],$r['data'],$r['hora'],$r['estat_taula_persones'],$r['estat_taula_cotxets'],$r['estat_taula_plena'],$r['estat_taula_x'],$r['estat_taula_y']);
 			$this->taula->torn=$r['estat_taula_torn']; 

@@ -17,7 +17,7 @@ ORDER BY config_descripcio
 $EDITABLE= '"'.$_SERVER['PHP_SELF'].'"';
 
 //if ($_POST["edit_id"])
-if ($_POST["update_value"])
+if (isset($_POST["update_value"]))
 {
 	require_once("DBTable.php");
 	$gestor=new DBTable($query);
