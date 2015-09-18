@@ -85,7 +85,7 @@ function fromAS3_editReserva(id,n,p,c,f)
 				$(".updata_res input[name=cb_sms]").attr("checked",false);	
 			}
 			
-			
+			$('#edit').dialog('option', 'title', 'Edita reserva '+$("#spanidr").html());
 		 }		
 	});
 	e.preventDefault();

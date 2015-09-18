@@ -62,7 +62,7 @@ function zoomon()
 	$("#zoom .comensals").hide();
 	$("#zoom .calendari").show();
 	$("#zoom #totals-torn").show();
-	$("#selectorCotxets").show();
+	$("#selectorCotxetsCerca").show();
 	
 	$("#zoom #radio").show();
 	$("#selectorComensals").show();
@@ -91,12 +91,12 @@ function zoomoff()
 	$("#selectorComensals input:checked").css("font-size","3em");
 	$("#selectorComensals input:checked").attr("checked",false);
 	$("#selectorComensals input").button("refresh");
-	$("#selectorCotxets input:checked").css("font-size","3em");
-	$("#selectorCotxets input:checked").attr("checked",false);
-	$("#selectorCotxets input[value=0]:checked").attr("checked",true);
-	$("#selectorCotxets input").button("refresh");
+	$("#selectorCotxetsCerca input:checked").css("font-size","3em");
+	$("#selectorCotxetsCerca input:checked").attr("checked",false);
+	$("#selectorCotxetsCerca input[value=0]:checked").attr("checked",true);
+	$("#selectorCotxetsCerca input").button("refresh");
 	$("#selectorComensals").hide();
-	$("#selectorCotxets").hide();
+	$("#selectorCotxetsCerca").hide();
 	$("#cercaTaulaResult").html("Quants coberts?");
 
 }

@@ -370,7 +370,7 @@ a.edbase
 }
 #selectorFinde{font-size:1.2em}
 #selectorDinarSopar{float:left;font-size:1.2em}
-#selectorDinarSopar, #selectorFinde, #selectorCotxets{margin:5px 10px 0 0;}
+#selectorDinarSopar, #selectorFinde, #selectorCotxets, #selectorCotxetsCerca{margin:5px 10px 0 0;}
 .f1, .f2{
 	clear:both;
 	background:#0C0;

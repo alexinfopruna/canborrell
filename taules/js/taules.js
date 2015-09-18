@@ -1,6 +1,5 @@
 //PENDENT CONFIG
 var HOST = "DEV";
-
 var refreshIntervalId;
 var client = 0;
 var timeractiu = false;
@@ -195,8 +194,8 @@ $(function () {
     $("#selectorComensals").find("label").unbind("mouseup");
     $("#selectorDinarSopar").buttonset();
     $("#selectorDinarSopar").find("label").unbind("mouseup");
-    $("#selectorCotxets").buttonset();
-    $("#selectorCotxets").find("label").unbind("mouseup");
+    $("#selectorCotxetsCerca").buttonset();
+    $("#selectorCotxetsCerca").find("label").unbind("mouseup");
     $(".inserta_res #selectorCotxets").buttonset();
     $(".inserta_res #selectorCotxets").find("label").unbind("mouseup");
     $(".inserta_res #selectorCadiraRodes").buttonset();
@@ -209,13 +208,9 @@ $(function () {
     $("#selectorAdults").find("label").unbind("mouseup");
     $("#finde").button();
 
-
-
-
-
     $("#selectorComensals").change(cercaTaula);
     $("#selectorDinarSopar").change(cercaTaula);
-    $("#selectorCotxets").change(cercaTaula);
+    $("#selectorCotxetsCerca").change(cercaTaula);
     $("#finde").change(cercaTaula);
     /**/
     $("#selectorNens4_9").change(botonera_nens4_9);
@@ -1040,7 +1035,7 @@ function obreDetallReserva(e)
     AC_ACTIU = $(this).attr("n");//$(this).parent();
     var desti = $(this).attr("href");
     var data = $(this).attr("data");
-    //$('#edit').dialog('option', 'title', 'aaa');
+    
     $("#edit").html('<div class="loading"></div>');
     timer(false);
     $('#edit').dialog('open');
@@ -1055,6 +1050,7 @@ function obreDetallReserva(e)
                 $("#torn" + d).prop("checked", true);
                 $("#torn" + d).button("refresh");
             });
+            $('#edit').dialog('option', 'title', 'Edita reserva '+$("#spanidr").html());
         }
     });
 
@@ -1119,10 +1115,7 @@ function onNovaReserva()
     onNovaReservaBlok();
     //$('#insertReserva').load("form_reserva.php");
     $('#insertReserva').dialog('open');
-    
-    
-    //return;
-
+    reset_form();
     timer(false);
     max_comensals = 0;
     $("#edit").html("");
@@ -1138,21 +1131,8 @@ function onNovaReserva()
     $(".inserta_res input[name=total]").rules("add", {personesInsert: true});
     $("#confirma_data_inserta_res").rules("add", {required: true});
 
+ //reset_form();
 
-    $("input[name=adults]").val("");
-    $("input[name=nen4_9]").val("");
-    $("input[name=nen10_14]").val("");
-    $("input[name=total]").val("");
-    $("input[name=cotxets]").val("");
-    $("input[name=observacions]").val("");
-    $("input[name=resposta]").val("");
-    $("input[name='data']").val($("#calendari").val());
-    var stDate = "--";
-    stDate = $.datepicker.parseDate('dd/mm/yy', $("#calendari").val());
-    stDate = $.datepicker.formatDate("DD d 'de' MM 'de' yy", stDate);
-    $("span.data-llarga").html(stDate);
-    $(".combo_clients").val(client);
-    $(".combo_clients").trigger('change');
 
     var hora = $("#zoom input[name='hora']:checked").val();
     if (hora === null || typeof hora === "undefined")
@@ -1172,28 +1152,15 @@ function onNovaReserva()
     $("#autoc_client_inserta_res").focus();
 
 
-    $('#inserta_resRESERVA_PASTIS').button();
-    $('#inserta_resRESERVA_PASTIS').change(function () {
-        $('.pastis_toggle').toggle(this.checked);
-        $('#label-pastis').toggleClass("fluixet", !this.checked);
-    });//.change(); //ensure visible state matches initially
-    /*  */
     $('#inserta_resRESERVA_PASTIS').change();
     var val = validationRules();
     if (!validator_inserta_res) validator_inserta_res=$("form.inserta_res").validate(val);
-    //else $("form.inserta_res").validate(val).resetForm();
-   // alert("WW");
-    $("label.error").remove();
-    $(".error").removeClass("error");
-    
-    //ntimer=get_timer();
-     
-     //alert(get_timer()-ntimer);
+
+   
 };
 
 
 function recupera_hores($element){
-    
     //$.get("gestor_reserves.php?a=teeest", function (datos) {
       $.ajax({url: "gestor_reserves.php?a=recupera_hores&c=" + TAULA + "&d=" + P + "&e=" + C, success: function(datos) {
 
@@ -1212,9 +1179,50 @@ function recupera_hores($element){
         $($element+" input").change(function () {
             max_comensals = $(this).attr("maxc");
         });
-        
-        //validator_inserta_res.resetForm();
     }});
+}
+
+function reset_form(){
+    /* */   
+    $(':input','#campsClient')
+  .not(':button, :submit, :reset, :hidden, :radio, :checkbox')
+  .val('');
+ 
+    $("input[name=adults]").val("");
+    $("input[name=nens4_9]").val("");
+    $("input[name=nens10_14]").val("");
+    $("input[name=total]").val("0");
+    $("input[name=cotxets]").val("");
+    $("input[name=observacions]").val("");
+    $("input[name=resposta]").val("");
+    $("#INFO_PASTIS").val("");
+    $("input[name='data']").val($("#calendari").val());
+    var stDate = "--";
+    stDate = $.datepicker.parseDate('dd/mm/yy', $("#calendari").val());
+    stDate = $.datepicker.formatDate("DD d 'de' MM 'de' yy", stDate);
+    $("span.data-llarga").html(stDate);
+    $(".combo_clients").val(client);
+    $(".combo_clients").trigger('change');  
+  
+    $('#inserta_resRESERVA_PASTIS').prop('checked', false).button();
+    $('#inserta_resRESERVA_PASTIS').change(function () {
+        $('.pastis_toggle').toggle(this.checked);
+        $('#label-pastis').toggleClass("fluixet", !this.checked);
+    });//.change(); //ensure visible state matches initially
+
+
+    //$('#inserta_resRESERVA_PASTIS').prop('checked', false).button("refresh");
+  $('#confirma_data_inserta_res').prop('checked', false).button("refresh");
+  $('#accesiblehora').prop('checked', false).button("refresh");
+  $('#cadira0hora').prop('checked', false).button("refresh");
+  $('#cotxets0hora').prop('checked', true).button("refresh");
+  $('#selectorCotxets').buttonset("refresh");
+   
+  
+  $('input[name=cb_sms').prop('checked', true);
+     
+         $("label.error").remove();
+    $(".error").removeClass("error");
 }
 
 /******************************************************************************************************/
@@ -1395,7 +1403,6 @@ function clientCreat(datos)
     var t2 = $('#insertClient input[name=client_telefon]').val();
     var v = cognoms + ", " + nom + " (" + t1 + " - " + t2 + ")";
 
-
     $("#autoc_client_inserta_res").val(v);
     $(".autoc_id_client").val(datos);
     recargaAccordionClients();
@@ -1476,7 +1483,7 @@ function cercaTaula()
 {
     var p = $("#selectorComensals input:checked").val();
     p = p ? p : "0";
-    var q = $("#selectorCotxets input:checked").val();
+    var q = $("#selectorCotxetsCerca input:checked").val();
     var r = $("#selectorFinde input:checked").val() == "on" ? "1" : "0";
     $("#cercaTaulaResult").html('<img class="loading" src="css/loading.gif" />');
     $.ajax({url: "gestor_reserves.php?a=cerca_taula&p=" + p + "&q=" + q + "&r=" + r, success: function (dades) {

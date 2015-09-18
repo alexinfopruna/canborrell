@@ -159,7 +159,7 @@ if ((isset($_REQUEST["del_client"])) && ($_REQUEST["del_client"] > 0))
 			
 		</div>
 		
-		<div id="selectorCotxets" class="amagat">
+		<div id="selectorCotxetsCerca" class="amagat">
 			<input type="radio" id="1cotxets" name="selectorCotxets" value="1"/><label for="1cotxets">1 cotxet</label>
 			<input type="radio" id="2cotxets" name="selectorCotxets" value="2"/><label for="2cotxets">2 cotxets</label>
 		</div>
