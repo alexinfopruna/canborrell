@@ -17,6 +17,20 @@ $bd = $database_canborrell;
 /* Nombre del fichero que se descargará. */
 $nombre = "reserves_" . date("Y-m-d-H-i-s").".sql";
 
+
+/* Determina quantes hores fa de la darrera còpia. Si és superior, fa còpia. Si no surt */
+ $hores = isset($_REQUEST['hores'])? $_REQUEST['hores']:4;
+ 
+ //echo $gestor->lastBackup();
+ //die();
+  if ($gestor->lastBackup()<=$hores){
+    echo "No fem còpia: $hores hores";
+    exit();
+    die();
+  }
+
+
+
 /* Determina si la tabla será vaciada (si existe) cuando  restauremos la tabla. */            
 $drop = isset($_REQUEST['drop']);
 /* 
@@ -48,6 +62,10 @@ if (isset($_REQUEST['file']))
 	$date=date("H:i:s");
 	if ($date>HORA1_DB_BACKUP) $ab="COPIA_".$hora1;
 	if ($date>HORA2_DB_BACKUP) $ab="COPIA_".$hora2;
+                            
+                            $hora_real = date("H:i"); // JA NO POSEM EL NOM HORA1/HORA2. Poso hora real!
+                            $ab="COPIA_".$hora_real;
+                            
 	$nombre = "reserves_" . date("Y-m-d")."-$ab.sql";
 
 	//echo " CAL FER COPIA??? ".$date." > ".HORA1_DB_BACKUP." = ".($date>HORA1_DB_BACKUP?"S":"N")." ****** ";
@@ -59,11 +77,12 @@ if (isset($_REQUEST['file']))
 else $compresion = false;
 
 /* Conexion y eso*/
-$conexion = ($GLOBALS["___mysqli_ston"] = mysqli_connect($host,  $usurio,  $passwd))
+$conexion = ($GLOBALS["___mysqli_ston"] = mysqli_connect($host,  $usurio,  $passwd, $bd))
 or die("No se conectar con el servidor MySQL: ".((is_object($GLOBALS["___mysqli_ston"])) ? mysqli_error($GLOBALS["___mysqli_ston"]) : (($___mysqli_res = mysqli_connect_error()) ? $___mysqli_res : false)));
+/*
 ((bool)mysqli_query( $conexion, "USE " . $bd))
 or die("No se pudo seleccionar la Base de Datos: ". ((is_object($GLOBALS["___mysqli_ston"])) ? mysqli_error($GLOBALS["___mysqli_ston"]) : (($___mysqli_res = mysqli_connect_error()) ? $___mysqli_res : false)));
-
+*/
 
 /* Se busca las tablas en la base de datos */
 if ( empty($tablas) ) {
@@ -173,6 +192,8 @@ if ( !headers_sent() ) {
 			$f=fopen(RUTA_DB_BACKUP.$nombre,"w");
 			fwrite($f, $dump);
 			fclose($f);
+                                                                                    
+                                                                                    //echo $nombre  ;
 			die( "backup");
         break;
     case "gz":

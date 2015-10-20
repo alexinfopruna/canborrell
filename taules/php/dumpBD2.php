@@ -39,10 +39,10 @@ $tablas = false;
 $compresion = false;
 
 /* Conexion y eso*/
-$conexion = ($GLOBALS["___mysqli_ston"] = mysqli_connect($host,  $usurio,  $passwd))
+$conexion = ($GLOBALS["___mysqli_ston"] = mysqli_connect($host,  $usurio,  $passwd, $bd))
 or die("No se conectar con el servidor MySQL: ".((is_object($GLOBALS["___mysqli_ston"])) ? mysqli_error($GLOBALS["___mysqli_ston"]) : (($___mysqli_res = mysqli_connect_error()) ? $___mysqli_res : false)));
-((bool)mysqli_query( $conexion, "USE " . $bd))
-or die("No se pudo seleccionar la Base de Datos: ". ((is_object($GLOBALS["___mysqli_ston"])) ? mysqli_error($GLOBALS["___mysqli_ston"]) : (($___mysqli_res = mysqli_connect_error()) ? $___mysqli_res : false)));
+//((bool)mysqli_query( $conexion, "USE " . $bd))
+///or die("No se pudo seleccionar la Base de Datos: ". ((is_object($GLOBALS["___mysqli_ston"])) ? mysqli_error($GLOBALS["___mysqli_ston"]) : (($___mysqli_res = mysqli_connect_error()) ? $___mysqli_res : false)));
 
 
 /* Se busca las tablas en la base de datos */

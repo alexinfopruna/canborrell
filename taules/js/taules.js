@@ -1301,8 +1301,7 @@ function comprova_backup()
     }
 
 
-    if (!BACKUP_INTERVAL)
-        return;
+    if (!BACKUP_INTERVAL)  return;
     var d = new Date();
     var rand = d.getTime();
     var desti = "dumpBD.php?drop&file";

@@ -5,10 +5,9 @@
         <group>
             <file>file:/var/www/canborrell/taules/js/taules.js</file>
             <file>file:/var/www/canborrell/taules/gestor_reserves.php</file>
-            <file>file:/var/www/canborrell/taules/taules.php</file>
-            <file>file:/var/www/canborrell/taules/js/calendari.js</file>
-            <file>file:/var/www/canborrell/taules/form_reserva.php</file>
-            <file>file:/var/www/canborrell/taules/js/as3.js</file>
+            <file>file:/var/www/canborrell/reservar/form.php</file>
+            <file>file:/var/www/canborrell/reservar/js/form_reserves.js</file>
+            <file>file:/var/www/canborrell/taules/dumpBD.php</file>
         </group>
     </open-files>
 </project-private>

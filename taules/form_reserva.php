@@ -145,8 +145,10 @@ else
 		
 		<span class="data-llarga ui-corner-all" style="margin-right:25px">
 		<?php 
-		if (LOCAL) setlocale(LC_TIME, 'catalan'); // utilitza aquest sobre windows
-		else setlocale(LC_TIME, 'ca_ES.UTF-8');
+                                                        //echo "..........".LOCAL;
+		//if (LOCAL) setlocale(LC_TIME, 'catalan'); // utilitza aquest sobre windows
+		//else setlocale(LC_TIME, 'ca_ES.UTF-8');
+                                                        setlocale(LC_TIME, 'ca_ES', 'Catalan_Spain', 'Catalan');
 		$d= strftime("%A %d de %B de %Y",strtotime($row_reserva['data']));
 		//echo utf8_encode($d);
 		echo $d;
@@ -476,9 +478,10 @@ else
 	<?php
 		if ($id)
 		{
-			if (LOCAL) setlocale(LC_ALL, 'catalan');
-			else setlocale(LC_ALL, 'ca_ES.UTF-8');
-			$creada= strftime("%A %d de %B de %Y a les %H:%M:%S",strtotime($row_reserva['data_creacio']));
+			//if (LOCAL) setlocale(LC_ALL, 'catalan');
+			//else setlocale(LC_ALL, 'ca_ES.UTF-8');
+                                                                                    setlocale(LC_TIME, 'ca_ES', 'Catalan_Spain', 'Catalan');
+			$creada= "aaaa".strftime("%A %d de %B de %Y a les %H:%M:%S",strtotime($row_reserva['data_creacio']));
 			$creada_por=$gestor->cadenaClient($row_reserva['usuari_creacio']);
 			//$creada_por=$row_reserva['usuari_creacio'];
 			$modificada= strftime("%A %d de %B de %Y a les %H:%M:%S",strtotime($row_reserva['estat_taules_timestamp']));

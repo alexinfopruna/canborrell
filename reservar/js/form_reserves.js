@@ -225,6 +225,17 @@ $('#RESERVA_PASTIS').change(function () {
   }).change(); //ensure visible state matches initially
 
 
+/* */
+    var d = new Date();
+    var rand = d.getTime();
+    var desti = "../taules/dumpBD.php?drop&file&hores=4";
+    $.post(desti, {r: rand}, function (datos) {
+        if (datos == "backup" && permisos > 64)
+            alert("S'ha realitzat una còpia de la base de dades");
+
+    });
+
+
 
 }); //ONLOAD, PRESENTACIO UI
 /************************************************************************************************************/
