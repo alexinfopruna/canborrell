@@ -16,7 +16,8 @@ if (!defined('LLISTA_NITS_NEGRA'))
   define("LLISTA_NITS_NEGRA", INC_FILE_PATH . "bloq_nit.txt");
 if (!defined('LLISTA_DIES_BLANCA'))
   define("LLISTA_DIES_BLANCA", INC_FILE_PATH . "llista_dies_blanca.txt");
-
+if (!defined('TPV_CONFIG_FILE'))
+  define("TPV_CONFIG_FILE", "TPV256_test.php");
 
 require_once(ROOT . "gestor_reserves.php");
 require_once(ROOT . "Menjador.php");
@@ -984,13 +985,75 @@ WHERE  `client`.`client_id` =$idc;
     //$row=  mysql_fetch_assoc($result);
     return mysqli_result($result, 0);
   }
+  
+   /*   * ******************************************************************************************************* */
+  /*   * ******************************************************************************************************* */
+  /*   * ******************************************************************************************************* */
+
+  public function generaFormTpvSHA256($id_reserva, $import, $nom) {
+    include(INC_FILE_PATH . TPV_CONFIG_FILE);
+   
+    $order = substr(time(), 0, 3) . $id_reserva;
+    $id = $order = $id_reserva;
+    $urlMerchant = 'http://' . $_SERVER['HTTP_HOST'] . '/reservar/Gestor_form.php?a=respostaTPV';
+    $producte = "Reserva restaurant Can Borrell";
+    $titular = $nom;
+    $urlOK = "http://www.can-borrell.com/editar/TPV/pagamentOK.php?id=$id&lang=$lang";
+    $urlKO = "http://www.can-borrell.com/editar/TPV/pagamentKO.php?id=$id&lang=$lang";
+    $lang = $this->lang;
+    $idioma = ($lang == "cat") ? "003" : "001";    
+    
+	// Se incluye la librería
+	include INC_FILE_PATH . 'API_PHP/redsysHMAC256_API_PHP_5.2.0/apiRedsys.php';
+	// Se crea Objeto
+	$miObj = new RedsysAPI;
+		
+	// Se Rellenan los campos
+	$miObj->setParameter("DS_MERCHANT_AMOUNT",$import);
+	$miObj->setParameter("DS_MERCHANT_ORDER",strval($id));
+	$miObj->setParameter("DS_MERCHANT_MERCHANTCODE",$fuc);
+	$miObj->setParameter("DS_MERCHANT_CURRENCY",$moneda);
+	$miObj->setParameter("DS_MERCHANT_TRANSACTIONTYPE",$trans);
+	$miObj->setParameter("DS_MERCHANT_TERMINAL",$terminal);
+	
+	$miObj->setParameter("Ds_Merchant_ProductDescription",$producte);
+	$miObj->setParameter("Ds_Merchant_Titular",$titular);
+	$miObj->setParameter("Ds_Merchant_ConsumerLanguage",$idioma);
+	$miObj->setParameter("Ds_Merchant_PayMethods",$paymethods);
+                            $miObj->setParameter("DS_MERCHANT_MERCHANTURL",$urlMerchant);
+                            
+	$miObj->setParameter("DS_MERCHANT_URLOK",$urlOK);		
+	$miObj->setParameter("DS_MERCHANT_URLKO",$urlKO);
+                            
+
+	// Se generan los parámetros de la petición
+	$request = "";
+	$params = $miObj->createMerchantParameters();
+	$signature = $miObj->createMerchantSignature($clave256);
+              
+echo   'import: '.     $import.'<br>';  
+echo   'order: '.     $id.'<br>';  
+echo   '$fuc: '.     $fuc.'<br>';  
+echo   '$producte: '.     $producte.'<br>';  
+echo   '$urlMerchant: '.     $urlMerchant.'<br>';  
+                            
+$form = '
+<form name="frm" action="'.$url.'" method="POST" target="_blank">
+              Ds_Merchant_SignatureVersion <input type="text" name="Ds_SignatureVersion" value="'.$version.'"/></br>
+              Ds_Merchant_MerchantParameters <input type="text" name="Ds_MerchantParameters" value="'.$params.'"/></br>
+              Ds_Merchant_Signature <input type="text" name="Ds_Signature" value="'.$signature.'/></br>
+              <input type="submit" value="Enviar" onclick="javascript:calcTPV();">
+</form>';
+
+return $form;
+  }
 
   /*   * ******************************************************************************************************* */
   /*   * ******************************************************************************************************* */
   /*   * ******************************************************************************************************* */
 
   public function generaFormTpv($id_reserva, $import, $nom) {
-    include(INC_FILE_PATH . 'TPV.php');
+    include(TPV_CONFIG_FILE . TPV_CONFIG_FILE);
     $lang = $this->lang;
     $order = substr(time(), 0, 3) . $id_reserva;
     $id = $order = $id_reserva;
@@ -1030,6 +1093,7 @@ WHERE  `client`.`client_id` =$idc;
                 <input type=$hidden name=Ds_Merchant_MerchantCode value='$code'>
                 <input type=$hidden name=Ds_Merchant_Terminal value='$terminal'>
                 <input type=$hidden name=Ds_Merchant_TransactionType value='$transactionType'>
+                  
                 <input type=$hidden name=Ds_Merchant_ProductDescription value='$producte'>
                 <input id=tpv_titular type=$hidden name=Ds_Merchant_Titular value='$titular'>
                 <input type=$hidden name=Ds_Merchant_UrlOK value='$urlOK'>
@@ -1050,7 +1114,7 @@ WHERE  `client`.`client_id` =$idc;
   }
 
   private function signatureTpv($order, $import, $urlMerchant = 'http://www.can-borrell.com/editar/TPV/respostaTPV.php') {
-    include(INC_FILE_PATH . 'TPV.php');
+    include(TPV_CONFIG_FILE . TPV_CONFIG_FILE);
     //echo $amount." / ".$order." / ".$code." / ".$currency." / ".$transactionType." / ".$urlMerchant." / ".$clave;
     $amount = $import * 100;
     $message = $amount . $order . $code . $currency . $transactionType . $urlMerchant . $clave;

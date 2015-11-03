@@ -187,10 +187,14 @@ class gestor_reserves extends Gestor {
     $dataSMS = $dataSMS = $this->cambiaf_a_normal($row['data']);
     $hora = $row['hora'];
 
-
-
     $mensa = "Restaurant Can Borrell: Su reserva para el $dataSMS a las $hora HA SIDO ANULADA. Si desea contactar con nosotros: 936929723 - 936910605. Gracias.(ID$id_reserva)";
-    if (!$permuta) {
+    
+
+    //return "TEEEST";
+    
+
+
+    if (!$permuta){
       $this->enviaSMS($id_reserva, $mensa);
       $this->paperera_reserves($id_reserva);
       //ENVIA MAIL
@@ -198,13 +202,13 @@ class gestor_reserves extends Gestor {
       $mail = $this->enviaMail($id_reserva, "cancelada_", FALSE, $extres);
     }
     $deleteSQL = "DELETE FROM " . T_RESERVES . " WHERE id_reserva=$id_reserva";
-    $res = $this->log_mysql_query($deleteSQL, $this->connexioDB) or die(((is_object($GLOBALS["___mysqli_ston"])) ? mysqli_error($GLOBALS["___mysqli_ston"]) : (($___mysqli_res = mysqli_connect_error()) ? $___mysqli_res : false)));
+    /////////// $res = $this->log_mysql_query($deleteSQL, $this->connexioDB) or die(((is_object($GLOBALS["___mysqli_ston"])) ? mysqli_error($GLOBALS["___mysqli_ston"]) : (($___mysqli_res = mysqli_connect_error()) ? $___mysqli_res : false)));
 
     //$usr=$_SESSION['admin_id'];
     $usr = $_SESSION['uSer']->id;
 
     $deleteSQL = "UPDATE " . ESTAT_TAULES . " SET reserva_id=0, estat_taula_usuari_modificacio=$usr WHERE reserva_id=$id_reserva";
-    $res = $this->log_mysql_query($deleteSQL, $this->connexioDB) or die(((is_object($GLOBALS["___mysqli_ston"])) ? mysqli_error($GLOBALS["___mysqli_ston"]) : (($___mysqli_res = mysqli_connect_error()) ? $___mysqli_res : false)));
+    /////////// $res = $this->log_mysql_query($deleteSQL, $this->connexioDB) or die(((is_object($GLOBALS["___mysqli_ston"])) ? mysqli_error($GLOBALS["___mysqli_ston"]) : (($___mysqli_res = mysqli_connect_error()) ? $___mysqli_res : false)));
 
     if ($permuta) {
       return $res;
@@ -222,19 +226,13 @@ class gestor_reserves extends Gestor {
   public function paperera_reserves($id_reserva) {
     if ($_SESSION['permisos'] < 16)
       return "error:sin permisos";
-    /**/
+    
     if (!defined("DB_CONNECTION_FILE_DEL"))
       return;
     $reserva = $this->load_reserva($id_reserva);
-//    print_r($reserva);
-    //connectem a la bbdd d'ESBORRADES
-
-
 
     include(ROOT . DB_CONNECTION_FILE_DEL);
 
-    //((bool)mysqli_query( $GLOBALS["___mysqli_stonDEL"], "USE " . $database_canborrell));
-    //mysqli_select_db ($GLOBALS["___mysqli_stonDEL"] , $database_canborrell );
     $insertSQL = sprintf("REPLACE INTO " . T_RESERVES . " ( id_reserva, client_id, data, hora, adults, 
       nens4_9, nens10_14, cotxets, observacions, resposta, estat) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)", $this->SQLVal($reserva['id_reserva'], "text"), $this->SQLVal($reserva['client_id'], "text"), $this->SQLVal($reserva['data'], "datePHP"), $this->SQLVal($reserva['hora'], "text"), $this->SQLVal($reserva['adults'], "zero"), $this->SQLVal($reserva['nens4_9'], "zero"), $this->SQLVal($reserva['nens10_14'], "zero"), $this->SQLVal($reserva['cotxets'], "zero"), $this->SQLVal($reserva['observacions'], "text"), $this->SQLVal($reserva['resposta'], "text"), $this->SQLVal($reserva['estat'], "text"));
 
@@ -244,7 +242,6 @@ class gestor_reserves extends Gestor {
     reserva_id, estat_taula_x, estat_taula_y, estat_taula_persones, estat_taula_cotxets, estat_taula_grup, estat_taula_plena) 
     VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)", $this->SQLVal($reserva['estat_taula_id'], "text"), $this->SQLVal($reserva['estat_taula_data'], "text"), $this->SQLVal($reserva['estat_taula_nom'], "text"), $this->SQLVal($reserva['estat_taula_torn'], "text"), $this->SQLVal($reserva['estat_taula_taula_id'], "text"), $this->SQLVal($reserva['id_reserva'], "text"), $this->SQLVal($reserva['estat_taula_x'], "text"), $this->SQLVal($reserva['estat_taula_y'], "text"), $this->SQLVal($reserva['estat_taula_persones'], "zero"), $this->SQLVal($reserva['estat_taula_cotxets'], "zero"), $this->SQLVal($reserva['estat_taula_grup'], "text"), $this->SQLVal($reserva['estat_taula_plena'], "text"));
 
-    // echo $insertSQL." P3 ".DB_CONNECTION_FILE_DEL;
     $this->qry_result = $this->log_mysql_query($insertSQL, $GLOBALS["___mysqli_stonDEL"]); // or die(((is_object($GLOBALS["___mysqli_ston"])) ? mysqli_error($GLOBALS["___mysqli_ston"]) : (($___mysqli_res = mysqli_connect_error()) ? $___mysqli_res : false)));
 
     $insertSQL = sprintf("REPLACE INTO client ( client_id, client_nom, client_cognoms, client_adresa, 
@@ -255,7 +252,6 @@ class gestor_reserves extends Gestor {
 
 
     // ESBORREM INFO CADUCADA
-    /**/
     if (CLEAR_DELETED_BEFORE) {
       $deleteSQL = "DELETE FROM " . T_RESERVES . " WHERE data>'" . $this->data_BASE . "' AND data< NOW() - INTERVAL " . CLEAR_DELETED_BEFORE;
       $this->qry_result = $this->log_mysql_query($deleteSQL, $GLOBALS["___mysqli_stonDEL"]); // or die(((is_object($GLOBALS["___mysqli_ston"])) ? mysqli_error($GLOBALS["___mysqli_ston"]) : (($___mysqli_res = mysqli_connect_error()) ? $___mysqli_res : false)));

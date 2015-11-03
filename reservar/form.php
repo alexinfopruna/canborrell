@@ -625,8 +625,11 @@ else
         
  <?php 
  //echo import_paga_i_senyal;
- echo $gestor->generaFormTpv('20110101',$gestor->configVars("import_paga_i_senyal"),"TEST_TPV"); ?> 
-            
+  //echo $gestor->generaFormTpv('20110101',$gestor->configVars("import_paga_i_senyal"),"TEST_TPV"); 
+ 
+  echo $gestor->generaFormTpvSHA256('20110101',$gestor->configVars("import_paga_i_senyal"),"TEST_TPV"); 
+  ?> 
+          
         </td></tr>
 </table>
 	

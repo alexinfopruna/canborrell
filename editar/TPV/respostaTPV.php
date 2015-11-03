@@ -20,7 +20,6 @@
 // http://dev.can-borrell.com/editar/TPV/respostaTPV.php?testTPV=1&id=2699&sig=OK
 // http://dev.can-borrell.com/editar/TPV/respostaTPV.php?testTPV=1&id=2699&sig=OK
 
-
 if (!defined('ROOT')) define('ROOT', "../../taules/");
 require(ROOT."Gestor.php");
 require(ROOT."gestor_reserves.php");
@@ -42,7 +41,6 @@ require_once(ROOT.INC_FILE_PATH.'valors.php');
 require_once(ROOT.INC_FILE_PATH.'alex.inc');
 require_once(ROOT.'../editar/mailer.php'); 
 
-
 $attach='';
 
 if (!isset($_POST["Ds_Amount"])) $_POST["Ds_Amount"]='';
@@ -56,12 +54,8 @@ if (!isset($_POST["Ds_Signature"])) $_POST["Ds_Signature"]='';
 
 if (!isset($_GET["sig"])) $_GET["sig"]='';
 
-
-
 $message = $_POST["Ds_Amount"].$_POST["Ds_Order"].$_POST["Ds_MerchantCode"].$_POST["Ds_Currency"].$_POST["Ds_Response"].$clave;
 $signature = strtoupper(sha1($message));
-
-
 
 //////////////// 
 /////////////////

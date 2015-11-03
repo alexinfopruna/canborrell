@@ -1103,3 +1103,11 @@ function tanca_dlg(){
     if (!SECCIO) seccio(SECCIO_INICIAL);
 }
 
+    function calcTPV() { 
+	
+		
+    document.getElementById('boto').style.display = 'none';
+    vent=window.open('','frame-tpv','width=725,height=600,scrollbars=no,resizable=yes,status=yes,menubar=no,location=no');
+   // vent.moveTo(eje_x,eje_y);
+    document.compra.submit();}
+
