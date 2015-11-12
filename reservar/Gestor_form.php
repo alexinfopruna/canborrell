@@ -412,12 +412,7 @@ FROM client
   /*   * ******************************************************************************************************* */
   /*   * ******************************************************************************************************* */
   public function submit() {
-    //sleep(20);
-    //trunc();
-    //die();
     $resposta['mail'] = null;
-
-    // MIREM SI ESTÀ EDITANT UNA RESERVA EXISTENT
     if (isset($_POST['id_reserva']) && !empty($_POST['id_reserva'])) {
       if (strtolower(substr($_POST['id_reserva'], 0, 2)) == 'id')
         $_POST['id_reserva'] = substr($_POST['id_reserva'], 2, 20);
@@ -440,8 +435,8 @@ FROM client
     if (time() - $_SESSION['last_submit'] < 5)
       return $this->jsonErr(10, $resposta); //PARTXE DOBLE SUBMIT
 
-
       
+// MIREM SI ESTÀ EDITANT UNA RESERVA EXISTENT
 //MIRA SI ENS VOLEM FER UNA DUPLICADA
     if (!isset($_POST['client_mobil']))
       $_POST['client_mobil'] = 'xxx';
@@ -477,6 +472,8 @@ FROM client
     if ($total_coberts < 2 || $total_coberts > $PERSONES_GRUP)
       return $this->jsonErr(7, $resposta); // "err7 adults";
 
+
+
       
 //ESBRINA EL TORN	
     $data = $this->cambiaf_a_mysql($_POST['selectorData']);
@@ -495,6 +492,7 @@ FROM client
     //COMPROVEM HORA LIMIT
     if (!$this->reserva_entra_avui($data, $hora))
       return $this->jsonErr(11, $resposta); // "err7 adults";
+
 
       
 //COMPROVA hora - torn - taula ok?
@@ -531,7 +529,6 @@ FROM client
     // VALIDA SI HEM TROBAT HORA
     if (!$this->taulesDisponibles->horaDisponible($hora))
       return $this->jsonErr(8, $resposta);
-
     //SI CREA_TAULA LA GUARDA
     $taulaVirtual = false;
     if ($taules[0]->taulaVirtual) {
@@ -547,6 +544,7 @@ FROM client
       return $this->jsonErr(5, $resposta); // "err5 nom";
     if (empty($_POST['client_cognoms']))
       return $this->jsonErr(6, $resposta); // "err6: cognoms";
+
 
       
 //comanda?		
@@ -660,10 +658,15 @@ FROM client
     $resposta['virtual'] = $taulaVirtual;
     $resposta['TPV'] = $TPV ? "TPV" : "";
     $resposta['idr'] = $idr;
+
     if ($TPV) {
       $resposta['signature'] = $this->signatureTpv('214' . $idr, import_paga_i_senyal, 'http://' . $_SERVER['HTTP_HOST'] . '/reservar/Gestor_form.php?a=respostaTPV');
       //$resposta['signature']=$this->signatureTpv('214'.$idr,import_paga_i_senyal,'http://'.$_SERVER['HTTP_HOST'].'/reservar/respostaTPV.php');
       //$resposta['signature']=$this->signatureTpv('214'.$idr,import_paga_i_senyal,'http://www.can-borrell.com/reservar/Gestor_form.php?a=respostaTPV');
+
+
+      $nom = $_POST['client_nom'] . ' ' . $_POST['client_cognoms'];
+      $resposta['form_tpv'] = $this->generaFormTpvSHA256($idr, import_paga_i_senyal, $nom);
     }
     else {
       $this->enviaSMS($idr, $mensa);
@@ -700,6 +703,7 @@ FROM client
     $torn = $this->torn($data, $hora);
     if (!$torn)
       return $this->jsonErr(8, $resposta); // COMPROVA torn
+
 
       
 //VALIDA DADES	
@@ -976,82 +980,6 @@ WHERE  `client`.`client_id` =$idc;
   /*   * ******************************************************************************************************* */
   /*   * ******************************************************************************************************* */
 
-  public function estatReserva($idr) {
-
-    $query = "SELECT estat "
-        . "FROM " . T_RESERVES . " "
-        . "WHERE id_reserva=$idr";
-    $result = mysqli_query($this->connexioDB, $query) or die(((is_object($GLOBALS["___mysqli_ston"])) ? mysqli_error($GLOBALS["___mysqli_ston"]) : (($___mysqli_res = mysqli_connect_error()) ? $___mysqli_res : false)));
-    //$row=  mysql_fetch_assoc($result);
-    return mysqli_result($result, 0);
-  }
-  
-   /*   * ******************************************************************************************************* */
-  /*   * ******************************************************************************************************* */
-  /*   * ******************************************************************************************************* */
-
-  public function generaFormTpvSHA256($id_reserva, $import, $nom) {
-    include(INC_FILE_PATH . TPV_CONFIG_FILE);
-   
-    $order = substr(time(), 0, 3) . $id_reserva;
-    $id = $order = $id_reserva;
-    $urlMerchant = 'http://' . $_SERVER['HTTP_HOST'] . '/reservar/Gestor_form.php?a=respostaTPV';
-    $producte = "Reserva restaurant Can Borrell";
-    $titular = $nom;
-    $urlOK = "http://www.can-borrell.com/editar/TPV/pagamentOK.php?id=$id&lang=$lang";
-    $urlKO = "http://www.can-borrell.com/editar/TPV/pagamentKO.php?id=$id&lang=$lang";
-    $lang = $this->lang;
-    $idioma = ($lang == "cat") ? "003" : "001";    
-    
-	// Se incluye la librería
-	include INC_FILE_PATH . 'API_PHP/redsysHMAC256_API_PHP_5.2.0/apiRedsys.php';
-	// Se crea Objeto
-	$miObj = new RedsysAPI;
-		
-	// Se Rellenan los campos
-	$miObj->setParameter("DS_MERCHANT_AMOUNT",$import);
-	$miObj->setParameter("DS_MERCHANT_ORDER",strval($id));
-	$miObj->setParameter("DS_MERCHANT_MERCHANTCODE",$fuc);
-	$miObj->setParameter("DS_MERCHANT_CURRENCY",$moneda);
-	$miObj->setParameter("DS_MERCHANT_TRANSACTIONTYPE",$trans);
-	$miObj->setParameter("DS_MERCHANT_TERMINAL",$terminal);
-	
-	$miObj->setParameter("Ds_Merchant_ProductDescription",$producte);
-	$miObj->setParameter("Ds_Merchant_Titular",$titular);
-	$miObj->setParameter("Ds_Merchant_ConsumerLanguage",$idioma);
-	$miObj->setParameter("Ds_Merchant_PayMethods",$paymethods);
-                            $miObj->setParameter("DS_MERCHANT_MERCHANTURL",$urlMerchant);
-                            
-	$miObj->setParameter("DS_MERCHANT_URLOK",$urlOK);		
-	$miObj->setParameter("DS_MERCHANT_URLKO",$urlKO);
-                            
-
-	// Se generan los parámetros de la petición
-	$request = "";
-	$params = $miObj->createMerchantParameters();
-	$signature = $miObj->createMerchantSignature($clave256);
-              
-echo   'import: '.     $import.'<br>';  
-echo   'order: '.     $id.'<br>';  
-echo   '$fuc: '.     $fuc.'<br>';  
-echo   '$producte: '.     $producte.'<br>';  
-echo   '$urlMerchant: '.     $urlMerchant.'<br>';  
-                            
-$form = '
-<form name="frm" action="'.$url.'" method="POST" target="_blank">
-              Ds_Merchant_SignatureVersion <input type="text" name="Ds_SignatureVersion" value="'.$version.'"/></br>
-              Ds_Merchant_MerchantParameters <input type="text" name="Ds_MerchantParameters" value="'.$params.'"/></br>
-              Ds_Merchant_Signature <input type="text" name="Ds_Signature" value="'.$signature.'/></br>
-              <input type="submit" value="Enviar" onclick="javascript:calcTPV();">
-</form>';
-
-return $form;
-  }
-
-  /*   * ******************************************************************************************************* */
-  /*   * ******************************************************************************************************* */
-  /*   * ******************************************************************************************************* */
-
   public function generaFormTpv($id_reserva, $import, $nom) {
     include(TPV_CONFIG_FILE . TPV_CONFIG_FILE);
     $lang = $this->lang;
@@ -1139,52 +1067,73 @@ return $form;
   // 7 PAGAT TPV
   // 100 RES.PETITA
   /*   * ************************************************ */
-  public function respostaTPV() {
-    /* LOG */
-    echo "respostaTPV >> " . date(" / d-m-y H:i:s");
-
-
-    $f = fopen("log_TPV.txt", "a");
-    fwrite($f, date("\n<br/>+++ d-m-y H:i:s >> "));
-    fwrite($f, "RESPOSTA TPV >>> IDR:");
-    fwrite($f, $_POST["Ds_Order"]);
+  public function respostaTPV_SHA256() {
+    $id = $lang = "not set";
+    //$f = fopen(ROOT . INC_FILE_PATH . "/log/log_TPV.txt", "w");
+    //fwrite($f, date("d/m/y h:i:s") . "!!!!!!!!!!!!!! buida..!!!!!!!!!!!!!!!!!");
     //fclose($f);
-    if (!isset($_POST["Ds_Signature"]))
-      echo " >> FALTA SIGNATURE ";
-    $this->greg_log("RespostaTPV (" . $_POST["Ds_Date"] . " " . $_POST["Ds_Hour"] . " ):" . $_POST["Ds_Order"] . " >> Response: " . $_POST["Ds_Response"] . " >> Signture: " . $_POST["Ds_Signature"] . " >> Amount: " . $_POST["Ds_Amount"], LOG_FILE_TPVPK);
-    if (!isset($_POST["Ds_Amount"]))
-      $_POST["Ds_Amount"] = '';
-    if (!isset($_POST["Ds_Order"]))
-      $_POST["Ds_Order"] = '';
-    if (!isset($_POST["Ds_MerchantCode"]))
-      $_POST["Ds_MerchantCode"] = '';
-    if (!isset($_POST["Ds_Currency"]))
-      $_POST["Ds_Currency"] = '';
-    if (!isset($_POST["Ds_Response"]))
-      $_POST["Ds_Response"] = '';
-    if (!isset($_POST["Ds_Hour"]))
-      $_POST["Ds_Hour"] = '';
-    if (!isset($_POST["Ds_Date"]))
-      $_POST["Ds_Date"] = '';
-    if (!isset($_POST["Ds_Signature"]))
-      $_POST["Ds_Signature"] = '';
-    if (!isset($_GET["sig"]))
-      $_GET["sig"] = '';
+    $f = fopen("log_TPV2.txt", "w");
+    fwrite($f, date("d/m/y h:i:s") . "!!!!!!!!!!!!!! buida..!!!!!!!!!!!!!!!!!");
+    fclose($f);
 
-    if (!isset($_POST["Ds_ConsumerLanguage"]))
-      $_POST["Ds_ConsumerLanguage"] = 3;
-    $lang = ((int) $_POST["Ds_ConsumerLanguage"]) == 3 ? $lang = "cat" : $lang = "esp";
-    include (INC_FILE_PATH . "TPV.php");
-    $message = $_POST["Ds_Amount"] . $_POST["Ds_Order"] . $_POST["Ds_MerchantCode"] . $_POST["Ds_Currency"] . $_POST["Ds_Response"] . $clave;
-    //echo $message;die();
-    $signature = strtoupper(sha1($message));
-    $resposta = (int) $_POST["Ds_Response"];
+    include(INC_FILE_PATH . TPV_CONFIG_FILE); //NECESSITO TENIR A PUNT $id i $lang
+    /* LOG */
+    $this->greg_log("RESPOSTA TPV >>> ", "/log/log_TPV.txt", FALSE);
+    echo "respostaTPV**";
 
-    $k = substr($_POST["Ds_Order"], 3, 6);
-    $id = (int) $k;
+    include INC_FILE_PATH . 'API_PHP/redsysHMAC256_API_PHP_5.2.0/apiRedsys.php';
+
+    // Se crea Objeto
+    $miObj = new RedsysAPI;
 
 
-    //echo "<pre>".print_r($_POST)."</pre>";
+    if (!empty($_POST)) {//URL DE RESP. ONLINE
+      $version = $_POST["Ds_SignatureVersion"];
+      $datos = $_POST["Ds_MerchantParameters"];
+      $signatureRecibida = $_POST["Ds_Signature"];
+      $decodec = $miObj->decodeMerchantParameters($datos);
+      $firma = $miObj->createMerchantSignatureNotif($clave256, $datos);
+      /**************************************************************************************/
+      /**************************************************************************************/
+      /**************************************************************************************/
+      if ($firma === $signatureRecibida) { //VALIDA SIGNATURA
+        
+        $amount = $miObj->getParameter("Ds_Amount");
+
+        $order = $miObj->getParameter("Ds_Order");
+        $k = substr($order, 3, 6);
+        $id = (int) $k;
+
+        $response = $miObj->getParameter("Ds_Response");
+        $extra_data = $miObj->getParameter("Ds_MerchantData");
+
+        $idioma = $miObj->getParameter("Ds_ConsumerLanguage");
+        $lang = ((int) $_POST["Ds_ConsumerLanguage"]) == 3 ? "cat" : "esp";
+        $miObj->getParameter("Ds_Amount");
+
+        $doble = doblePagament($id);
+        if (!$order || $doble || !$amount)
+          return FALSE;
+
+        echo "FIRMA OK";
+        $this->greg_log("dades >>> ", "/log/log_TPV.txt", FALSE);
+        $this->greg_log("$order $amount $lang", "/log/log_TPV.txt", FALSE);
+        $this->greg_log("$extra_data ", "/log/log_TPV.txt", FALSE);
+      }
+      else {
+        echo "FIRMA KO";
+        $this->greg_log("RESPOSTA TPV >>> ", "/log/log_TPV.txt", FALSE);
+      }
+    }
+    else {
+      $this->greg_log("NO REBEM DADES", "/log/log_TPV.txt", FALSE);
+    }
+  }
+
+  public function reserva_grups_tpv_ok_callback($dades){echo "reserva_grups_tpv_ok_callback";die();}  
+  
+  public function reserva_pk_tpv_ok_callback($dades) {
+    /* LOG */
     /**
      * 
      * DOBLE PAGAMENT
@@ -1216,11 +1165,12 @@ return $form;
 
     $referer = $_SERVER['REMOTE_ADDR'];
 
-    if (($_POST["Ds_Signature"] == $signature) && ($resposta >= 0) && ($resposta <= 99)) {
+    //if (($_POST["Ds_Signature"] == $signature) && ($resposta >= 0) && ($resposta <= 99)) {
+    if (TRUE) {
       /*       * *************************************************************************** */
       echo "...........................ENVIEM...";
-      $import = $_POST["Ds_Amount"] / 100;
-      $resposta = "PAGA I SENYAL TPV: " . $import . "Euros (" . $_POST["Ds_Date"] . " " . $_POST["Ds_Hour"] . ")";
+      $import = $dades["Ds_Amount"] / 100;
+      $resposta = "PAGA I SENYAL TPV: " . $import . "Euros (" . $dades["Ds_Date"] . " " . $dades["Ds_Hour"] . ")";
       $query = "UPDATE " . T_RESERVES . " SET estat=100, preu_reserva='$import', resposta='$resposta' WHERE id_reserva=$id";
       $result = $this->log_mysql_query($query, $this->connexioDB) or die(((is_object($GLOBALS["___mysqli_ston"])) ? mysqli_error($GLOBALS["___mysqli_ston"]) : (($___mysqli_res = mysqli_connect_error()) ? $___mysqli_res : false)));
       echo $query;
@@ -1259,6 +1209,27 @@ return $form;
       fwrite($f, "...KO ERROR DE SIGNATURE $id");
       $this->greg_log("SIGNTURE KO!!!! " . $_POST["Ds_Signature"] . " >> " . $signature . " >> MESSAGE: ???????$xxxmessage", LOG_FILE_TPVPK); /* LOG */
     }
+  }
+
+  /*   * ******************************************************************************************************* */
+  /* COMPROVA SI JA S'HA FET EL PAGAMENT (doble click a submit)
+    /*   * ******************************************************************************************************* */
+  /*   * ******************************************************************************************************* */
+
+  private function doblePagament($id) {
+    $query = "SELECT estat, client_email, data, hora, adults, nens10_14, nens4_9 "
+        . "FROM " . T_RESERVES . " "
+        . "LEFT JOIN client ON client.client_id=" . T_RESERVES . ".client_id "
+        . "WHERE id_reserva=$id";
+
+    $result = mysqli_query($this->connexioDB, $query) or die(((is_object($GLOBALS["___mysqli_ston"])) ? mysqli_error($GLOBALS["___mysqli_ston"]) : (($___mysqli_res = mysqli_connect_error()) ? $___mysqli_res : false)));
+    $row = mysqli_fetch_assoc($result);
+
+
+    $estat = $row['estat'];
+    $mail = $row['client_email'];
+
+    return ($estat == 2);
   }
 
   /*   * ******************************************************************************************************* */
@@ -1348,7 +1319,6 @@ SQL;
     // echo $data_reserva->format('Y-m-d H:i');
     // echo " ***** ";
     // echo $min_date->format('Y-m-d H:i');
-    
     //echo $entra?" -- S":" -- N";
     return $entra;
   }

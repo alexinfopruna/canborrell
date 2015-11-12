@@ -451,8 +451,7 @@ class Gestor
 	{
                               
 		if (!$file) $file=LOG_FILE;
-                $file=ROOT.INC_FILE_PATH.$file;
-		//if (DEV === true) return;
+                                                        $file = ROOT.INC_FILE_PATH.$file;
 		
 		if ($reqest){
 			$req='<pre>'.print_r($_REQUEST,true).'</pre>';			
@@ -745,6 +744,90 @@ class Gestor
 
 		return $flags;
 	}
+
+                            
+                              /*   * ******************************************************************************************************* */
+  /*   * ******************************************************************************************************* */
+  /*   * ******************************************************************************************************* */
+
+  public function estatReserva($idr) {
+
+    $query = "SELECT estat "
+        . "FROM " . T_RESERVES . " "
+        . "WHERE id_reserva=$idr";
+    $result = mysqli_query($this->connexioDB, $query) or die(((is_object($GLOBALS["___mysqli_ston"])) ? mysqli_error($GLOBALS["___mysqli_ston"]) : (($___mysqli_res = mysqli_connect_error()) ? $___mysqli_res : false)));
+    //$row=  mysql_fetch_assoc($result);
+    return mysqli_result($result, 0);
+  }
+
+  /*   * ******************************************************************************************************* */
+  /*   * ******************************************************************************************************* */
+  /*   * ******************************************************************************************************* */
+
+  public function generaFormTpvSHA256($id_reserva, $import, $nom, $tpv_ok_callback_alter=NULL) {
+    $id = $order = substr(time(), -4, 3) . $id_reserva;
+
+    $titular = $nom;
+    $lang = $this->lang;
+    $idioma = ($lang == "cat") ? "003" : "001";
+    $amount = $import * 100;
+
+    //include(ROOT . INC_FILE_PATH . TPV_CONFIG_FILE); //NECESSITO TENIR A PUNT 4id i $lang
+    include(ROOT . INC_FILE_PATH . TPV_CONFIG_FILE); //NECESSITO TENIR A PUNT 4id i $lang
+    ///* MODIFICA PARAMS */
+    if (isset($tpv_ok_callback_alter)) $tpv_ok_callback = $tpv_ok_callback_alter;
+    
+    // Valores de entrada del ejemplo de redsy
+    //$fuc="999008881";$terminal="871";$moneda="978";$trans="0";//$url="";$urlMerchant="";$urlOKKO="";$urlKO="";$urlOK="";$id=time();$amount="145";
+    // Se incluye la librería
+    include INC_FILE_PATH . 'API_PHP/redsysHMAC256_API_PHP_5.2.0/apiRedsys.php';
+    // Se crea Objeto
+    $miObj = new RedsysAPI;
+    // Se Rellenan los campos
+    $miObj->setParameter("DS_MERCHANT_AMOUNT", $amount);
+    $miObj->setParameter("DS_MERCHANT_ORDER", strval($id));
+    $miObj->setParameter("DS_MERCHANT_MERCHANTCODE", $fuc);
+    $miObj->setParameter("DS_MERCHANT_CURRENCY", $moneda);
+    $miObj->setParameter("DS_MERCHANT_TRANSACTIONTYPE", $trans);
+    $miObj->setParameter("DS_MERCHANT_TERMINAL", $terminal);
+
+    $miObj->setParameter("DS_MERCHANT_MERCHANTURL", $urlMerchant);
+    $miObj->setParameter("DS_MERCHANT_URLOK", $urlOK);
+    $miObj->setParameter("DS_MERCHANT_URLKO", $urlKO);
+
+    $miObj->setParameter("Ds_Merchant_ProductDescription", $producte);
+    $miObj->setParameter("Ds_Merchant_MerchantName ", $merchantName);
+    $miObj->setParameter("Ds_Merchant_Titular", $titular);
+    $miObj->setParameter("Ds_Merchant_ConsumerLanguage", $idioma);
+    $miObj->setParameter("Ds_Merchant_PayMethods", $paymethods);
+    $miObj->setParameter("Ds_Merchant_MerchantData", $tpv_ok_callback);
+
+
+
+    // Se generan los parámetros de la petición
+    $request = "";
+    $params = $miObj->createMerchantParameters();
+    $signature = $miObj->createMerchantSignature($clave256);
+
+    /*
+      echo   'amount: '.     $amount.'<br>';
+      echo   'order: '.     strval($id).'<br>';
+      echo   'fuc: '.     $fuc.'<br>';
+      echo   'url: '.     $url.'<br>';
+      echo   '$producte: '.     $producte.'<br>';
+      echo   '$urlMerchant: '.     $urlMerchant.'<br>';
+      echo '<br><br>';
+     */
+    $form = '<form id="compra" name="compra" action="' . $url . '" method="post" target2="_blank" target="frame-tpv"  style="display:nonexxx">
+              <div class="ds_input">Ds_Merchant_SignatureVersion <input type="text" name="Ds_SignatureVersion" value="' . $version . '"/></div>
+              <div class="ds_input">Ds_Merchant_MerchantParameters <input type="text" name="Ds_MerchantParameters" value="' . $params . '"/></div>
+              <div class="ds_input">Ds_Merchant_Signature <input type="text" name="Ds_Signature" value="' . $signature . '"/></div>
+              <input id="boto" type="submit" name="Submit" value="' . $this->l('Realizar Pago', false) . '" onclickxx="javascript:calc();" />
+</form>';
+
+    return $form;
+  }
+
 
 /******************************************************************************************************/
 	/* 

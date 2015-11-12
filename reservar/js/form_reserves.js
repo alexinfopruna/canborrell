@@ -909,11 +909,13 @@ function controlSubmit()
                                  * 
                                  */
                                 if(obj.TPV=="TPV"){
-                                    var idr="214" + obj.idr;
-                                    $("#tpv_order").val(idr);
-                                    nom=$("input[name=client_nom]").val()+" "+$("input[name=client_cognoms]").val();
-                                    $("#tpv_titular").val(nom);         
-                                    $("#tpv_signature").val(obj.signature);         
+                                    //var idr="214" + obj.idr;
+                                    //$("#tpv_order").val(idr);
+                                    //nom=$("input[name=client_nom]").val()+" "+$("input[name=client_cognoms]").val();
+                                    //$("#tpv_titular").val(nom);         
+                                    //$("#tpv_signature").val(obj.signature);  
+                                    $("#td-form-tpv").html(obj.form_tpv);
+                                    
 
                                     //$("#td_contingut").html('<iframe id="frame-tpv" name="frame-tpv" style="width:100%;height:500px"></iframe>');
                                    var info=l('PAGA_I_SENYAL');                                       
@@ -1103,11 +1105,11 @@ function tanca_dlg(){
     if (!SECCIO) seccio(SECCIO_INICIAL);
 }
 
-    function calcTPV() { 
+
+    function calc() { 
 	
 		
     document.getElementById('boto').style.display = 'none';
     vent=window.open('','frame-tpv','width=725,height=600,scrollbars=no,resizable=yes,status=yes,menubar=no,location=no');
    // vent.moveTo(eje_x,eje_y);
     document.compra.submit();}
-
