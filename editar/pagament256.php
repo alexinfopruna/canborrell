@@ -2,6 +2,15 @@
 $r = null;
 $surt = false;
 
+// RESET ESTA (testTPV)
+if (isset($_REQUEST['reset_estat']) && $_REQUEST['reset_estat'] == 'reset_estat') {
+  $id_reserva = isset($_REQUEST['pidr']) ? $_REQUEST['pidr'] : '****';
+  $idr = substr($id_reserva,-4);
+  $dest = 'http://' . $_SERVER['HTTP_HOST'] . "/reservar/Gestor_form.php?a=reset_estat&b=$idr&c=reserves";
+  header("Location: $dest ");
+}
+
+
 if (!defined('ROOT'))
   define('ROOT', "../taules/");
 require(ROOT . "Gestor.php");
@@ -75,9 +84,7 @@ if (mysqli_num_rows($Result) <= 0) {
 
 
 ((mysqli_free_result($Result) || (is_object($Result) && (get_class($Result) == "mysqli_result"))) ? true : false);
-?>
-
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -155,7 +162,7 @@ if (mysqli_num_rows($Result) <= 0) {
             <tr>
                 <td>&nbsp;</td>
                 <td align="center"><span class="titol"><?php echo $titol[$lang];
-if ($surt)
+if ($surt && !isset($_REQUEST['testTPV']))
   exit();
 ?></span></td>
                 <td width="12">  </tr>
@@ -271,13 +278,16 @@ echo $r;
             <tr>
                 <td>&nbsp;</td>
                 <td>
-                    <?php //ShowForm($import, $nom); ?>  
                     <?php
                     
                     $id_reserva = ((int) $_GET["id"]) + 100000;
                     //$url_resposta = 'http://' . $_SERVER['HTTP_HOST'] . '/reservar/Gestor_form.php?a=respostaTPV_GRUPS_SHA256';
                     $responaseok_callback_alter = "reserva_grups_tpv_ok_callback";
-                    echo $gestor->generaFormTpvSHA256($id_reserva, $import, $nom, $responaseok_callback_alter);
+                    $response = isset( $_GET["testTPV"])? $_GET["testTPV"]:-1;
+                    //$idr = $_GET["id"];
+                    
+                    if (isset($_REQUEST["testTPV"]) &&  $_REQUEST["testTPV"] == 'testTPV') echo $gestor->generaTESTTpvSHA256($id_reserva, $import, $nom, $responaseok_callback_alter);
+                    else echo $gestor->generaFormTpvSHA256($id_reserva, $import, $nom, $responaseok_callback_alter);
                     ?>  
                 </td>
                 <td>&nbsp;</td>

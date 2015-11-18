@@ -435,6 +435,7 @@ FROM client
     if (time() - $_SESSION['last_submit'] < 5)
       return $this->jsonErr(10, $resposta); //PARTXE DOBLE SUBMIT
 
+
       
 // MIREM SI ESTÀ EDITANT UNA RESERVA EXISTENT
 //MIRA SI ENS VOLEM FER UNA DUPLICADA
@@ -474,6 +475,7 @@ FROM client
 
 
 
+
       
 //ESBRINA EL TORN	
     $data = $this->cambiaf_a_mysql($_POST['selectorData']);
@@ -492,6 +494,7 @@ FROM client
     //COMPROVEM HORA LIMIT
     if (!$this->reserva_entra_avui($data, $hora))
       return $this->jsonErr(11, $resposta); // "err7 adults";
+
 
 
       
@@ -544,6 +547,7 @@ FROM client
       return $this->jsonErr(5, $resposta); // "err5 nom";
     if (empty($_POST['client_cognoms']))
       return $this->jsonErr(6, $resposta); // "err6: cognoms";
+
 
 
       
@@ -660,13 +664,16 @@ FROM client
     $resposta['idr'] = $idr;
 
     if ($TPV) {
-      $resposta['signature'] = $this->signatureTpv('214' . $idr, import_paga_i_senyal, 'http://' . $_SERVER['HTTP_HOST'] . '/reservar/Gestor_form.php?a=respostaTPV');
+      //$resposta['signature'] = $this->signatureTpv('214' . $idr, import_paga_i_senyal, 'http://' . $_SERVER['HTTP_HOST'] . '/reservar/Gestor_form.php?a=respostaTPV');
       //$resposta['signature']=$this->signatureTpv('214'.$idr,import_paga_i_senyal,'http://'.$_SERVER['HTTP_HOST'].'/reservar/respostaTPV.php');
       //$resposta['signature']=$this->signatureTpv('214'.$idr,import_paga_i_senyal,'http://www.can-borrell.com/reservar/Gestor_form.php?a=respostaTPV');
 
 
       $nom = $_POST['client_nom'] . ' ' . $_POST['client_cognoms'];
-      $resposta['form_tpv'] = $this->generaFormTpvSHA256($idr, import_paga_i_senyal, $nom);
+      
+      if (isset($_REQUEST["testTPV"]) &&  $_REQUEST["testTPV"] == 'testTPV') $resposta['form_tpv'] = $this->generaTESTTpvSHA256($idr, import_paga_i_senyal, $nom, 'reserva_pk_tpv_ok_callback','99');
+      else $resposta['form_tpv'] = $this->generaFormTpvSHA256($idr, import_paga_i_senyal, $nom);
+      
     }
     else {
       $this->enviaSMS($idr, $mensa);
@@ -703,6 +710,7 @@ FROM client
     $torn = $this->torn($data, $hora);
     if (!$torn)
       return $this->jsonErr(8, $resposta); // COMPROVA torn
+
 
 
       
@@ -980,7 +988,11 @@ WHERE  `client`.`client_id` =$idc;
   /*   * ******************************************************************************************************* */
   /*   * ******************************************************************************************************* */
 
-  public function generaFormTpv($id_reserva, $import, $nom) {
+  public function ANULATgeneraFormTpv($id_reserva, $import, $nom) {
+    echo __FILE__;die("<br><br>ANUAT");
+
+    die("ANULATgeneraFormTpv");
+    ANULAT();
     include(TPV_CONFIG_FILE . TPV_CONFIG_FILE);
     $lang = $this->lang;
     $order = substr(time(), 0, 3) . $id_reserva;
@@ -1037,18 +1049,19 @@ WHERE  `client`.`client_id` =$idc;
                 </form>";
 
 
-    $this->greg_log("generaFormTpv:$id_reserva > $import > $nom", LOG_FILE_TPVPK); /* LOG */
+    $this->greg_log("generaFormTpv:$id_reserva > $import > $nom", LOG_FILE_TPVPKPK); /* LOG */
     return $HTML;
   }
-
+/*
   private function signatureTpv($order, $import, $urlMerchant = 'http://www.can-borrell.com/editar/TPV/respostaTPV.php') {
-    include(TPV_CONFIG_FILE . TPV_CONFIG_FILE);
+    include(INC_FILE_PATH . TPV_CONFIG_FILE);
     //echo $amount." / ".$order." / ".$code." / ".$currency." / ".$transactionType." / ".$urlMerchant." / ".$clave;
+    $clave = 0;
     $amount = $import * 100;
     $message = $amount . $order . $code . $currency . $transactionType . $urlMerchant . $clave;
     return strtoupper(sha1($message));
   }
-
+*/
   /*   * ******************************************************************************************************* */
   /*   * ******************************************************************************************************* */
   /*   * ******************************************************************************************************* */
@@ -1069,145 +1082,207 @@ WHERE  `client`.`client_id` =$idc;
   /*   * ************************************************ */
   public function respostaTPV_SHA256() {
     $id = $lang = "not set";
-    //$f = fopen(ROOT . INC_FILE_PATH . "/log/log_TPV.txt", "w");
+    //$f = fopen("log_TPV2.txt", "w");
     //fwrite($f, date("d/m/y h:i:s") . "!!!!!!!!!!!!!! buida..!!!!!!!!!!!!!!!!!");
     //fclose($f);
-    $f = fopen("log_TPV2.txt", "w");
-    fwrite($f, date("d/m/y h:i:s") . "!!!!!!!!!!!!!! buida..!!!!!!!!!!!!!!!!!");
-    fclose($f);
 
     include(INC_FILE_PATH . TPV_CONFIG_FILE); //NECESSITO TENIR A PUNT $id i $lang
     /* LOG */
     $this->greg_log("RESPOSTA TPV >>> ", "/log/log_TPV.txt", FALSE);
-    echo "respostaTPV**";
+    echo "RESPOSTA TPV >>> ";
 
     include INC_FILE_PATH . 'API_PHP/redsysHMAC256_API_PHP_5.2.0/apiRedsys.php';
-
     // Se crea Objeto
     $miObj = new RedsysAPI;
-
-
     if (!empty($_POST)) {//URL DE RESP. ONLINE
       $version = $_POST["Ds_SignatureVersion"];
       $datos = $_POST["Ds_MerchantParameters"];
       $signatureRecibida = $_POST["Ds_Signature"];
-      $decodec = $miObj->decodeMerchantParameters($datos);
-      $firma = $miObj->createMerchantSignatureNotif($clave256, $datos);
-      /**************************************************************************************/
-      /**************************************************************************************/
-      /**************************************************************************************/
-      if ($firma === $signatureRecibida) { //VALIDA SIGNATURA
-        
-        $amount = $miObj->getParameter("Ds_Amount");
 
-        $order = $miObj->getParameter("Ds_Order");
-        $k = substr($order, 3, 6);
-        $id = (int) $k;
+      $params = $miObj->decodeMerchantParameters($datos);
+      $signatureEsperada = $miObj->createMerchantSignatureNotif($clave256, $datos);
+      echo " >>> ";
 
-        $response = $miObj->getParameter("Ds_Response");
-        $extra_data = $miObj->getParameter("Ds_MerchantData");
+      echo "<pre>";
+      $param = json_decode($params, TRUE);
+      print_r($param);
+      echo "</pre>";
+      echo "<br>";
+      echo "<br>";
 
-        $idioma = $miObj->getParameter("Ds_ConsumerLanguage");
-        $lang = ((int) $_POST["Ds_ConsumerLanguage"]) == 3 ? "cat" : "esp";
-        $miObj->getParameter("Ds_Amount");
+      echo "<br>";
+      echo $signatureRecibida;
 
-        $doble = doblePagament($id);
-        if (!$order || $doble || !$amount)
+      /*       * *********************************************************************************** */
+      /*       * *********************************************************************************** */
+      /*       * *********************************************************************************** */
+      if ($signatureEsperada === $signatureRecibida) { //**** VALIDA SIGNATURA
+        echo "<br/>response ok<br/>";
+        $response = $param['Ds_Response'];
+        if ($response < 0 && $response > 99) {  // ****** VERIFICA RESPOSTA entre 0000 i 0099
+          echo "Response incorrecta11: $response";
+          $this->greg_log("Response incorrecta: $response", "/log/log_TPV.txt", FALSE);
           return FALSE;
+        }
+        $k = substr($param['Ds_Order'], 3, 6);
+        //$k = substr($param['Ds_Order'], -5);
+        $idr = $order = (int) $k;
+        $amount = $param['Ds_Amount'];
+        $data = $param['Ds_Date'];
+        $hora = $param['Ds_Hour'];
+        $callback = $param["Ds_MerchantData"];
+        $lang = ((int) $param['Ds_ConsumerLanguage']) == 3 ? "cat" : "esp";
 
-        echo "FIRMA OK";
+        $doble = $this->doblePagament($idr);
+        $doble = 0;
+
+        if (!$order || $doble || !$amount) {
+          return FALSE;
+        }
+
+        echo "<br/>FIRMA OK<br/>";
         $this->greg_log("dades >>> ", "/log/log_TPV.txt", FALSE);
         $this->greg_log("$order $amount $lang", "/log/log_TPV.txt", FALSE);
-        $this->greg_log("$extra_data ", "/log/log_TPV.txt", FALSE);
+        $this->greg_log("$callback ", "/log/log_TPV.txt", FALSE);
+
+        $this->$callback($idr, $amount, $data, $hora);
       }
       else {
-        echo "FIRMA KO";
-        $this->greg_log("RESPOSTA TPV >>> ", "/log/log_TPV.txt", FALSE);
+        echo "<br/>FIRMA KO<br/>";
+
+
+        $this->greg_log("xxx FALLA SIGNATURE TPV xxx >>> ", "/log/log_TPV.txt", FALSE);
       }
     }
     else {
+      echo "<br/>NO REBEM DADES<br/>";
       $this->greg_log("NO REBEM DADES", "/log/log_TPV.txt", FALSE);
     }
   }
 
-  public function reserva_grups_tpv_ok_callback($dades){echo "reserva_grups_tpv_ok_callback";die();}  
-  
-  public function reserva_pk_tpv_ok_callback($dades) {
-    /* LOG */
-    /**
-     * 
-     * DOBLE PAGAMENT
-     * 
-     */
+  private function reserva_pk_tpv_ok_callback($idr, $amount, $pdata, $phora) {
     $query = "SELECT estat, client_email, data, hora, adults, nens10_14, nens4_9 "
         . "FROM " . T_RESERVES . " "
         . "LEFT JOIN client ON client.client_id=" . T_RESERVES . ".client_id "
-        . "WHERE id_reserva=$id";
+        . "WHERE id_reserva=$idr";
 
     $result = mysqli_query($this->connexioDB, $query) or die(((is_object($GLOBALS["___mysqli_ston"])) ? mysqli_error($GLOBALS["___mysqli_ston"]) : (($___mysqli_res = mysqli_connect_error()) ? $___mysqli_res : false)));
     $row = mysqli_fetch_assoc($result);
 
-
     $estat = $row['estat'];
     $mail = $row['client_email'];
+    
+    if ($estat != 2) { // NO ESTÀ CONFIRMADA PER PAGAR
+      $msg = "PAGAMENT INAPROPIAT RESERVA PETITA???: " . $idr . " estat: $estat  $mail";
+      $this->greg_log($msg, LOG_FILE_TPVPK, FALSE, 0); /* LOG */
+            echo "ERROR ESTAT!=2";
 
-    if ($estat != 2) {
-
-      $msg = "PAGAMENT INAPROPIAT RESERVA???: " . $id . " estat: $estat  $mail";
-      //echo $msg;
-      $this->greg_log($msg, LOG_FILE_TPVPK); /* LOG */
+      
       $extres['subject'] = "Can-Borrell: !!!! $msg!!!";
-      //$mail=$this->enviaMail($id,"confirmada_",MAIL_RESTAURANT,$extres);
-      $mail = $this->enviaMail($id, "paga_i_senyal_", MAIL_RESTAURANT, $extres);
-      echo " >>  (!!!)  Error amb l'estat de la reserva o reserva inexistent";
+      $mail = $this->enviaMail($idr, "paga_i_senyal_", MAIL_RESTAURANT, $extres);
       return FALSE;
     }
 
     $referer = $_SERVER['REMOTE_ADDR'];
+    $import = $amount / 100;
+    $resposta = "PAGA I SENYAL TPV: " . $import . "Euros (" . $pdata . " " . $phora . ")";
+    $query = "UPDATE " . T_RESERVES . " SET estat=100, preu_reserva='$import', resposta='$resposta' WHERE id_reserva=$idr";
+    $result = $this->log_mysql_query($query, $this->connexioDB) or die(((is_object($GLOBALS["___mysqli_ston"])) ? mysqli_error($GLOBALS["___mysqli_ston"]) : (($___mysqli_res = mysqli_connect_error()) ? $___mysqli_res : false)));
+    
+    $extres['subject'] = $this->l("Can-Borrell: RESERVA CONFIRMADA", false);
 
-    //if (($_POST["Ds_Signature"] == $signature) && ($resposta >= 0) && ($resposta <= 99)) {
-    if (TRUE) {
-      /*       * *************************************************************************** */
-      echo "...........................ENVIEM...";
-      $import = $dades["Ds_Amount"] / 100;
-      $resposta = "PAGA I SENYAL TPV: " . $import . "Euros (" . $dades["Ds_Date"] . " " . $dades["Ds_Hour"] . ")";
-      $query = "UPDATE " . T_RESERVES . " SET estat=100, preu_reserva='$import', resposta='$resposta' WHERE id_reserva=$id";
-      $result = $this->log_mysql_query($query, $this->connexioDB) or die(((is_object($GLOBALS["___mysqli_ston"])) ? mysqli_error($GLOBALS["___mysqli_ston"]) : (($___mysqli_res = mysqli_connect_error()) ? $___mysqli_res : false)));
-      echo $query;
-      $extres['subject'] = $this->l("Can-Borrell: RESERVA CONFIRMADA", false);
+    echo $query." >>> ".$result;
+    if ($mail)
+      $this->enviaMail($idr, "paga_i_senyal_", "", $extres);
 
-      if ($mail)
-        echo $this->enviaMail($id, "paga_i_senyal_", "", $extres);
+    $persones = $row['adults'] + $row['nens10_14'] + $row['nens4_9'];
+    $persones.='p';
 
-      $persones = $row['adults'] + $row['nens10_14'] + $row['nens4_9'];
-      $persones.='p';
+    $data = $this->cambiaf_a_normal($row['data']);
+    $hora = $row['hora'];
 
-      $data = $this->cambiaf_a_normal($row['data']);
-      $hora = $row['hora'];
+    $missatge = "Recuerde: reserva en Restaurant Can Borrell el $data a las $hora ($persones).Rogamos comunique cualquier cambio: 936929723 - 936910605.Gracias.(ID:$idr)";
+    $missatge.="\n***\nConserve este SMS como comprobante de la paga y señal de " . $import . "€ que le será descontada. También hemos enviado un email que puede imprimir";
+    $this->enviaSMS($idr, $missatge);
 
-      $missatge = "Recuerde: reserva en Restaurant Can Borrell el $data a las $hora ($persones).Rogamos comunique cualquier cambio: 936929723 - 936910605.Gracias.(ID:$id)";
-      $missatge.="\n***\nConserve este SMS como comprobante de la paga y señal de " . $import . "€ que le será descontada. También hemos enviado un email que puede imprimir";
-
-      //echo $missatge;
-      $this->enviaSMS($id, $missatge);
-
-
-      if ($result) { //ACTUALITZADA BBDD
-        echo "PAGAMENT OK " . $id;
-        fwrite($f, "...OK");
-        $this->greg_log("PAGAMENT+UPDATE OK " . $query . " >> " . $result, LOG_FILE_TPVPK); /* LOG */
-      }
-      else {
-        fwrite($f, "...OK !!! PAGAT OK però ERROR DDBB $id");
-        echo "OK !!!  PAGAT OK però ERROR DDBB $id";
-        $this->greg_log("PAGAMENT OK+UPDATE KO " . $query . " >> " . $result, LOG_FILE_TPVPK); /* LOG */
-      }
+    if ($result) { //ACTUALITZADA BBDD
+      $this->greg_log("PAGAMENT OK + UPDATE OK " . $query . " >> " . $result, LOG_FILE_TPVPK); /* LOG */
     }
-    else { //ERROR
-      if ($_POST["Ds_Signature"] != $signature)
-        echo "ERROR DE SIGNATURE $id";
-      fwrite($f, "...KO ERROR DE SIGNATURE $id");
-      $this->greg_log("SIGNTURE KO!!!! " . $_POST["Ds_Signature"] . " >> " . $signature . " >> MESSAGE: ???????$xxxmessage", LOG_FILE_TPVPK); /* LOG */
+    else {
+      $this->greg_log("PAGAMENT OK + UPDATE KO!!! " . $query . " >> " . $result, LOG_FILE_TPVPK); /* LOG */
+    }
+  }
+
+  private function reserva_grups_tpv_ok_callback($idrl, $amount, $pdata, $phora) {
+    $idr = substr($idrl,-4);
+    $query = "SELECT estat, client_email, data, hora, adults, nens10_14, nens4_9 "
+        . "FROM reserves "
+        . "LEFT JOIN client ON client.client_id=reserves.client_id "
+        . "WHERE id_reserva=$idr";
+
+    $result = mysqli_query($this->connexioDB, $query) or die(((is_object($GLOBALS["___mysqli_ston"])) ? mysqli_error($GLOBALS["___mysqli_ston"]) : (($___mysqli_res = mysqli_connect_error()) ? $___mysqli_res : false)));
+    $row = mysqli_fetch_assoc($result);
+
+    $estat = $row['estat'];
+    $mail = $row['client_email'];
+    if ($estat != 2) { // NO ESTÀ CONFIRMADA PER PAGAR
+      $msg = "PAGAMENT INAPROPIAT RESERVA PETITA???: " . $idr . " estat: $estat  $mail";
+      $this->greg_log($msg, LOG_FILE_TPVPK, FALSE, 0); /* LOG */
+      echo "ERROR ESTAT!=2";
+      $extres['subject'] = "Can-Borrell: !!!! $msg!!!";
+      $mail = $this->enviaMail($idr, "paga_i_senyal_", MAIL_RESTAURANT, $extres);
+      return FALSE;
+    }
+    $referer = $_SERVER['REMOTE_ADDR'];
+    $import = $amount / 100;
+    $resposta = "PAGA I SENYAL TPV: " . $import . "Euros (" . $pdata . " " . $phora . ")";
+    
+    /*******ATENCIO *********************/
+    /*******ATENCIO *********************/
+    /*******ATENCIO *********************/
+    /*******ATENCIO *********************/
+    /*******ATENCIO *********************/
+    $query = "UPDATE reserves SET estat=7, preu_reserva='$import', resposta='$resposta' WHERE id_reserva=$idr";
+    $result = $this->log_mysql_query($query, $this->connexioDB) or die(((is_object($GLOBALS["___mysqli_ston"])) ? mysqli_error($GLOBALS["___mysqli_ston"]) : (($___mysqli_res = mysqli_connect_error()) ? $___mysqli_res : false)));
+    include('translate_' . $this->lng . '.php');
+    echo $query." >>> ".$result;
+//
+    $extres['subject']=$translate["MAIL_GRUPS_PAGAT_subject"];
+    $extres['titol'] = $translate["MAIL_GRUPS_PAGAT_titol"];
+    $extres['text1']= $translate["MAIL_GRUPS_PAGAT_text1"].number_format($import,2);
+    $extres['text2']= $translate["MAIL_GRUPS_PAGAT_text2"];
+    $extres['contacti'] = $translate["MAIL_GRUPS_PAGAT_contacti"];
+    $mydata = $this->cambiaf_a_mysql($pdata);
+    $extres['datat'] = $this->data_llarga($row['data'], $this->lang).", ".$phora."h";
+    //$extres['datat'] = $this->data_llarga($row['data'], $this->lang).", ".$phora."h";
+    $extres['cnom'] = $translate["nom"];
+    $extres['cadults'] = $translate["adults"];
+    $extres['cnens4_9'] = $translate["nens 4 a 9"];
+    $extres['cnens10_14'] = $translate["nens 10 a 14"];
+    $extres['ccotxets'] = $translate["cotxets"];
+    $extres['cobservacions'] = $translate["observacions"];
+    $extres['cresposta'] = $translate["resposta"];
+    //$extres['data_limit'] = $translate["Data límit per efectuar el pagament"]." ". $pdata;
+    $extres['data_limit'] = "";
+    $extres['cdata_reserva'] = $translate["cdata_reserva"];
+    $extres['menu'] = $translate["menu"];
+
+    if ($mail){
+      $this->enviaMail($idr, "../editar/templates/mail_cli_", "", $extres);
+    }
+
+    $persones = $row['adults'] + $row['nens10_14'] + $row['nens4_9'].'p';
+    $data = $this->cambiaf_a_normal($row['data']);
+    $hora = $row['hora'];
+    $missatge = "Recuerde: reserva en Restaurant Can Borrell el $data a las $hora ($persones).Rogamos comunique cualquier cambio: 936929723 - 936910605.Gracias.(ID:$idr)";
+    $missatge.="\n***\nConserve este SMS como comprobante de la paga y señal de " . $import . "€ que le será descontada. También hemos enviado un email que puede imprimir";
+    $this->enviaSMS($idr, $missatge);
+
+    if ($result) { //ACTUALITZADA BBDD
+      $this->greg_log("PAGAMENT OK + UPDATE OK " . $query . " >> " . $result, LOG_FILE_TPVPK); /* LOG */
+    }
+    else {
+      $this->greg_log("PAGAMENT OK + UPDATE KO!!! " . $query . " >> " . $result, LOG_FILE_TPVPK); /* LOG */
     }
   }
 
@@ -1230,54 +1305,6 @@ WHERE  `client`.`client_id` =$idc;
     $mail = $row['client_email'];
 
     return ($estat == 2);
-  }
-
-  /*   * ******************************************************************************************************* */
-  /*   * ******************************************************************************************************* */
-  /*   * ******************************************************************************************************* */
-
-  public function testTPV($idr) {
-    if (!$this->valida_sessio(63))
-      die("Sense permisos");
-
-    $query = "SELECT estat,  data, hora, adults, nens10_14, nens4_9  FROM " . T_RESERVES . " WHERE id_reserva=$idr";
-    $result = $this->log_mysql_query($query, $this->connexioDB) or die(((is_object($GLOBALS["___mysqli_ston"])) ? mysqli_error($GLOBALS["___mysqli_ston"]) : (($___mysqli_res = mysqli_connect_error()) ? $___mysqli_res : false)));
-    $estat = mysqli_result($result, 0);
-    // if ($estat!=2) die("Aquesta reserva no està pendent de pagament");
-
-    $resposta = "TEST!!!! PAGA TARJA ";
-    $preu = 11.11;
-    $query = "UPDATE " . T_RESERVES . " SET estat=100,resposta='$resposta', preu_reserva=$preu WHERE id_reserva=$idr";
-    echo $query;
-    echo "<br><br>";
-    $result = $this->log_mysql_query($query, $this->connexioDB) or die(((is_object($GLOBALS["___mysqli_ston"])) ? mysqli_error($GLOBALS["___mysqli_ston"]) : (($___mysqli_res = mysqli_connect_error()) ? $___mysqli_res : false)));
-    echo $result;
-
-    $this->greg_log("TEEEST!!!!!!! testTPV:$idr >> $query >> $result", LOG_FILE_TPVPK);
-
-
-    $import = $_POST["Ds_Amount"] / 100;
-    // $resposta="PAGA I SENYAL TPV: ".$import."Euros (".$_POST["Ds_Date"]." ".$_POST["Ds_Hour"].")";
-    // $query="UPDATE ".T_RESERVES." SET estat=100, preu_reserva='$import', resposta='$resposta' WHERE id_reserva=$id";
-    // $result = $this->log_mysql_query($query, $this->connexioDB) or die(mysql_error());
-
-    $extres['subject'] = $this->l("Can-Borrell: RESERVA CONFIRMADA", false);
-    //$extres['subject'].=$this->l("<br>REBUT PAGAMENT",false);;
-    //$extres['subject']="  ".$import."€";
-
-    if ($mail)
-      echo $this->enviaMail($id, "paga_i_senyal_", MAIL_RESTAURANT, $extres);
-
-    $persones = $row['adults'] + $row['nens10_14'] + $row['nens4_9'];
-    $persones.='p';
-
-    $data = $this->cambiaf_a_normal($row['data']);
-    $hora = $row['hora'];
-
-    $missatge = "Recuerde: reserva en Restaurant Can Borrell el $data a las $hora ($persones).Rogamos comunique cualquier cambio: 936929723 - 936910605.Gracias.(ID:$res)";
-    $missatge.="Si lo desea conserve este SMS como comprobante de la paga y señal de $import€ que debe ser descontada. También hemos enviado un email que puede imprimir";
-
-    $this->enviaSMS($id, $missatge);
   }
 
   function comprovaSubmit($data, $comensals, $tel = -1) {
@@ -1321,6 +1348,20 @@ SQL;
     // echo $min_date->format('Y-m-d H:i');
     //echo $entra?" -- S":" -- N";
     return $entra;
+  }
+
+  public function reset_estat($pidr, $taula='reservestaules') {
+    if (!$this->valida_sessio(63))
+      die("Sense permisos");
+    $idr = substr($pidr, -5);
+    $query = "UPDATE $taula SET estat=2, preu_reserva='15', resposta='TEST' WHERE id_reserva=$idr";
+    $result = $this->log_mysql_query($query, $this->connexioDB) or die(((is_object($GLOBALS["___mysqli_ston"])) ? mysqli_error($GLOBALS["___mysqli_ston"]) : (($___mysqli_res = mysqli_connect_error()) ? $___mysqli_res : false)));
+
+
+    echo $query;
+
+    echo "<br>" . mysqli_affected_rows($this->connexioDB);
+    echo "<br>RESET ESTAT !!!";
   }
 
 }
@@ -1379,8 +1420,8 @@ if (isset($accio) && !empty($accio)) {
       $gestor->reg_log("Petició Gestor FORM: " . $accio . "  user:$user ($ip) (b=" . $_REQUEST['b'] . ", c=" . $_REQUEST['c'] . ", d=" . $_REQUEST['d'] . " ---- p=" . $_REQUEST['p'] . ", q=" . $_REQUEST['q'] . ", r=" . $_REQUEST['r'] . ", c=" . $_REQUEST['c'] . ", d=" . $_REQUEST['d'] . ", e=" . $_REQUEST['e'] . ") > " . $req . EOL);
     }
 
-
-    if (!$gestor->valida_sessio(1) && $accio != 'respostaTPV') {
+    $respostes = array('respostaTPV', 'respostaTPV_SHA256');
+    if (!$gestor->valida_sessio(1) && !in_array($accio, $respostes)) {
       echo "err100";
       die();
     }

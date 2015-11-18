@@ -21,7 +21,8 @@
   -webkit-box-shadow: 5px 5px 5px #ccc;
   box-shadow: 5px 5px 5px #ccc;
 }	
-	
+
+.ui-state-focus{color:white !important;}
 .ui-accordion-content{max-height:300px;font-size:0.8em;}
 	#editar_reserva{color:#999;text-align:right;float:right;margin:8px 25px;}	
 	#flogin{color:#999;float:right;text-align:right;width:300px;margin:8px 25px;}	

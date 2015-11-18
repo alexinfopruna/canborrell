@@ -1,4 +1,6 @@
 <?php
+
+
 if (!isset($lang)) $lang='cat';
 if (!isset($PERSONES_GRUP)) $PERSONES_GRUP=12;
 
@@ -11,7 +13,7 @@ $translate['EDIT_RESERVA_FORA_DE_SERVEI']='<p style="color:red">Aquest servei es
 
 //MENU
 	$translate['CAN BORRELL']='CAN BORRELL';
-
+                            
 	$translate['FOTOS-VIDEO']='FOTOS-VÍDEO';
 
 	$translate['CARTA i MENU']='CARTA i MENÚ';
@@ -163,6 +165,33 @@ $translate['RESERVA_PASTIS']='<span class="pastis">Vols pastís de celebració?<
 //$translate['RESERVA_PASTIS']="Voldràs pastís de celebració (Pastís de la casa tipus Massini)";
 $translate['INFO_PASTIS']="Comentaris pel pastís (Què celebreu?, Si és un aniversari, quants anys?)";
 
+$translate['AVIS_MODIFICACIONS']='<span style="color:red"><b>Atenció:</b>
+                                    </span> El mateix dia de la reserva <b>heu de comunicar qualsevol variació</b> 
+                                    en el nombre de coberts trucant de 10 a 11 del matí al <b>935803632</b> o al <b>936929723</b>. 
+<br/>
+                                    Més tard de les 11 <b>no admetrem cap modificació</b> 
+                                    a la reserva i disposareu exclusivament de les places que teniu confirmades. 
+                                    <br/>Abans d\'aquest dia, també podeu editar la reserva en aquest mateix apartat.
+                                    <span class="tanca-avis" style=""><a href="#">tanca</a></span>';
+
+
+/************ MAIL CONFIRMA PAGAMENT GRUPS ****************/
+$translate["MAIL_GRUPS_PAGAT_subject"]="Can-Borrell: CONFIRMACIÓ DE PAGAMENT DE RESERVA PER GRUP";
+$translate["MAIL_GRUPS_PAGAT_titol"]="CONFIRMACIÓ DE PAGAMENT DE RESERVA";
+$translate["MAIL_GRUPS_PAGAT_text1"]="Ens complau informar-lo que hem rebut correctament el pagament de ";
+$translate['MAIL_GRUPS_PAGAT_text2']="€ La seva reserva queda registrada.<br><br>L'esperem el proper ";
+$translate['MAIL_GRUPS_PAGAT_contacti'] = "Si té qualsevol dubte posi's en contacte amb nosaltres a <a href='mailto: ".MAIL_RESTAURANT."' class='dins'>".MAIL_RESTAURANT."</a> ";
+$translate["nom"] = "nom";
+$translate["adults"] = "adults";
+$translate["nens 4 a 9"] = "nens 4 a 9";
+$translate["nens 10 a 14"] = "nens 10 a 14";
+$translate["cotxets"] = "cotxets";
+$translate["observacions"] = "observacions";
+$translate["resposta"] = "resposta";
+$translate["Data límit per efectuar el pagament"] = "Data límit per efectuar el pagament";
+$translate["menu"] = "menú";
+$translate["cdata_reserva"] = "data";
+
 
 /****************************************************************************************************/	
 /*******************************************************     JS   ***********************************/	
@@ -239,7 +268,7 @@ $translate['err20'] = '<b>Ja tens una reserva feta a Can Borrell!!</b><br/><br/>
 $translateDirectJS['err21'] = '<b>No podem fer-te la reserva on-line a causa d&#39;algun problema amb una reserva anterior!!</b><br/><br/>Si us plau, per reservar contacta amb el restaurant:936929723 / 936910605 /';
 $translateDirectJS['err20'] = '<b>Ja tens una reserva feta a Can Borrell!!</b><br/><br/>Pots modificar-la o eliminar-la, però no pots crear més d&#39;una reserva online.<br/><em>(Per editar o cancel·lar utilitza l&#39;enllaç que trobarà més amunt, sota la barra de navegació d&#39;aquesta pàgina)</em><br/><br/><br/>Si ho desitges posa&#39;t en contacte amb nosaltres:<br/><b>936929723 / 936910605</b><br/><br/><br/>La reserva que ens consta es pel dia ';
 $translateDirectJS['CAP_TAULA']="No tenim cap taula disponible per la data/coberts/cotxets que ens demanes.<br/><br/>Intenta-ho per una altra data";
+//echo " ***************** ".$translate["MAIL_GRUPS_PAGAT_subject"];
 
 require_once('translate.php');
-
 ?>

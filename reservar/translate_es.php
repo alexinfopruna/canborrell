@@ -227,6 +227,28 @@ $translate['RESERVA_PASTIS']='<span class="pastis">¿Quieres pastel de celebraci
         . '<span style="font-style: italic;">Pastel de la casa tipo Massini, pastel 500g (5 a 8 raciones) = 23.70€ / pastel 1000g (10 a 14 raciones) = 37.80 </span>';
 $translate['INFO_PASTIS']="<br/><br/>Comentarios pel pastel (¿Qué celebráis?, ¿Si es un cumpleaños, cuántos años?)";
 
+$translate['AVIS_MODIFICACIONS']='<span style = "color: red"> <b>Atención: </b> </span> El mismo día de la reserva <b> deberá comunicar cualquier variación </b> en el número de cubiertos llamando de 10 a 11 de la mañana al <b> 935 803 632 </b> o al<b> 936 929 723 </b>.
+<br/> Más tarde de las 11 <b> no admitiremos ninguna modificación </b> en la reserva y dispondrà exclusivamente de las plazas que tiene confirmadas. <br/> Antes de ese día, también puede editar la reserva en este mismo apartado. <span class = "tanca-avis" style = ""> <a href="#"> cierra </a> </span>';
+
+
+
+
+/************ MAIL CONFIRMA PAGAMENT GRUPS ****************/
+$translate["MAIL_GRUPS_PAGAT_subject"]="Can-Borrell: CONFIRMACIÓN DE PAGO DE RESERVA PARA GRUPO";
+$translate["MAIL_GRUPS_PAGAT_titol"]="CONFIRMACIÓN DE PAGO DE RESERVA";
+$translate["MAIL_GRUPS_PAGAT_text1"]="Nos complace informarle que hemos recibido correctamente el pago de ";
+$translate['MAIL_GRUPS_PAGAT_text2']="€. Su reserva queda registrada<br>Le esperamos el próximo ";
+$translate['MAIL_GRUPS_PAGAT_contacti'] = "Si tiene cualquier duda póngase en contacto con nosotros en <a href='mailto: ".MAIL_RESTAURANT."' class='dins'>".MAIL_RESTAURANT."</a> ";
+$translate["nom"] = "nombre";
+$translate["adults"] = "adultos";
+$translate["nens 4 a 9"] = "niños 4 a 9";
+$translate["nens 10 a 14"] = "niños 10 a 14";
+$translate["cotxets"] = "cochecitos";
+$translate["observacions"] = "observaciones";
+$translate["resposta"] = "respuesta";
+$translate["Data límit per efectuar el pagament"] = "Data límite para efectuar el pago";
+$translate["menu"] = "menú";
+$translate["cdata_reserva"] = "fecha";
 /****************************************************************************************************/	
 /*******************************************************     JS   ***********************************/	
 /****************************************************************************************************/	

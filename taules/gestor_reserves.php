@@ -2226,24 +2226,25 @@ ORDER BY `estat_hores_data` DESC";
   /*   * ************************************* */
 
   public function enviaMail($idr, $plantilla = "confirmada_", $destinatari = null, $extres = null) {
-    if (!ENVIA_MAILS)
-      return "ENVIAMENT MAIL DESACTIVAT";
+    if (!ENVIA_MAILS){
+      //testMail($idr, $plantilla = "confirmada_", $destinatari = null, $extres = null);
+      //return "ENVIAMENT MAIL DESACTIVAT";
+    }
 
     require_once("../editar/mailer.php");
     require_once(INC_FILE_PATH . "template.inc");
 
-    $query = "SELECT * FROM " . T_RESERVES . "
-    LEFT JOIN client ON " . T_RESERVES . ".client_id=client.client_id
-      WHERE id_reserva=$idr";
+    $taula = (floor($idr) > SEPARADOR_ID_RESERVES)?T_RESERVES:'reserves';
+    $query = "SELECT * FROM $taula
+    LEFT JOIN client ON $taula.client_id=client.client_id
+    WHERE id_reserva=$idr";
 
-    if (floor($idr) > SEPARADOR_ID_RESERVES) {
+    if (TRUE) {
       $this->qry_result = mysqli_query($this->connexioDB, $query) or die(((is_object($GLOBALS["___mysqli_ston"])) ? mysqli_error($GLOBALS["___mysqli_ston"]) : (($___mysqli_res = mysqli_connect_error()) ? $___mysqli_res : false)));
       $row = mysqli_fetch_assoc($this->qry_result);
     }
-
-    if (!$this->qry_result || !mysqli_num_rows($this->qry_result))
+    if (!$this->qry_result || !mysqli_num_rows($this->qry_result)) 
       return "err10";
-
 
     $row['aixoesunarray'] = 1;
     if ($extres)
@@ -2253,10 +2254,11 @@ ORDER BY `estat_hores_data` DESC";
     $ara = date("H:i");
     $file = $plantilla . $this->lng . ".lbi";
     $t = new Template('.', 'comment');
-    if (is_array($extres))
-      foreach ($row as $k => $v)
+    if (is_array($extres)){
+      foreach ($row as $k => $v){
         $t->set_var($k, $v);
-
+      }
+    }
     $t->set_file("page", $file);
 
     $t->set_var('avui', date("l d M Y"));
@@ -2282,16 +2284,11 @@ ORDER BY `estat_hores_data` DESC";
 
     $t->parse("OUT", "page");
     $html = $t->get("OUT");
-    if ($destinatari)
-      $recipient = $destinatari;
-    else
-      $recipient = $row['client_email'];
-    //$recipient="alex@infopruna.net";
+    if ($destinatari)      $recipient = $destinatari;
+    else      $recipient = $row['client_email'];
 
-    if (isset($row['subject']))
-      $subject = $row['subject'];
-    else
-      $subject = "..::Reserva Can Borrell::..";
+    if (isset($row['subject']))      $subject = $row['subject'];
+    else      $subject = "..::Reserva Can Borrell::..";
 
     try {
       $r = mailer($recipient, $subject, $html, $altbdy, null, false, MAIL_CCO);

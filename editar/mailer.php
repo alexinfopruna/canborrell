@@ -1,5 +1,4 @@
 <?php
-//equire_once ("class.phpmailer.php");
 require_once ("PHPMailerAutoload.php");
 require_once(ROOT.INC_FILE_PATH.'alex.inc');
 
@@ -46,17 +45,13 @@ function mailer($addr,$subject,$body,$altbody,$attach=null, $test=false, $cco=nu
   if ($addr=="info@can-borrell.com" && isset($_POST['client_email']))  $mail->From=$_POST['client_email'];
   if ($addr==MAIL_RESTAURANT && isset($_POST['client_email']))  $mail->From=$_POST['client_email'];
   
- 
-  
   if ($attach) $mail->AddAttachment($attach,basename($attach));
  
   $occo='';
   print_log("TEST".$test);
   print_log("ENVIA".(ENVIA_MAILS?"SI":"NO"));
-  
   if ($test || ENVIA_MAILS===false)
   {
-      
 	  $exito=true;
           $o=">>>>>>>".date("d-m-Y")."<br/>";
 	  $o.='<meta http-equiv="Content-Type" content="text/html; charset=utf-8" pageEncoding="UTF-8"/>';
@@ -71,28 +66,17 @@ function mailer($addr,$subject,$body,$altbody,$attach=null, $test=false, $cco=nu
 	  $o.= "...............................................................................<br/><br/>".EOL.EOL;
 	  $o.= "...............................................................................<br/><br/>".EOL.EOL;
           
-	$f = fopen(ROOT.INC_FILE_PATH."log/test_mail.html", 'a');
+	$f = fopen(ROOT.INC_FILE_PATH."log/test_mail.html", 'w');
 	fwrite($f,$o);
 	  
- 	if (DEV) $mail->Send();
+ 	//if (DEV) $mail->Send();
+                            return FALSE;
   }
    else
    {
 	  $exito = $mail->Send();
 	}
-/*
-  $intentos=0; 
-  while ((!$exito) && ($intentos < 3)) {
-		if (true) 
-		{
-			if ($intentos) sleep(3);
-			$exito = $mail->Send();	
-		}
-     	$intentos=$intentos+1;	
-   }
- */  
-   
-   
+
    if ($cco == $addr) $cco=NULL;
    if ($cco) {
        $mail->ClearAllRecipients(); 
@@ -101,7 +85,7 @@ function mailer($addr,$subject,$body,$altbody,$attach=null, $test=false, $cco=nu
                $mail->Body=$body;
                $intentos=0;
                $exito2=false;
-        while ((!$exito2) && ($intentos < 3)) {
+        while ((!$exito2) && ($intentos < 1)) { //NOMES UN INTENT
                        if (true) 
                        {
                                if ($intentos) sleep(3);

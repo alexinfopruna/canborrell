@@ -5,129 +5,132 @@
  * order=31710
  * 
  */
-
-
 //$message = "1234000000002085078125713978000qwertyasdf0123456789";
-define('ROOT',"../taules/");
-require_once (ROOT."Gestor.php");
-if ($_SESSION['permisos']<200) die("error:sin permisos") ;
+if (!defined('ROOT'))
+  define('ROOT', "../taules/");
+require_once (ROOT . "Gestor.php");
 
-$amount="1500";
+/* * ************** PERMISOS ADMIN *************************************** */
+if (!isset($_SESSION['permisos']))
+  die("error:sin permisos"); /*   * ******* */
+if ($_SESSION['permisos'] < 200)
+  die("error:sin permisos"); /*   * ********* */
+/* * ************** PERMISOS ADMIN *************************************** */
 
-//print_r($_SESSION);
+
 $id = $lang = "not set";
-    include(ROOT . INC_FILE_PATH . TPV_CONFIG_FILE); //NECESSITO TENIR A PUNT 4id i $lang
-    include INC_FILE_PATH . 'API_PHP/redsysHMAC256_API_PHP_5.2.0/apiRedsys.php';
-     
-        $miObj = new RedsysAPI;
-        
-                            $conecta = "Gestor_form.php?a=respostaTPV_SHA256"; 
-	//$fuc="999008881";
-	//$terminal="871";
-	//$moneda="978";
-	//$trans="0";
-	$url="http://sis-d.redsys.es/sis/realizarPago";
-	//$urlOKKO="";
-	$id=time();
-	$id=99999;
-	$amount="145";
-                            $extra_data="PK";
+$tpv_config_file = isset($_REQUEST['tpv_config_file']) ? $_REQUEST['tpv_config_file'] : TPV_CONFIG_FILE;
 
-	$miObj->setParameter("DS_MERCHANT_AMOUNT",$amount);
-	$miObj->setParameter("DS_MERCHANT_ORDER",strval($id));
-	$miObj->setParameter("DS_MERCHANT_MERCHANTCODE",$fuc);
-	$miObj->setParameter("DS_MERCHANT_CURRENCY",$moneda);
-	$miObj->setParameter("DS_MERCHANT_TRANSACTIONTYPE",$trans);
-	$miObj->setParameter("DS_MERCHANT_TERMINAL",$terminal);
-	$miObj->setParameter("DS_MERCHANT_MERCHANTURL",$url);
-	$miObj->setParameter("DS_MERCHANT_URLOK",$urlOK);		
-	$miObj->setParameter("DS_MERCHANT_URLKO",$urlKO);                            
-                            /*
- 	$miObj->setParameter("Ds_Date",date("d-m-Y"));
- 	$miObj->setParameter("Ds_Hour",date("H:i"));
- 	$miObj->setParameter("Ds_Amount",$amount);
- 	$miObj->setParameter("Ds_Currency",$moneda);
- 	$miObj->setParameter("Ds_Order",$id);
- 	$miObj->setParameter("Ds_MerchantCode",$fuc);
- 	$miObj->setParameter("Ds_Terminal",$terminal);
- 	$miObj->setParameter("Ds_Response",$response);
- 	$miObj->setParameter("Ds_MerchantData",$extra_data);
- 	$miObj->setParameter("Ds_ConsumerLanguage","003");
-                            */
-	
-	// Se generan los parámetros de la petición
-	$request = "";
-	$params = $miObj->createMerchantParameters();
-	$signature = $miObj->createMerchantSignature($clave256);
+include(ROOT . INC_FILE_PATH . $tpv_config_file); //NECESSITO TENIR A PUNT 4id i $lang
+include INC_FILE_PATH . 'API_PHP/redsysHMAC256_API_PHP_5.2.0/apiRedsys.php';
 
-                            //$signature = $miObj->createMerchantSignatureNotif($clave256, $params);
-                            
 
-?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-<html lang="es">
-<head>
-</head>
-<body>
-<form name="frm" action="<?php echo $conecta ?>" method="POST" target2="_blank">
-Ds_Merchant_SignatureVersion <input type="text" name="Ds_SignatureVersion" value="<?php echo $version; ?>"/></br>
-Ds_Merchant_MerchantParameters <input type="text" name="Ds_MerchantParameters" value="<?php echo $params; ?>"/></br>
-Ds_Merchant_Signature <input type="text" name="Ds_Signature" value="<?php echo $signature; ?>"/></br>
-<input type="submit" value="Enviar" >
-</form>
 
-</body>
-</html>
 
+$miObj = new RedsysAPI;
+$conecta = ROOT."../reservar/Gestor_form.php?a=respostaTPV_SHA256";
+//$url = isset($_REQUEST['purl']) ? $_REQUEST['purl'] : "http://sis-d.redsys.es/sis/realizarPago";
+$id_reserva = isset($_REQUEST['pidr']) ? $_REQUEST['pidr'] : '****';
+$lidr = $order = substr(time(), -4, 3) . $id_reserva;
+$amount = isset($_REQUEST['pamount']) ? $_REQUEST['pamount'] : 1500;
+$response = isset($_REQUEST['presponse']) ? $_REQUEST['presponse'] : 99;
+$callback = isset($_REQUEST['pcallback']) ? $_REQUEST['pcallback'] : "reserva_pk_tpv_ok_callback";
+
+//echo $callback;die();
+
+$miObj->setParameter("Ds_Amount", $amount);
+$miObj->setParameter("Ds_Order", strval($lidr));
+$miObj->setParameter("Ds_MerchantCode", $fuc);
+$miObj->setParameter("Ds_Currency", $moneda);
+$miObj->setParameter("Ds_TransactionType", $trans);
+$miObj->setParameter("Ds_Terminal", $terminal);
+$miObj->setParameter("Ds_Date", date("d-m-Y"));
+$miObj->setParameter("Ds_Hour", date("H:i"));
+$miObj->setParameter("Ds_Response", $response);
+$miObj->setParameter("Ds_MerchantData", $callback);
+$miObj->setParameter("Ds_ConsumerLanguage", 3);
+
+// Se generan los parámetros de la petición
+$request = "";
+$params = $miObj->createMerchantParameters();
+$signature = $miObj->createMerchantSignatureNotif($clave256, $params);
+
+
+// ACCIONS
+// ACCIONS
+// ACCIONS
+// ACCIONS
+// ACCIONS
+// ACCIONS
+if (isset($_REQUEST['reset_estat']) && $_REQUEST['reset_estat'] == 'reset_estat') {
+  $dest = 'http://' . $_SERVER['HTTP_HOST'] . "/reservar/Gestor_form.php?a=reset_estat&b=$id_reserva";
+  header("Location: $dest ");
+}
+
+$href = 'http://' . $_SERVER['HTTP_HOST'] . "/reservar/testTPV256.php"
+    . "?pidr=$id_reserva&pamount=$amount&presponse=$response&pcallback=$callback&"
+    . "=$tpv_config_file&init=1";
+$HTML = '<a href="' . $href . '">' . $href . '</a>';
+?>
 <?php
-die();
+$HTML .= sprintf("Ds_Order: %s <br>", $lidr);
+$HTML .= sprintf("Ds_Date: %s <br>", date("d-m-Y"));
+$HTML .= sprintf("Ds_Hour: %s <br>", date("H:i"));
+$HTML .= sprintf("Ds_Amount: %s <br>", $amount);
+$HTML .= sprintf("Ds_Currency: %s <br>", $moneda);
+$HTML .= sprintf("Ds_Transactiontype: %s <br>", $trans);
+$HTML .= sprintf("Ds_MerchantCode: %s <br>", $fuc);
+$HTML .= sprintf("Ds_Terminal: %s <br>", $terminal);
+$HTML .= sprintf("Ds_Response: %s <br>", $response);
+$HTML .= sprintf("Ds_MerchantData: %s <br>", $callback);
+$HTML .= sprintf("Ds_ConsumerLanguage: %s <br>", "003");
+
+echo $HTML;
 ?>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
-<title>Documento sin t&iacute;tulo</title>
-</head>
+<!--------------------------------------------------------------------------------->
+<!--------------------------------------------------------------------------------->
+<!--------------------------------------------------------------------------------->
+<!--------------------------------------------------------------------------------->
+<!--------------------------------------------------------------------------------->
 
-<body>
-     <br/><br/>
-    Exemple: <br/>
+
+<style>
+input[type=text], .ds_input {
+    display: inline;
+}  
+</style>
+<br/>
+<br/>
+<br/>
+<br/>
+<form name="frm"  method="POST" target="_self">
+    Config 
+    <select name='tpv_config_file'>
+        <option value='TPV256.php' <?php if ($tpv_config_file == 'TPV256.php') echo 'selected' ?>>TPV256.php</option>
+        <option value="TPV256_test.php" <?php if ($tpv_config_file == 'TPV256_test.php') echo 'selected' ?>>TPV256_test.php</option>
+    </select>
     
-    <b> http://cbdev.localhost/reservar/testTPV.php?order=21431710</b>
-    <br/><br/>
-<form id="form1" name="form1" method="post" action="Gestor_form.php?a=respostaTPV">
-  <p>Ds_Date   
-    <input type="text" name="Ds_Date" value="<?php echo date("d-m-Y")?>" />
-  </p>
-  <p>Ds_Hour   
-    <input type="text" name="Ds_Hour" value="15:00" />
-  </p>
-  <p>
-    Ds_Amount   
-    <input type="text" name="Ds_Amount" value="<?php echo $amount?>" />
-  </p>
-  <p>
-    Ds_Currency   
-    <input type="text" name="Ds_Currency" value="978" />
-  </p>
-  <p>Ds_Order   
-    <input type="text" name="Ds_Order" value="<?php echo $_REQUEST['order'] ?>" />
-  </p>
-  <p>Ds_MerchantCode   
-    <input type="text" name="Ds_MerchantCode" value="<?php echo $code?>" />
-  </p>
-  <p>Ds_Terminal   
-    <input type="text" name="Ds_Terminal" value="001" />
-  </p>
-  <p>Ds_Signature   
-    <input type="text" name="Ds_Signature" value="<?php echo $signature?>" />
-  </p>
-  <p>Ds_Response   
-    <input type="text" name="Ds_Response" value="000" />
-                  </p>
-  <p>
-    <input type="submit" name="Submit" value="Enviar" />
-  </p>
-</form>
-</body>
-</html>
+    <?php echo $url; ?><br/>
+                  <!--purl2<input type="text" name="purl2" value="<?php echo $url; ?>"/></br>-->
+    pidr <input type="text" name="pidr" value="<?php echo $id_reserva; ?>"/><br/>
+    pamount <input type="text" name="pamount" value="<?php echo $amount; ?>"/><br/>
+    presponse <input type="text" name="presponse" value="<?php echo $response; ?>"/><br/>
+    pcallback <input type="text" name="pcallback" value="<?php echo $callback; ?>"/><br/>
+    <br/>
+    <input type="submit" name="init" value="Enviar" />
+    <input type="submit" name="reset_estat" value="reset_estat" />
+</form>  
+<br/>
+<br/>
+<br/>
+<br/>
+<?php if (isset($_REQUEST['init'])): ?>
+  <form name="frm" action="<?php echo $conecta ?>" method="POST" target="_blank">
+      Ds_Merchant_SignatureVersion <input type="text" name="Ds_SignatureVersion" value="<?php echo $version; ?>"/><br/>
+      Ds_Merchant_MerchantParameters <input type="text" name="Ds_MerchantParameters" value="<?php echo $params; ?>"/><br/>
+      Ds_Merchant_Signature <input type="text" name="Ds_Signature" value="<?php echo $signature; ?>"/><br/>
+      <input type="submit" value="Enviar" >
+  </form>
+<?php endif; ?>

@@ -176,7 +176,7 @@ function mail_cli($id=false,$lang="esp")
     {
       case 2:
         $v=10;      
-        $aki="<a href='http://www.can-borrell.com/editar/pagament.php256?id=".$fila["id_reserva"]."' class='dins'>AQUI</a>";
+        $aki="<a href='http://www.can-borrell.com/editar/pagament256.php?id=".$fila["id_reserva"]."' class='dins'>AQUI</a>";
         exit();
       break;
 
