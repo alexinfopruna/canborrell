@@ -14,6 +14,7 @@ include(INC_FILE_PATH.'alex.inc'); if (!$AJAX) valida_admin('editar.php') ;
 $l=$lang=$gestor->idioma();
 $estat=1;
 $preu=calcula_preu();
+
 $data=cambiaf_a_mysql($_POST['DATA2']); 
 
 $hora=$_POST['hora'].":00";

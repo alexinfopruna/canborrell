@@ -77,7 +77,7 @@ $paga_i_senyal = $PERSONES_GRUP >= persones_paga_i_senyal;
         <link type="text/css" href="css/form_reserves_mob.css" rel="stylesheet" />		
 
 
-<?php echo Gestor::loadJQuery(); ?>
+        <?php echo Gestor::loadJQuery(); ?>
 
         <script type="text/javascript" src="../taules/js/ui/dev/ui/i18n/jquery.ui.datepicker-ca.js"></script>
         <script type="text/javascript" src="../taules/js/ui/dev/ui/i18n/jquery.ui.datepicker-es.js"></script>
@@ -186,29 +186,29 @@ $paga_i_senyal = $PERSONES_GRUP >= persones_paga_i_senyal;
             <script type="text/javascript">
               var PERSONES_GRUP =<?php echo $PERSONES_GRUP; ?>;
               var lang = "<?php echo $lang; ?>";
-            <?php
-            //TRANSLATES
+<?php
+//TRANSLATES
 
-            $llista_negra = llegir_dies(LLISTA_DIES_NEGRA);
-            print crea_llista_js($llista_negra, "LLISTA_NEGRA");
-            print "\n\n";
+$llista_negra = llegir_dies(LLISTA_DIES_NEGRA);
+print crea_llista_js($llista_negra, "LLISTA_NEGRA");
+print "\n\n";
 
-            $llista_blanca = llegir_dies(LLISTA_DIES_BLANCA);
-            print crea_llista_js($llista_blanca, "LLISTA_BLANCA");
+$llista_blanca = llegir_dies(LLISTA_DIES_BLANCA);
+print crea_llista_js($llista_blanca, "LLISTA_BLANCA");
 
-            $llista_dies_no_carta = llegir_dies(INC_FILE_PATH . "llista_dies_no_carta.txt");
-            print crea_llista_js($llista_dies_no_carta, "LLISTA_DIES_NO_CARTA");
+$llista_dies_no_carta = llegir_dies(INC_FILE_PATH . "llista_dies_no_carta.txt");
+print crea_llista_js($llista_dies_no_carta, "LLISTA_DIES_NO_CARTA");
 
-            print "\nvar IDR='" . $row['id_reserva'] . "';";
-            print "var RDATA;";
-            if (!empty($row['data']))
-              print "\nRDATA='" . $gestor->cambiaf_a_normal($row['data']) . "';";
-            print "\nvar HORA='" . $row['hora'] . "';";
-            ?>
+print "\nvar IDR='" . $row['id_reserva'] . "';";
+print "var RDATA;";
+if (!empty($row['data']))
+  print "\nRDATA='" . $gestor->cambiaf_a_normal($row['data']) . "';";
+print "\nvar HORA='" . $row['hora'] . "';";
+?>
             </script>
 
             <script type="text/javascript" src="js/control_carta.js"></script>
-            <script type="text/javascript" src="js/form_reserves.js<?php //echo '?'.time(); ?>"></script>		
+            <script type="text/javascript" src="js/form_reserves.js<?php //echo '?'.time();  ?>"></script>		
 
             <style>
 <?php
@@ -268,13 +268,17 @@ if (!$paga_i_senyal)
                     background:#DDD;
                     border-radius:4px;
                     border:#999 solid 1px;
+                }
                                                           
-                                                          
+                    #compra input[type=text], .ds_input {
+                        display: none;
+                    }                                          
                                                           
                 </style>
         </head>
         <body class="amagat <?php echo DEV ? " dev " : "";
-echo LOCAL ? " local " : "" ?>" onload="loadMenu()" >
+echo LOCAL ? " local " : ""
+?>" onload="loadMenu()" >
             <table id="taula-estructura" bgcolor="#F8F8F0" cellpadding="0" cellspacing="0"   border="0" align="center">
                 <tr height="114">
                     <td id="poma-fons" colspan="2" align="RIGHT"><a href="../index.htm"><img src="../img/lg_sup.gif"  border="0" title="INICI"/></a></td>
@@ -282,7 +286,7 @@ echo LOCAL ? " local " : "" ?>" onload="loadMenu()" >
                 <tr height="18">
                     <td bgcolor="#570600" colspan="2" align="">
                         <table cellpadding="0" cellspacing="0" width="761" height="19" border="0">
-<?php //require_once($ruta_lang."menu.php"); ?>
+<?php //require_once($ruta_lang."menu.php");  ?>
                         </table>
                     </td>
                 </tr>
@@ -293,13 +297,13 @@ echo LOCAL ? " local " : "" ?>" onload="loadMenu()" >
                         <!-- ********     EDITA RESERVA       ***********************************************************   -->
                         <!-- ***************************************************************************************   -->
                         <!-- ***************************************************************************************   -->
-<?php
-if (!$EDITA_RESERVA)
-  include("login.php");
-if ($EDITA_RESERVA && $EDITA_RESERVA < SEPARADOR_ID_RESERVES && !isset($_POST['incidencia_grups'])) {
-  include("form_contactar_grups.php");
-}
-?>
+                        <?php
+                        if (!$EDITA_RESERVA)
+                          include("login.php");
+                        if ($EDITA_RESERVA && $EDITA_RESERVA < SEPARADOR_ID_RESERVES && !isset($_POST['incidencia_grups'])) {
+                          include("form_contactar_grups.php");
+                        }
+                        ?>
                         <!-- *****************<div style="clear:both"></div>**********************************************************************   -->
                         <!-- ***************************************************************************************   -->
 
@@ -309,23 +313,23 @@ if ($EDITA_RESERVA && $EDITA_RESERVA < SEPARADOR_ID_RESERVES && !isset($_POST['i
                         <!-- ********     CONTACTE       ***********************************************************   -->
                         <!-- ***************************************************************************************   -->
                         <!-- ***************************************************************************************   -->
-<?php
-if (isset($_POST['incidencia_grups'])) {
-  if (!$gestor->contactar_grups($_POST))
-    l("ERROR_CONTACTAR");
-  else
-    l("CONTACTAR_OK");
+                        <?php
+                        if (isset($_POST['incidencia_grups'])) {
+                          if (!$gestor->contactar_grups($_POST))
+                            l("ERROR_CONTACTAR");
+                          else
+                            l("CONTACTAR_OK");
 
-  //die();
-}elseif (isset($_POST['incidencia'])) {
-  if (!$gestor->contactar($_POST))
-    l("ERROR_CONTACTAR");
-  else
-    l("CONTACTAR_OK");
-}
-else
-  include("form_contactar.php");
-?>
+                          //die();
+                        }elseif (isset($_POST['incidencia'])) {
+                          if (!$gestor->contactar($_POST))
+                            l("ERROR_CONTACTAR");
+                          else
+                            l("CONTACTAR_OK");
+                        }
+                        else
+                          include("form_contactar.php");
+                        ?>
 
 
                         <div style="clear:both"></div>
@@ -353,7 +357,7 @@ else
                             <!-- ***************************************************************************************   -->
                             <!-- ***************************************************************************************   -->
                             <?php
-                            $test=isset($_REQUEST['testTPV'])?'&testTPV='.$_REQUEST['testTPV']:"";
+                            $test = isset($_REQUEST['testTPV']) ? '&testTPV=' . $_REQUEST['testTPV'] : "";
                             ?>
                             <form id="form-reserves" action="Gestor_form.php?a=submit<?php echo $test; ?>" method="post" name="fr-reserves" accept-charset="utf-8"><!---->
                                 <input type="hidden" name="id_reserva" value="<?php echo isset($_REQUEST['idr']) ? $_REQUEST['idr'] : ""; ?>"/>
@@ -391,7 +395,7 @@ else
                                         <!------------------- AVIS MODIFICACIONS ---------------------------->
                                         <div id="avis-modificacions-overlay" class="ui-widget-overlay dspnn" > </div> 
                                         <div id="avis-modificacions" class="transition-1s" style="" >
-                                            <?php l('AVIS_MODIFICACIONS'); ?>
+<?php l('AVIS_MODIFICACIONS'); ?>
                                         </div> 
                                         <br/>
                                         <!------------------- FI AVIS MODIFICACIONS ---------------------------->
@@ -403,7 +407,7 @@ else
                                         <div id="jnc" style="float:left">
                                             <!-- ******  JUNIOR  ********   -->
                                             <h4  id="titol_SelectorJuniors"><?php l('Juniors (de 10 a 14 anys):'); ?></h4>
-                                            <input type="hidden" id="junior" name="nens10_14" value="<?php echo $row['nens10_14'] ?>"  style="width:35px;font-size:1.2em;padding-left:0;padding-right:0" class="ui-button ui-widget ui-state-default ui-button-text-only coberts"/><label for="comGrupsN" ><?php //l('Més de ');//echo ($PERSONES_GRUP+14) ?></label>
+                                            <input type="hidden" id="junior" name="nens10_14" value="<?php echo $row['nens10_14'] ?>"  style="width:35px;font-size:1.2em;padding-left:0;padding-right:0" class="ui-button ui-widget ui-state-default ui-button-text-only coberts"/><label for="comGrupsN" ><?php //l('Més de ');//echo ($PERSONES_GRUP+14)  ?></label>
                                             <div id="selectorJuniors" class="col_dere">
                                                 <?php
                                                 for ($i = 0; $i <= $max_juniors; $i++) {
@@ -494,18 +498,18 @@ else
                                             </h1></div>
                                         <!-- ******  INFO  ********   -->
                                         <div class="caixa dere ui-corner-all info_dia">
-                                            <?php l('INFO_DATA'); ?>	
+<?php l('INFO_DATA'); ?>	
                                             <input type="hidden" id="valida_calendari" name="selectorData" value="<?php echo $row['data']; ?>"/>
 
                                         </div>
                                         <!-- ******  CALENDARI  ********   -->
                                         <div id="data" style="float:left">
-                                            <?php if ($EDITA_RESERVA): ?>
+<?php if ($EDITA_RESERVA): ?>
 
                                               <script>
                                                 var BLOQ_DATA = '<?php echo $gestor->cambiaf_a_normal($row['data']); ?>';
                                               </script>
-                                            <?php endif ?>
+<?php endif ?>
                                             <div id="calendari"></div>
                                         </div>
                                         <div style="clear:both"></div>
@@ -522,7 +526,7 @@ else
                                         </h1>
                                         <!-- ******  INFO  ********   -->
                                         <div class="ui-corner-all caixa dere hores info_hora">
-                                            <?php l('INFO_HORES'); ?>	
+<?php l('INFO_HORES'); ?>	
                                         </div>
                                         <!-- ******  DINAR  ********   -->
                                         <h4><?php l('Dinar'); ?></h4>
@@ -560,10 +564,10 @@ else
                                                                     $pastis_info = $row['reserva_info_pastis'];
                                                                     ?>
                                                                     <label for="INFO_PASTIS" class="pastis_toggle" style="margin-left:25px;">
-                                                                        <?php l("INFO_PASTIS") ?>
+<?php l("INFO_PASTIS") ?>
                                                                 </label>
                                                                 <textarea id="INFO_PASTIS" name="INFO_PASTIS" style="margin-left:25px;" class="pastis_toggle">
-                                                                    <?php echo $pastis_info ?>
+<?php echo $pastis_info ?>
                                                                 </textarea>
                                                                 <table id="caixa-carta" class="col_dere">
                                                                     <tr>
@@ -571,13 +575,13 @@ else
                                                                         <td class="menysX"></td>
                                                                         <td class="Xborra"></td>
                                                                         <td class="carta-plat">
-                                                                            <h3><?php //l("SELECCIÓ") ?></h3>
+                                                                            <h3><?php //l("SELECCIÓ")  ?></h3>
                                                                         </td>
                                                                         <td></td>
                                                                     </tr>
                                                                     <tr>
                                                                         <td class="mesX">							
-                                                                            <?php echo $comanda ?></td>
+<?php echo $comanda ?></td>
                                                                         <td class="menysX"></td><td class="Xborra"></td>
                                                                         <td class="carta-plat"><h3>	</h3></td>
                                                                         <td></td>
@@ -585,7 +589,7 @@ else
                                                                 </table>
                                                                 <!-- ******  BUTO CARTA  ********   -->
                                                                 <div class="ui-corner-all info info-comanda info_carta" style="float:left;">
-                                                                    <?php l('INFO_COMANDA'); ?>
+<?php l('INFO_COMANDA'); ?>
                                                                 </div>
 
 
@@ -593,7 +597,7 @@ else
 
                                                             <!-- ******  INFO  ********   -->
                                                             <div class="ui-corner-all info">
-                                                                <?php l('INFO_CARTA'); ?>
+<?php l('INFO_CARTA'); ?>
                                                             </div>
                                                             <!-- ******  BUTO CARTA  ********   -->
                                                             <a href="#"  id="bt-carta" name="bt-carta" class="bt" ><?php l('Carta'); ?></a>
@@ -620,9 +624,9 @@ else
                                                                 <div><label class="label" for="client_email">Email*</label><input type="email" name="client_email" value="<?php echo $row['client_email'] ?>"/></div>
                                                                 <div><label class="label" for="client_nom"><?php l('Nom'); ?>*</label><input type="text" name="client_nom" value="<?php echo $row['client_nom'] ?>"/></div>
                                                                 <div><label class="label" for="client_cognoms"><?php l('Cognoms'); ?>*</label><input type="text" name="client_cognoms" value="<?php echo $row['client_cognoms'] ?>"/></div>
-                                                                <div><label class="label" for="client_id"><?php //l('Client_id'); ?></label><input type="hidden" name="client_id" value="<?php echo $row['client_id'] ?>"/></div>
+                                                                <div><label class="label" for="client_id"><?php //l('Client_id');  ?></label><input type="hidden" name="client_id" value="<?php echo $row['client_id'] ?>"/></div>
                                                                 <div class="ui-corner-all info-legal info-observacions  caixa" style="width:496px;">
-                                                                    <?php l('NO_COBERTS_OBSERVACIONS'); ?>
+<?php l('NO_COBERTS_OBSERVACIONS'); ?>
                                                                 </div>
 
 
@@ -665,13 +669,13 @@ else
                                                             <b><?php l('Resum reserva'); ?>:</b><br/><br/>
                                                             <?php l('Data'); ?>: <b id="resum-data">-</b> | <?php l('Hora'); ?>: <b id="resum-hora">-</b><br/>
                                                             <?php l('Adults'); ?>: <b id="resum-adults">-</b> | <?php l('Juniors'); ?>: <b id="resum-juniors">-</b> | <?php l('Nens'); ?>: <b id="resum-nens">-</b> | <?php l('Cotxets'); ?>: <b id="resum-cotxets">-</b><br/>
-                                                            <?php l('Comanda'); ?>: <b id="resum-comanda"><?php l('Sense'); ?> </b> <?php l('plats'); ?> (<b id="resum-preu"></b> €)
+<?php l('Comanda'); ?>: <b id="resum-comanda"><?php l('Sense'); ?> </b> <?php l('plats'); ?> (<b id="resum-preu"></b> €)
                                                         </div>
                                                         <div class="ui-corner-all info-submit caixa dere">
-                                                            <?php l('INFO_NO_CONFIRMADA'); ?>:
+<?php l('INFO_NO_CONFIRMADA'); ?>:
 
                                                         </div>
-                                                        <?php $t = (isset($_POST['idr']) && $_POST['idr'] > 5000) ? 'Modificar reserva' : 'Sol·licitar reserva'; ?>
+<?php $t = (isset($_POST['idr']) && $_POST['idr'] > 5000) ? 'Modificar reserva' : 'Sol·licitar reserva'; ?>
                                                         <button id="submit"><?php l($t); ?></button>
 
 
@@ -714,7 +718,7 @@ else
                                                     <!-- ******************* CARTA *********************** -->
                                                     <div id="fr-cartaw-popup" title="<?php l("La nostra carta") ?>" class="carta-menu" style="height:300px">
                                                         <div id="fr-carta-tabs" >
-                                                            <?php echo $gestor->recuperaCarta($row['id_reserva']) ?>
+<?php echo $gestor->recuperaCarta($row['id_reserva']) ?>
                                                         </div>	
                                                     </div>	
                                                     <!-- ******************* CARTA-MENU *********************** -->
@@ -722,7 +726,7 @@ else
                                                     <!-- ******************* CARTA-MENU *********************** -->
                                                     <div id="fr-menu-popup" title="<?php l("Els nostres menús") ?>" class="carta-menu">
                                                         <div id="fr-menu-tabs" >
-                                                            <?php echo $gestor->recuperaCarta($row['id_reserva'], true) ?>
+<?php echo $gestor->recuperaCarta($row['id_reserva'], true) ?>
                                                         </div>	
                                                     </div>	
 
@@ -730,7 +734,7 @@ else
                                                     <!-- ******************* POPUPS GRUPS *********************** -->
                                                     <!-- ******************* POPUPS GRUPS *********************** -->
                                                     <div id="popupGrups" title="<?php l("Reserva per grups") ?>">
-                                                        <?php l('ALERTA_GRUPS'); ?>
+<?php l('ALERTA_GRUPS'); ?>
 
                                                     </div>
 
@@ -742,15 +746,15 @@ else
                                                     <div id="help" title="<?php l("Necessites ajuda?") ?>"><?php l('ALERTA_INFO_INICIAL'); ?></div>
 
                                                     <div id="popupInfo" class="ui-helper-hidden">
-                                                        <?php l('ALERTA_INFO'); ?>
+<?php l('ALERTA_INFO'); ?>
                                                     </div>
 
                                                     <div id="popupInfoUpdate" class="ui-helper-hidden">
-                                                        <?php l('ALERTA_INFO_UPDATE'); ?>
+<?php l('ALERTA_INFO_UPDATE'); ?>
                                                     </div>
 
                                                     <div id="reserves_info" class="ui-helper-hidden">
-                                                        <?php include("reservesInfo_" . substr($lang, 0, 2) . ".html"); ?>
+<?php include("reservesInfo_" . substr($lang, 0, 2) . ".html"); ?>
                                                     </div>
 
 

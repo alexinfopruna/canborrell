@@ -279,12 +279,10 @@ echo $r;
                 <td>&nbsp;</td>
                 <td>
                     <?php
-                    
                     $id_reserva = ((int) $_GET["id"]) + 100000;
                     //$url_resposta = 'http://' . $_SERVER['HTTP_HOST'] . '/reservar/Gestor_form.php?a=respostaTPV_GRUPS_SHA256';
                     $responaseok_callback_alter = "reserva_grups_tpv_ok_callback";
                     $response = isset( $_GET["testTPV"])? $_GET["testTPV"]:-1;
-                    //$idr = $_GET["id"];
                     
                     if (isset($_REQUEST["testTPV"]) &&  $_REQUEST["testTPV"] == 'testTPV') echo $gestor->generaTESTTpvSHA256($id_reserva, $import, $nom, $responaseok_callback_alter);
                     else echo $gestor->generaFormTpvSHA256($id_reserva, $import, $nom, $responaseok_callback_alter);

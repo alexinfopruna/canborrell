@@ -202,13 +202,13 @@ class gestor_reserves extends Gestor {
       $mail = $this->enviaMail($id_reserva, "cancelada_", FALSE, $extres);
     }
     $deleteSQL = "DELETE FROM " . T_RESERVES . " WHERE id_reserva=$id_reserva";
-    /////////// $res = $this->log_mysql_query($deleteSQL, $this->connexioDB) or die(((is_object($GLOBALS["___mysqli_ston"])) ? mysqli_error($GLOBALS["___mysqli_ston"]) : (($___mysqli_res = mysqli_connect_error()) ? $___mysqli_res : false)));
+    $res = $this->log_mysql_query($deleteSQL, $this->connexioDB) or die(((is_object($GLOBALS["___mysqli_ston"])) ? mysqli_error($GLOBALS["___mysqli_ston"]) : (($___mysqli_res = mysqli_connect_error()) ? $___mysqli_res : false)));
 
     //$usr=$_SESSION['admin_id'];
     $usr = $_SESSION['uSer']->id;
 
     $deleteSQL = "UPDATE " . ESTAT_TAULES . " SET reserva_id=0, estat_taula_usuari_modificacio=$usr WHERE reserva_id=$id_reserva";
-    /////////// $res = $this->log_mysql_query($deleteSQL, $this->connexioDB) or die(((is_object($GLOBALS["___mysqli_ston"])) ? mysqli_error($GLOBALS["___mysqli_ston"]) : (($___mysqli_res = mysqli_connect_error()) ? $___mysqli_res : false)));
+    $res = $this->log_mysql_query($deleteSQL, $this->connexioDB) or die(((is_object($GLOBALS["___mysqli_ston"])) ? mysqli_error($GLOBALS["___mysqli_ston"]) : (($___mysqli_res = mysqli_connect_error()) ? $___mysqli_res : false)));
 
     if ($permuta) {
       return $res;
@@ -495,7 +495,7 @@ class gestor_reserves extends Gestor {
         mysqli_query($GLOBALS["___mysqli_ston"], "START TRANSACTION");
         $observacions = Gestor::SQLVal($_POST['observacions']);
         $_POST['cotxets'] = $_POST['cotxets'] ? $_POST['cotxets'] : 0;
-        $_POST['RESERVA_PASTIS'] = ($_POST['RESERVA_PASTIS'] == 'on') ? 1 : 0;
+        $_POST['RESERVA_PASTIS'] = (isset($_POST['RESERVA_PASTIS']) && $_POST['RESERVA_PASTIS'] == 'on') ? 1 : 0;
         //ELIMINA LA RESERVA DE LA TAULA VELLA
         $query = "UPDATE " . T_RESERVES . " 
                 SET data='$data',
@@ -605,7 +605,7 @@ class gestor_reserves extends Gestor {
     mysqli_query($GLOBALS["___mysqli_ston"], "SET AUTOCOMMIT=1");
     $_POST['id_reserva'] = $reserva;
 
-    return $accordion;
+    return TRUE;
   }
 
   /*   * ************************************* */
@@ -935,7 +935,8 @@ class gestor_reserves extends Gestor {
       if ($row['client_nom'] == "SENSE_NOM")
         $row['client_nom'] = "";
       $nom = "<br/>" . substr($row['client_cognoms'] . ", " . $row['client_nom'], 0, 25);
-      $paga_i_senyal = ((int) $row['preu_reserva']) ? '<span class="paga-i-senyal" >' . $row['preu_reserva'] . '€</span>' : '';
+      //$paga_i_senyal = ((int) $row['preu_reserva']) ? '<span class="paga-i-senyal" >' . $row['preu_reserva'] . '€</span>' : '';
+      $paga_i_senyal = (floatval($row['preu_reserva']) ) ? '<span class="paga-i-senyal" >' . $row['preu_reserva'] . '€</span>' : '';
 
       $html .= <<< EOHTML
           <h3 $deleted><a n="$n" href="form_reserva.php?edit={$row['id_reserva']}&id={$row['id_reserva']}" class="fr" taula="{$row['estat_taula_taula_id']}" id="accr-{$row['id_reserva']}">{$row['reserva_id']}&rArr;{$this->cambiaf_a_normal($row['data'], "%d/%m")} {$row['hora']} | {$row['estat_taula_nom']}&rArr;{$comensals}/{$row['cotxets']} $online  $nom $paga_i_senyal</a></h3>

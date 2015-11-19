@@ -470,8 +470,8 @@ class Gestor {
   /*   * ************************************************************************************** */
 
   public static function rename_big_file($file = NULL, $size = 1000000) {
-    if (!$file)
-      $file = ROOT . INC_FILE_PATH . LOG_FILE;
+    if (!$file)  $file = ROOT . INC_FILE_PATH . LOG_FILE;
+    
     clearstatcache();
     $fs = filesize($file);
 
@@ -804,9 +804,7 @@ class Gestor {
     //include(ROOT . INC_FILE_PATH . TPV_CONFIG_FILE); //NECESSITO TENIR A PUNT 4id i $lang
     include(ROOT . INC_FILE_PATH . TPV_CONFIG_FILE); //NECESSITO TENIR A PUNT 4id i $lang
     ///* MODIFICA PARAMS */
-    if (isset($tpv_ok_callback_alter))
-      $tpv_ok_callback = $tpv_ok_callback_alter;
-
+    if (isset($tpv_ok_callback_alter))      $tpv_ok_callback = $tpv_ok_callback_alter;
     // Valores de entrada del ejemplo de redsy
     //$fuc="999008881";$terminal="871";$moneda="978";$trans="0";//$url="";$urlMerchant="";$urlOKKO="";$urlKO="";$urlOK="";$id=time();$amount="145";
     // Se incluye la librería
@@ -849,7 +847,7 @@ class Gestor {
       echo   '$urlMerchant: '.     $tpv_ok_callback.'<br>';
       echo '<br><br>';
      */
-    $form = '<form id="compra" name="compra" action="' . $url . '" method="post" target2="_blank" target="frame-tpv"  style="display:none">
+    $form = '<form id="compra" name="compra" action="' . $url . '" method="post" target2="_blank" target="frame-tpv"  style="display:nonexxx">
               <div class="ds_input">Ds_Merchant_SignatureVersion <input type="text" name="Ds_SignatureVersion" value="' . $version . '"/></div>
               <div class="ds_input">Ds_Merchant_MerchantParameters <input type="text" name="Ds_MerchantParameters" value="' . $params . '"/></div>
               <div class="ds_input">Ds_Merchant_Signature <input type="text" name="Ds_Signature" value="' . $signature . '"/></div>

@@ -8,7 +8,10 @@ if (!$gestor->valida_sessio(64))
 {
   header("Location: login.php");
   die();
-}$file=$_GET['f'];
+}
+
+$file=$_GET['f'];
+if (isset($_GET['reset'])) $gestor->rename_big_file($file, 0);
 
 $path_parts = pathinfo($file);
 if  (strtolower($path_parts['extension']=='pdf')) header('Content-type: application/pdf'); 

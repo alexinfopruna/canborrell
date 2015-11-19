@@ -1081,15 +1081,17 @@ WHERE  `client`.`client_id` =$idc;
   // 100 RES.PETITA
   /*   * ************************************************ */
   public function respostaTPV_SHA256() {
-    $id = $lang = "not set";
-    //$f = fopen("log_TPV2.txt", "w");
-    //fwrite($f, date("d/m/y h:i:s") . "!!!!!!!!!!!!!! buida..!!!!!!!!!!!!!!!!!");
-    //fclose($f);
+        $this->greg_log("RESPOSTA TPV >>> ", "/log/log_TPV.txt", FALSE);
+    echo "RESPOSTA TPV >>> ";
+   $f = fopen("log_TPV2.txt", "w");
+    fwrite($f, date("d/m/y h:i:s") . "!!!!!!!!!!!!!! buida..!!!!!!!!!!!!!!!!!");
+    fclose($f);
 
+    
+    $id = $lang = "not set";
+ 
     include(INC_FILE_PATH . TPV_CONFIG_FILE); //NECESSITO TENIR A PUNT $id i $lang
     /* LOG */
-    $this->greg_log("RESPOSTA TPV >>> ", "/log/log_TPV.txt", FALSE);
-    echo "RESPOSTA TPV >>> ";
 
     include INC_FILE_PATH . 'API_PHP/redsysHMAC256_API_PHP_5.2.0/apiRedsys.php';
     // Se crea Objeto
