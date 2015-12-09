@@ -12,6 +12,7 @@ if (!$gestor->valida_sessio(64))
 }
 define("SUPER_ADMIN",$gestor->valida_sessio(255)?true:false);
 define("ADMIN",$gestor->valida_sessio(63)?true:false);
+define("LOG_FILE_TPV",LOG_FILE_TPVPK);
 
 if (isset($_GET['exit'])) 
 {
@@ -185,10 +186,14 @@ $(function(){$("#panel").accordion({collapsible:true,active:false,heightStyle: "
 		<!-- -->
 		<a target="_blank" href="<?php echo LOG_LIST;?>" class=" bt ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only">LLISTA LOGS</a>
 		<!-- -->
-		<a target="_blank" href="<?php echo READER_SCRIPT.ROOT.INC_FILE_PATH.LOG_FILE_TPV  ?>" class=" bt ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only">LOG D'OPERACIONS AL TPV</a>
+		<a target="_blank" href="<?php echo READER_SCRIPT.ROOT.INC_FILE_PATH.'/log/log.txt'  ?>" class=" bt ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only">LOG PETITES</a>
+		<!-- -->
+		<a target="_blank" href="<?php echo READER_SCRIPT.ROOT.INC_FILE_PATH.'/log/logGRUPS.txt'  ?>" class=" bt ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only">LOG GRUPS</a>
 		<!-- -->
 		<a target="_blank" href="<?php echo READER_SCRIPT.ROOT.INC_FILE_PATH.LOG_FILE_TPVPK  ?>" class=" bt ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only">LOG TPV PAGA I SENYAL</a>
 		<!-- -->
+		<!-- -->
+		<a target="_blank" href="<?php echo READER_SCRIPT.ROOT.INC_FILE_PATH.'/log/logMAILSMS.txt'  ?>" class=" bt ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only">LOG MAIL SMS</a>
 		<br/>
 		<br/>
 		<br/>

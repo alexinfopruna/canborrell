@@ -1,61 +1,105 @@
 <?php
 define("ROOT", "../taules/");
 define("READER_SCRIPT", "read.php?f=");
-require_once(ROOT."gestor_reserves.php");
-$gestor=new gestor_reserves();   
+require_once(ROOT . "gestor_reserves.php");
+$gestor = new gestor_reserves();
 
-if (!$gestor->valida_sessio(64))  
-{
+if (!$gestor->valida_sessio(64)) {
   header("Location: login.php");
   die();
 }
-
-$file=$_GET['f'];
-if (isset($_GET['reset'])) $gestor->rename_big_file($file, 0);
-
+  
+$file = $_GET['f'];
+if (isset($_GET['reset'])){
+  $gestor->rename_big_file($file, 0);
+  $redir = 'read.php?'.$_SERVER['QUERY_STRING'];
+  $redir = str_replace('&reset','',$redir);
+  header("location: ".$redir);
+  exit();
+}
+  
 $path_parts = pathinfo($file);
-if  (strtolower($path_parts['extension']=='pdf')) header('Content-type: application/pdf'); 
-else header('Content-Type: text/html; charset=utf-8');
+if (strtolower($path_parts['extension'] == 'pdf'))
+  header('Content-type: application/pdf');
+else
+  header('Content-Type: text/html; charset=utf-8');
 ?>
 <html>
-	<head>
-		<style>
-			.fila{padding:4px;}
-			.even{}
-			.odd{background:#EEF}
-			.margin{border-top:#444 dotted 2px;font-weight:bold;color:red;}
-		</style>
-	</head>
-	<body>
-<?php
-echo "Llegim fitxer: <b>$file</b><br/><br/><div>";
-//readfile($file);
-//$my_file = file_get_contents($file);
+    <head>
+        <?php echo Gestor::loadJQuery(); ?>
+        <script>
+          $(function () {
+              var opened
+              
+              $("li, pre").hide();
+              $("ul:odd").addClass("odd");
+              $("li, pre").click(function (e) {e.preventDefault();return false;});
+              $("ul").click(function (e) {
+                  if ($(this).children("li").is(":visible")) {
+                      $(this).children("li").hide();
+                      $(this).children("pre").hide();
+                      return;
+                  }
 
-//echo $my_file;
-//echo ln2br($my_file);
-$parodd=false;
-$cnt=0;
-$file_handle = fopen($file, "r");
-while (!feof($file_handle)) {
-   $line = fgets($file_handle);
-   $cnt++;
-	
-	//if (strlen($line)<5) {$margin="margin";$parodd=!$parodd;continue;}
-if (strstr($line,'/* >>>')!==FALSE) {$margin="margin";$parodd=!$parodd;}
-	//echo '<br/>--------'.$line;
-	$margin="";
-	/*	*/
-	$line=str_replace('/* >>>', '</div><div class="fila margin'.($parodd?' even':' odd').'">/* >>>', $line);
-	$line=str_replace('<<< */', '<<< */</div><div class="fila '.($parodd?' even':' odd').'">', $line);
-   echo $line;
-	if ($cnt>500) 
-	{
-		$cnt=0;
-		flush();
-	}
-}
-fclose($file_handle);
-?>
-	</body>
+                  $("li").hide();
+                  $("pre").hide();
+
+                  $(this).find("li").each(function () {$(this).show()});
+                  $(this).find("pre").each(function () {$(this).show()});
+              });
+          });
+        </script>
+        <style>
+            ul{margin:0}
+            li{font-size: 0.9em;color:#0063dc;margin-let:30px;list-style-type: square}
+            .date{color:#444;}
+            .level-0,.fila{padding:4px;}
+            .level-0.amfphp{color:deepskyblue}
+            .level-0 .ajax{color:blueviolet}
+            .level-0 .cron{color:grey}
+            .level-0 .grups{color:darksalmon}
+            .even{}
+            .odd{background:#EEF}
+            .level-0, .margin{border-top:#444 dotted 2px;font-weight:bold;color:blue;}
+            .level-1{
+                margin-left:25px;
+                color:#999;
+                font-size: 0.8em;
+            }
+            .dspnn{display:none;}
+           // li, pre{display:none;}
+            pre{font-size:0.8em;color:#999}
+            .miniquery{font-size: 0.8em;color:#999;}
+            
+            .idr{color:red;font-weight:bold}
+            .query{color:green}
+            .EXIT{color:green}
+            .ERROR{color:RED}
+        </style>
+    </head>
+    <body>
+        <?php
+        echo "Llegim fitxer: <b>$file</b><br/><br/><div>";
+        $parodd = false;
+        $cnt = 0;
+        $file_handle = fopen($file, "r");
+        $first = TRUE;
+        while (!feof($file_handle)) {
+          $line = fgets($file_handle);
+          $date = date("Y-m-d H:i:s");
+
+          $cnt++;
+         
+          $line = str_replace('<br/>', '', $line);
+          $line = str_replace('<br>', '', $line);
+          
+          echo $line;
+          if ($cnt > 500) {
+            $cnt = 0;
+            flush();
+          }
+        }
+        fclose($file_handle);
+        ?>
+    </body>
 </html>

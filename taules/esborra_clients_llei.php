@@ -7,9 +7,9 @@ $gestor=new gestor_reserves();
 if (!$gestor->valida_sessio())die("USUARI NO AUTORITZAT!");
 
 
-Gestor::greg_log("CRON: esborra_clients_llei.php > reservestaules");
+Gestor::xgreg_log("<span class='cron'>CRON: esborra_clients_llei.php > reservestaules</span>");
 print esborra_clients_llei('reservestaules');
-Gestor::greg_log("CRON: esborra_clients_llei.php > reserves");
+Gestor::xgreg_log("<span class='cron'>CRON: esborra_clients_llei.php > reserves</span>");
 print esborra_clients_llei('reserves');
 /***************************************************************************/
 // ENVIA UN SMS AVISANT QUE HEM ESBORRAT LES DADES
@@ -18,10 +18,6 @@ function esborra_clients_llei($t)
 {
   require('../Connections/DBConnection.php');
   /******************************************************************************/
-///ini_set('display_errors',1);
-//ini_set('display_startup_errors',1);
-//error_reporting(E_ALL ^ E_DEPRECATED);
-
   $query_reserves = "
   SELECT *, $t.client_id as clid
   FROM $t
@@ -42,7 +38,7 @@ function esborra_clients_llei($t)
   $reserves = mysqli_query( $DBConn, $query_reserves) or die(((is_object($GLOBALS["___mysqli_ston"])) ? mysqli_error($GLOBALS["___mysqli_ston"]) : (($___mysqli_res = mysqli_connect_error()) ? $___mysqli_res : false)));
   $nr=mysqli_num_rows($reserves);
   $mensa = "<br/>TROBAT $nr registres:<br/>".$query_reserves ."....................................<br/><br/>";
-  Gestor::greg_log( "<br/>TROBATS $nr registres:<br/>".$query_reserves ."....................................<br/><br/>");
+  Gestor::xgreg_log( "<br/>TROBATS $nr registres:<br/>".$query_reserves ."....................................<br/><br/>", 1);
   if (!$nr) return false;
   //if (!$nr) return("No hi ha clients pendents d'esborrar a $t<br/>");
 
@@ -82,7 +78,7 @@ function esborra_clients_llei($t)
     }
     else
     {
-      Gestor::greg_log("ESBORRA_CLIENT ".$row["client_id"]."- ENVIO SMS DESACTIVAT tel: ".$row['client_mobil']." ********** $sms_mensa ");
+      Gestor::xgreg_log("ESBORRA_CLIENT ".$row["client_id"]."- ENVIO SMS DESACTIVAT tel: ".$row['client_mobil']." ********** $sms_mensa ", 1);
       $mensa.="ESBORRA_CLIENT ".$row["client_id"]."- ENVIO SMS DESACTIVAT tel: ".$row['client_mobil']."\n";
     }
   }
@@ -120,8 +116,8 @@ function enviaSMS_esborrat($numMobil,$mensa)
 
 
   global $gestor;
-  $gestor->greg_log("ENVIAT SMS ESBORRA_CLIENT: $numMobil RESERVA $idReserva");
-  $gestor->greg_log("RESULTAT ENVIO: ".$result['Result']." / ".$result['MessageIDs']);
+  $gestor->xgreg_log("ENVIAT SMS ESBORRA_CLIENT: $numMobil RESERVA $idReserva", 1);
+  $gestor->xgreg_log("RESULTAT ENVIO: ".$result['Result']." / ".$result['MessageIDs'], 1);
   
   
 }

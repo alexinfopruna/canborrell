@@ -582,6 +582,11 @@ function comportamentCarta()
         comportamentClient();
         return false;
     });
+    
+    $(".resum-carta-nom").click(function (e) {
+        $(this).closest("tr").find("td.mes a").trigger("click");
+        e.preventDefault();
+        return FALSE;});
 }
 
 /********************************************************************************************************************
@@ -957,9 +962,9 @@ function controlSubmit()
             $('#form-reserves').submit();
         });
     $('#form-reserves').submit(function () {
-
         if (!$("#form-reserves").valid())
             return false;
+        
         clearInterval(th);
         var control = setTimeout(function () {
             timer_submit();

@@ -60,8 +60,8 @@ function source2doc($filename)
   if (!empty($aux[3])) $extends = $aux[3];
   else $extends = '';
 
-  $html = '<b>CLASSNAME:</b> ' . $classname . '<br />' . endl;
-  if ($extends != '') $html .= '<b>EXTENDS:</b> ' . $extends . '<br />' . endl;
+  $html = '<b>CLASSNAME:</b> ' . $classname . '<br/>' . endl;
+  if ($extends != '') $html .= '<b>EXTENDS:</b> ' . $extends . '<br/>' . endl;
   $html .= '<table border="1" width="100%">' . endl;
 
 ////

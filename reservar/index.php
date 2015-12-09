@@ -40,7 +40,7 @@ $estil="winterblues.css";?>
 	  <input type="password" name="pass" /></td>
     </tr>
   </table>
-  <br /><br /><input type="submit" name="Submit" value="Entrar" /><br /><br />
+  <br/><br/><input type="submit" name="Submit" value="Entrar" /><br/><br/>
 </form>
 </body>
 </html>

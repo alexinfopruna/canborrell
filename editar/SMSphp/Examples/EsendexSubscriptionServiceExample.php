@@ -30,7 +30,7 @@ $subscriptionService = new EsendexSubscriptionService( $username, $password, $ac
 // Uncomment lines for different functions.
 
 // Stop a subscription for a specified mobile number.
-print( "<b>Stop Subscription</b><br />" );
+print( "<b>Stop Subscription</b><br/>" );
 $result = $subscriptionService->StopSubscription( $mobileNumber );
 
 print_r( $result );

@@ -23,6 +23,7 @@ $gestor=new gestor_reserves();
 // CONSTANTS LOADCONFIG PER JS
 /*****************************************/	
 echo $gestor->dumpJSVars(true);
+$gestor->xgreg_log("EDBASE");
 ?>
 <script>
 

@@ -9,7 +9,7 @@ if (isset($_REQUEST['a']) && !empty($_REQUEST['a']))
 	$gestor=new gestor_reserves();
 	if (!$gestor->valida_sessio(1))  header("Location: index.php");
 
-	$logables=array('update_client','esborra_client','inserta_reserva','update_reserva','esborra_reserva','enviaSMS','permuta','permuta_reserva','','','','','','','','','','','');
+	$logables=array('update_client','esborra_client','inserta_reserva','update_reserva','esborra_reserva','enviaSMS','permuta','permuta_reserva');
 	$log=in_array($_REQUEST['a'], $logables);
 		
 	$ip=isset($ips[$_SERVER['REMOTE_ADDR']])?$ips[$_SERVER['REMOTE_ADDR']]:$_SERVER['REMOTE_ADDR'];
@@ -28,7 +28,7 @@ if (isset($_REQUEST['a']) && !empty($_REQUEST['a']))
                 $r=isset($_REQUEST['r'])?$_REQUEST['r']:'';
                 $term=isset($_REQUEST['term'])?$_REQUEST['term']:'';
                 
-		if ($log)	$gestor->reg_log("/* >>> Petició Gestor reserves:  user: $user ($ip)".$a." (b=".$b.", c=".$c.", d=".$d." ---- p=".$p.", q=".$q.", r=".$r.", c=".$c.", d=".$d.", e=".$e.")<<< */".EOL);
+		if ($log)	$gestor->reg_log("<span class='ajax'>AJAX >> $a</span>:  user: $user ($ip) (b=".$b.", c=".$c.", d=".$d." ---- p=".$p.", q=".$q.", r=".$r.", c=".$c.", d=".$d.", e=".$e.")<<< */".EOL);
 	
 	switch ($accio=$a)
 	{

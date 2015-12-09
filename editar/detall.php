@@ -148,13 +148,13 @@ $movilitat=$movilitat?' / <span style="color:red;">Movilitat reduïda</span> ':'
           <td width="320" align="right" bgcolor="#CCCCCC" class="llista"><div align="left"><?php echo (int)$row_DetailRS1['adults']; ?> </div></td>
         </tr>
         <tr>
-          <td align="right" bgcolor="#333333" class="Estilo2">nens de 10 a 14 anys<br />
+          <td align="right" bgcolor="#333333" class="Estilo2">nens de 10 a 14 anys<br/>
             men&uacute;s junior </td>
           <td width="320" align="right" bgcolor="#CCCCCC" class="llista"><div id="cal" align="left"><?php echo (int)$row_DetailRS1['nens10_14']."<br/>&nbsp;".$row_DetailRS1['txt_1']; ?>
           </div></td>
         </tr>
         <tr>
-          <td align="right" bgcolor="#333333" class="Estilo2">nens de 4 a 9 anys<br />
+          <td align="right" bgcolor="#333333" class="Estilo2">nens de 4 a 9 anys<br/>
             men&uacute;s infantils </td>
           <td width="320" align="right" bgcolor="#CCCCCC" class="llista"><div align="left"><?php echo (int)$row_DetailRS1['nens4_9']."<br/>&nbsp;".$row_DetailRS1['txt_2']; ?> </div></td>
         </tr>

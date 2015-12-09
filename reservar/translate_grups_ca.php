@@ -331,17 +331,17 @@ Past&iacute;s Selva trufa<BR>
 	$translate['menu_2007']=$translate['menu_4']='
 <B>ENTRANTS</B>
 <UL>
-  <p><strong>Variat de verdures a la brasa</strong><br />
-        <i>(Plat per comensal)</i><br /> <br />
-		Escalivada <br />
-		Girgoles<br />
-		Esparrecs<br />
-        Carxofes temporada<br />
+  <p><strong>Variat de verdures a la brasa</strong><br/>
+        <i>(Plat per comensal)</i><br/> <br/>
+		Escalivada <br/>
+		Girgoles<br/>
+		Esparrecs<br/>
+        Carxofes temporada<br/>
     &nbsp;
   </p>
   </UL>
-<B>CARNS A LA BRASA</B><br />
-<i>(Ració individual a escollir)</i><br /><br />
+<B>CARNS A LA BRASA</B><br/>
+<i>(Ració individual a escollir)</i><br/><br/>
 <UL>
   Conill<br>
     Botifarra<br>

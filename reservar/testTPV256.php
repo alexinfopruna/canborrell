@@ -36,8 +36,30 @@ $lidr = $order = substr(time(), -4, 3) . $id_reserva;
 $amount = isset($_REQUEST['pamount']) ? $_REQUEST['pamount'] : 1500;
 $response = isset($_REQUEST['presponse']) ? $_REQUEST['presponse'] : 99;
 $callback = isset($_REQUEST['pcallback']) ? $_REQUEST['pcallback'] : "reserva_pk_tpv_ok_callback";
-
+$ddate = date("d-m-Y");
+$dhour = date("H:i");
 //echo $callback;die();
+if (isset($_REQUEST['Decode'])){
+  $params = $miObj->decodeMerchantParameters($_REQUEST['Ds_Merchant_MerchantParameters']  );
+  $param = json_decode($params, TRUE);
+  $amount = $param['Ds_Amount'];
+  $lidr = $param['Ds_Order'];
+//  $fuc = $param['$fuc']
+  $moneda = $param['Ds_Currency'];
+  $trans = $param['Ds_TransactionType'];
+  $terminal = $param['Ds_Terminal'];
+  $response = $param['Ds_Response'];
+  $callback = $param['Ds_MerchantData'];
+  $ddate = $param['Ds_Date'];
+  $dhour = $param['Ds_Hour'];
+  echo "<pre>";
+  print_r($param);
+  echo "</pre>";
+  
+  
+  echo  "intval($response)=".intval($response);
+  echo "<br><br>";
+}
 
 $miObj->setParameter("Ds_Amount", $amount);
 $miObj->setParameter("Ds_Order", strval($lidr));
@@ -45,7 +67,7 @@ $miObj->setParameter("Ds_MerchantCode", $fuc);
 $miObj->setParameter("Ds_Currency", $moneda);
 $miObj->setParameter("Ds_TransactionType", $trans);
 $miObj->setParameter("Ds_Terminal", $terminal);
-$miObj->setParameter("Ds_Date", date("d-m-Y"));
+$miObj->setParameter("Ds_Date", $ddate);
 $miObj->setParameter("Ds_Hour", date("H:i"));
 $miObj->setParameter("Ds_Response", $response);
 $miObj->setParameter("Ds_MerchantData", $callback);
@@ -122,6 +144,16 @@ input[type=text], .ds_input {
     <input type="submit" name="init" value="Enviar" />
     <input type="submit" name="reset_estat" value="reset_estat" />
 </form>  
+<br/>
+<br/>
+<br/>
+<br/>
+
+  <form name="decode" action="" method="POST" target="_self">
+      Ds_Merchant_MerchantParameters<br> <textarea style="width:700px;height:150px;" name="Ds_Merchant_MerchantParameters"></textarea><br/>
+      <input type="submit" value="Decode" name="Decode" >
+  </form>
+
 <br/>
 <br/>
 <br/>

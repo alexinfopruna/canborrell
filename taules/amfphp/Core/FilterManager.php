@@ -10,7 +10,7 @@
  */
 
 /**
- * Filters are provided by Amfphp to allow your contexts to 'filter into' the rest of Amfphp, i.e. to call functions in your context at specific times<br />
+ * Filters are provided by Amfphp to allow your contexts to 'filter into' the rest of Amfphp, i.e. to call functions in your context at specific times<br/>
  * Call addFilter to register a filter, with a default priority of 10, and call callFilter to actually execute the filter
  * 
  * The data structure is as follows: 

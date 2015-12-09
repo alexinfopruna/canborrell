@@ -548,7 +548,7 @@ $(function () {
     cb_autocompletes();
 
     $(window).focus(function () {
-        comprova_refresh();
+        //comprova_refresh();
     });
 }); // FINAL READY
 
@@ -780,10 +780,9 @@ function deleteReserva(id)
                 $("#reservesAc").html(decodeURIComponent(datos));
                 $("#reservesAc").accordion(acopres);
                 $("#reservesAc").show().accordion("refresh");
-                ;
+                
                 onClickAmpliaReserva();
 
-                //$( "#reservesAc" ).accordion("resize");
                 addHandlersAccordionReserves();
                 getFlashMovie("flash").canviData(date_session);
                 recargaAccordionClients(true);
@@ -1333,10 +1332,6 @@ function recordatori_petites_3dies() {
  */
 function comprova_refresh()
 {
-
-
-
-
     var d = new Date();
     var rand = d.getTime();
     var desti = "gestor_reserves.php?a=refresh&r=" + rand;
@@ -1367,8 +1362,9 @@ function timer(activa)
 {
     debug(activa ? "ON" : "OFF");
     $(document).stopTime('refresh');
-    if (activa)
+    if (activa){
         $(document).everyTime(REFRESH_INTERVAL, 'refresh', comprova_refresh);
+    }
 
     timeractiu = activa;
 }

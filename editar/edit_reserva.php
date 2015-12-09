@@ -41,6 +41,13 @@ if (isset($_SERVER['QUERY_STRING'])) {
 if (!isset($_POST['data'])) $_POST['data']=null;
 $data=cambiaf_a_mysql($_POST['data']);
 
+
+$query_reserves = "SELECT * FROM reserves WHERE id_reserva=$id ORDER BY estat ";
+//$query_limit_reserves = sprintf("%s LIMIT %d, %d", $query_reserves, $startRow_reserves, $maxRows_reserves);
+$reserves = mysqli_query( $canborrell, $query_reserves) or die(((is_object($GLOBALS["___mysqli_ston"])) ? mysqli_error($GLOBALS["___mysqli_ston"]) : (($___mysqli_res = mysqli_connect_error()) ? $___mysqli_res : false)));
+$row_Recordset1 = mysqli_fetch_assoc($reserves);
+
+
 if ((isset($_POST["MM_update"])) && ($_POST["MM_update"] == "form1")) {
   $updateSQL = sprintf("UPDATE reserves SET num_1=000, data=%s, nom=%s, tel=%s, fax=%s, email=%s, lang=%s,hora=%s, menu=%s, adults=%s, nens10_14=%s, nens4_9=%s, cotxets=%s, observacions=%s, resposta=%s, txt_1=%s, txt_2=%s,estat=%s, preu_reserva=%s WHERE id_reserva=%s",
                        GetSQLValueString($data, "date"),
@@ -65,19 +72,19 @@ if ((isset($_POST["MM_update"])) && ($_POST["MM_update"] == "form1")) {
 
   /******************************************************************************/	
   $Result1 = mysqli_query( $canborrell, $updateSQL) or die(((is_object($GLOBALS["___mysqli_ston"])) ? mysqli_error($GLOBALS["___mysqli_ston"]) : (($___mysqli_res = mysqli_connect_error()) ? $___mysqli_res : false)));
-  print_log("Modificació valors: ".$_POST['id_reserva']);
-  header("location: llistat.php"); 
+  //print_log("Modificació valors: ".$_POST['id_reserva']);
+  $res=$_POST['id_reserva'];
 
+   Gestor::xgreg_log("<span class='grups'>Modificació reserva GRUPS: <span class='idr'>$res</span></span>",0,'/log/logGRUPS.txt');
+   $anterior = Gestor::log_array($row_Recordset1);
+   Gestor::xgreg_log("Valor anterior:<br>$anterior",1,'/log/logGRUPS.txt');
+  
+  header("location: llistat.php"); 
 }
 ?>
 
 <?php
 /******************************************************************************/	
-$query_reserves = "SELECT * FROM reserves WHERE id_reserva=$id ORDER BY estat ";
-//$query_limit_reserves = sprintf("%s LIMIT %d, %d", $query_reserves, $startRow_reserves, $maxRows_reserves);
-$reserves = mysqli_query( $canborrell, $query_reserves) or die(((is_object($GLOBALS["___mysqli_ston"])) ? mysqli_error($GLOBALS["___mysqli_ston"]) : (($___mysqli_res = mysqli_connect_error()) ? $___mysqli_res : false)));
-$row_Recordset1 = mysqli_fetch_assoc($reserves);
-
 if (isset($_GET['totalRows_reserves'])) {
   $totalRows_reserves = $_GET['totalRows_reserves'];
 } else {
@@ -186,7 +193,7 @@ if (isset($_GET['totalRows_reserves'])) {
       <td width="300" bgcolor="#CCCCCC" class="llista"><input name="nens10_14" type="text" value="<?php echo (int)$row_Recordset1['nens10_14']; ?>" size="32" /> 
         / <input name="txt_1" type="text" size="14"  value="<?php echo $row_Recordset1['txt_1']; ?>"/>
           
-          <br />
+          <br/>
           <span class="petita">men&uacute;: junior / jr_comu; / jr_casa 
           
           </span></td>
@@ -196,7 +203,7 @@ if (isset($_GET['totalRows_reserves'])) {
       <td width="300" bgcolor="#CCCCCC" class="llista"><input name="nens4_9" type="text" value="<?php echo (int)$row_Recordset1['nens4_9']; ?>" size="32"> 
         / 
           <input name="txt_2" type="text" size="14"  value="<?php echo $row_Recordset1['txt_2']; ?>"/>
-          <br />
+          <br/>
         <span class="petita">men&uacute;: infantil / inf_comu / inf_casa </span></td>
     </tr>
     <tr valign="baseline">

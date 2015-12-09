@@ -86,6 +86,7 @@ class ControlTaules {
     $str = "";
     $values = "";
     $coma = "";
+    $this->xgreg_log('AMFPHP guardaEstat <span class="idr">'.$data.'</span>'); 
 
     for ($i = 0; $i < count($taules); $i++) {
       $nid = 0;
@@ -103,14 +104,24 @@ class ControlTaules {
 		$values;
 		";
       $Result1 = $this->log_mysql_query($query, $canborrell); // or die(((is_object($GLOBALS["___mysqli_ston"])) ? mysqli_error($GLOBALS["___mysqli_ston"]) : (($___mysqli_res = mysqli_connect_error()) ? $___mysqli_res : false)));
-     // $nid = ((is_null($___mysqli_res = mysqli_insert_id($GLOBALS["___mysqli_ston"]))) ? false : $___mysqli_res);
+      //$Result1 = $this->log_mysql_query($query, $canborrell); // or die(((is_object($GLOBALS["___mysqli_ston"])) ? mysqli_error($GLOBALS["___mysqli_ston"]) : (($___mysqli_res = mysqli_connect_error()) ? $___mysqli_res : false)));
       $nid =mysqli_insert_id($canborrell);
 
-      $this->reg_log("AMFPHP guardaEstat (estat_taules_id: $nid) >
-(estat_taula_data, estat_taula_torn, estat_taula_taula_id, estat_taula_nom, reserva_id, estat_taula_x, estat_taula_y, estat_taula_persones, estat_taula_cotxets, estat_taula_grup, estat_taula_plena) " .
-          $values);
-//			}
-
+      $query = "SELECT * FROM " . ESTAT_TAULES . " 
+			WHERE estat_taula_data = '$mydata' 
+			AND estat_taula_torn = '$torn'
+			AND estat_taula_taula_id = '" . $taula->id . "'
+			AND estat_taula_id<>'$nid'";
+       $Result1 = $this->log_mysql_query($query, $canborrell); // or die(((is_object($GLOBALS["___mysqli_ston"])) ? mysqli_error($GLOBALS["___mysqli_ston"]) : (($___mysqli_res = mysqli_connect_error()) ? $___mysqli_res : false)));
+     while ($row = mysqli_fetch_array($Result1)) {
+       $estat='<pre>'.print_r($row,TRUE).'</pre>';
+    $this->xgreg_log('Estat anterior: <br>'.$estat,1); 
+       
+     }
+    
+     
+      
+      
       $query = "DELETE FROM " . ESTAT_TAULES . " 
 			WHERE estat_taula_data = '$mydata' 
 			AND estat_taula_torn = '$torn'
@@ -137,7 +148,7 @@ class ControlTaules {
   /*   * ****************************************************************************************************************************** */
 
   function guardaEstatMenjador($data, $torn, $menjador, $actiu) {
-//echo $data." ******** ";
+    $this->xgreg_log('AMFPHP guardaEstatMenjador <span class="idr">'.$data.'</span>'); 
     $this->recuperaSesion($data, $torn);
 
     //	echo $data;
@@ -389,7 +400,7 @@ ORDER BY estat_taules_timestamp DESC";
   /////////////////////////////////////////////////////////////////////////	
   /////////////////////////////////////////////////////////////////////////	
 
-  function reg_log($text, $file = LOG_FILE) {
+  function ANULAAATreg_log($text, $file = LOG_FILE) {
     $file = ROOT . INC_FILE_PATH . $file;
     if (!file_exists($file))
       return false;
@@ -424,29 +435,58 @@ ORDER BY estat_taules_timestamp DESC";
       fclose($f);
     }
   }
+  
+  function xgreg_log($text, $type=0, $file = false, $reqest = true) {
+    if (!is_numeric($type)){
+      // COMPATIBILITAT PER ERROR EN ELS PARAMETRES
+      $reqest = $file; 
+      $file = $type;
+    }
+    
+    if (!$file){
+      $file = LOG_FILE;
+    }
+    
+    $file = ROOT . INC_FILE_PATH . $file;
+    $req = '';
+    /*
+    if (FALSE && $reqest && !$type) {
+      $req = '<pre>' . print_r($_REQUEST, true) . '</pre>';
+    }
+     * 
+     */
+    $ip = isset($ips[$_SERVER['REMOTE_ADDR']]) ? $ips[$_SERVER['REMOTE_ADDR']] : $_SERVER['REMOTE_ADDR'];
+    $sessuser = $_SESSION['uSer'];
+    if (isset($sessuser))
+      $user = $sessuser->id;
+    $sep = "";
+    if ($type==0)  $text = '</ul>'.EOL.'<ul class="level-0 amfphp"> >>> <span class="date">' . date("Y-m-d H:i:s") . "</span> user:$user ($ip) >>>> " . $text . EOL;
+    if ($type==1)  $text = '<li class="level-1 amfphp">'. $text .'</li>'. EOL;
+    
+    error_log($text . EOL . $req . EOL, 3, $file);
 
+   // Gestor::rename_big_file($file, 10000000);
+  }
+  
   function log_mysql_query($query, $conn) {
     $file = ROOT . INC_FILE_PATH . LOG_QUERYS_FILE;
 //			if (!file_exists($file)) return false;
     if ($this->stringMultiSearch($query, LOG_QUERYS)) {
 
       $ip = isset($ips[$_SERVER['REMOTE_ADDR']]) ? $ips[$_SERVER['REMOTE_ADDR']] : $_SERVER['REMOTE_ADDR'];
-      error_log("/* AMF " . date(" >>> " . DATE_ATOM) . " >>> usr:" . $_SESSION['loGin'] . " ($ip) */" . EOL, 3, $file);
+      error_log('<li  class="query amfphp a2" >   '.$query.'</li>', 3, $file);
 
       $query = str_replace("\n", " ", $query);
       $query = str_replace("\r", " ", $query);
       $query = str_replace("<br>", " ", $query);
       $query = str_replace("<\br>", " ", $query);
       $query = trim($query);
-      if (substr($query, -1) != ";")
-        $query = $query . ";";
-      error_log($query . EOL . EOL, 3, $file);
+      if (substr($query, -1) != ";")        $query = $query . ";";
+      //error_log($query . EOL . EOL, 3, $file);
       $this->rename_big_file(LOG_QUERYS_FILE, 2000000);
     }
 
     $r = mysqli_query($conn, $query);
-
-    //error_log("/* RESULT: $r */");
     return $r;
   }
 

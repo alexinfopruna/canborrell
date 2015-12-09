@@ -8,8 +8,6 @@ if ($id=$_REQUEST['id'])
 {
 	header('Content-Type: text/html; charset=UTF-8');
 	$row_client=$gestor->load_client($id);
-	//foreach($row_client as $k=>$v) $row_client[$k]=utf8_encode($v);
-
 	$class=" updata_cli";
 	$editFormAction="gestor_reserves.php?a=update_client&p=".$id;
 }
@@ -21,7 +19,6 @@ else
  ?><form class="form_edit <?php echo $class;?>" id="<?php echo $class;?>" method="post" name="frmEditClient" action="<?php echo $editFormAction;  ?>">
 	<div id="frm_edit_modal" class="centrat" >	
 			<!-- UPLOAD -->
-	
 	<table align="center">
 	  <tr valign="baseline" class="amagatxx">
 		<td nowrap="nowrap" align="right">id_client:</td>
@@ -31,7 +28,6 @@ else
 		 <?php echo $row_client['client_id'] ?>
 		</td>
 	 </tr>	  
-	  
 	 
 	  <tr valign="baseline">
 		<td nowrap="nowrap" align="right">Mòbil/Fixe 1:</td>

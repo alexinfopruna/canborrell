@@ -164,7 +164,7 @@ if ( !headers_sent() ) {
         echo $dump;
     }
 } else {
-    echo "<b>ATENCION: Probablemente ha ocurrido un error</b><br />\n<pre>\n$dump\n</pre>";
+    echo "<b>ATENCION: Probablemente ha ocurrido un error</b><br/>\n<pre>\n$dump\n</pre>";
 }
 
 //header("Location: ../taules/print.php?p=FUTUR")

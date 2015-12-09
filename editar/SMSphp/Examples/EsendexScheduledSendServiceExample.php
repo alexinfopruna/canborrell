@@ -40,20 +40,20 @@ $scheduledSendService = new EsendexScheduledSendService( $username, $password, $
 // Uncomment lines for different functions.
 
 // Send a simple scheduled message with a specified date/time.
-print( "<b>ScheduledSendMessageAt</b><br />" );
+print( "<b>ScheduledSendMessageAt</b><br/>" );
 $result = $scheduledSendService->ScheduledSendMessageAt( $recipients, $body, $type, $submitAt );
 
 /*
 // Send a simple scheduled message with a specified count down time in days, hours and minutes.
-print( "<b>ScheduledSendMessageIn</b><br />" );
+print( "<b>ScheduledSendMessageIn</b><br/>" );
 $result = $scheduledSendService->ScheduledSendMessageIn( $recipients, $body, $type, $days, $hours, $minutes );
 
 // Send a scheduled message with a specified originator and validity period.
-print( "<b>ScheduledSendMessageAtFull</b><br />" );
+print( "<b>ScheduledSendMessageAtFull</b><br/>" );
 $result = $scheduledSendService->ScheduledSendMessageAtFull( $originator, $recipients, $body, $type, $validityPeriod, $submitAt );
 
 // Send a scheduled message with a specified originator, validity period and count down time in days, hours and minutes.
-print( "<b>ScheduledSendMessageInFull</b><br />" );
+print( "<b>ScheduledSendMessageInFull</b><br/>" );
 $result = $scheduledSendService->ScheduledSendMessageInFull( $originator, $recipients, $body, $type, $validityPeriod, $days, $hours, $minutes );
 */
 
@@ -64,26 +64,26 @@ $messageIDs = split( ",", $result['MessageIDs'] );
 
 if ( !is_null( $messageIDs ) && sizeof( $messageIDs ) > 0 )
 {
-	print( "<br /><br />" );
+	print( "<br/><br/>" );
 
 	foreach ( $messageIDs as $messageID )
 	{
-		print( "<b>Message ID</b>: $messageID<br />" );
+		print( "<b>Message ID</b>: $messageID<br/>" );
 	}
 
-	print( "<br /><hr /><br />" );
+	print( "<br/><hr /><br/>" );
 
 	// Get the status of the sent message(s).
-	print ( "<b>GetMessageStatus</b><br />" );
+	print ( "<b>GetMessageStatus</b><br/>" );
 	foreach ( $messageIDs as $messageID )
 	{
 		$messageStatus = $scheduledSendService->GetMessageStatus( $messageID );
 		
 		print_r( $messageStatus );
 		
-		print( "<br /><br />" );
+		print( "<br/><br/>" );
 		
-		print( "<b>$messageID</b>: ".$messageStatus['MessageStatus']."<br /><br />" );
+		print( "<b>$messageID</b>: ".$messageStatus['MessageStatus']."<br/><br/>" );
 	}
 }
 ?>

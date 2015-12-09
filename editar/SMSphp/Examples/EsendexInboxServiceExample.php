@@ -47,21 +47,21 @@ print_r( $result );
 
 if ( !is_null( $messages ) )
 {
-	print "<br /><br />";
+	print "<br/><br/>";
 
 	foreach ( $messages as $message )
 	{
 		foreach ( $message as $key => $value )
 		{
-			print "<b>$key</b>: $value<br />";
+			print "<b>$key</b>: $value<br/>";
 		}
 		
-		print "<br />";
+		print "<br/>";
 	}
 }
 
 /*
-print "<br /><hr /><br />";
+print "<br/><hr /><br/>";
 
 // Delete a message from the inbox.
 $result = $inboxService->DeleteMessage( $messageID );

@@ -401,7 +401,11 @@ function recargaHores()
 */
 function comportamentMenus()
 {	
-
+    $(".resum-carta-nom").click(function (e) {
+        $(this).closest("tr").find("td.mes a").trigger("click");
+        e.preventDefault();
+        return FALSE;
+    });
 }
 
 /*******************************************************************************************************************
@@ -417,7 +421,6 @@ function comportamentClient()
 	$(".fr-seccio-client input[name='client_email']").change(function(){		
 		if ($(this).valid()) updateClient();
 	});
-	
 
 	if ($(".fr-seccio-client").is(":hidden")) $(".fr-seccio-client").slideDown("slow",function(){seccio("fr-seccio-client");});
         $(".fr-seccio-client input").bind('blur change ', validaDadesClient);

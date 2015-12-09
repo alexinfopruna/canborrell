@@ -34,12 +34,12 @@ $sendContentService = new EsendexSendContentService( $username, $password, $acco
 // Uncomment lines for different functions.
 
 // Send a simple WAP push message.
-print( "<b>SendWAPPush</b><br />" );
+print( "<b>SendWAPPush</b><br/>" );
 $result = $sendContentService->SendWAPPush( $recipients, $href, $text );
 
 /*
 // Send a WAP push message with a specified alias and validity period
-print( "<b>SendWAPPushFull</b><br />" );
+print( "<b>SendWAPPushFull</b><br/>" );
 $result = $sendContentService->SendWAPPushFull( $originator, $recipients, $href, $text, $validityPeriod );
 */
 
@@ -51,11 +51,11 @@ $messageIDs = split( ",", $result['MessageIDs'] );
 
 if ( !is_null( $messageIDs ) && sizeof( $messageIDs ) > 0 )
 {
-	print "<br /><br />";
+	print "<br/><br/>";
 	
 	foreach ( $messageIDs as $messageID )
 	{
-		print "<b>Message ID</b>: $messageID<br />";
+		print "<b>Message ID</b>: $messageID<br/>";
 	}
 }
 ?>

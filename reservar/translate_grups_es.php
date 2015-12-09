@@ -344,16 +344,16 @@ Tarta Selva trufa<br/>
 	$translate['menu_2007']=$translate['menu_4']='
 <B>ENTRANTES</B>
 <UL>
-  <strong>Variado de verduras</strong><br />
-  <i>(Plato por comensal) </i><br /><br />
-	Escalivada<br />
-	Girgolas<br />
-	Esp&aacute;rragos <br />
-	Alcahofas temporada<br />
+  <strong>Variado de verduras</strong><br/>
+  <i>(Plato por comensal) </i><br/><br/>
+	Escalivada<br/>
+	Girgolas<br/>
+	Esp&aacute;rragos <br/>
+	Alcahofas temporada<br/>
   &nbsp;<br/>
 </UL>
-<B>CARNES A LA BRASA </B><br />
-<i>(Raci&oacute;n individual a escoger)</i><br /><br />
+<B>CARNES A LA BRASA </B><br/>
+<i>(Raci&oacute;n individual a escoger)</i><br/><br/>
 <UL>
   Conejo<br/>
     Butifarra<br/>

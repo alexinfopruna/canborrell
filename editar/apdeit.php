@@ -58,9 +58,13 @@ if (($func=="Eliminar")&&($id==$P_ID))
 {
    $query="DELETE FROM reserves WHERE id_reserva=$id AND estat=5";
    $result=mysqli_query($canborrell, $query);
-   $query='UPDATE reserves SET estat=5 WHERE id_reserva='.$id;
-   $result=mysqli_query($canborrell, $query);
-    print_log("Reserva Esborrada: $id");
+   $query2='UPDATE reserves SET estat=5 WHERE id_reserva='.$id;
+   $result=mysqli_query($canborrell, $query2);
+   // print_log("Reserva Esborrada: $id");
+    
+   Gestor::xgreg_log("<span class='grups'>Reserva Esborrada: <span class='idr'>$id</span></span>",0,'/log/logGRUPS.txt');
+      Gestor::xgreg_log("<span class='grups'>$query</span>",1,'/log/logGRUPS.txt');
+         Gestor::xgreg_log("<span class='grups'>$query2</span>",1,'/log/logGRUPS.txt');
    header("location: llistat.php");
 
 }
@@ -68,7 +72,10 @@ else
 {    
     $d_limit=$_POST['data_limit'];
    $query='UPDATE reserves SET estat='.$estat.', num_1=0, data_limit="'.$d_limit.'" WHERE id_reserva='.$id;
-   print_log("Reserva modificada: $id / estat=$estat / data limit=$d_limit ---- $query");
+   //print_log("Reserva modificada: $id / estat=$estat / data limit=$d_limit ---- $query");
+   Gestor::xgreg_log("<span class='grups'>Reserva modificada: <span class='idr'>$id</span> / estat=$estat / data limit=$d_limit ---- </span>",0,'/log/logGRUPS.txt');
+   Gestor::xgreg_log("<span class='grups'>$query</span>",1,'/log/logGRUPS.txt');
+   
    //echo $query;
    $result=mysqli_query($canborrell, $query);  
     //mysql_free_result($result);
@@ -79,6 +86,8 @@ else
 
 function mail_SMS_cli($id=false,$SMS=null)
 {    
+   Gestor::xgreg_log("<span class='mail'>ENVIA SMS+MAIL: <span class='idr'>$id</span></span>",0,'/log/logGRUPS.txt');
+  
 	global $camps, $mmenu,$txt,$database_canborrell, $canborrell,$lang;
 	if (!isset($_SESSION)) session_start();
 	
@@ -100,9 +109,16 @@ function mail_SMS_cli($id=false,$SMS=null)
  	$SMS=str_replace('{DIA}', $fila['data'], $SMS);
  	echo "ID: $id / SMS: $SMS";
  	$g=new gestor_reserves();
- 	$g->enviaSMS($id, $SMS);
- 	
- 	
+                            
+       Gestor::xgreg_log("<span class='grups'>Enviament SMS($d): <span class='idr'>$id</span></span>",1,'/log/logGRUPS.txt');
+                        
+   Gestor::xgreg_log("<span class='grups'>Enviament SMS: <span class='idr'>$id</span></span>",0,'/log/logMAILSMS.txt');
+                            
+ 	$r=$g->enviaSMS($id, $SMS);
+     $r=$r?"<span class='EXIT'>EXIT</span>":"<span class='ERROR'>ERROR</span>";
+   Gestor::xgreg_log("<span class='grups'>RESULTAT SMS($d): <span class='idr'>$id</span></span>",1,'/log/logMAILSMS.txt');
+                           
+ 	error_log("</ul>",3, ROOT . INC_FILE_PATH .'/log/logMAILSMS.txt');
  	
  	
 	switch ((int)$fila['estat'])
@@ -243,21 +259,11 @@ function mail_SMS_cli($id=false,$SMS=null)
     if (!isset($attach))$attach=null;
     $r=mailer($recipient, $subject , $html, $altbdy,$attach,false,MAIL_CCO);
     $nreserva=$fila['id_reserva'];
-	$att=$attach?" -- FACTURA: $attach":"";
-    print_log("Enviament mail($r): $nreserva -- $recipient, $subject: $copia $att");
+    $att=$attach?" -- FACTURA: $attach":"";
+    //print_log("Enviament mail($r): $nreserva -- $recipient, $subject: $copia $att");
+   Gestor::xgreg_log("<span class='grups'>Enviament mail($r): <span class='idr'>$nreserva</span> -- $recipient, $subject: $copia $att</span>",1,'/log/logGRUPS.txt');
 
-    // COPIA PER AL RESTAURANT
-	/*
-    $recipient = MAIL_RESTAURANT;  
-    if ($fila['nom']=="montseTPV") $recipient = "montse@topeweb.com";  
-    if ($fila['nom']=="alexTPV") $recipient = "alex@topeweb.com";  
-    if ($fila['nom']=="davidTPV") $recipient = "david@topeweb.com";  
-    $subject="COPIA D'EMAIL ENVIAT A CLIENT: ".$copia;
-    $r=mailer($recipient, $subject, $html, $altbdy,$attach);
-    $nreserva=$fila['id_reserva'];
-    print_log("Enviament mail($r): $nreserva -- $recipient, $subject $att");
-	*/
-	
+    
     ((mysqli_free_result($Result) || (is_object($Result) && (get_class($Result) == "mysqli_result"))) ? true : false);
 	return ($fila['id_reserva']);
 }
@@ -363,8 +369,10 @@ function mail_restaurant($id=false)
     $subject = "..::Reserva Can Borrell: Confirmació pagament reserva de grup"; 
 
     $r=mailer($recipient, $subject, $html, $altbdy);
+    $r=$r?"<span class='EXIT'>EXIT</span>":"<span class='ERROR'>ERROR</span>";
     $nreserva=$fila['id_reserva'];
-    print_log("Enviament mail($r): $nreserva -- $recipient, $subject");
+    //  print_log("Enviament mail($r): $nreserva -- $recipient, $subject");
+   Gestor::xgreg_log("<span class='grups'>Enviament mail($r): <span class='idr'>$nreserva</span> -- $recipient, $subject: $copia $att</span>",1,'/log/logGRUPS.txt');
 	
     ((mysqli_free_result($Result) || (is_object($Result) && (get_class($Result) == "mysqli_result"))) ? true : false);
 	return ($fila['id_reserva']);

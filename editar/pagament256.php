@@ -31,8 +31,11 @@ else {
   $id = $_GET["id"];
 }
 
-/* * *************************************************************************** */
 
+/* * *************************************************************************** */
+$gestor = new gestor_reserves();
+/* * *************************************************************************** */
+$gestor->xgreg_log("PÀGINA PAGAMENT GRUPS: <span class='idr'>$id</span>");
 //CADUCADES
 $query_reserves = "UPDATE reserves SET estat=6 WHERE ADDDATE(data_limit,INTERVAL 1 DAY) < NOW() AND data_limit>'2008-01-01' AND estat=2";
 $reserves = mysqli_query($canborrell, $query_reserves) or die(((is_object($GLOBALS["___mysqli_ston"])) ? mysqli_error($GLOBALS["___mysqli_ston"]) : (($___mysqli_res = mysqli_connect_error()) ? $___mysqli_res : false)));
@@ -53,14 +56,19 @@ if (!isset($lang))
 // ARREGLAR MISSATGES
 
 if (($estat == 3) || ($estat == 7)) { // JA S?HA PAGAT 
+
   $titol['cat'] = "Aquesta reserva ja ha estat pagada<br><br><br><br><br><br>";
   $titol['esp'] = "Esta reserva ya ha sido pagada<br><br><br><br><br><br><br>";
-  $surt = true;
+  $surt = true;  
+  $gestor->xgreg_log($titol['cat'],1);
+
 }
 else if ($estat != 2) {    // NO ESTA CONFIRMADA
   $titol['cat'] = "Lamentablement aquesta reserva no ha estat confirmada o ha caducat! Contacti amb el restaurant<br><br><br><br><br><br><br><br>";
   $titol['esp'] = "Lamentablemente esta reserva no ha sido confirmada o ha caducado! Contacte con el restaurante<br><br><br><br><br><br><br><br>";
   $surt = true;
+    $gestor->xgreg_log($titol['cat'],1);
+
 }
 
 
@@ -72,6 +80,9 @@ if ($dif < 0) {
   $titol['cat'] = "Aquesta reserva ha caducat! Contacti amb el restaurant<br><br><br><br><br><br><br><br>";
   $titol['esp'] = "Esta reserva ha caducado! Contacte con el restaurante<br><br><br><br><br><br><br><br>";
   $surt = true;
+      $gestor->xgreg_log($titol['cat'],1);
+
+  
 }
 
 // EXISTEIX???
@@ -79,6 +90,8 @@ if (mysqli_num_rows($Result) <= 0) {
   $titol['cat'] = "Ho sentim però aquesta reserva no apareix a la base de dades<br><br><br><br><br><br><br><br><br>";
   $titol['esp'] = "Lo sentimos pero esta reserva no aparece en la base de datos<br><br><br><br><br><br><br><br><br>";
   $surt = true;
+      $gestor->xgreg_log($titol['cat'],1);
+
 }
 
 
@@ -229,9 +242,7 @@ echo $r;
                         <tr>
                             <td align="right" bgcolor="#333333" class="Estilo2">menú</td>
                             <td width="320" bgcolor="#CCCCCC" class="llista"><div align="left"><?php
-//echo $mmenu[(int)$fila['menu']]['cat']; 
 ///// COMANDA
-                                    $gestor = new gestor_reserves();
                                     echo $comanda = $gestor->plats_comanda($fila['id_reserva']);
                                     ?> </div></td>
                         </tr>

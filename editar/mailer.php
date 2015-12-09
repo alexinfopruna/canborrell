@@ -11,6 +11,9 @@ if (!defined('CONFIG'))
 
 function mailer($addr,$subject,$body,$altbody,$attach=null, $test=false, $cco=null)
 {  
+  error_log('<ul class="level-0"> >>> <span class="date">' . date("Y-m-d H:i:s") . "</span> >>>>  MAIL $addr<li class='level-0'>$addr, $subject, $body</li>",3, ROOT . INC_FILE_PATH .'/log/logMAILSMS.txt');
+  
+  
   if (!isset($altbody)) $altbody="Su cliente de correo no puede interpretar correctamente este mensaje. Por favor, póngase en contacto con el restaurante llamando al 936 929 723 o al 936 910 605. Disculpe las molestias";
     
   $mail = new phpmailer();
@@ -48,8 +51,8 @@ function mailer($addr,$subject,$body,$altbody,$attach=null, $test=false, $cco=nu
   if ($attach) $mail->AddAttachment($attach,basename($attach));
  
   $occo='';
-  print_log("TEST".$test);
-  print_log("ENVIA".(ENVIA_MAILS?"SI":"NO"));
+  error_log("<li>TEST".$test.'</li>',3,ROOT . INC_FILE_PATH .'/log/logMAILSMS.txt');
+  error_log("<li>ENVIA ACTIVAT: ".(ENVIA_MAILS?"SI":"NO").'</li>',3,ROOT . INC_FILE_PATH .'/log/logMAILSMS.txt');
   if ($test || ENVIA_MAILS===false)
   {
 	  $exito=true;
@@ -66,10 +69,11 @@ function mailer($addr,$subject,$body,$altbody,$attach=null, $test=false, $cco=nu
 	  $o.= "...............................................................................<br/><br/>".EOL.EOL;
 	  $o.= "...............................................................................<br/><br/>".EOL.EOL;
           
-	$f = fopen(ROOT.INC_FILE_PATH."log/test_mail.html", 'w');
+	$f = fopen(ROOT.INC_FILE_PATH."log/test_mail.html", 'a');
+	fwrite($f,"ENVIAT AMB EXIT: <br>\n".$o);
 	fwrite($f,$o);
 	  
- 	//if (DEV) $mail->Send();
+ 	 error_log("</ul>",3, ROOT . INC_FILE_PATH .'/log/logMAILSMS.txt');
                             return FALSE;
   }
    else
@@ -94,15 +98,19 @@ function mailer($addr,$subject,$body,$altbody,$attach=null, $test=false, $cco=nu
                $intentos=$intentos+1;	
    }
       
-     if(!$exito)
+   if(!$exito)
    {
          $err=$mail->ErrorInfo;
-      print_log("<span style='color:red'>MAILER ERROR:$err - </span> Enviat mail TO:$addr $cco SUBJECT: $subject");
+      //print_log("<span style='color:red'>MAILER ERROR:$err - </span> Enviat mail TO:$addr $cco SUBJECT: $subject");
+      error_log("<li><span style='color:red'>MAILER ERROR:$err - </span> Enviat mail TO:$addr $cco SUBJECT: $subject",3, ROOT . INC_FILE_PATH .'/log/logMAILSMS.txt');
+      error_log("</ul>",3, ROOT . INC_FILE_PATH .'/log/logMAILSMS.txt');
+      
       return false;
    }
    else
    {
-      print_log("<span style='color:green'>MAILER SUCCESS:</span>: Enviat mail TO:$addr $cco SUBJECT: $subject");
+      error_log("<li><span style='color:green'>MAILER SUCCESS:</span>: Enviat mail TO:$addr $cco SUBJECT: $subject</li>",3, ROOT . INC_FILE_PATH .'/log/logMAILSMS.txt');
+      error_log('<li>'.$body.'</li></ul>',3, ROOT . INC_FILE_PATH .'/log/logMAILSMS.txt');
      return true;
    } 
      

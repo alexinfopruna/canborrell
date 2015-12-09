@@ -19,7 +19,9 @@ if (!$this->valida_sessio(63)) header("Location: ../panel/");
 	{
 		foreach ($_POST as $k => $v)
 		{
-			//$v=nl2br($v);
+                                                                                    $antic = $this->configVars($k);
+			$this->xgreg_log(">>> <span class='config'>SET CONFIG: $k = $v</span>  ",0);
+			$this->xgreg_log("Anterior  $k = $antic ",1);
 			$this->conf->updateVar($k, $v, null, true, null, null);
 		}
 	

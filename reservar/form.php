@@ -3,16 +3,11 @@ header('Content-Type: text/html; charset=utf-8');
 
 define('ROOT', "../taules/");
 require_once (ROOT . "Gestor.php");
-//require_once(ROOT."php/Mobile_Detect.php");
-
 
 define("LLISTA_DIES_NEGRA", INC_FILE_PATH . "llista_dies_negra_online.txt");
 define("LLISTA_DIES_BLANCA", INC_FILE_PATH . "llista_dies_blanca.txt");
 define("LLISTA_NITS_NEGRA", INC_FILE_PATH . "llista_dies_negra_online.txt");
-
-
 define('USR_FORM_WEB', 3); //ES LA ID D'USUARI (admin) ANONIM QUE CREA RESERVA ONLINE
-
 
 $ruta_lang = "../";
 /**/
@@ -32,21 +27,17 @@ $_SESSION['permisos'] = $_SESSION['uSer']->permisos;
 require_once("Gestor_form.php");
 $gestor = new Gestor_form();
 
-
 if (defined("CB_FORA_DE_SERVEI") && CB_FORA_DE_SERVEI === true && !$gestor->valida_login())
   header("Location:fora_de_servei.html");
 
-
 require_once(INC_FILE_PATH . 'alex.inc');
 require_once(INC_FILE_PATH . "llista_dies_taules.php");
-
 
 //RECUPERA IDIOMA
 if (!isset($_REQUEST["lang"]))
   $_REQUEST["lang"] = "";
 $lang = $gestor->idioma($_REQUEST["lang"]);
 $l = $gestor->lng;
-
 
 //RECUPERA CONIG ANTIC
 $PERSONES_GRUP = $gestor->configVars("persones_grup");
@@ -55,27 +46,20 @@ $max_nens = $gestor->configVars("max_nens");
 $max_juniors = $gestor->configVars("max_juniors");
 
 $gestor->netejaImpagatsTpv(); // TPV I IMPAGATS
-
-
 $paga_i_senyal = $PERSONES_GRUP >= persones_paga_i_senyal;
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html>
     <head>
-
         <title> Masia Can Borrell </title>
         <!-- <?php echo $gestor->configVars("url_base"); ?> -->
         <!-- <?php echo $gestor->configVars("INC_FILE_PATH"); ?> -->
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 
-
-
-
         <link type="text/css" href="../taules/css/blitzer/jquery-ui-1.8.9.forms.css" rel="stylesheet" />	
         <link type="text/css" href="css/jquery.tooltip.css" rel="stylesheet" />	
         <!--<link type="text/css" href="../estils.css" rel="stylesheet" />	-->
         <link type="text/css" href="css/form_reserves_mob.css" rel="stylesheet" />		
-
 
         <?php echo Gestor::loadJQuery(); ?>
 
@@ -93,7 +77,6 @@ $paga_i_senyal = $PERSONES_GRUP >= persones_paga_i_senyal;
         <script type="text/javascript" src="js/jquery.tooltip.js"></script>
 
         <meta name="viewport" content="width=device-width, initial-scale=1">
-
             <!--
            <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.1/jquery.mobile-1.4.1.min.css">
            <script src="http://code.jquery.com/mobile/1.4.1/jquery.mobile-1.4.1.min.js"></script>                
@@ -123,7 +106,6 @@ $paga_i_senyal = $PERSONES_GRUP >= persones_paga_i_senyal;
             -->
             <?php
             require_once('translate_' . $gestor->lng . '.php');
-
             /*             * ****************************************************** */
             //ELIMINA RESERVA 
             if (isset($_POST['cancel_reserva']) && $_POST['cancel_reserva'] == "Eliminar reserva" && $_POST['idr'] > SEPARADOR_ID_RESERVES) {
@@ -135,10 +117,7 @@ $paga_i_senyal = $PERSONES_GRUP >= persones_paga_i_senyal;
                 l("ERROR_CANCEL_RESERVA");
                 $_REQUEST['idr'] = $_POST['idr'] = null;
               }
-
-              //header("Location: ../on.html");
             }
-
 
             /*             * ****************************************************** */
             //RECUPERA RESERVA UPDATE
@@ -704,8 +683,12 @@ echo LOCAL ? " local " : ""
                                                             <?php
                                                             //echo import_paga_i_senyal;
                                                             //echo $gestor->generaFormTpv('20110101',$gestor->configVars("import_paga_i_senyal"),"TEST_TPV"); 
-//if (isset($_REQUEST["testTPV"]) &&  $_REQUEST["testTPV"] = 'testTPV')                                                      
-//echo $gestor->generaFormTpvSHA256(43748,$gestor->configVars("import_paga_i_senyal"),"TEST_TPV"); 
+if (FALSE && isset($_REQUEST["testTPV"]) &&  $_REQUEST["testTPV"] = 'testTPV'){
+  echo "<style>"
+  . "#compra input[type=text], .ds_input{display:block;}"
+      . "</style>";
+   echo $gestor->generaFormTpvSHA256(43748,$gestor->configVars("import_paga_i_senyal"),"TEST_TPV"); 
+}                                                  
                                                             ?> 
 
                                                         </td></tr>

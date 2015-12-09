@@ -89,7 +89,8 @@ $query = sprintf("INSERT INTO reserves (id_reserva, `data`, client_id, nom, tel,
 	/******************************************************************************/	
 	$Result1 = $gestor->log_mysql_query($query, $canborrell) or die(((is_object($GLOBALS["___mysqli_ston"])) ? mysqli_error($GLOBALS["___mysqli_ston"]) : (($___mysqli_res = mysqli_connect_error()) ? $___mysqli_res : false)));
         $idr=$id=((is_null($___mysqli_res = mysqli_insert_id($canborrell))) ? false : $___mysqli_res);
-        print_log("Recepció de reserva: ".$_POST['id_reserva'].": ".$_POST['client_nom']." ".$_POST['client_cognoms']);
+        //print_log("Recepció de reserva: ".$_POST['id_reserva'].": ".$_POST['client_nom']." ".$_POST['client_cognoms']);
+    $gestor->xgreg_log(">>> <span class='grups'>Recepció de reserva GRUPS: <span class='idr'>$res</span> > $numMobil </span>",0,'/log/logGRUPS.txt');
 
         ///////////////////////////////////////////////////////
         // GUARDA COMANDA
@@ -131,7 +132,10 @@ $query = sprintf("INSERT INTO reserves (id_reserva, `data`, client_id, nom, tel,
  } 
 ///////////////////////////////////////////////////////////////////////
 function mail_plantilla($id=false)    
-{      
+{     
+    $gestor->xgreg_log(">>> <span class='grups'>Enviament mail reserva GRUPS: <span class='idr'>" . $id . "</span></span>", 1,'/log/logGRUPS.txt');
+  
+  
     global $lang, $camps, $mmenu,$txt,$database_canborrell, $canborrell;
     if (!isset($_SESSION)) session_start();
     if ($id)
@@ -223,11 +227,14 @@ function mail_plantilla($id=false)
 
 	include("mailer.php");
 	if (!isset($altbdy)) $altbdy='';
+                            
+                            
     $r=mailer($recipient, $subject, $html, $altbdy);
  //echo $html;
-	print_log("Enviament mail reserva ".$fila['id_reserva']." ($r): $recipient, $subject");
+	//print_log("Enviament mail reserva ".$fila['id_reserva']." ($r): $recipient, $subject");
+    $gestor->xgreg_log(">>> <span class='grups'>Enviament mail reserva GRUPS: <span class='idr'>" . $fila['id_reserva'] . "</span> >  ($r): $recipient, $subject</span>", 1,'/log/logGRUPS.txt');
 
-    ((mysqli_free_result($Result) || (is_object($Result) && (get_class($Result) == "mysqli_result"))) ? true : false);
+  ((mysqli_free_result($Result) || (is_object($Result) && (get_class($Result) == "mysqli_result"))) ? true : false);
     return ($fila['id_reserva']);
 }
 ?>

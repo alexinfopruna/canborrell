@@ -145,7 +145,7 @@ class Gestor {
 
     $b = !empty($_SESSION['uSer']);
     //$sessuser=unserialize($_SESSION['uSer']);
-
+    if (!$b) return FALSE;
     $sessuser = $_SESSION['uSer'];
     $c = $sessuser->id;
     if (!isset($_COOKIE['tok']))
@@ -295,21 +295,26 @@ class Gestor {
     $log_querys_file = ROOT . INC_FILE_PATH . LOG_QUERYS_FILE;
     if (!$conn)
       $conn = $this->connexioDB;
-
     if (Gestor::stringMultiSearch($query, LOG_QUERYS) && DEBUG === false) {
       $ip = isset($ips[$_SERVER['REMOTE_ADDR']]) ? $ips[$_SERVER['REMOTE_ADDR']] : $_SERVER['REMOTE_ADDR'];
       $sessuser = $_SESSION['uSer'];
-      error_log("/* >>>  " . date("d M Y H:i:s") . " >>> usr:" . $sessuser->id . " ($ip) ######## DB QUERY #######	<<< */" . EOL, 3, $log_querys_file);
-
+      
+      //$sep="";
+      //$miniquery ='<span class="miniquery">'.substr($query,0,50).'</span>';
+     //if ($type==0) $sep = '</ul><ul class="level-0 ">/* >>>  ' . date("d M Y H:i:s") . ' >>> ' . $miniquery .EOL;
+      //error_log($sep, 3, $log_querys_file);
+      error_log('<li class="level-1 user">usr:' . $sessuser->id . " ($ip)</li>", 3, $log_querys_file);
+      
       $query = str_replace("\n", " ", $query);
       $query = str_replace("\r", " ", $query);
+      $query = str_replace("<br/>", " ", $query);
       $query = str_replace("<br>", " ", $query);
       $query = str_replace("<\br>", " ", $query);
       $query = trim($query);
 
       if (substr($query, -1) != ";")
         $query = $query . ";";
-      error_log($query, 3, $log_querys_file);
+      error_log('<li  class="level-1 query" >'.$query.'</li>', 3, $log_querys_file);
       //if (substr($query,0,26)=='INSERT INTO reservestaules') die($query);
     }
 
@@ -323,9 +328,9 @@ class Gestor {
       $result = ' -- Affected: ' . $affected;
       if ($insert_id)
         $result.=' / Insert ID: ' . $insert_id;
-      error_log(EOL . $result, 3, $log_querys_file);
+      error_log(EOL .'<li>'. $result.'</li>', 3, $log_querys_file);
       $req = '<pre>' . print_r($_REQUEST, true) . '</pre>';
-      error_log(EOL . $req . EOL . EOL, 3, $log_querys_file);
+      error_log(EOL .'<li>'. $req . '</li>'.EOL . EOL, 3, $log_querys_file);
     }
     Gestor::rename_big_file($log_querys_file, 2000000);
 
@@ -454,7 +459,8 @@ class Gestor {
       $req = '<pre>' . print_r($_REQUEST, true) . '</pre>';
     }
     $ip = isset($ips[$_SERVER['REMOTE_ADDR']]) ? $ips[$_SERVER['REMOTE_ADDR']] : $_SERVER['REMOTE_ADDR'];
-    $sessuser = $_SESSION['uSer'];
+    $user=0;
+        $sessuser = isset($_SESSION['uSer'])?$_SESSION['uSer']:null;
     if (isset($sessuser))
       $user = $sessuser->id;
     $sep = "/* >>> " . date("d M Y H:i:s") . " user:$user ($ip) <<< */" . EOL;
@@ -466,6 +472,46 @@ class Gestor {
 
     Gestor::rename_big_file($file, 10000000);
   }
+  /*   * ************************************************************************************** */
+
+  public static function xgreg_log($text, $type=0, $file = false, $reqest = true) {
+    if (!is_numeric($type)){
+      // COMPATIBILITAT PER ERROR EN ELS PARAMETRES
+      $reqest = $file; 
+      $file = $type;
+    }
+    
+    if (!$file){
+      $file = LOG_FILE;
+    }
+    
+    $file = ROOT . INC_FILE_PATH . $file;
+    $req = '';
+    if ($reqest && !$type) {
+      $req = '<pre>' . print_r($_REQUEST, true) . '</pre>';
+    }
+    $ip = isset($ips[$_SERVER['REMOTE_ADDR']]) ? $ips[$_SERVER['REMOTE_ADDR']] : $_SERVER['REMOTE_ADDR'];
+    $sessuser = $_SESSION['uSer'];
+    
+    if (isset($sessuser))  $user = $sessuser->id;
+    
+    $sep = "";
+    if ($type==0)  $text = '</ul>'.EOL.'<ul class="level-0"> >>> <span class="date">' . date("Y-m-d H:i:s") . "</span> user:$user ($ip) >>>> " . $text . EOL;
+    if ($type==1)  $text = '<li>'. $text .'</li>'. EOL;
+    
+    error_log($text . EOL . $req . EOL, 3, $file);
+
+    Gestor::rename_big_file($file, 10000000);
+  }
+  
+   /*   * ************************************************************************************** */
+
+  public static function log_array($arr, $class='array') {
+    $tarr=print_r($arr, TRUE);
+    $t='<pre class="'.$class.'">'.$tarr.'</pre>';
+    return $t;
+  }
+
 
   /*   * ************************************************************************************** */
 
@@ -474,25 +520,32 @@ class Gestor {
     
     clearstatcache();
     $fs = filesize($file);
-
+    $extra="";
     if ($fs > $size) {
-      error_log("/*RENAME_LOG: " . $file . date("_d-m-Y_h_i_s") . EOL . "*/", 3, $file);
-      error_log("/*RENAME_LOG: " . $file . date("_d-m-Y_h_i_s") . EOL . "*/", 3, $file);
-      error_log("/*RENAME_LOG: " . $file . date("_d-m-Y_h_i_s") . EOL . "*/", 3, $file);
-
-      $extra.="_" . date("Y_m_d_h_i_s");
+      
+      $extra.="_" . date("Y-m-d H:i:s");
       $path_parts = pathinfo($file);
-
       $parts = explode("." . $path_parts['extension'], $file);
       $nparts = count($parts);
       if ($nparts > 1)
         $nom = $parts[$nparts - 2];
 
       $rename = $nom . $extra . "." . $path_parts['extension'];
+      
+      
+      error_log("</ul>", 3, $file);
+      error_log('<ul class="fi-li">'.EOL.'<li>'.EOL.'<h2> /*RENAME_LOG: ' . $rename. " >>> " . date("Y-m-d H:i:s") . EOL . "*/ </h2>'.EOL.'</li></ul>******END******", 3, $file);
+
+
 
       copy($file, $rename);
       $f = fopen($file, "w");
       fclose($f);
+
+      $link= "/panel/read.php?f=$rename";
+      error_log('<div><a href="'.$link.'">FITXER ANTERIOR: '.$link.'</a></div>'.EOL, 3, $file);
+      error_log("<div><h2> ".date("Y-m-d H:i:s")." </h2></div>".EOL, 3, $file);
+      error_log('<ul class="ini-li">'.EOL, 3, $file);
 
       return $rename;
     }
@@ -656,9 +709,14 @@ class Gestor {
     $resposta['resposta'] = "ko";
     $resposta['error'] = $this->error = "err$codi";
     $resposta['error_desc'] = $this->l("err$codi", 0);
-    if ($merge)
+    $m = "";
+    if ($merge){
       $resposta = array_merge($resposta, $merge);
-
+       $m=print_r($merge, TRUE);
+    }
+    
+    
+    $this->xgreg_log("jsonErr $codi >>> $m",1);
     return json_encode($resposta);
   }
 
@@ -669,8 +727,14 @@ class Gestor {
     $resposta['resposta_desc'] = $this->l($text, 0);
     $resposta['error'] = $this->error = null;
     $resposta['error_desc'] = null;
-    if ($merge)
+    $m = "";
+    if ($merge){
       $resposta = array_merge($resposta, $merge);
+       $m=print_r($merge, TRUE);
+    }
+    
+    
+    $this->xgreg_log("jsonOK $text >>> $m",1);
     return json_encode($resposta);
   }
 
@@ -794,6 +858,8 @@ class Gestor {
   /*   * ******************************************************************************************************* */
 
   public function generaFormTpvSHA256($id_reserva, $import, $nom, $tpv_ok_callback_alter = NULL) {
+    $this->xgreg_log("generaFormTpvSHA256 $id_reserva $import $nom",0, "/log/log_TPV.txt", FALSE);
+
     $id = $order = substr(time(), -4, 3) . $id_reserva;
 
     $titular = $nom;
@@ -909,7 +975,7 @@ class Gestor {
     treu el codi html per carregar jquery + jquery ui del cdn de jquery
    */
 
-  public static function loadJQuery($jqversion = "1.11.0", $uiversion = "1.10.3") {
+  public static function loadJQuery($jqversion = "2.0.3", $uiversion = "1.10.3") {
 
     $ROOT = ROOT;
 

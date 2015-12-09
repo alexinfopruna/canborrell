@@ -24,6 +24,7 @@ $nombre = "reserves_" . date("Y-m-d-H-i-s").".sql";
  //echo $gestor->lastBackup();
  //die();
   if ($gestor->lastBackup()<=$hores){
+    //$gestor->xgreg_log("No fem còpia: $hores hores");
     echo "No fem còpia: $hores hores";
     exit();
     die();
@@ -76,6 +77,7 @@ if (isset($_REQUEST['file']))
 }
 else $compresion = false;
 
+$gestor->xgreg_log("Copia backup $nombre");
 /* Conexion y eso*/
 $conexion = ($GLOBALS["___mysqli_ston"] = mysqli_connect($host,  $usurio,  $passwd, $bd))
 or die("No se conectar con el servidor MySQL: ".((is_object($GLOBALS["___mysqli_ston"])) ? mysqli_error($GLOBALS["___mysqli_ston"]) : (($___mysqli_res = mysqli_connect_error()) ? $___mysqli_res : false)));
@@ -212,7 +214,7 @@ if ( !headers_sent() ) {
         echo $dump;
     }
 } else {
-    echo "<b>ATENCION: Probablemente ha ocurrido un error</b><br />\n<pre>\n$dump\n</pre>";
+    echo "<b>ATENCION: Probablemente ha ocurrido un error</b><br/>\n<pre>\n$dump\n</pre>";
 }
 
 //header("Location: ../taules/print.php?p=FUTUR")

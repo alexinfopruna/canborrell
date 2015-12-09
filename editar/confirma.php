@@ -266,7 +266,7 @@ else
     <p>
         <input name="Submit" type="submit" class="bt"  value="<?php echo $ltxt[4][$lang];?>" style="width:150px" /><input name="nref" type="hidden" value="confirma" />
         </p>
-      <p><br />
+      <p><br/>
       </p>
 </form>
 </div>
