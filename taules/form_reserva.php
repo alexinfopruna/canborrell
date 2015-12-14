@@ -480,7 +480,7 @@ if ($id && !$permuta) {
   //if (LOCAL) setlocale(LC_ALL, 'catalan');
   //else setlocale(LC_ALL, 'ca_ES.UTF-8');
   setlocale(LC_TIME, 'ca_ES', 'Catalan_Spain', 'Catalan');
-  $creada = "aaaa" . strftime("%A %d de %B de %Y a les %H:%M:%S", strtotime($row_reserva['data_creacio']));
+  $creada =  strftime("%A %d de %B de %Y a les %H:%M:%S", strtotime($row_reserva['data_creacio']));
   $creada_por = $gestor->cadenaClient($row_reserva['usuari_creacio']);
   //$creada_por=$row_reserva['usuari_creacio'];
   $modificada = strftime("%A %d de %B de %Y a les %H:%M:%S", strtotime($row_reserva['estat_taules_timestamp']));

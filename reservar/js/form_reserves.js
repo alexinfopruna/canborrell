@@ -112,7 +112,7 @@ $(function () {
     }
     );
     $(".ncoberts").html(PERSONES_GRUP - 1);
-    var t = setTimeout("timer()", TIMER_INTERVAL);
+    var t = setTimeout("ctimer()", TIMER_INTERVAL);
 
     $("#flogin").hide();
     //$("#a_editar_reserva")
@@ -586,7 +586,7 @@ function comportamentCarta()
     $(".resum-carta-nom").click(function (e) {
         $(this).closest("tr").find("td.mes a").trigger("click");
         e.preventDefault();
-        return FALSE;});
+        return false;});
 }
 
 /********************************************************************************************************************
@@ -637,7 +637,7 @@ function validaDadesClient() {
     t += ($(".fr-seccio-submit").is(':hidden') ? " HID " : " VIS ");
     //$("textarea[name='observacions']").val(t);
     /*
-     */
+     */ 
     updateResum();
     if (ok)
     {
@@ -1032,7 +1032,7 @@ function controlSubmit()
                         clearTimeout(timer);
 
                         $.post(GESTOR + "?a=estatReserva&b=" + obj.idr, function (d) {
-                            if (d == 2) {
+                            if (d == 2 || d==0) {
                                 alert("La sessió ha caducat");
                                 $("#popup").dialog('close');
                             } else {
@@ -1117,10 +1117,10 @@ function isNumber(n) {
     var b = isFinite(n);
     return (!a && b);
 }/********************************************************************************************************************/
-function timer()
+function ctimer( )
 {
     bloqueigTaula(true);
-    var t = setTimeout("timer()", TIMER_INTERVAL);
+    var t = setTimeout("ctimer()", TIMER_INTERVAL);
 }
 
 function timer_help(txt)

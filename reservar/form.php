@@ -545,9 +545,7 @@ echo LOCAL ? " local " : ""
                                                                     <label for="INFO_PASTIS" class="pastis_toggle" style="margin-left:25px;">
 <?php l("INFO_PASTIS") ?>
                                                                 </label>
-                                                                <textarea id="INFO_PASTIS" name="INFO_PASTIS" style="margin-left:25px;" class="pastis_toggle">
-<?php echo $pastis_info ?>
-                                                                </textarea>
+                                                                <textarea id="INFO_PASTIS" name="INFO_PASTIS" style="margin-left:25px;" class="pastis_toggle"><?php echo $pastis_info ?></textarea>
                                                                 <table id="caixa-carta" class="col_dere">
                                                                     <tr>
                                                                         <td class="mesX"></td>
@@ -571,7 +569,7 @@ echo LOCAL ? " local " : ""
 <?php l('INFO_COMANDA'); ?>
                                                                 </div>
 
-
+ 
                                                             </div>
 
                                                             <!-- ******  INFO  ********   -->
@@ -611,7 +609,7 @@ echo LOCAL ? " local " : ""
 
                                                                 <div><label class="label" for=""><?php l('Observacions'); ?>
                                                                         <a href="#" id="info-observacions" class="info-ico"><img src="css/info.png" title="<?php l('Ajuda'); ?>" style="width:16px;height:auto;margin-left:8px"/></a>
-                                                                        </label><textarea type="text" name="observacions"> <?php echo $row['observacions'] ?></textarea>
+                                                                        </label><textarea type="text" name="observacions"><?php echo $row['observacions'] ?></textarea>
                                                                     </div>
 
                                                                 </td></tr>

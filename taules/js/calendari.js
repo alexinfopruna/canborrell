@@ -111,7 +111,7 @@ function avui()
 		if(avui==c) return;
 		
 		$("#calendari").datepicker("setDate",d);
-			$( "#reservesAc" ).accordion('destroy');
+			//$( "#reservesAc" ).accordion('destroy');
 			
 			var cs=controlaSopars();
 			$.ajax({url: "gestor_reserves.php?a=canvi_data&p="+$("#calendari").val()+"&q="+cs,success:recargaAccordioReserves});
@@ -175,7 +175,7 @@ function monta_calendari(selector)
 			}
 			return r;
 		},
-
+ 
 		minDate: limit_passat,
 		onSelect: function(dateText, inst) { 
                         AC_ACTIU=0;
@@ -183,7 +183,7 @@ function monta_calendari(selector)
 			if (ONLOAD_BLOC_CALEND) $("#calendari").datepicker("disable");
 			date_session=$(this).val();
 						
-			$( "#reservesAc" ).accordion('destroy');
+			//$( "#reservesAc" ).accordion('destroy');
 			
 			var cs=controlaSopars();
 			$.ajax({url: "gestor_reserves.php?a=canvi_data&p="+$(this).val()+"&q="+cs,success:recargaAccordioReserves});

@@ -1,5 +1,5 @@
 #debug_out{padding:4px;background:white;border:red solid 2px;position:absolute;bottom:0;left:0}
-
+ 
 html, body {margin:0;font-family:verdana,arial;width:980px;margin:0 auto;}
 .dev{background-image:url(obres.png)}
 .local{background-image:url(local.png)}
@@ -62,6 +62,27 @@ position:relative;left:-440px;font-size:3em;z-index:2;width:650px;
 .ui-icon-triangle-1-s{    background-position: -144px -112px;}
 .ui-icon-triangle-1-e{    background-position: -128px -112px;}
 
+
+#reservesAc h3{
+	border: #AAA solid 1px;
+	border-radius:4px;
+	padding:2px;
+	background: rgba(254,254,254,1);
+background: -moz-linear-gradient(top, rgba(254,254,254,1) 0%, rgba(226,226,226,1) 100%);
+background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(254,254,254,1)), color-stop(100%, rgba(226,226,226,1)));
+background: -webkit-linear-gradient(top, rgba(254,254,254,1) 0%, rgba(226,226,226,1) 100%);
+background: -o-linear-gradient(top, rgba(254,254,254,1) 0%, rgba(226,226,226,1) 100%);
+background: -ms-linear-gradient(top, rgba(254,254,254,1) 0%, rgba(226,226,226,1) 100%);
+background: linear-gradient(to bottom, rgba(254,254,254,1) 0%, rgba(226,226,226,1) 100%);
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fefefe', endColorstr='#e2e2e2', GradientType=0 );
+}
+
+#reservesAc a{color:#004999}
+#reservesAc a .idr{color:#900}
+#reservesAc a .act{color:green}
+
+
+.ui-accordion h3>div{border:#eeeeee solid 2px;marginn:3px;padding:5px;height:280px;}
 .ui-accordion-content-active{height:auto;}
 .ui-accordion-content-active p{padding:3px;border:#444 solid 1px;margin-bottom:0px;background:white}
 .ui-accordion .ui-accordion-header a {padding: .5em .5em .5em 2em;}

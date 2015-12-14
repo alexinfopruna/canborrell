@@ -35,17 +35,22 @@ else
               $("ul:odd").addClass("odd");
               $("li, pre").click(function (e) {e.preventDefault();return false;});
               $("ul").click(function (e) {
-                  if ($(this).children("li").is(":visible")) {
+                  if ($(this).children("li, pre").is(":visible")) {
                       $(this).children("li").hide();
                       $(this).children("pre").hide();
                       return;
                   }
+                 else{
+                   $(this).children("li").show();
+                   $(this).children("pre").show();
+                 // $(this).find("li").each(function () {$(this).show()});
+                 // $(this).find("pre").each(function () {$(this).show()});
+                   
+                 }
 
-                  $("li").hide();
-                  $("pre").hide();
+                 // $("li").hide();
+                 // $("pre").hide();
 
-                  $(this).find("li").each(function () {$(this).show()});
-                  $(this).find("pre").each(function () {$(this).show()});
               });
           });
         </script>

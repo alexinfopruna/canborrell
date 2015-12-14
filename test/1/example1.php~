@@ -1,5 +1,0 @@
-<?php
-include ("verify.php");
-
-echo verifyEmail($_GET['mail'], "alexbasurilla@gmail.com");
-?>

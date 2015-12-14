@@ -175,7 +175,7 @@ class gestor_reserves extends Gestor {
       return "error:sin permisos";
 
     //return $this->accordion_reserves();
-    
+
     $this->reg_log(" esborra_reserva($id_reserva, $permuta");
     $persones_default = PERSONES_DEFAULT;
     if ($id_reserva <= 1)
@@ -222,22 +222,36 @@ class gestor_reserves extends Gestor {
   /*   * ************************************* */
 
   public function paperera_reserves($id_reserva) {
+    $this->xgreg_log("paperera_reserves($id_reserva)", 1);
     if ($_SESSION['permisos'] < 16)
       return "error:sin permisos";
 
-    $this->xgreg_log("paperera_reserves($id_reserva)", 1);
     if (!defined("DB_CONNECTION_FILE_DEL"))
       return;
-
+$this->xgreg_log(DB_CONNECTION_FILE_DEL, 1);
     $reserva = $this->load_reserva($id_reserva);
-
     include(ROOT . DB_CONNECTION_FILE_DEL);
 
     $insertSQL = sprintf("REPLACE INTO " . T_RESERVES . " ( id_reserva, client_id, data, hora, adults, 
-      nens4_9, nens10_14, cotxets, observacions, resposta, estat) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)", $this->SQLVal($reserva['id_reserva'], "text"), $this->SQLVal($reserva['client_id'], "text"), $this->SQLVal($reserva['data'], "datePHP"), $this->SQLVal($reserva['hora'], "text"), $this->SQLVal($reserva['adults'], "zero"), $this->SQLVal($reserva['nens4_9'], "zero"), $this->SQLVal($reserva['nens10_14'], "zero"), $this->SQLVal($reserva['cotxets'], "zero"), $this->SQLVal($reserva['observacions'], "text"), $this->SQLVal($reserva['resposta'], "text"), $this->SQLVal($reserva['estat'], "text"));
+      nens4_9, nens10_14, cotxets, observacions, resposta, estat, reserva_info, reserva_pastis, reserva_info_pastis ) 
+      VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)", 
+        $this->SQLVal($reserva['id_reserva'], "text"), 
+        $this->SQLVal($reserva['client_id'], "text"), 
+        $this->SQLVal($reserva['data'], "datePHP"), 
+        $this->SQLVal($reserva['hora'], "text"), 
+        $this->SQLVal($reserva['adults'], "zero"), 
+        $this->SQLVal($reserva['nens4_9'], "zero"), 
+        $this->SQLVal($reserva['nens10_14'], "zero"), 
+        $this->SQLVal($reserva['cotxets'], "zero"), 
+        $this->SQLVal($reserva['observacions'], "text"), 
+        $this->SQLVal($reserva['resposta'], "text"), 
+        $this->SQLVal($reserva['estat'], "text"), 
+        $this->SQLVal($reserva['reserva_info'], "text"), 
+        $this->SQLVal($reserva['reserva_pastis'], "text"), 
+        $this->SQLVal($reserva['reserva_info_pastis'], "text")
+    );
 
     $this->qry_result = $this->log_mysql_query($insertSQL, $GLOBALS["___mysqli_stonDEL"]); // or die(((is_object($GLOBALS["___mysqli_ston"])) ? mysqli_error($GLOBALS["___mysqli_ston"]) : (($___mysqli_res = mysqli_connect_error()) ? $___mysqli_res : false)));
-
     $insertSQL = sprintf("REPLACE INTO " . ESTAT_TAULES . " ( estat_taula_id,estat_taula_data, estat_taula_nom, estat_taula_torn, estat_taula_taula_id, 
     reserva_id, estat_taula_x, estat_taula_y, estat_taula_persones, estat_taula_cotxets, estat_taula_grup, estat_taula_plena) 
     VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)", $this->SQLVal($reserva['estat_taula_id'], "text"), $this->SQLVal($reserva['estat_taula_data'], "text"), $this->SQLVal($reserva['estat_taula_nom'], "text"), $this->SQLVal($reserva['estat_taula_torn'], "text"), $this->SQLVal($reserva['estat_taula_taula_id'], "text"), $this->SQLVal($reserva['id_reserva'], "text"), $this->SQLVal($reserva['estat_taula_x'], "text"), $this->SQLVal($reserva['estat_taula_y'], "text"), $this->SQLVal($reserva['estat_taula_persones'], "zero"), $this->SQLVal($reserva['estat_taula_cotxets'], "zero"), $this->SQLVal($reserva['estat_taula_grup'], "text"), $this->SQLVal($reserva['estat_taula_plena'], "text"));
@@ -247,15 +261,15 @@ class gestor_reserves extends Gestor {
     $insertSQL = sprintf("REPLACE INTO client ( client_id, client_nom, client_cognoms, client_adresa, 
       client_localitat, client_cp, client_dni, client_telefon, client_mobil, client_email, client_conflictes) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)", $this->SQLVal($reserva['client_id'], "text"), $this->SQLVal($reserva['client_nom'], "text"), $this->SQLVal($reserva['client_cognoms'], "text"), $this->SQLVal($reserva['client_adresa'], "text"), $this->SQLVal($reserva['client_localitat'], "text"), $this->SQLVal($reserva['client_cp'], "text"), $this->SQLVal($reserva['client_dni'], "text"), $this->SQLVal($reserva['client_telefon'], "text"), $this->SQLVal($reserva['client_mobil'], "text"), $this->SQLVal($reserva['client_email'], "text"), $this->SQLVal($reserva['client_conflictes'], "text"));
 
-
+        
     $this->qry_result = $this->log_mysql_query($insertSQL, $GLOBALS["___mysqli_stonDEL"]);
 
 
     // ESBORREM INFO CADUCADA
     if (CLEAR_DELETED_BEFORE) {
-      $deleteSQL = "DELETE FROM " . T_RESERVES . " WHERE data>'" . $this->data_BASE . "' AND data< NOW() - INTERVAL " . CLEAR_DELETED_BEFORE;
+      $deleteSQL = "DELETE FROM " . T_RESERVES . " WHERE data > '" . $this->data_BASE . "' AND data< NOW() - INTERVAL " . CLEAR_DELETED_BEFORE;
       $this->qry_result = $this->log_mysql_query($deleteSQL, $GLOBALS["___mysqli_stonDEL"]); // or die(((is_object($GLOBALS["___mysqli_ston"])) ? mysqli_error($GLOBALS["___mysqli_ston"]) : (($___mysqli_res = mysqli_connect_error()) ? $___mysqli_res : false)));
-      $deleteSQL = "DELETE FROM " . ESTAT_TAULES . " WHERE estat_taula_data>'" . $this->data_BASE . "' AND estat_taula_data< NOW() - INTERVAL " . CLEAR_DELETED_BEFORE;
+      $deleteSQL = "DELETE FROM " . ESTAT_TAULES . " WHERE estat_taula_data > '" . $this->data_BASE . "' AND estat_taula_data< NOW() - INTERVAL " . CLEAR_DELETED_BEFORE;
       $this->qry_result = $this->log_mysql_query($deleteSQL, $GLOBALS["___mysqli_stonDEL"]); // or die(((is_object($GLOBALS["___mysqli_ston"])) ? mysqli_error($GLOBALS["___mysqli_ston"]) : (($___mysqli_res = mysqli_connect_error()) ? $___mysqli_res : false)));
     }
 
@@ -263,22 +277,22 @@ class gestor_reserves extends Gestor {
     ((bool) mysqli_query($this->connexioDB, "USE " . $this->database_name));
 
     //PASSO SMS
-    $insertSQL = sprintf("REPLACE INTO `$database_canborrell`.sms ( sms_id, sms_data, sms_reserva_id, sms_numero, sms_missatge) 
-    SELECT sms_id, sms_data, sms_reserva_id, sms_numero, sms_missatge FROM sms 
-    WHERE sms_reserva_id=$id_reserva");
-    $this->qry_result = $this->log_mysql_query($insertSQL, $this->connexioDB); // or die(((is_object($GLOBALS["___mysqli_ston"])) ? mysqli_error($GLOBALS["___mysqli_ston"]) : (($___mysqli_res = mysqli_connect_error()) ? $___mysqli_res : false)));
+    //$insertSQL = sprintf("REPLACE INTO `$database_canborrell`.sms ( sms_id, sms_data, sms_reserva_id, sms_numero, sms_missatge) 
+    //SELECT sms_id, sms_data, sms_reserva_id, sms_numero, sms_missatge FROM sms 
+    //WHERE sms_reserva_id=$id_reserva");
+    //$this->qry_result = $this->log_mysql_query($insertSQL, $this->connexioDB); // or die(((is_object($GLOBALS["___mysqli_ston"])) ? mysqli_error($GLOBALS["___mysqli_ston"]) : (($___mysqli_res = mysqli_connect_error()) ? $___mysqli_res : false)));
     //DELETE
-    $deleteSQL = "DELETE FROM sms WHERE sms_reserva_id=$id_reserva";
-    $this->qry_result = $this->log_mysql_query($deleteSQL, $this->connexioDB); // or die(((is_object($GLOBALS["___mysqli_ston"])) ? mysqli_error($GLOBALS["___mysqli_ston"]) : (($___mysqli_res = mysqli_connect_error()) ? $___mysqli_res : false)));
+    //$deleteSQL = "DELETE FROM sms WHERE sms_reserva_id=$id_reserva";
+    //$this->qry_result = $this->log_mysql_query($deleteSQL, $this->connexioDB); // or die(((is_object($GLOBALS["___mysqli_ston"])) ? mysqli_error($GLOBALS["___mysqli_ston"]) : (($___mysqli_res = mysqli_connect_error()) ? $___mysqli_res : false)));
     //PASSO COMANDES
-    $insertSQL = sprintf("REPLACE INTO `$database_canborrell`.comanda ( comanda_id, comanda_reserva_id, comanda_plat_id, comanda_plat_quantitat) 
-    SELECT comanda_id, comanda_reserva_id, comanda_plat_id, comanda_plat_quantitat 
-    FROM comanda 
-    WHERE comanda_reserva_id=$id_reserva");
-    $this->qry_result = $this->log_mysql_query($insertSQL, $this->connexioDB); // or die(((is_object($GLOBALS["___mysqli_ston"])) ? mysqli_error($GLOBALS["___mysqli_ston"]) : (($___mysqli_res = mysqli_connect_error()) ? $___mysqli_res : false)));
+    //$insertSQL = sprintf("REPLACE INTO `$database_canborrell`.comanda ( comanda_id, comanda_reserva_id, comanda_plat_id, comanda_plat_quantitat) 
+    ///SELECT comanda_id, comanda_reserva_id, comanda_plat_id, comanda_plat_quantitat 
+    //FROM comanda 
+    //WHERE comanda_reserva_id=$id_reserva");
+    //$this->qry_result = $this->log_mysql_query($insertSQL, $this->connexioDB); // or die(((is_object($GLOBALS["___mysqli_ston"])) ? mysqli_error($GLOBALS["___mysqli_ston"]) : (($___mysqli_res = mysqli_connect_error()) ? $___mysqli_res : false)));
     //DELETE
-    $deleteSQL = "DELETE FROM comanda WHERE comanda_reserva_id=$id_reserva";
-    $this->qry_result = $this->log_mysql_query($deleteSQL, $this->connexioDB); // or die(((is_object($GLOBALS["___mysqli_ston"])) ? mysqli_error($GLOBALS["___mysqli_ston"]) : (($___mysqli_res = mysqli_connect_error()) ? $___mysqli_res : false)));
+    //$deleteSQL = "DELETE FROM comanda WHERE comanda_reserva_id=$id_reserva";
+    //$this->qry_result = $this->log_mysql_query($deleteSQL, $this->connexioDB); // or die(((is_object($GLOBALS["___mysqli_ston"])) ? mysqli_error($GLOBALS["___mysqli_ston"]) : (($___mysqli_res = mysqli_connect_error()) ? $___mysqli_res : false)));
 
     return true;
   }
@@ -541,8 +555,8 @@ class gestor_reserves extends Gestor {
       $this->xgreg_log($esborra_redundants, 1);
       $this->xgreg_log("AFFECTED: $affected", 1);
 
-      
-        $update_reserva = "UPDATE " . T_RESERVES . " 
+
+      $update_reserva = "UPDATE " . T_RESERVES . " 
                 SET data='$data',
                 hora='{$hora}',
                 adults={$adults},
@@ -561,7 +575,7 @@ class gestor_reserves extends Gestor {
       //$error3 = FALSE;
       $this->xgreg_log($update_reserva, 1);
       $this->xgreg_log("AFFECTED: $affected", 1);
-      
+
       ////////////////////////////////////////////////////
       //// COMPROVA QUE TENIM LA RESERVA ABANS DEL COMMIT
       $verifica = "SELECT id_reserva FROM reservestaules INNER JOIN estat_taules ON id_reserva = reserva_id WHERE id_reserva = $reserva";
@@ -1089,11 +1103,6 @@ class gestor_reserves extends Gestor {
 
       $torn = $this->torn($row['data'], $row['hora']);
       $comensals = $row['adults'] + $row['nens10_14'] + $row['nens4_9'];
-      if ($_SESSION['permisos'] >= 64) {
-        $elimina = '<div class="delete reserva ui-state-default ui-corner-all">
-                    <a href="taules.php?del_reserva=' . $row['id_reserva'] . '" del="' . $row['id_reserva'] . '">Elimina</a></div>';
-      }
-
       $body = $this->mail_body($row['data'], $row['hora']);
 
       $deleted = $row['deleted'] ? ' style="background:red" ' : '';
@@ -1104,51 +1113,73 @@ class gestor_reserves extends Gestor {
       else
         $sobret = "";
 
+      $superinfo = "";
+      //$superinfo = $this->superInfoReserva($row);
       $online = $row['reserva_info'] & 1 ? '<div class="online" title="Reserva ONLINE">' . $sobret . '</div>' : '';
       if ($row['client_nom'] == "SENSE_NOM")
         $row['client_nom'] = "";
       $nom = "<br/>" . substr($row['client_cognoms'] . ", " . $row['client_nom'], 0, 25);
       //$paga_i_senyal = ((int) $row['preu_reserva']) ? '<span class="paga-i-senyal" >' . $row['preu_reserva'] . '€</span>' : '';
       $paga_i_senyal = (floatval($row['preu_reserva']) ) ? '<span class="paga-i-senyal" >' . $row['preu_reserva'] . '€</span>' : '';
-
+      $impagada = ( $row['estat'] != 100) ? "background:#EDFF00;" : "";
+      $title = ( $row['estat'] != 100) ? 'title="Pendent de pagament"' : "";
       $html .= <<< EOHTML
-          <h3 $deleted><a n="$n" href="form_reserva.php?edit={$row['id_reserva']}&id={$row['id_reserva']}" class="fr" taula="{$row['estat_taula_taula_id']}" id="accr-{$row['id_reserva']}">{$row['reserva_id']}&rArr;{$this->cambiaf_a_normal($row['data'], "%d/%m")} {$row['hora']} | {$row['estat_taula_nom']}&rArr;{$comensals}/{$row['cotxets']} $online  $nom $paga_i_senyal</a></h3>
-          <div style="border:#eeeeee solid 2px;marginn:3px;padding:5px;height:280px;">
-            ID:<b> {$row['reserva_id']}</b>
-            <table cellspacing="0" cellpadding="0">
-              <tr class="taulaf1">
-                <td>Coberts</td><td>Taula</td><td>Hora</td><td>Torn</td>
-              </tr>
-              <tr class="taulaf2">
-                <td>$comensals</td><td>{$row['estat_taula_nom']}</td><td>{$row['hora']}</td><td>$torn</td>
-              </tr>
-              <tr class="taulaf1">
-                <td>Adults</td><td>10-14</td><td>4-9</td><td>Cotxets</td>
-              </tr>
-              <tr class="taulaf2">
-                <td>  {$row['adults']}</td><td>{$row['nens10_14']}</td><td>{$row['nens4_9']}</td><td>{$row['cotxets']}</td>
-              </tr>
-            </table>
-          
-            
-            
-            
-            <p>
-            
-      <b>{$row['client_cognoms']}, {$row['client_nom']}</b><br/>
-            <a href="mailto:{$row['client_email']}?subject=Reservas Can Borrell&amp;body={$body}">{$row['client_email']}</a> <br/>
-            <b>{$row['client_mobil']} - {$row['client_telefon']}</b><br/>
-            <span class="conflicte">{$row['client_conflictes']}</span>
-            </p>
-            $elimina
-</div>
+          <h3 $deleted style="{$impagada}" {$title}>
+            <a n="$n" href="form_reserva.php?edit={$row['id_reserva']}&id={$row['id_reserva']}" class="fr" taula="{$row['estat_taula_taula_id']}" id="accr-{$row['id_reserva']}"><span class="idr">{$row['reserva_id']}</span>&rArr;{$this->cambiaf_a_normal($row['data'], "%d/%m")} {$row['hora']} | <span class="act">{$row['estat_taula_nom']}&rArr;{$comensals}/{$row['cotxets']}</span> $online  $nom $paga_i_senyal</a></h3>
 EOHTML;
 
       $n++;
     }
 
-    //$this->refresh(true);
     return $html;
+  }
+
+  public function superInfoReserva($row) {
+    if (!is_array($row)) {
+      $row = $this->load_reserva($row);
+    }
+
+    $torn = $this->torn($row['data'], $row['hora']);
+    $comensals = $row['adults'] + $row['nens10_14'] + $row['nens4_9'];
+    $body = $this->mail_body($row['data'], $row['hora']);
+
+    if ($_SESSION['permisos'] >= 64) {
+      $elimina = '<div class="delete reserva ui-state-default ui-corner-all">
+                    <a href="taules.php?del_reserva=' . $row['id_reserva'] . '" del="' . $row['id_reserva'] . '">Elimina</a></div>';
+    }
+
+    $comensals = $row['adults'] + $row['nens10_14'] + $row['nens4_9'];
+    $body = $this->mail_body($row['data'], $row['hora']);
+
+    $superinfo = <<< EOHTML
+        <div>
+        ID:<b> {$row['reserva_id']}</b>
+          <table>
+              <tr class="taulaf1">
+                <td>Coberts</td><td>Taula</td><td>Hora</td><td>Torn</td>
+              </tr>
+              <tr class="taulaf2">
+                <td>$comensals</td><td>{$row["estat_taula_nom"]}</td><td>{$row["hora"]}</td><td>$torn</td>
+              </tr>
+              <tr class="taulaf1">
+                <td>Adults</td><td>10-14</td><td>4-9</td><td>Cotxets</td>
+              </tr>
+              <tr class="taulaf2">
+                <td>  {$row["adults"]}</td><td>{$row["nens10_14"]}</td><td>{$row["nens4_9"]}</td><td>{$row["cotxets"]}</td>
+              </tr>
+            </table>
+            
+            <p>
+            
+              <b>{$row["client_cognoms"]}, {$row["client_nom"]}</b><br/>
+                <a href="mailto:{$row["client_email"]}?subject=Reservas Can Borrell&amp;body={$body}">{$row["client_email"]}</a> <br/>
+              <b>{$row["client_mobil"]} - {$row["client_telefon"]}</b><br/>
+                <span class="conflicte">{$row["client_conflictes"]}</span>
+            </p>
+            $elimina
+                    </div>
+EOHTML;
+    return $superinfo;
   }
 
   public function qryCercaReserva($cerca, $filtre) {
@@ -1697,8 +1728,9 @@ AND client.client_id='$client_id'";
   public function cadenaClient($id) {
     if (!$id)
       return "SENSE DADES";
-    if ($row = $this->load_client($id))
-      return '(' . $row['client_id'] . ') ' . $row['client_nom'] . ' ' . $row['client_cognom'];
+    if ($row = $this->load_client($id)) {
+      return '(' . $row['client_id'] . ') ' . $row['client_nom'] . ' ' . $row['client_cognoms'];
+    }
     return '(ADMIN) ' . $this->usuari($id);
   }
 
@@ -1982,9 +2014,10 @@ EOHTML;
 
     if (!isset($_SESSION['refresh']))
       $_SESSION['refresh'] = '2010-01-01';
-    
+
     //echo $_SESSION['refresh']." -- ".date("Y-m-d H:i:s");
-    if ($_SESSION['refresh'] > date("Y-m-d H:i:s")) $_SESSION['refresh'] = date("Y-m-d");
+    if ($_SESSION['refresh'] > date("Y-m-d H:i:s"))
+      $_SESSION['refresh'] = date("Y-m-d");
     $data = $_SESSION['data'];
     $data_refresh = $_SESSION['refresh'];
 
@@ -2970,8 +3003,13 @@ ORDER BY `estat_hores_data` DESC";
 
   /*   * ********************************************************************************************************************* */
 
-  public function netejaImpagatsTpv() {
+  public function netejaImpagatsTpv($b=FALSE) {
+
     $interval = $this->configVars("temps_paga_i_senyal");
+    if ($b) {
+      $interval = 0;
+     echo "FORÇAT"; 
+    }
     $query = "SELECT COUNT( estat ) AS c FROM  " . T_RESERVES . "  WHERE estat=2 AND data_creacio < NOW() - INTERVAL $interval MINUTE";
     $Result1 = mysqli_query($this->connexioDB, $query) or die(((is_object($GLOBALS["___mysqli_ston"])) ? mysqli_error($GLOBALS["___mysqli_ston"]) : (($___mysqli_res = mysqli_connect_error()) ? $___mysqli_res : false)));
     $files = mysqli_result($Result1, 0);
@@ -2980,6 +3018,13 @@ ORDER BY `estat_hores_data` DESC";
     }
     $this->reg_log("netejaImpagatsTpv:  ");
     $this->reg_log("$files", 1);
+
+    $query = "SELECT id_reserva  FROM  " . T_RESERVES . "  WHERE estat=2 AND data_creacio < NOW() - INTERVAL $interval MINUTE";
+    $Result1 = mysqli_query($this->connexioDB, $query) or die(((is_object($GLOBALS["___mysqli_ston"])) ? mysqli_error($GLOBALS["___mysqli_ston"]) : (($___mysqli_res = mysqli_connect_error()) ? $___mysqli_res : false)));
+    /**/
+    while ($row = mysqli_fetch_assoc($Result1)) {
+      $this->paperera_reserves($row['id_reserva']);
+    }
 
     $query = "UPDATE " . ESTAT_TAULES . " 
             LEFT JOIN " . T_RESERVES . " ON reserva_id=id_reserva 

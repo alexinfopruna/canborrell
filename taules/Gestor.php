@@ -850,6 +850,7 @@ class Gestor {
         . "WHERE id_reserva=$idr";
     $result = mysqli_query($this->connexioDB, $query) or die(((is_object($GLOBALS["___mysqli_ston"])) ? mysqli_error($GLOBALS["___mysqli_ston"]) : (($___mysqli_res = mysqli_connect_error()) ? $___mysqli_res : false)));
     //$row=  mysql_fetch_assoc($result);
+    if (!mysqli_num_rows($result)) return 0;
     return mysqli_result($result, 0);
   }
 
@@ -858,7 +859,7 @@ class Gestor {
   /*   * ******************************************************************************************************* */
 
   public function generaFormTpvSHA256($id_reserva, $import, $nom, $tpv_ok_callback_alter = NULL) {
-    $this->xgreg_log("generaFormTpvSHA256 $id_reserva $import $nom",0, "/log/log_TPV.txt", FALSE);
+    $this->xgreg_log("generaFormTpvSHA256 $id_reserva $import $nom",0, "/log/log_TPV.txt", TRUE);
 
     $id = $order = substr(time(), -4, 3) . $id_reserva;
 
@@ -927,6 +928,9 @@ class Gestor {
     if (!$this->valida_sessio(200))
       die("Sense permisos");
 
+    $this->xgreg_log("TEST >>> generaTESTTpvSHA256 $id_reserva $import $nom",0, "/log/log_TPV.txt", TRUE);
+   
+    
 
     $_REQUEST['pidr'] = $_GET['pidr'] = $id_reserva;
     $_REQUEST['pamount'] = $_GET['pamount'] = $import*100;
