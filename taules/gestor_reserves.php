@@ -1118,14 +1118,16 @@ $this->xgreg_log(DB_CONNECTION_FILE_DEL, 1);
       $online = $row['reserva_info'] & 1 ? '<div class="online" title="Reserva ONLINE">' . $sobret . '</div>' : '';
       if ($row['client_nom'] == "SENSE_NOM")
         $row['client_nom'] = "";
-      $nom = "<br/>" . substr($row['client_cognoms'] . ", " . $row['client_nom'], 0, 25);
+        $nom = '<div class="acn">' . substr($row['client_cognoms'] . ", " . $row['client_nom'], 0, 30).'</div>';
       //$paga_i_senyal = ((int) $row['preu_reserva']) ? '<span class="paga-i-senyal" >' . $row['preu_reserva'] . '€</span>' : '';
       $paga_i_senyal = (floatval($row['preu_reserva']) ) ? '<span class="paga-i-senyal" >' . $row['preu_reserva'] . '€</span>' : '';
       $impagada = ( $row['estat'] != 100) ? "background:#EDFF00;" : "";
       $title = ( $row['estat'] != 100) ? 'title="Pendent de pagament"' : "";
+      //$data = $this->cambiaf_a_normal($row['data'], "%d/%m");
+      $data = "";
       $html .= <<< EOHTML
           <h3 $deleted style="{$impagada}" {$title}>
-            <a n="$n" href="form_reserva.php?edit={$row['id_reserva']}&id={$row['id_reserva']}" class="fr" taula="{$row['estat_taula_taula_id']}" id="accr-{$row['id_reserva']}"><span class="idr">{$row['reserva_id']}</span>&rArr;{$this->cambiaf_a_normal($row['data'], "%d/%m")} {$row['hora']} | <span class="act">{$row['estat_taula_nom']}&rArr;{$comensals}/{$row['cotxets']}</span> $online  $nom $paga_i_senyal</a></h3>
+            <a n="$n" href="form_reserva.php?edit={$row['id_reserva']}&id={$row['id_reserva']}" class="fr" taula="{$row['estat_taula_taula_id']}" id="accr-{$row['id_reserva']}"><span class="idr">{$row['reserva_id']}</span>&rArr;{$data}{$row['hora']} | <span class="act">{$row['estat_taula_nom']}&rArr;{$comensals}/{$row['cotxets']}</span> $online $paga_i_senyal $nom </a></h3>
 EOHTML;
 
       $n++;
@@ -1947,11 +1949,13 @@ EOHTML;
 
     $Result1 = mysqli_query($this->connexioDB, $query) or die(((is_object($GLOBALS["___mysqli_ston"])) ? mysqli_error($GLOBALS["___mysqli_ston"]) : (($___mysqli_res = mysqli_connect_error()) ? $___mysqli_res : false)));
 
+    $k=0;
+    
     $s = " </td><td> ";
-    $tds.= "<thead><td>id_reserva $s data $s hora $s adults $s nens10_14 $s nens4_9 $s cotxets $s conflictes</td></thead>\n\n";
+    $tds= "<thead><td>id_reserva $s data $s hora $s adults $s nens10_14 $s nens4_9 $s cotxets $s conflictes</td></thead>\n\n";
     while ($row = mysqli_fetch_array($Result1)) {
       $odd = (($k++ % 2) ? "odd" : "");
-
+      $row["client_conflictes"]="";
       if ($row['data'] > date("Y-m-d"))
         $odd.=" futur";
       $tds.= "<tr class='$odd'><td><a href='form_reserva.php?edit=" . $row["id_reserva"] . "&id=" . $row["id_reserva"] . "' taula='" . $row['estat_taula_taula_id'] . "' class='fr'>" . $row['id_reserva'] . $s . $this->cambiaf_a_normal($row['data']) . $s . $row['hora'] . $s . $row['adults'] . $s . $row['nens10_14'] . $s . $row['nens4_9'] . $s . $row['cotxets'] . $s . $row['client_conflictes'] . "</a> </td></tr>\n\n";

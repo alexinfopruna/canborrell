@@ -56,7 +56,7 @@ position:relative;left:-440px;font-size:3em;z-index:2;width:650px;
 
 #clientsAc{width:221px;min-height:600px;height:600px;overflow:auto}
 #reservesAc{height:620px;overflow:auto}
-#reserves{height:620px;}
+#reserves{height:620px;width:220px;}
 
 
 .ui-icon-triangle-1-s{    background-position: -144px -112px;}
@@ -78,14 +78,42 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fefefe', end
 }
 
 #reservesAc a{color:#004999}
-#reservesAc a .idr{color:#900}
-#reservesAc a .act{color:green}
+#reservesAc h3{font-size:13px; height:28px;border-bottom-color:#777;border-bottom-width: 2px;}
+#reservesAc h3 .idr{font-size:14px;color:#900}
+//#reservesAc h3{font-size:12px}
+
+
+#reservesAc a .act{font-size:11px;color:green;}
+.acn{font-size:14px;color:#2E2E2E}
+//.acn{font-size:14px;color:blue}
+.paga-i-senyal{
+    font-size:9px;
+    background:red;
+    color:white;
+    float:right;
+    border-radius: 3px;
+    padding:1px 1px;
+    margin-right:4px;
+}
+
+.online{
+    
+	float:right;
+	width:15px;
+	height:15px;
+	background:#FFB300;
+-moz-border-radius: 6px;
+-webkit-border-radius: 6px;
+border-radius: 6px;
+}
 
 
 .ui-accordion h3>div{border:#eeeeee solid 2px;marginn:3px;padding:5px;height:280px;}
 .ui-accordion-content-active{height:auto;}
 .ui-accordion-content-active p{padding:3px;border:#444 solid 1px;margin-bottom:0px;background:white}
 .ui-accordion .ui-accordion-header a {padding: .5em .5em .5em 2em;}
+
+
 
 
 .dades_client{padding-left:5px;border:#AA0505 solid 1px;min-height:25px;background:#ffffff;}
@@ -443,7 +471,7 @@ input[name="client_mobil"]{width:400px;}
 
 /*.nens{float:left;margin-right:0px;}*/
 
-input[name="adults"],input[name="nens4_9"],input[name="nens10_14"]{width:45px;text-align:right;float:left;}
+input[name="adults"],input[name="nens4_9"],input[name="nens10_14"]{width:45px;text-align:right;float:left;font-size:22px}
 
 #selectorNens4_9 {font-size:0.6em;}
 #selectorNens10_14 {font-size:0.6em;}
@@ -475,15 +503,7 @@ padding: .3em 0.7em;
 
 #clientsAc h3{padding:2px;font-size:0.9em}
 
-.online{
-	float:right;
-	width:15px;
-	height:15px;
-	background:#FFB300;
--moz-border-radius: 6px;
--webkit-border-radius: 6px;
-border-radius: 6px;
-}
+
 
 #campsClient{font-size:0.8em;}
 #zoom{border:#DDDDFF solid 1px;padding-bottom:27px;background:white;}
@@ -514,10 +534,10 @@ top: -10%;
 
 #label-pastis.fluixet{color:lightgrey}
 
-.paga-i-senyal{
-    background:red;
-    color:white;
-    float:right;
-    border-radius: 6px;
-    padding:0 4px;
+.ui-widget .ui-widget {
+   // font-size: 0.8em;
+}
+#inserta_res_radio .ui-button-text-only .ui-button-text{
+    font-size: 0.9em;
+    padding: 0.4em 0.4em;
 }

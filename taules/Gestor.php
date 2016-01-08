@@ -141,12 +141,14 @@ class Gestor {
     if (!isset($_SESSION))
       session_start();
     $a = isset($_SESSION['uSer']);
-    //if (!$a) return FALSE;
+    if (!$a) return FALSE;
 
     $b = !empty($_SESSION['uSer']);
     //$sessuser=unserialize($_SESSION['uSer']);
     if (!$b) return FALSE;
+    
     $sessuser = $_SESSION['uSer'];
+    
     $c = $sessuser->id;
     if (!isset($_COOKIE['tok']))
       $_COOKIE['tok'] = FALSE; //lxlx

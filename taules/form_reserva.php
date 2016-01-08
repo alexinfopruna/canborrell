@@ -95,7 +95,7 @@ else {
         <!-- UPLOAD -->
 
         <table align="center">
-            <tr valign="baseline" class="amagat">
+            <tr  class="amagat">
                 <td nowrap="nowrap" align="right">id_reserva:</td>
                 <td nowrap="nowrap" align="left">
                     <!-- UPLOAD -->
@@ -108,7 +108,7 @@ else {
 
 
 <?php if ($id && $permuta) { ?>
-              <tr valign="baseline" >
+              <tr  >
                   <td nowrap="nowrap" align="right">Acció:</td>
                   <td nowrap="nowrap" align="left">
                       <!-- UPLOAD -->
@@ -122,7 +122,7 @@ else {
 
 
 
-            <tr valign="baseline">
+            <tr >
                 <td nowrap="nowrap" align="right">Client:<br/><a href="#"  class="ui-state-default ui-corner-all nouClient amagat" style="padding:2px;" >Nou Client</a></td>
                 <td align="left" class="combo_clients_container">
 <?php if ($id) { ?>
@@ -142,7 +142,7 @@ else {
             </tr>	  
 
 
-            <tr valign="baseline">
+            <tr >
                 <td nowrap="nowrap" align="right">data:</td>
                 <td align="left">
 <?php if (!$id) { ?>
@@ -176,7 +176,7 @@ echo $d;
 
                 </td>
             </tr>
-              <tr valign="baseline">
+              <tr >
                   <td nowrap="nowrap" align="right">
                       hora:
                   </td>
@@ -208,7 +208,7 @@ echo $d;
 
                   </td>
               </tr>
-              <tr valign="baseline" >
+              <tr  >
                   <td nowrap="nowrap" align="right">taula:</td>
                   <td align="left">
                       <input type="text" name="estat_taula_taula_id" tabindex="-1" value="<?php echo $row_reserva['estat_taula_taula_id']; ?>" size="3" <?php if ($id) echo 'readonly="readonly"' ?> class="borderojo taulaid required" title=""/>
@@ -218,7 +218,7 @@ echo $d;
                   </td>
 
 
-              <tr valign="baseline" >
+              <tr  >
                   <td nowrap="nowrap" align="right">
                       adults:
                   </td>
@@ -252,14 +252,12 @@ echo $d;
                   </td>
               </tr>
 
-              <tr valign="baseline" >
+              <tr  >
                   <td nowrap="nowrap" align="right">
                       Junior:
                   </td>
                   <td nowrap="nowrap" align="left">
-                      <span class="nens"> 
                           <input type="text" name="nens10_14" value="<?php echo $row_reserva['nens10_14']; ?>" size="3" persones=""/>
-                      </span>			
                       <?php if (!$id) { ?>
                         <div id="selectorNens10_14">&lArr;
                             <input type="radio" id="sn41" name="selectorNens10_14" value="1"  /><label for="sn41">1</label>
@@ -273,7 +271,7 @@ echo $d;
                   </td>
               </tr>
 
-              <tr valign="baseline" >
+              <tr  >
                   <td nowrap="nowrap" align="right">
                       Infantil:
                   </td>
@@ -296,7 +294,7 @@ echo $d;
 
 
 
-              <tr valign="baseline" >
+              <tr  >
                   <td nowrap="nowrap" align="right" class="red">
                       Total adults + nens:
                   </td>
@@ -309,7 +307,7 @@ echo $d;
                   </td>
               </tr>
 
-              <tr valign="baseline" >
+              <tr  >
                   <td nowrap="nowrap" align="right">
                       cotxets:
                   </td>
@@ -369,14 +367,14 @@ echo $d;
 
               </td>
               </tr>
-              <tr valign="baseline">
+              <tr >
                   <td nowrap="nowrap" align="right">observacions:</td>
                   <td align="left"><input type="text" name="observacions" value="<?php echo ($row_reserva['observacions']); ?>" size="50" /></td>
               </tr>
 
               <?php if (!empty($row_reserva['resposta'])): ?>
 
-                <tr valign="baseline">
+                <tr >
                     <td nowrap="nowrap" align="right">Paga i senyal:</td>
                     <td align="left"><input type="text" name="Resposta" readonly="readonly" value="<?php echo ($row_reserva['resposta']); ?>" size="50" /></td>
                 </tr>
@@ -395,7 +393,7 @@ echo $d;
               if ($id) {
                 ?>
 
-                <tr valign="baseline">
+                <tr >
                     <td nowrap="nowrap" align="right">Email:</td>
 
                     <td align="left">
@@ -405,7 +403,7 @@ echo $d;
 
   <?php } ?>
 
-              <tr valign="baseline">
+              <tr >
                   <td nowrap="nowrap" align="right"></td>
 
                   <td align="left"  style="">
@@ -424,7 +422,7 @@ echo $d;
 
 
               <?php if ($id) { ?>
-                <tr valign="baseline" >
+                <tr  >
                     <td nowrap="nowrap" align="right">Comanda:</td>
                     <td align="left" class="ui-corner-all info-comanda" style="">
 
@@ -434,7 +432,7 @@ echo $d;
                 </tr>	  
               <?php } ?>
 
-              <tr valign="baseline"  class="amagat">
+              <tr   class="amagat">
                   <td nowrap="nowrap" align="right">resposta:</td>
                   <td align="left"><input type="text" name="resposta" value="<?php echo $row_reserva['resposta']; ?>" size="50" /></td>
               </tr>	  
@@ -460,7 +458,7 @@ echo $d;
 
 
       <?php }else { ?>
-        <div valign="baseline" class="cb_sms <?php if ($_SESSION['permisos'] < 64) echo "amagat"; ?>">
+        <div  class="cb_sms <?php if ($_SESSION['permisos'] < 64) echo "amagat"; ?>">
             Envia SMS:<input type="checkbox" name="cb_sms" value="cb_sms" title="Envia automàticament un SMS amb les dades de la reserva" checked="checked"/>
             <br/>
             <em>
