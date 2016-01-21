@@ -176,7 +176,7 @@ echo $d;
 
                 </td>
             </tr>
-              <tr >
+              <tr class="fila-fina" >
                   <td nowrap="nowrap" align="right">
                       hora:
                   </td>
@@ -208,7 +208,7 @@ echo $d;
 
                   </td>
               </tr>
-              <tr  >
+              <tr  class="fila-fina"  >
                   <td nowrap="nowrap" align="right">taula:</td>
                   <td align="left">
                       <input type="text" name="estat_taula_taula_id" tabindex="-1" value="<?php echo $row_reserva['estat_taula_taula_id']; ?>" size="3" <?php if ($id) echo 'readonly="readonly"' ?> class="borderojo taulaid required" title=""/>
@@ -252,7 +252,7 @@ echo $d;
                   </td>
               </tr>
 
-              <tr  >
+              <tr  class="fila-fina"  >
                   <td nowrap="nowrap" align="right">
                       Junior:
                   </td>
@@ -271,7 +271,7 @@ echo $d;
                   </td>
               </tr>
 
-              <tr  >
+              <tr   class="fila-fina" >
                   <td nowrap="nowrap" align="right">
                       Infantil:
                   </td>
@@ -294,7 +294,7 @@ echo $d;
 
 
 
-              <tr  >
+              <tr   class="fila-fina" >
                   <td nowrap="nowrap" align="right" class="red">
                       Total adults + nens:
                   </td>

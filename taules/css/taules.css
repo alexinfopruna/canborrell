@@ -1,6 +1,6 @@
 #debug_out{padding:4px;background:white;border:red solid 2px;position:absolute;bottom:0;left:0}
  
-html, body {margin:0;font-family:verdana,arial;width:980px;margin:0 auto;}
+html, body {margin:0;font-family:verdana,arial;width:980px;margin:0 auto;line-height:1}
 .dev{background-image:url(obres.png)}
 .local{background-image:url(local.png)}
 
@@ -13,6 +13,10 @@ em, .fluixet{color:#777777;font-size:0.9em}
 .ui-widget{font-size:0.78em;}
 #dreta{width:220px;float:left;}
 #flash{width:760px;height:739px;float:left;}
+
+.form_edit.inserta_res tr{height: 27px;}
+.form_edit.updata_res tr{height: 27px;}
+
 
 input, textarea, span.data-llarga{
 -moz-border-radius: 6px;
@@ -64,6 +68,7 @@ position:relative;left:-440px;font-size:3em;z-index:2;width:650px;
 
 
 #reservesAc h3{
+        overflow-y: hidden;
 	border: #AAA solid 1px;
 	border-radius:4px;
 	padding:2px;
