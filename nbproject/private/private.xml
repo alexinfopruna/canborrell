@@ -16,6 +16,8 @@
             <file>file:/var/www/canborrell/taules/gestor_reserves.php</file>
             <file>file:/var/www/canborrell/taules/css/taules.css</file>
             <file>file:/var/www/canborrell/taules/form_reserva.php</file>
+            <file>file:/var/www/canborrell/Connections/DBConnection.php</file>
+            <file>file:/var/www/canborrell/editar/reserves.php</file>
         </group>
     </open-files>
 </project-private>
