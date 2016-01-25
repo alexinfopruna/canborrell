@@ -2547,7 +2547,7 @@ ORDER BY `estat_hores_data` DESC";
       $mail = "err10";
     }
 
-    $rs = ($result['Result'] == "NO ENVIAT!!!") ? "EXIT" : "ERROR";
+    $rs = ($result['Result'] == "NO ENVIAT!!!") ? "ERROR" : "EXIT";
     $this->xgreg_log(">>> MAIL RESULTAT: <span class='$rs'>$rs</span> > $recipient ", 1);
 
     return $mail;
@@ -2656,7 +2656,7 @@ ORDER BY `estat_hores_data` DESC";
       $this->xgreg_log(">>> ENVIA SMS: SIMULAT", 1, '/log/logMAILSMS.txt');
     }
 
-    $rs = ($result['Result'] == "NO ENVIAT!!!") ? "EXIT" : "ERROR";
+    $rs = ($result['Result'] == "NO ENVIAT!!!") ? "ERROR" : "EXIT";
     $this->reg_log(">>> SMS RESULTAT: <span class='$rs'>$rs</span>", 1);
     $this->xgreg_log(">>> SMS RESULTAT: <span class='$rs'>$rs</span>", 1, '/log/logMAILSMS.txt');
 

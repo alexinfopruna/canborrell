@@ -756,6 +756,8 @@ function updateResum()
     });
 
 
+// De vegades no interpreta bé al click sobre els boton/selects del jquery UI
+  jQuery("label.ui-button").mouseup(function(e){$(this).trigger("click");});
 }
 /********************************************************************************************************************/
 /********************************************************************************************************************/
