@@ -2644,9 +2644,9 @@ ORDER BY `estat_hores_data` DESC";
         $sendService = new EsendexSendService($username, $password, $accountReference);
         $result = $sendService->SendMessage($recipients, $body, $type);
         
-        print_r($result);
-        $this->xgreg_log(">>> ENVIA SMS: REAL" . $result['Result'], 1);
-        $this->xgreg_log(">>> ENVIA SMS: REAL" . $result['Result'], 1, '/log/logMAILSMS.txt');
+        $pr = print_r($result, TRUE);
+        $this->xgreg_log(">>> ENVIA SMS: REAL: ". $pr." ***  " . $result['Result'], 1);
+        $this->xgreg_log(">>> ENVIA SMS: REAL: " . $result['Result'], 1, '/log/logMAILSMS.txt');
       }
       catch (Exception $e) {
         $this->xgreg_log(">>> ERROR: " . $result['Result'], 1, '/log/logMAILSMS.txt');
