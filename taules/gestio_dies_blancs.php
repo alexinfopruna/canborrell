@@ -54,6 +54,8 @@ if (isset($_POST["dbloq"]))
 
 <HTML>
 <HEAD>
+    <link rel="shortcut icon" type="image/ico" href="/gear-favicon.ico" />
+
 	<LINK rel="stylesheet" type="text/css" href="../estils.css">
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
 

@@ -5,6 +5,9 @@ if (!defined('DB_CONNECTION_FILE')) define('DB_CONNECTION_FILE', "../Connections
 require_once(ROOT."Gestor.php");
 require(ROOT."../Connections/".DB_CONNECTION_FILE);
 ?>
+
+    <link rel="shortcut icon" type="image/ico" href="/gear-favicon.ico" />
+
 <title>
 Info sistema
 </title>

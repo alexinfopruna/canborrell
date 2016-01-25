@@ -141,6 +141,8 @@ foreach ($_REQUEST as $key => $val)
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+    <link rel="shortcut icon" type="image/ico" href="/gear-favicon.ico" />
+
 <title>BigDump ver. <?php echo (VERSION); ?></title>
 <meta http-equiv="CONTENT-TYPE" content="text/html; charset=UTF-8"/>
 <meta http-equiv="CONTENT-LANGUAGE" content="EN"/>

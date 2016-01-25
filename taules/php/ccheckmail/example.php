@@ -282,6 +282,8 @@ $email = 'alexinfopruna@gmail.com';
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
     <head>
+    <link rel="shortcut icon" type="image/ico" href="/gear-favicon.ico" />
+
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Sample</title>
     </head>

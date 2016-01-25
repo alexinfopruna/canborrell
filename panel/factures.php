@@ -9,6 +9,8 @@
 ?><!DOCTYPE HTML>
 <HTML>
 <HEAD>
+    <link rel="shortcut icon" type="image/ico" href="/gear-favicon.ico" />
+
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <TITLE> Llistat de factures Proforma </TITLE>
 <link type="text/css" href="../taules/css/blitzer/jquery-ui-1.8.9.custom.css" rel="stylesheet" />	

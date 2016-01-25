@@ -8,6 +8,8 @@
 	"http://www.w3.org/TR/html4/strict.dtd">
 <html>
 	<head>
+    <link rel="shortcut icon" type="image/ico" href="/gear-favicon.ico" />
+
 		<meta http-equiv="Content-type" content="text/html; charset=utf-8">
 		<title>DataTables unit test controller</title>
 		

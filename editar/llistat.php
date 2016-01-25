@@ -164,6 +164,7 @@ else
         <title>Gestió de reserves</title>
         <link href="reserves.css" rel="stylesheet" type="text/css" />
         <link href="../estils.css" rel="stylesheet" type="text/css" />
+        <link rel="shortcut icon" type="image/ico" href="/gear-favicon.ico" />
 <?php echo Gestor::loadJQuery("2.0.3"); ?>
         <script>
           $(function () {

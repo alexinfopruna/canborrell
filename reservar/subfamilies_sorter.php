@@ -35,6 +35,8 @@ $l=$gestor->lng;
  
 <html lang="en">
 <head>
+    <link rel="shortcut icon" type="image/ico" href="/gear-favicon.ico" />
+
     <meta charset="utf-8" />
     <title>jQuery UI Sortable - Default functionality</title>
     <link rel="stylesheet" href="http://code.jquery.com/ui/1.9.0/themes/base/jquery-ui.css" />

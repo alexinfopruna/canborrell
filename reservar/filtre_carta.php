@@ -36,6 +36,8 @@ $l=$gestor->lng;
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <HTML>
 <HEAD>
+    <link rel="shortcut icon" type="image/ico" href="/gear-favicon.ico" />
+
 <TITLE>Masia Can Borrell</TITLE>
 <meta http-equiv="Content-Type" content="text/plain; charset=UTF-8" />
 <link type="text/css" href="../taules/css/blitzer/jquery-ui-1.8.9.forms.css"   rel="stylesheet" />

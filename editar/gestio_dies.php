@@ -70,6 +70,8 @@ if (isset($_POST["dbloq"]))
 
 <HTML>
 <HEAD>
+    <link rel="shortcut icon" type="image/ico" href="/gear-favicon.ico" />
+
 <TITLE> Masia Can Borrell </TITLE>
 	<LINK rel="stylesheet" type="text/css" href="../estils.css">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">

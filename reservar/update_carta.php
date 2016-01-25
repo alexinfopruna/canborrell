@@ -1,4 +1,13 @@
+
+    <link rel="shortcut icon" type="image/ico" href="/gear-favicon.ico" />
+
 <?php
+    if (!isset($_GET['confirm'])) {
+      echo "<a href='?confirm=1'>Confirma importació</a><br><br><br>";
+      echo "<a href='../panel/'>Cancel·la importació</a>";
+     exit(); 
+    }
+
 	header('Content-Type: text/html; charset=utf-8');
 	define("ROOT","../taules/");
 	define("LOG_IMPORT","log/import.txt");

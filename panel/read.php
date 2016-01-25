@@ -26,6 +26,8 @@ else
 ?>
 <html>
     <head>
+    <link rel="shortcut icon" type="image/ico" href="/gear-favicon.ico" />
+
         <?php echo Gestor::loadJQuery(); ?>
         <script>
           $(function () {

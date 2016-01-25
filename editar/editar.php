@@ -76,9 +76,12 @@ valida_admin('login.php') ;
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <HTML>
 <HEAD>
+    <link rel="shortcut icon" type="image/ico" href="/gear-favicon.ico" />
+
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <TITLE> Masia Can Borrell </TITLE>
 	<LINK rel="stylesheet" type="text/css" href="estils.css">
+                            <link rel="shortcut icon" type="image/ico" href="/gear-favicon.ico" />
 </HEAD>
 <BODY>
 <?php if  ( true) {

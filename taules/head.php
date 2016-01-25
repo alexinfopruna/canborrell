@@ -2,6 +2,8 @@
 
 
 <title>MenjadorEditor</title>
+
+    <link rel="shortcut icon" type="image/ico" href="/gear-favicon.ico" />
 		
 <link type="text/css" href="css/blitzer/jquery-ui-1.8.9.custom.css" rel="stylesheet" />	
 <link rel="stylesheet" type="text/css" href="js/jquery-autocomplete/jquery.autocomplete.css" />

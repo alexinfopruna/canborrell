@@ -44,6 +44,8 @@ $max_juniors=$gestor->configVars("max_juniors");
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <HTML>
 <HEAD>
+    <link rel="shortcut icon" type="image/ico" href="/gear-favicon.ico" />
+
 <TITLE> Masia Can Borrell </TITLE>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <!-- this goes into the <head> tag ALEX ESTILS! -->

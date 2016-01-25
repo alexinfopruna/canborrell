@@ -1,3 +1,5 @@
+    <link rel="shortcut icon" type="image/ico" href="/gear-favicon.ico" />
+
 <?php
 define("READER_SCRIPT", "read.php?f=");
 if (!defined('ROOT')) define('ROOT', "../taules/");

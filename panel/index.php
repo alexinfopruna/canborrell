@@ -25,6 +25,8 @@ if (isset($_GET['exit']))
 <!DOCTYPE HTML>
 <HTML>
 <HEAD>
+    <link rel="shortcut icon" type="image/ico" href="/gear-favicon.ico" />
+
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <TITLE> PANEL DE CONTROL Masia Can Borrell </TITLE>
 
