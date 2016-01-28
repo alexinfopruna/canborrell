@@ -812,7 +812,7 @@ Incloent-hi els complements (mongetes i patates fregides all i oli pa torrat amb
 
 <BR>
 <UL>
-<BR><?php echo $carta->preuPlat(2021); ?>  Euros (IVA incluido)<BR>
+<BR><?php echo $carta->preuPlat(2008); ?>  Euros (IVA incluido)<BR>
 </UL>
 
 <A HREF="#0"><IMG SRC="../img/bt_amunt.gif" WIDTH="15" HEIGHT="15" BORDER="0" ALT="Amunt"></A><BR>

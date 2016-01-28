@@ -2644,9 +2644,12 @@ ORDER BY `estat_hores_data` DESC";
         $sendService = new EsendexSendService($username, $password, $accountReference);
         $result = $sendService->SendMessage($recipients, $body, $type);
         
-        $pr = print_r($result, TRUE);
+       // if ($result['Result']=='Error')        $pr = print_r($result, TRUE);
+       // else $pr =  $result['Result'];
+        
+         $pr = print_r($result, TRUE);
         $this->xgreg_log(">>> ENVIA SMS: REAL: ". $pr." ***  " . $result['Result'], 1);
-        $this->xgreg_log(">>> ENVIA SMS: REAL: " . $result['Result'], 1, '/log/logMAILSMS.txt');
+        $this->xgreg_log(">>> ENVIA SMS: REAL: " . $pr." ***  ". $result['Result'], 1, '/log/logMAILSMS.txt');
       }
       catch (Exception $e) {
         $this->xgreg_log(">>> ERROR: " . $result['Result'], 1, '/log/logMAILSMS.txt');
@@ -2863,6 +2866,7 @@ ORDER BY `estat_hores_data` DESC";
     return $comanda;
   }
 
+  /*   * ********************************************************************************************************************* */
   /*   * ********************************************************************************************************************* */
 
   public function garjola($tel, $email, $valor = null) {
