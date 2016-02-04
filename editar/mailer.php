@@ -1,7 +1,9 @@
 <?php
-require_once ("PHPMailerAutoload.php");
-require_once(ROOT.INC_FILE_PATH.'alex.inc');
+require_once (ROOT.INC_FILE_PATH."PHPMailer-master/PHPMailerAutoload.php");
+//require_once (ROOT.INC_FILE_PATH.PHPMAILER_LIB);
 
+require_once(ROOT.INC_FILE_PATH.'alex.inc');
+ 
 if (!defined('CONFIG'))
 {
 	if (!defined('ROOT')) 	define('ROOT', "../taules/");

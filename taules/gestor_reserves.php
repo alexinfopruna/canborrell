@@ -4,7 +4,6 @@ if (!defined('ROOT'))
   define('ROOT', "");
 
 require_once(ROOT . "Gestor.php");
-
 if (!defined('LLISTA_DIES_NEGRA'))
   define("LLISTA_DIES_NEGRA", INC_FILE_PATH . "llista_dies_negra.txt");
 if (!defined('LLISTA_NITS_NEGRA'))
