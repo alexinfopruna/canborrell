@@ -259,7 +259,7 @@ function mail_SMS_cli($id=false,$SMS=null)
     if (!isset($attach))$attach=null;
     
     $r = FALSE;
-    //$r=mailer($recipient, $subject , $html, $altbdy,$attach,false,MAIL_CCO);
+    $r=mailer($recipient, $subject , $html, $altbdy,$attach,false,MAIL_CCO);
     $envio = $r?'<span class="exit">ENVIAT OK</span>':'<span class="error">ERROR</span>';
     $nreserva=$fila['id_reserva'];
     $att=$attach?" -- FACTURA: $attach":"";
