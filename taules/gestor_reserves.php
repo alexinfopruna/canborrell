@@ -3104,7 +3104,7 @@ ORDER BY `estat_hores_data` DESC";
 
   /*   * ********************************************************************************************************************* */
 }
-
+echo "WEWE";
 function scan_sort_dir($dir) {
   $ignored = array('.', '..', '.svn', '.htaccess');
 
