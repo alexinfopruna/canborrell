@@ -257,11 +257,14 @@ function mail_SMS_cli($id=false,$SMS=null)
 	$recipient=$fila['email'];
     //$subject="..::Reserva Can Borrell::..";
     if (!isset($attach))$attach=null;
-    $r=mailer($recipient, $subject , $html, $altbdy,$attach,false,MAIL_CCO);
+    
+    
+    //$r=mailer($recipient, $subject , $html, $altbdy,$attach,false,MAIL_CCO);
+    $envio = $r?'<span class="exit">ENVIAT OK</span>':'<span class="error">ERROR</span>';
     $nreserva=$fila['id_reserva'];
     $att=$attach?" -- FACTURA: $attach":"";
     //print_log("Enviament mail($r): $nreserva -- $recipient, $subject: $copia $att");
-   Gestor::xgreg_log("<span class='grups'>Enviament mail($r): <span class='idr'>$nreserva</span> -- $recipient, $subject: $copia $att</span>",1,'/log/logGRUPS.txt');
+    Gestor::xgreg_log("<span class='grups'>Enviament mail($r): <span class='idr'>$nreserva</span> -- $recipient, $subject: $copia $att</span>",1,'/log/logGRUPS.txt');
 
     
     ((mysqli_free_result($Result) || (is_object($Result) && (get_class($Result) == "mysqli_result"))) ? true : false);
