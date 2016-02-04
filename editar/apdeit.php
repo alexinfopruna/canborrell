@@ -264,7 +264,7 @@ function mail_SMS_cli($id=false,$SMS=null)
     $nreserva=$fila['id_reserva'];
     $att=$attach?" -- FACTURA: $attach":"";
     //print_log("Enviament mail($r): $nreserva -- $recipient, $subject: $copia $att");
-    Gestor::xgreg_log("<span class='grups'>Enviament mail($r): <span class='idr'>$nreserva</span> -- $recipient, $subject: $copia $att</span>",1,'/log/logGRUPS.txt');
+    Gestor::xgreg_log("<span class='grups'>Enviament mail($envio): <span class='idr'>$nreserva</span> -- $recipient, $subject: $copia $att</span>",1,'/log/logGRUPS.txt');
 if (!$r) echo "ERROR en l'enviament del mail!!!!!";
     
     ((mysqli_free_result($Result) || (is_object($Result) && (get_class($Result) == "mysqli_result"))) ? true : false);
