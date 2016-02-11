@@ -362,7 +362,12 @@ echo LOCAL ? " local " : ""
                                               $chek = ($i == $row['adults'] ? 'checked="checked"' : '');
                                               $tpv = ($i >= persones_paga_i_senyal ? "ptpv" : "");
                                               $title = ($i >= persones_paga_i_senyal ? "Paga i senyal necessària" : "Reserva sense paga i senyal");
-                                              print '<input type="radio" id="com' . $i . '" name="selectorComensals" value="' . $i . '" ' . $chek . '/><label for="com' . $i . '" class="' . $tpv . '" title="' . $title . '">' . $i . '</label>';
+                                              $bt = '<input type="radio" id="com' . $i . '" name="selectorComensals" value="' . $i . '" ' . $chek . '/><label for="com' . $i . '" class="' . $tpv . '" title="' . $title . '">' . $i . '</label>';
+                                            
+                                               if ($EDITA_RESERVA && $tpv) {
+                                                 $bt="";
+                                               }
+                                              print $bt;
                                             }
                                             ?>
                                             <input type="radio" id="comGrups" name="selectorComensals" value="grups"  /><label id="labelGrups" for="comGrups" style="font-size:1.2em"><?php l('Grups'); ?></label>

@@ -151,7 +151,7 @@ function mail_restaurant($id=false)
     $recipient = MAIL_RESTAURANT;  
     $subject = "Can-Borrell: RESERVA GRUP CANCEL·LADA: ".$fila['id_reserva']; 
 
-    $r=mailer($recipient, $subject, $html, $altbdy);
+    $r=  mailer_reserva($fila['id_reserva'], 'Cancelació grups', $recipient, $subject, $html, $altbdy);
     $nreserva=$fila['id_reserva'];
     print_log("Enviament mail($r): $nreserva -- $recipient, $subject");
 	
@@ -161,4 +161,4 @@ function mail_restaurant($id=false)
 
 
 ?>
-<meta http-equiv="Refresh" content="5;URL=../index.html" />
+<meta http-equiv="Refresh" content="5;url=../index.html" />

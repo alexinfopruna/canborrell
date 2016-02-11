@@ -30,6 +30,16 @@ $config = new Configuracio();
 date_default_timezone_set('Europe/Madrid');
 setlocale(LC_TIME, "ca_ES.utf8");
 
+if (defined('MOSTRA_ERRORS') && MOSTRA_ERRORS == TRUE){
+  /* ERRORS ON */ 
+//set_error_handler("var_dump");
+ini_set('error_reporting', E_ALL);
+error_reporting(E_ALL);
+ini_set("display_errors", 1);
+ini_set("track_errors", 1);
+ini_set("html_errors", 1);
+
+}
 /* * ******************************************************************************************************************* */
 // DEFINE CARPETA DE TREBALL SOBRE LA ROOT
 if (!defined('INC_FILE_PATH'))  define('INC_FILE_PATH', "");
@@ -814,6 +824,7 @@ class Gestor {
   /*   * *************************************************************************************************** */
 
   public function configVars($nom) {
+    if (!isset($this->conf->configVars[$nom])) return NULL;
     return $this->conf->configVars[$nom];
   }
 

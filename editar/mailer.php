@@ -1,7 +1,5 @@
 <?php
 require_once (ROOT.INC_FILE_PATH."PHPMailer-master/PHPMailerAutoload.php");
-//require_once (ROOT.INC_FILE_PATH.PHPMAILER_LIB);
-
 require_once(ROOT.INC_FILE_PATH.'alex.inc');
  
 if (!defined('CONFIG'))
@@ -11,9 +9,32 @@ if (!defined('CONFIG'))
 	$conf = new Configuracio();
 }
 
+function mailer_reserva($idr, $template, $addr, $subject, $body, $altbody, $attach=null, $test=false, $cco=null){
+  $query = "INSERT INTO `email` ( `reserva_id`, `email_recipients`, `email_subject`, `email_body`, `email_resultat`,   `email_categoria`) "
+      . "VALUES (  '$idr', '$addr', '$subject', '".base64_encode($body)."' , '0',  '$template');";
+ $qry_result = mysqli_query($GLOBALS["___mysqli_ston"], $query)  or die(((is_object($GLOBALS["___mysqli_ston"])) ? mysqli_error($GLOBALS["___mysqli_ston"]) : (($___mysqli_res = mysqli_connect_error()) ? $___mysqli_res : false)));
+ $idt= mysqli_insert_id($GLOBALS["___mysqli_ston"]);
+ 
+ 
+ $res = mailer($addr,$subject,$body,$altbody,$attachl, $test, $cco);
+  $resultat = $res?'1':'0';
+  
+   if ($test || ENVIA_MAILS===false) $resultat = '2';
+  $query = "UPDATE email SET email_resultat = $resultat WHERE email_id = $idt";
+  $qry_result = mysqli_query($GLOBALS["___mysqli_ston"], $query) or die(((is_object($GLOBALS["___mysqli_ston"])) ? mysqli_error($GLOBALS["___mysqli_ston"]) : (($___mysqli_res = mysqli_connect_error()) ? $___mysqli_res : false)));
+  
+  return $res;
+}
+
+/***************************************************************************************/
+/***************************************************************************************/
+/***************************************************************************************/
+/***************************************************************************************/
 function mailer($addr,$subject,$body,$altbody,$attach=null, $test=false, $cco=null)
 {  
   error_log('<ul class="level-0"> >>> <span class="date">' . date("Y-m-d H:i:s") . "</span> >>>>  MAIL $addr<li class='level-0'>$addr, $subject, $body</li>",3, ROOT . INC_FILE_PATH .'/log/logMAILSMS.txt');
+
+  
   
   
   if (!isset($altbody)) $altbody="Su cliente de correo no puede interpretar correctamente este mensaje. Por favor, póngase en contacto con el restaurante llamando al 936 929 723 o al 936 910 605. Disculpe las molestias";
@@ -41,11 +62,6 @@ function mailer($addr,$subject,$body,$altbody,$attach=null, $test=false, $cco=nu
   $mail->IsHTML(true);
   */
    include(ROOT.INC_FILE_PATH."mailer_profile.php");
-
-//Enviamos el correo  
-  
-    //if ($cco)   $mail->AddBCC($cco);
-  
 
   if ($addr=="info@can-borrell.com" && isset($_POST['client_email']))  $mail->From=$_POST['client_email'];
   if ($addr==MAIL_RESTAURANT && isset($_POST['client_email']))  $mail->From=$_POST['client_email'];
@@ -80,8 +96,8 @@ function mailer($addr,$subject,$body,$altbody,$attach=null, $test=false, $cco=nu
   }
    else
    {
-	  $exito = $mail->Send();
-	}
+      $exito = $mail->Send();
+   }
 
    if ($cco == $addr) $cco=NULL;
    if ($cco) {
@@ -102,18 +118,20 @@ function mailer($addr,$subject,$body,$altbody,$attach=null, $test=false, $cco=nu
       
    if(!$exito)
    {
+     
+     
          $err=$mail->ErrorInfo;
       //print_log("<span style='color:red'>MAILER ERROR:$err - </span> Enviat mail TO:$addr $cco SUBJECT: $subject");
       error_log("<li><span style='color:red'>MAILER ERROR:$err - </span> Enviat mail TO:$addr $cco SUBJECT: $subject",3, ROOT . INC_FILE_PATH .'/log/logMAILSMS.txt');
       error_log("</ul>",3, ROOT . INC_FILE_PATH .'/log/logMAILSMS.txt');
       
-      return false;
+      return FALSE;
    }
    else
    {
       error_log("<li><span style='color:green'>MAILER SUCCESS:</span>: Enviat mail TO:$addr $cco SUBJECT: $subject</li>",3, ROOT . INC_FILE_PATH .'/log/logMAILSMS.txt');
       error_log('<li>'.$body.'</li></ul>',3, ROOT . INC_FILE_PATH .'/log/logMAILSMS.txt');
-     return true;
+     return TRUE;
    } 
      
    }

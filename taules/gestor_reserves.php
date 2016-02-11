@@ -623,18 +623,25 @@ $this->xgreg_log(DB_CONNECTION_FILE_DEL, 1);
   }
 
   private function valida_permuta() {
-    if (!isset($_POST['estat_taula_taula_id']) || $_POST['estat_taula_taula_id'] < 1)
+    if (!isset($_POST['estat_taula_taula_id']) || $_POST['estat_taula_taula_id'] < 1){
       return FALSE;
+    }
     if (!isset($_POST['data'])) {
       $data = $this->cambiaf_a_mysql($_POST['data']);
-      if ($data < date("Y-m-d"))
-        return FALSE;
+      if ($data < date("Y-m-d")){
+        
+      return FALSE;
+      }
     }
-    if (!isset($_POST['hora']) || $_POST['hora'] < '00:00')
+    if (!isset($_POST['hora']) || $_POST['hora'] < '00:00'){
       return FALSE;
+    }
 
-    if (!isset($_POST['id_reserva']) || $_POST['id_reserva'] < 20000)
+    if (!isset($_POST['id_reserva']) || $_POST['id_reserva'] < 20000){
       return FALSE;
+    }
+      
+    
     return TRUE;
   }
 
@@ -2462,6 +2469,13 @@ ORDER BY `estat_hores_data` DESC";
   /*   * ************************************* */
 
   public function enviaMail($idr, $plantilla = "confirmada_", $destinatari = null, $extres = null) {
+    $subject = isset($extres['subject'])?$extres['subject']:'No subject';
+    //$query = "INSERT INTO `email` ( `email_recipients`, `email_body`, `email_resultat`, `email_subject`, `reserva_id`, `email_categoria`) "
+    //    . "VALUES ( '$destinatari', 'En procés...', '1', 'Test', '$idr', '$plantilla')";
+       
+    //$this->qry_result = mysqli_query($this->connexioDB, $query) or die(((is_object($GLOBALS["___mysqli_ston"])) ? mysqli_error($GLOBALS["___mysqli_ston"]) : (($___mysqli_res = mysqli_connect_error()) ? $___mysqli_res : false)));
+    $ts = $this->insert_id();
+    
     $this->reg_log(">>>> ENVIA EMAIL >>>> enviaMail($idr, $plantilla, $destinatari )", 1);
     $this->xgreg_log(">>>> ENVIA EMAIL >>>> enviaMail(<span class='idr'>$idr</span>, $plantilla, $destinatari )", 0, '/log/logMAILSMS.txt');
     //$this->xgreg_log(">>>> ENVIA EMAIL >>>> enviaMail($idr, $plantilla, $destinatari )",1);
@@ -2524,9 +2538,9 @@ ORDER BY `estat_hores_data` DESC";
 
     $t->parse("OUT", "page");
     $html = $t->get("OUT");
-    //$this->xgreg_log("**********************************************",1,'/log/logMAILSMS.txt');
-    //$this->xgreg_log($html,1,'/log/logMAILSMS.txt');
-
+    //$query = "UPDATE email SET email_body ='$html' WHERE email_timestamp=$ts";
+    //$this->qry_result = mysqli_query($this->connexioDB, $query) or die(((is_object($GLOBALS["___mysqli_ston"])) ? mysqli_error($GLOBALS["___mysqli_ston"]) : (($___mysqli_res = mysqli_connect_error()) ? $___mysqli_res : false)));
+    
 
     if ($destinatari)
       $recipient = $destinatari;
@@ -2539,7 +2553,7 @@ ORDER BY `estat_hores_data` DESC";
       $subject = "..::Reserva Can Borrell::..";
 
     try {
-      $result = $r = mailer($recipient, $subject, $html, $altbdy, null, false, MAIL_CCO);
+      $result = $r = mailer_reserva($idr, $plantilla, $recipient, $subject, $html, $altbdy, null, false, MAIL_CCO);
       $mail = "Enviament $plantilla RESERVA PETITA ONLINE($r): $idr -- $recipient";
     }
     catch (Exception $e) {
@@ -2559,9 +2573,7 @@ ORDER BY `estat_hores_data` DESC";
   /*   * ************************************* */
 
   public function enviaSMS($res, $missatge = 0, $numMobil = 0) {
-    $this->xgreg_log(">>> ENVIA SMS <span class='idr'>$res</span> > $numMobil ", 1); /*     * ***********BORRA*************** */
     $file = ROOT . "/editar/read.php?f=" . ROOT . INC_FILE_PATH . '/log/logMAILSMS.txt';
-    $this->xgreg_log('<br><a href="' . $file . '">log mail</a>', 1); /*     * ***********BORRA*************** */
     $this->xgreg_log(">>> ENVIA SMS <span class='idr'>$res</span> > $numMobil  ", 1, '/log/logMAILSMS.txt');
     $this->xgreg_log('<br><a href="' . $file . '">log mail</a>', 1, '/log/logMAILSMS.txt');
 
@@ -2589,7 +2601,6 @@ ORDER BY `estat_hores_data` DESC";
     if (!$row['client_mobil']) {
       $this->xgreg_log(">>> ENVIA SMS: FALTA NUM MOBIL!!!", 1);
       $this->xgreg_log(">>> ENVIA SMS: FALTA NUM MOBIL!!!", 1, '/log/logMAILSMS.txt');
-      //error_log("</ul>",3, ROOT . INC_FILE_PATH .'/log/logMAILSMS.txt');
       return false;
     }
 
@@ -2601,25 +2612,21 @@ ORDER BY `estat_hores_data` DESC";
       $hora = $row['hora'];
 
       $missatge = "Recuerde: reserva en Restaurant Can Borrell el $data a las $hora ($persones).Rogamos comunique cualquier cambio: 936929723 - 936910605.Gracias.(ID:$res)";
-      //echo $missatge;
-      //die($query);
     }
-
 
     $numMobil = $row['client_mobil'];
     $this->xgreg_log(">>> ENVIA SMS: " . $res . " >>> " . $numMobil . " >>> " . $missatge, 1);
     $this->xgreg_log(">>> ENVIA SMS: <span class='idr'>$res</span> >>> " . $numMobil . " >>> " . $missatge, 1, '/log/logMAILSMS.txt');
 
     if (strlen($numMobil) != 9 || !is_numeric($numMobil)) {
-      //error_log("</ul>",3, ROOT . INC_FILE_PATH .'/log/logMAILSMS.txt');
-      return true; //return $this->llistaSMS($res);
+      return true;
     }
-    if (substr($numMobil, 0, 1) != '6' && substr($numMobil, 0, 1) != '7') {
-      //error_log("</ul>",3, ROOT . INC_FILE_PATH .'/log/logMAILSMS.txt');
-      return true; //return $this->llistaSMS($res);
+    if (substr($numMobil, 0, 1) != '6' && substr($numMobil, 0, 1) != '7' && $numMobil!='999212121')  {
+      return true;
     }
+    
+    
     $mensa = $this->SQLVal($missatge);
-
     // Test Variables - assign values accordingly:
     $recipients = $numMobil;    // The mobile number(s) to send the message to (comma-separated).
     $body = $mensa;     // The body of the message to send (must be less than 160 characters).
@@ -2642,10 +2649,6 @@ ORDER BY `estat_hores_data` DESC";
       try {
         $sendService = new EsendexSendService($username, $password, $accountReference);
         $result = $sendService->SendMessage($recipients, $body, $type);
-        
-       // if ($result['Result']=='Error')        $pr = print_r($result, TRUE);
-       // else $pr =  $result['Result'];
-        
          $pr = print_r($result, TRUE);
         $this->xgreg_log(">>> ENVIA SMS: REAL: ". $pr." ***  " . $result['Result'], 1);
         $this->xgreg_log(">>> ENVIA SMS: REAL: " . $pr." ***  ". $result['Result'], 1, '/log/logMAILSMS.txt');
@@ -2658,21 +2661,18 @@ ORDER BY `estat_hores_data` DESC";
     else {
       $this->reg_log(">>> ENVIA SMS: SIMULAT", 1);
       $this->xgreg_log(">>> ENVIA SMS: SIMULAT", 1, '/log/logMAILSMS.txt');
+      $t = "SIMULAT >>>>> $t ";
     }
 
     $rs = ($result['Result'] == "NO ENVIAT!!!") ? "ERROR" : "EXIT";
     $this->reg_log(">>> SMS RESULTAT: <span class='$rs'>$rs</span>", 1);
     $this->xgreg_log(">>> SMS RESULTAT: <span class='$rs'>$rs</span>", 1, '/log/logMAILSMS.txt');
 
-
     $r = '<span style="color:red;font-size:11px;"><em> -(tel: ' . $numMobil . ') RESULTAT:  ' . $result['Result'] . ' / ' . $body . '</em></span>';
-    //BBDD
     $t = ((isset($GLOBALS["___mysqli_ston"]) && is_object($GLOBALS["___mysqli_ston"])) ? mysqli_real_escape_string($GLOBALS["___mysqli_ston"], $mensa . $r) : ((trigger_error("[MySQLConverterToo] Fix the mysql_escape_string() call! This code does not work.", E_USER_ERROR)) ? "" : ""));
-
     $query = "INSERT INTO sms (sms_reserva_id, sms_numero, sms_missatge) VALUES ($res, $numMobil, '$t')";
     $Result1 = $this->log_mysql_query($query, $this->connexioDB) or die(((is_object($GLOBALS["___mysqli_ston"])) ? mysqli_error($GLOBALS["___mysqli_ston"]) : (($___mysqli_res = mysqli_connect_error()) ? $___mysqli_res : false)));
 
-    //error_log("</ul>",3, ROOT . INC_FILE_PATH .'/log/logMAILSMS.txt');
     return true;
   }
 
@@ -3102,6 +3102,15 @@ ORDER BY `estat_hores_data` DESC";
     //return '{"dinar":"<input type=\"radio\" id=\"uhora1208\" name=\"hora\" value=\"13:17\"  class=\"required primera-hora rh\" title=\"Seleccionax hora\" maxc=\"100\"  comensals=\"0\"  table=\"estat_hores\"\/>\n\t\t\t<label for=\"uhora1208\"  title=\"13:17= Comensals reservats: 0\">13:18<\/label><input type=\"radio\" id=\"uhora920\" name=\"hora\" value=\"13:30\"   maxc=\"200\"  comensals=\"0\"  table=\"estat_hores\"\/>\n\t\t\t<label for=\"uhora920\"  title=\"13:30= Comensals reservats: 0\">13:30<\/label><input type=\"radio\" id=\"uhora1201\" name=\"hora\" value=\"13:45\"   maxc=\"150\"  comensals=\"0\"  table=\"estat_hores\"\/>\n\t\t\t<label for=\"uhora1201\"  title=\"13:45= Comensals reservats: 0\">13:45<\/label><input type=\"radio\" id=\"uhora1967\" name=\"hora\" value=\"14:00\"   maxc=\"150\"  comensals=\"0\"  table=\"estat_hores\"\/>\n\t\t\t<label for=\"uhora1967\"  title=\"14:00= Comensals reservats: 0\">14:00<\/label><input type=\"radio\" id=\"uhora1968\" name=\"hora\" value=\"14:15\"   maxc=\"150\"  comensals=\"0\"  table=\"estat_hores\"\/>\n\t\t\t<label for=\"uhora1968\"  title=\"14:15= Comensals reservats: 0\">14:15<\/label><input type=\"radio\" id=\"uhora1969\" name=\"hora\" value=\"14:30\"   maxc=\"150\"  comensals=\"0\"  table=\"estat_hores\"\/>\n\t\t\t<label for=\"uhora1969\"  title=\"14:30= Comensals reservats: 0\">14:30<\/label><input type=\"radio\" id=\"uhora1970\" name=\"hora\" value=\"14:45\"   maxc=\"150\"  comensals=\"0\"  table=\"estat_hores\"\/>\n\t\t\t<label for=\"uhora1970\"  title=\"14:45= Comensals reservats: 0\">14:45<\/label><input type=\"radio\" id=\"uhora1973\" name=\"hora\" value=\"15:30\"   maxc=\"100\"  comensals=\"0\"  table=\"estat_hores\"\/>\n\t\t\t<label for=\"uhora1973\"  title=\"15:30= Comensals reservats: 0\">15:30<\/label><input type=\"radio\" id=\"uhora1210\" name=\"hora\" value=\"15:45\"   maxc=\"100\"  comensals=\"0\"  table=\"estat_hores\"\/>\n\t\t\t<label for=\"uhora1210\"  title=\"15:45= Comensals reservats: 0\">15:45<\/label><input type=\"radio\" id=\"uhora1211\" name=\"hora\" value=\"16:00\"   maxc=\"50\"  comensals=\"0\"  table=\"estat_hores\"\/>\n\t\t\t<label for=\"uhora1211\"  title=\"16:00= Comensals reservats: 0\">16:00<\/label><input type=\"radio\" id=\"uhora738\" name=\"hora\" value=\"16:15\"   maxc=\"50\"  comensals=\"0\"  table=\"estat_hores\"\/>\n\t\t\t<label for=\"uhora738\"  title=\"16:15= Comensals reservats: 0\">16:15<\/label>","dinarT2":"","sopar":"","taulaT1":"3002","taulaT2":"3002","taulaT3":0,"error":""}';
   }
 
+  public function testPHPerror(){
+    
+    //echo "WWWW";die();
+      provovaError();
+      provovaError2();
+      provovaError3();
+      
+  }
+  
   /*   * ********************************************************************************************************************* */
 }
 

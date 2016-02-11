@@ -154,6 +154,8 @@ function mail_plantilla($id=false)
     $Result = mysqli_query( $canborrell, $query) or die(((is_object($GLOBALS["___mysqli_ston"])) ? mysqli_error($GLOBALS["___mysqli_ston"]) : (($___mysqli_res = mysqli_connect_error()) ? $___mysqli_res : false)));
     $fila=mysqli_fetch_assoc($Result);
 
+    $id = $fila['id_reserva'];
+    
     $avui=date("d/m/Y");
     $ara=date("H:i");
     /////// ATENCIO
@@ -232,7 +234,7 @@ function mail_plantilla($id=false)
 	if (!isset($altbdy)) $altbdy='';
                             
                             
-    $r=mailer($recipient, $subject, $html, $altbdy);
+    $r=mailer_reserva($id, 'pre_reserva_rest', $recipient, $subject, $html, $altbdy);
  //echo $html;
 	//print_log("Enviament mail reserva ".$fila['id_reserva']." ($r): $recipient, $subject");
     $gestor->xgreg_log(">>> <span class='grups'>Enviament mail reserva GRUPS: <span class='idr'>" . $fila['id_reserva'] . "</span> >  ($r): $recipient, $subject</span>", 1,'/log/logGRUPS.txt');

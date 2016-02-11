@@ -175,7 +175,8 @@ function mail_cli($id=false, $plantilla="templates/recordatori_cli.lbi")
 	
 	/******************************************************************************/	
 	$Result = mysqli_query( $canborrell, $query) or die(((is_object($GLOBALS["___mysqli_ston"])) ? mysqli_error($GLOBALS["___mysqli_ston"]) : (($___mysqli_res = mysqli_connect_error()) ? $___mysqli_res : false)));
-	$fila=mysqli_fetch_assoc($Result);
+	$id = $fila['id_reserva'];
+                            $fila=mysqli_fetch_assoc($Result);
 	
 	$lang=$lang_cli=$fila['lang'];
 
@@ -273,7 +274,7 @@ function mail_cli($id=false, $plantilla="templates/recordatori_cli.lbi")
 	$recipient=$fila['email'];
     $subject="..::Reserva Can Borrell: Recordatori reserva";
     
-    if (SMS_ACTIVAT)    $r=mailer($recipient, $subject , $html, $altbdy, null, false, MAIL_CCO);
+    if (SMS_ACTIVAT)    $r=  mailer_reserva($id, $plantilla, $recipient, $subject , $html, $altbdy, null, false, MAIL_CCO);
     else {
         echo "<br/>";
         echo "<br/>";

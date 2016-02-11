@@ -20,7 +20,7 @@ $P_ID = isset($_POST['P_ID'])?$_POST['P_ID']:FALSE;
 if (isset($_GET["sub"]) && $_GET["sub"]=="Confirmar") $_POST["Submit"]="Confirmar";
 $func=$_POST["Submit"];
 //die("TOT BEEE");
-
+if (isset($_GET['resend'])) $func="Confirmar";
 if ($id!=$P_ID) return;
 $SMS=null;
 
@@ -68,7 +68,9 @@ if (($func=="Eliminar")&&($id==$P_ID))
    header("location: llistat.php");
 
 }
-else
+else{
+  
+if (!isset($_GET['resend']))
 {    
     $d_limit=$_POST['data_limit'];
    $query='UPDATE reserves SET estat='.$estat.', num_1=0, data_limit="'.$d_limit.'" WHERE id_reserva='.$id;
@@ -79,13 +81,33 @@ else
    //echo $query;
    $result=mysqli_query($canborrell, $query);  
     //mysql_free_result($result);
-   
-  header("location: llistat.php"); 
-   $m=mail_SMS_cli($id,$SMS);
+
+   $m=mail_SMS_cli($id,$SMS); 
+}else{
+  $id = $_GET['resend'];
+   $result=mysqli_query($canborrell, $query); 
+  $m=mail_SMS_cli($id , $SMS); 
 }
 
+   $mensa="?msg=1&idr=$id&";
+  $mensa.=$m['mail_cli']?"&mail_cli=ok":"&mail_cli=err";
+   $mensa.=$m['mail_rest']?"&mail_rest=ok":"&mail_rest=err";
+   $mensa.=$m['sms']?"&sms=ok":"&sms=err";
+  header("location: llistat.php".$mensa); 
+  
+}
+
+
+/****************************************************************************************/
+/****************************************************************************************/
+/****************************************************************************************/
+/****************************************************************************************/
+/****************************************************************************************/
 function mail_SMS_cli($id=false,$SMS=null)
 {    
+  $resultats = array('mail_cli'=>FALSE,'mail_rest'=>FALSE,'sms'=>FALSE);
+  $copia = "Sense plantilla ";
+  
    Gestor::xgreg_log("<span class='mail'>ENVIA SMS+MAIL: <span class='idr'>$id</span></span>",0,'/log/logGRUPS.txt');
   
 	global $camps, $mmenu,$txt,$database_canborrell, $canborrell,$lang;
@@ -102,20 +124,26 @@ function mail_SMS_cli($id=false,$SMS=null)
 	((bool)mysqli_query( $canborrell, "USE " . $database_canborrell));
 	$Result = mysqli_query( $canborrell, $query) or die(((is_object($GLOBALS["___mysqli_ston"])) ? mysqli_error($GLOBALS["___mysqli_ston"]) : (($___mysqli_res = mysqli_connect_error()) ? $___mysqli_res : false)));
 	$fila=mysqli_fetch_assoc($Result);
+                            $id = $fila['id_reserva'];
  	$lang=$lang_cli=$fila['lang'];
 
  	/*** ENVIA SMS ***/ 	
  	$SMS=str_replace('{ID}', $id, $SMS);
  	$SMS=str_replace('{DIA}', $fila['data'], $SMS);
- 	echo "ID: $id / SMS: $SMS";
+ 	//echo "ID: $id / SMS: $SMS";
  	$g=new gestor_reserves();
-                            
-       Gestor::xgreg_log("<span class='grups'>Enviament SMS($d): <span class='idr'>$id</span></span>",1,'/log/logGRUPS.txt');
-                        
+                      
+       Gestor::xgreg_log("<span class='grups'>Enviament SMS(Pendent...): <span class='idr'>$id</span></span>",1,'/log/logGRUPS.txt');
    Gestor::xgreg_log("<span class='grups'>Enviament SMS: <span class='idr'>$id</span></span>",0,'/log/logMAILSMS.txt');
-                            
- 	$r=$g->enviaSMS($id, $SMS);
-     $r=$r?"<span class='EXIT'>EXIT</span>":"<span class='ERROR'>ERROR</span>";
+                       /*******************************************************/
+                       /*******************************************************/
+                       /*******************************************************/
+                      /**********/ $sms=$g->enviaSMS($id, $SMS);
+                       /*******************************************************/
+                       /*******************************************************/
+                       /*******************************************************/
+     $r=$sms?"<span class='EXIT'>EXIT</span>":"<span class='ERROR'>ERROR</span>";
+     if ($sms) $resultats['sms'] = TRUE;
    Gestor::xgreg_log("<span class='grups'>RESULTAT SMS($d): <span class='idr'>$id</span></span>",1,'/log/logMAILSMS.txt');
                            
  	error_log("</ul>",3, ROOT . INC_FILE_PATH .'/log/logMAILSMS.txt');
@@ -126,7 +154,7 @@ function mail_SMS_cli($id=false,$SMS=null)
           case 2: // RESRVA CONFIRMADA
 		$v=10;      
 		$aki="<a href='http://www.can-borrell.com/editar/pagament256.php?id=".$fila["id_reserva"]."&lang=$lang_cli' class='dins'>AQUI</a>";
-        $copia="Reserva CONFIRMADA";
+        $copia="Reserva Grups CONFIRMADA";
         $subject="Can-Borrell: RESERVA CONFIRMADA";
         $altbdy="Su reserva para el Restaurante Can Borrel ha sido confirmada. \n\nDebido a que su cliente de correo no puede interpretar correctamente este mensaje no es posible automatizar el proceso de pago.\n\n Por favor, póngase en contacto con el restaurante llamando al 936 929 723 o al 936 910 605. \n\nDisculpe las molestias";
  	  break;
@@ -136,7 +164,7 @@ function mail_SMS_cli($id=false,$SMS=null)
 		$preu=$fila['preu_reserva'];
 	//    $datat=cambiaf_a_normal($fila['data']).", ".$fila['hora']."h";
 		$datat=data_llarga($fila['data'],$lang).", ".$fila['hora']."h";
-        $copia="Reserva PAGADA";
+        $copia="Reserva Grups PAGADA";
         $subject="Can-Borrell: NOTIFICACIÓ DE PAGAMENT REBUDA";
 		if ($fila['factura']) 
 		{
@@ -156,13 +184,13 @@ function mail_SMS_cli($id=false,$SMS=null)
 		$v=30;
 		$aki="<a href='http://www.can-borrell.com/cat/contactar.php?id=".$fila["id_reserva"]."&lang=$lang_cli' class='dins'>AQUÍ</a>";
         $altbdy="Lamentamos informarle que la reserva que solicitó para el restaurante Can Borrell ha sido denegada por encontrarse el comedor lleno.\n\n Para más información, por favor, póngase en contacto con el restaurante llamando al 936 929 723 o al 936 910 605. \n\nDisculpe las molestias";
-    $copia="Reserva DENEGADA";
+    $copia="Reserva Grups DENEGADA";
     $subject="Can-Borrell: RESERVA DENEGADA";
 	  break;
 	  
 	  default:
                $subject="..::Reserva Can Borrell::..";
-		 return 0;
+		 return "0";
               
 	  break;
 	}
@@ -259,16 +287,19 @@ function mail_SMS_cli($id=false,$SMS=null)
     if (!isset($attach))$attach=null;
     
     $r = FALSE;
-    $r=mailer($recipient, $subject , $html, $altbdy,$attach,false,MAIL_CCO);
+    $r=mailer_reserva($id, $copia, $recipient, $subject , $html, $altbdy,$attach,false,MAIL_CCO);
     $envio = $r?'<span class="exit">ENVIAT OK</span>':'<span class="error">ERROR</span>';
     $nreserva=$fila['id_reserva'];
     $att=$attach?" -- FACTURA: $attach":"";
     //print_log("Enviament mail($r): $nreserva -- $recipient, $subject: $copia $att");
     Gestor::xgreg_log("<span class='grups'>Enviament mail($envio): <span class='idr'>$nreserva</span> -- $recipient, $subject: $copia $att</span>",1,'/log/logGRUPS.txt');
-if (!$r) echo "ERROR en l'enviament del mail!!!!!";
+
+    if ($r) $resultats['mail_cli'] = TRUE;
+    if (!$r) echo "ERROR en l'enviament del mail!!!!!";
     
     ((mysqli_free_result($Result) || (is_object($Result) && (get_class($Result) == "mysqli_result"))) ? true : false);
-	return ($fila['id_reserva']);
+	//return ($fila['id_reserva']);
+    return $resultats;
 }
 ///////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////
@@ -301,7 +332,7 @@ function mail_restaurant($id=false)
 	((bool)mysqli_query( $canborrell, "USE " . $database_canborrell));
 	$Result = mysqli_query( $canborrell, $query) or die(((is_object($GLOBALS["___mysqli_ston"])) ? mysqli_error($GLOBALS["___mysqli_ston"]) : (($___mysqli_res = mysqli_connect_error()) ? $___mysqli_res : false)));
 	$fila=mysqli_fetch_assoc($Result);
-	
+	$id = $fila['id_reserva'];
 	$avui=date("d/m/Y");
 	$ara=date("H:i");
 	$file="templates/pagat_rest.lbi";
@@ -371,7 +402,7 @@ function mail_restaurant($id=false)
     $recipient = MAIL_RESTAURANT;  
     $subject = "..::Reserva Can Borrell: Confirmació pagament reserva de grup"; 
 
-    $r=mailer($recipient, $subject, $html, $altbdy);
+    $r=mailer_reserva($ir, "pagat_rest", $recipient, $subject, $html, $altbdy);
     $r=$r?"<span class='EXIT'>EXIT</span>":"<span class='ERROR'>ERROR</span>";
     $nreserva=$fila['id_reserva'];
     //  print_log("Enviament mail($r): $nreserva -- $recipient, $subject");

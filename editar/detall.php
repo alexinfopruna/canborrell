@@ -55,6 +55,49 @@ if ($b4) $ampla=$b3?" (Doble llarg)":" (Doble ample)";
 $cadira=$cadira?' / <span style="color:red;">Cadira de rodes</span> ':'';
 $movilitat=$movilitat?' / <span style="color:red;">Movilitat reduïda</span> ':'';
 
+/***************************************************************************************/
+/*************************          MAIL / SMS           *******************************/
+/*************************          MAIL / SMS           *******************************/
+/*************************          MAIL / SMS           *******************************/
+/*************************          MAIL / SMS           *******************************/
+/***************************************************************************************/
+/***************************************************************************************/
+
+$query_DetailRS1 = "SELECT * FROM sms WHERE sms_reserva_id = $recordID";
+$DetailRS1 = mysqli_query( $canborrell, $query_DetailRS1) or die(((is_object($GLOBALS["___mysqli_ston"])) ? mysqli_error($GLOBALS["___mysqli_ston"]) : (($___mysqli_res = mysqli_connect_error()) ? $___mysqli_res : false)));
+$nex= "";
+
+while( $row = mysqli_fetch_assoc($DetailRS1)){
+  $class = $sms_confirma?'mail_ok':'mail_err';
+  $sms .= '<span class="mail_no">'.$nex.$row['sms_data'].' :'.substr($row['sms_missatge'],0,40000);
+  
+  if(strlen($row['sms_missatge'])>40000)  $sms.="...";
+  
+  $sms .= '</span>';
+  $nex = "<hr> <br>";
+  
+}
+$mail_confirma = FALSE;
+$query_DetailRS1 = "SELECT * FROM email WHERE email.reserva_id = $recordID";
+$DetailRS1 = mysqli_query( $canborrell, $query_DetailRS1) or die(((is_object($GLOBALS["___mysqli_ston"])) ? mysqli_error($GLOBALS["___mysqli_ston"]) : (($___mysqli_res = mysqli_connect_error()) ? $___mysqli_res : false)));
+$nex= "";
+while( $row = mysqli_fetch_assoc($DetailRS1)){
+  $aquest_mail_confirma = FALSE;
+  if (intval ($row['email_resultat']) && $row['email_categoria']=='Reserva Grups CONFIRMADA') $aquest_mail_confirma=TRUE;
+  $class = $aquest_mail_confirma?'mail_ok':'mail_error blink';
+  $mail .= '<span class="'.$class.'">'.$nex.$row['email_timestamp'].' :'.substr($row['email_categoria'],0,40);
+  //if(strlen($row['email_categoria'])>40)  $mail.="...";
+  $idr = intval($row['reserva_id']);
+  if (!$aquest_mail_confirma) $mail .= '  ';
+  $mail .= '</span>';
+  
+  $nex = "<br> ";
+  $mail_confirma = $mail_confirma || $aquest_mail_confirma;
+}
+
+//echo $mail_confirma;die();
+//Reserva Grups CONFIRMADA
+
 ?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -69,10 +112,30 @@ $movilitat=$movilitat?' / <span style="color:red;">Movilitat reduïda</span> ':'
 .Estilo4 {font-size: 12px}
 .Estilo6 {font-size: 9px}
 .Estilo7 {color: #FFFFFF}
+
+.sms{font-size:9px;}
+
+
+            .mail_error{color:white;background:red}
+            .mail_ok{color:white;background:green}
+            .mail_no{background:#FFF}
+
+   @-webkit-keyframes blinker {
+       from {opacity: 1.0;}
+       to {opacity: 0.3;}
+   }
+   .blinkxx{
+       text-decoration: blink;
+       -webkit-animation-name: blinker;
+       -webkit-animation-duration: 0.6s;
+       -webkit-animation-iteration-count:infinite;
+       -webkit-animation-timing-function:ease-in-out;
+       -webkit-animation-direction: alternate;
+
 -->
 </style>
 
-  <link rel="stylesheet" type="text/css" media="all" href="../calendari.css">
+  <link rel="stylesheet" type="text/css" media="all" href="../calendari.css" />
   <script type="text/javascript" src="../js/calendar.js"></script>
   <script type="text/javascript" src="../js/lang/calendar-ca.js"></script>
   <script type="text/javascript" src="../js/calendar-setup.js"></script>
@@ -177,6 +240,37 @@ $movilitat=$movilitat?' / <span style="color:red;">Movilitat reduïda</span> ':'
           <td width="320" align="right" bgcolor="#CCCCCC" class="llista"><div align="left"><?php echo (data_llarga($row_DetailRS1['data_creacio'])); ?></div></td>
         </tr>
         <tr>
+            <?php 
+            $estil_mail='';
+            if ($row_DetailRS1['estat']==2 && $mail_confirma) $estil_mail=' mail_ok ';
+            if ($row_DetailRS1['estat']==2 && !$mail_confirma) {
+              $estil_mail=' mail_error blink';
+              $reenvio = '<a href="apdeit.php?resend='.$row_DetailRS1['id_reserva'].'" style="background:black;padding:0 10px;">Reenvia</a>';
+            }
+            ?>
+          <td align="right" bgcolor="#333333" class="Estilo2 <?php echo $estil_mail?>"><?php echo $reenvio?> Email</td>
+          <td width="320" align="right" bgcolor="#CCCCCC" class="llista sms"><div align="left">
+            
+                  <?php
+           
+            echo $mail; 
+            
+            ?>
+                  
+              </div></td>
+        </tr>
+        <tr>
+          <td align="right" bgcolor="#333333" class="Estilo2">SMS</td>
+          <td width="320" align="right" bgcolor="#CCCCCC" class="llista sms"><div align="left">
+            <?php
+           
+            echo $sms; 
+            
+            ?>
+                  
+              </div></td>
+        </tr>
+        <tr>
           <td align="right" bgcolor="#333333" class="Estilo2">preu reserva</td>
 		  <?php
 			if (file_exists('factures/'.NOM_FACTURA.date("Y")."-".$row_DetailRS1['id_reserva'].'.pdf'))
@@ -212,7 +306,7 @@ $movilitat=$movilitat?' / <span style="color:red;">Movilitat reduïda</span> ':'
 					
         <div align="center">
           <input id="Confirmar" type="submit" name="Submit" value="Confirmar" />
-          <input id="Denegar" type="submit" name="Submit" value="Denegar">
+          <input id="Denegar" type="submit" name="Submit" value="Denegar"/>
           <input id="Pagada" type="submit" name="Submit" value="Pagada" />
           <input id="Eliminar" type="submit" name="Submit" value="Eliminar" />
           <input id="Pendent" type="submit" name="Submit" value="Pendent" />
