@@ -216,7 +216,8 @@ if (isset($_REQUEST['a']) && !empty($_REQUEST['a']))
 		break;
 		
 		default:
-			$gestor->out(call_user_func(array($gestor, $accio),$b,$c,$d,$e,$f,$g));	
+                                                                                    if (method_exists($gestor, $accio)) 
+			  $gestor->out(call_user_func(array($gestor, $accio),$b,$c,$d,$e,$f,$g));	
 		break;
 	}
 }

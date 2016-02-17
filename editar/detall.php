@@ -5,7 +5,7 @@ require(ROOT."gestor_reserves.php");
 $gestor=new gestor_reserves();
 
 
-
+//echo mail('alexinfopruna@gmail.com','holaaaa','holaaaaaaa bbb')?"SI":"NO";die();
 if (!isset($_SESSION)) session_start(); 
 
 require(ROOT.DB_CONNECTION_FILE); 
@@ -63,51 +63,80 @@ $movilitat=$movilitat?' / <span style="color:red;">Movilitat reduïda</span> ':'
 /***************************************************************************************/
 /***************************************************************************************/
 
+
+/*************************************************************************************/
+/********************************  SMS  *********************************************/
+/********************************  SMS  *********************************************/
+/********************************  SMS  *********************************************/
+/*************************************************************************************/
+
+
 $query_DetailRS1 = "SELECT * FROM sms WHERE sms_reserva_id = $recordID";
 $DetailRS1 = mysqli_query( $canborrell, $query_DetailRS1) or die(((is_object($GLOBALS["___mysqli_ston"])) ? mysqli_error($GLOBALS["___mysqli_ston"]) : (($___mysqli_res = mysqli_connect_error()) ? $___mysqli_res : false)));
 $nex= "";
 
+$sms = ' <uib-accordion close-others="oneAtATime"> ';
 while( $row = mysqli_fetch_assoc($DetailRS1)){
-  $class = $sms_confirma?'mail_ok':'mail_err';
-  $sms .= '<span class="mail_no">'.$nex.$row['sms_data'].' :'.substr($row['sms_missatge'],0,40000);
+  //$class = $sms_confirma?'mail_ok':'mail_err';
+  $sms .= '<uib-accordion-group class=""><uib-accordion-heading><span class="glyphicon glyphicon-comment"></span> '.$row['sms_data'].'</uib-accordion-heading>   '.$nex.$row['sms_data'].' :'.substr($row['sms_missatge'],0,40000);
+  
   
   if(strlen($row['sms_missatge'])>40000)  $sms.="...";
   
-  $sms .= '</span>';
-  $nex = "<hr> <br>";
+  $sms .= '</uib-accordion-group>';
+  $nex = "";
   
 }
-$mail_confirma = FALSE;
-$query_DetailRS1 = "SELECT * FROM email WHERE email.reserva_id = $recordID";
-$DetailRS1 = mysqli_query( $canborrell, $query_DetailRS1) or die(((is_object($GLOBALS["___mysqli_ston"])) ? mysqli_error($GLOBALS["___mysqli_ston"]) : (($___mysqli_res = mysqli_connect_error()) ? $___mysqli_res : false)));
-$nex= "";
-while( $row = mysqli_fetch_assoc($DetailRS1)){
-  $aquest_mail_confirma = FALSE;
-  if (intval ($row['email_resultat']) && $row['email_categoria']=='Reserva Grups CONFIRMADA') $aquest_mail_confirma=TRUE;
-  $class = $aquest_mail_confirma?'mail_ok':'mail_error blink';
-  $mail .= '<span class="'.$class.'">'.$nex.$row['email_timestamp'].' :'.substr($row['email_categoria'],0,40);
-  //if(strlen($row['email_categoria'])>40)  $mail.="...";
-  $idr = intval($row['reserva_id']);
-  if (!$aquest_mail_confirma) $mail .= '  ';
-  $mail .= '</span>';
-  
-  $nex = "<br> ";
-  $mail_confirma = $mail_confirma || $aquest_mail_confirma;
-}
+$sms .= '</uib-accordion>';
+
 
 //echo $mail_confirma;die();
 //Reserva Grups CONFIRMADA
-
+/****************************************************************************************/
+/****************************************************************************************/
+/****************************************************************************************/
+/****************************************************************************************/
+/****************************************************************************************/
 ?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <link rel="shortcut icon" type="image/ico" href="/gear-favicon.ico" />
-<!-- --> <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /> 
-<!--   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />-->
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /> 
 <title>Detall de reserva</title>
 <link href="reserves.css" rel="stylesheet" type="text/css" />
 <link href="../estils.css" rel="stylesheet" type="text/css" />
+
+
+<!------------ ANGUALAR + UI -------------->
+  <link rel="stylesheet" type="text/css" media="all" href="../calendari.css" />
+  <script type="text/javascript" src="../js/calendar.js"></script>
+  <script type="text/javascript" src="../js/lang/calendar-ca.js"></script>
+  <script type="text/javascript" src="../js/calendar-setup.js"></script>
+
+  
+      <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular-animate.js"></script>
+    <script src="//angular-ui.github.io/bootstrap/ui-bootstrap-tpls-1.1.2.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/spin.js/2.3.2/spin.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular-spinner/0.8.0/angular-spinner.min.js"></script>
+    <script type="text/javascript" src="js/angular-loading-spinner.js"></script>
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" />
+
+    <script src="js/detall.js"></script>
+<!------------ ANGUALAR + UI -------------->
+
 <style type="text/css">
+  .email_body{overflow-x: scroll;}  
+  .email_body{max-width:100% !important;}  
+ table { 
+    
+    border-spacing: 2px;
+    border-collapse: separate;
+}
+
+#detall tr{background-color: white;}
+#detall  td{padding:2px !important;}
+    
 <!--
 .Estilo4 {font-size: 12px}
 .Estilo6 {font-size: 9px}
@@ -116,7 +145,7 @@ while( $row = mysqli_fetch_assoc($DetailRS1)){
 .sms{font-size:9px;}
 
 
-            .mail_error{color:white;background:red}
+            .mail_error{ cursor:pointer;color:white;background:red}
             .mail_ok{color:white;background:green}
             .mail_no{background:#FFF}
 
@@ -133,16 +162,12 @@ while( $row = mysqli_fetch_assoc($DetailRS1)){
        -webkit-animation-direction: alternate;
 
 -->
+td{border:white solid 3px;}
 </style>
-
-  <link rel="stylesheet" type="text/css" media="all" href="../calendari.css" />
-  <script type="text/javascript" src="../js/calendar.js"></script>
-  <script type="text/javascript" src="../js/lang/calendar-ca.js"></script>
-  <script type="text/javascript" src="../js/calendar-setup.js"></script>
 </head>
 
-<body>
-		
+    <body>
+<span us-spinner="{radius:30, width:8, length: 16}"></span>		
 <table width="775" border="0" align="center" cellpadding="0" cellspacing="0" bgcolor="#F8F8F0">
   <tr>
     <td bgcolor="#570600" colspan="2" align="center"><table cellpadding="0" cellspacing="0" width="716" height="19" border="0">
@@ -153,7 +178,7 @@ while( $row = mysqli_fetch_assoc($DetailRS1)){
     </table></td>
   </tr>
 </table>
-<table width="773" border="0" align="center" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF">
+<table  id="detall" ng-app="detall" width="773" border="0" align="center" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF">
   <tr>
     <td><div align="center">
       <p class="titol2">&nbsp;</p>
@@ -239,21 +264,25 @@ while( $row = mysqli_fetch_assoc($DetailRS1)){
           <td align="right" bgcolor="#333333" class="Estilo2">data creaci&oacute;</td>
           <td width="320" align="right" bgcolor="#CCCCCC" class="llista"><div align="left"><?php echo (data_llarga($row_DetailRS1['data_creacio'])); ?></div></td>
         </tr>
-        <tr>
+        <tr ng-controller="llistatEmails">
             <?php 
             $estil_mail='';
-            if ($row_DetailRS1['estat']==2 && $mail_confirma) $estil_mail=' mail_ok ';
+            /*
+            if ($row_DetailRS1['estat']==2 && $mail_confirma) $estil_mail=' btn-success ';
             if ($row_DetailRS1['estat']==2 && !$mail_confirma) {
-              $estil_mail=' mail_error blink';
+              $estil_mail=' btn-danger blink';
               $reenvio = '<a href="apdeit.php?resend='.$row_DetailRS1['id_reserva'].'" style="background:black;padding:0 10px;">Reenvia</a>';
             }
+             * */
+             
             ?>
-          <td align="right" bgcolor="#333333" class="Estilo2 <?php echo $estil_mail?>"><?php echo $reenvio?> Email</td>
-          <td width="320" align="right" bgcolor="#CCCCCC" class="llista sms"><div align="left">
-            
+          <td align="right" bgcolor="#333333" class="Estilo2" ng-class="confirmada?'btn-success':'btn-danger'"> Email</td>
+          <td   width="320" align="right" bgcolor="#CCCCCC" class="llista sms"><div align="left">
+                  <span ng-repeat="fila in files" ng-controller="emalist" ng-click="open(fila.email_id)" ng-class="{{fila.email_resultat | num}}?'btn-success':'btn-danger' " class="btn" style="float:left"><span class="glyphicon glyphicon-envelope"></span> {{fila.email_timestamp}} :{{fila.email_categoria}}</span>
+                  
                   <?php
            
-            echo $mail; 
+           // echo $mail; 
             
             ?>
                   

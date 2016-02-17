@@ -16,7 +16,7 @@ function mailer_reserva($idr, $template, $addr, $subject, $body, $altbody, $atta
  $idt= mysqli_insert_id($GLOBALS["___mysqli_ston"]);
  
  
- $res = mailer($addr,$subject,$body,$altbody,$attachl, $test, $cco);
+ $res = mailer($addr,$subject,$body,$altbody,$attach, $test, $cco);
   $resultat = $res?'1':'0';
   
    if ($test || ENVIA_MAILS===false) $resultat = '2';
@@ -30,14 +30,15 @@ function mailer_reserva($idr, $template, $addr, $subject, $body, $altbody, $atta
 /***************************************************************************************/
 /***************************************************************************************/
 /***************************************************************************************/
-function mailer($addr,$subject,$body,$altbody,$attach=null, $test=false, $cco=null)
+function mailer($addr,$subject,$body,$altbody = null,$attach=null, $test=false, $cco=null)
 {  
+  $exito = FALSE;
   error_log('<ul class="level-0"> >>> <span class="date">' . date("Y-m-d H:i:s") . "</span> >>>>  MAIL $addr<li class='level-0'>$addr, $subject, $body</li>",3, ROOT . INC_FILE_PATH .'/log/logMAILSMS.txt');
 
   
   
   
-  if (!isset($altbody)) $altbody="Su cliente de correo no puede interpretar correctamente este mensaje. Por favor, póngase en contacto con el restaurante llamando al 936 929 723 o al 936 910 605. Disculpe las molestias";
+  if (!isset($altbody) || is_null($altbody)) $altbody="Su cliente de correo no puede interpretar correctamente este mensaje. Por favor, póngase en contacto con el restaurante llamando al 936 929 723 o al 936 910 605. Disculpe las molestias";
     
   $mail = new phpmailer();
   if (defined('CHARSET')) $mail->CharSet = CHARSET;
@@ -119,7 +120,6 @@ function mailer($addr,$subject,$body,$altbody,$attach=null, $test=false, $cco=nu
    if(!$exito)
    {
      
-     
          $err=$mail->ErrorInfo;
       //print_log("<span style='color:red'>MAILER ERROR:$err - </span> Enviat mail TO:$addr $cco SUBJECT: $subject");
       error_log("<li><span style='color:red'>MAILER ERROR:$err - </span> Enviat mail TO:$addr $cco SUBJECT: $subject",3, ROOT . INC_FILE_PATH .'/log/logMAILSMS.txt');
@@ -135,5 +135,7 @@ function mailer($addr,$subject,$body,$altbody,$attach=null, $test=false, $cco=nu
    } 
      
    }
+   
+   return $exito;
 }
 ?>

@@ -2668,7 +2668,7 @@ ORDER BY `estat_hores_data` DESC";
     $this->reg_log(">>> SMS RESULTAT: <span class='$rs'>$rs</span>", 1);
     $this->xgreg_log(">>> SMS RESULTAT: <span class='$rs'>$rs</span>", 1, '/log/logMAILSMS.txt');
 
-    $r = '<span style="color:red;font-size:11px;"><em> -(tel: ' . $numMobil . ') RESULTAT:  ' . $result['Result'] . ' / ' . $body . '</em></span>';
+    $r = '<span style="color:red;font-size:11px;"><em> -(tel: ' . $numMobil . ') RESULTAT:  ' . $result['Result'] . '</em></span>';
     $t = ((isset($GLOBALS["___mysqli_ston"]) && is_object($GLOBALS["___mysqli_ston"])) ? mysqli_real_escape_string($GLOBALS["___mysqli_ston"], $mensa . $r) : ((trigger_error("[MySQLConverterToo] Fix the mysql_escape_string() call! This code does not work.", E_USER_ERROR)) ? "" : ""));
     $query = "INSERT INTO sms (sms_reserva_id, sms_numero, sms_missatge) VALUES ($res, $numMobil, '$t')";
     $Result1 = $this->log_mysql_query($query, $this->connexioDB) or die(((is_object($GLOBALS["___mysqli_ston"])) ? mysqli_error($GLOBALS["___mysqli_ston"]) : (($___mysqli_res = mysqli_connect_error()) ? $___mysqli_res : false)));
@@ -3131,9 +3131,7 @@ function scan_sort_dir($dir) {
 }
 
 // FI CLASS
-//$_REQUEST['a']="print_llista_reserves";
-//$_SESSION['permisos']=255;
-include(ROOT . "peticions_ajax.php");
 
-//$g=new gestor_reserves();echo $g->recupera_hores(1964);
+
+include(ROOT . "peticions_ajax.php");
 ?>
