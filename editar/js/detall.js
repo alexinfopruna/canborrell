@@ -5,7 +5,7 @@ $scope.open = function (size) {
   $scope.animationsEnabled = true;
     var modalInstance = $uibModal.open({
       animation: $scope.animationsEnabled,
-      templateUrl: 'http://cbdev-localhost/editar/Gestor_grups.php?a=get_html_email&b='+size,
+      templateUrl: 'Gestor_grups.php?a=get_html_email&b='+size,
       controller: 'ModalInstanceCtrl',
       size: size,
       resolve: {

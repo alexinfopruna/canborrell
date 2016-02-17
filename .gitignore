@@ -8,5 +8,5 @@ taules/config_*.php
 
 .htaccess
 robots.txt
-
+/taules/print/print.png
 /video
