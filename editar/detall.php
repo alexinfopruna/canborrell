@@ -264,18 +264,9 @@ td{border:white solid 3px;}
           <td align="right" bgcolor="#333333" class="Estilo2">data creaci&oacute;</td>
           <td width="320" align="right" bgcolor="#CCCCCC" class="llista"><div align="left"><?php echo (data_llarga($row_DetailRS1['data_creacio'])); ?></div></td>
         </tr>
-        <tr ng-controller="llistatEmails">
-            <?php 
-            $estil_mail='';
-            /*
-            if ($row_DetailRS1['estat']==2 && $mail_confirma) $estil_mail=' btn-success ';
-            if ($row_DetailRS1['estat']==2 && !$mail_confirma) {
-              $estil_mail=' btn-danger blink';
-              $reenvio = '<a href="apdeit.php?resend='.$row_DetailRS1['id_reserva'].'" style="background:black;padding:0 10px;">Reenvia</a>';
-            }
-             * */
-             
-            ?>
+        <tr ng-controller="llistatEmails" ng-init="init(<?php echo (int)$row_DetailRS1['id_reserva']; ?>)">
+                  
+           
           <td align="right" bgcolor="#333333" class="Estilo2" ng-class="confirmada?'btn-success':'btn-danger'"> Email</td>
           <td   width="320" align="right" bgcolor="#CCCCCC" class="llista sms"><div align="left">
                   <span ng-repeat="fila in files" ng-controller="emalist" ng-click="open(fila.email_id)" ng-class="{{fila.email_resultat | num}}?'btn-success':'btn-danger' " class="btn" style="float:left"><span class="glyphicon glyphicon-envelope"></span> {{fila.email_timestamp}} :{{fila.email_categoria}}</span>

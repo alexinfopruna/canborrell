@@ -23,8 +23,7 @@ $scope.open = function (size) {
 angular.module('detall').controller('ModalInstanceCtrl', function ($scope, $uibModalInstance, $http) {
 
   $scope.ok = function () {
-    //$uibModalInstance.close($scope.selected.item);
-    alert("OOOOK");
+    $uibModalInstance.dismiss('ok');
   };
 
   $scope.reenvia = function (mid) {
@@ -49,12 +48,21 @@ angular.module('detall').controller('ModalInstanceCtrl', function ($scope, $uibM
 
 
 angular.module('detall').controller('llistatEmails', function ($scope,  $http) {
-    $http.get("Gestor_grups.php?a=llista_emails_reserva&b=17" )
+   // $scope
+   $scope.init = function(idr)
+  {
+    
+    $scope.idr = idr;
+        $http.get("Gestor_grups.php?a=llista_emails_reserva&b="+$scope.idr )
         .then(function(response) {
           $scope.confirmada = response.data.confirmada;
           $scope.files = response.data.rows;  
   console.log(response.data);
     });
+  };
+   
+    
+
     
 });
 
