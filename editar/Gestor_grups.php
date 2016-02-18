@@ -58,14 +58,16 @@ class Gestor_grups extends gestor_reserves {
   
 
   public function llista_emails_reserva($idr){
-    $query = "SELECT email_id, email_timestamp, email_categoria, email_resultat FROM email WHERE email.reserva_id = $idr";
+    $query = "SELECT email_id, email_timestamp, email_recipients, email_categoria, email_resultat FROM email WHERE email.reserva_id = $idr";
     $this->qry_result = mysqli_query($this->connexioDB, $query) or die(((is_object($GLOBALS["___mysqli_ston"])) ? mysqli_error($GLOBALS["___mysqli_ston"]) : (($___mysqli_res = mysqli_connect_error()) ? $___mysqli_res : false)));
 //$result = $stmt->fetchAll( PDO::FETCH_ASSOC );
 while( $row = mysqli_fetch_assoc($this->qry_result)){
   $row['email_id'] = intval($row['email_id']);
   
   if ($row['email_categoria']) $result['confirmada'] = true;
- // $result['confirmada'] = true;
+  $row['email_restaurant'] = ($row['email_recipients'] == MAIL_RESTAURANT);
+  //$row['email_restaurant'] = true;
+  $row['email_resultat'] = intval($row['email_resultat']);
   $result['rows'][] = $row;
 }
 

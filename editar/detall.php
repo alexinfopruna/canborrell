@@ -269,7 +269,7 @@ td{border:white solid 3px;}
            
           <td align="right" bgcolor="#333333" class="Estilo2" ng-class="confirmada?'btn-success':'btn-danger'"> Email</td>
           <td   width="320" align="right" bgcolor="#CCCCCC" class="llista sms"><div align="left">
-                  <span ng-repeat="fila in files" ng-controller="emalist" ng-click="open(fila.email_id)" ng-class="{{fila.email_resultat | num}}?'btn-success':'btn-danger' " class="btn" style="float:left"><span class="glyphicon glyphicon-envelope"></span> {{fila.email_timestamp}} :{{fila.email_categoria}}</span>
+                  <span ng-repeat="fila in files" ng-controller="emalist" ng-click="open(fila.email_id)" ng-class="className(fila.email_resultat, fila.email_restaurant)" class="btn" style="float:left"><span ng-hide="fila.email_resultat" class="glyphicon glyphicon-alert"> </span> <span class="glyphicon glyphicon-envelope"></span> {{fila.email_timestamp}} :{{fila.email_categoria}}</span>
                   
                   <?php
            

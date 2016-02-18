@@ -57,8 +57,32 @@ angular.module('detall').controller('llistatEmails', function ($scope,  $http) {
         .then(function(response) {
           $scope.confirmada = response.data.confirmada;
           $scope.files = response.data.rows;  
-  console.log(response.data);
+  
     });
+    
+    $scope.className = function(resultat, restaurant) {
+//.alert-warning
+//var base = ' alert';
+//var base = ' label';
+//var base = ' panel';
+var base = ' btn';
+        var className = base + '-danger';
+console.log(resultat);
+        if (resultat){
+            className = base + '-success';
+             if (restaurant)
+                className = base + '-info';
+        }
+        else{
+             className = base + '-danger';
+             if (restaurant)
+                className = base + '-warning';
+            
+        }
+        
+       
+        return className;
+    };
   };
    
     
