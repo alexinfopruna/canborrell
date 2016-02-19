@@ -21,7 +21,7 @@
 // http://dev.can-borrell.com/editar/TPV/respostaTPV.php?testTPV=1&id=2699&sig=OK
 
 if (!defined('ROOT')) define('ROOT', "../../taules/");
-require(ROOT."Gestor.php");
+require_once(ROOT."Gestor.php");
 require(ROOT."gestor_reserves.php");
 
 if (isset($_REQUEST['testTPV'])) $testTPV=$_REQUEST['testTPV'];

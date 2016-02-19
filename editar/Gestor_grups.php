@@ -38,8 +38,10 @@ class Gestor_grups extends gestor_reserves {
      $body = $mail['body'];
      $result = $mail['result'];
     
-     
-    $header =  '<div class="modal-footer  '. ($result?'btn-success':'btn-danger').'"><div>Enviat el: '.$time.'</div>';
+     $class=$result?'glyphicon-ok-sign':'glyphicon-remove-sign';
+     $class2=$result?'alert-success':'alert-danger';
+     $text=$result?'ok':'ERROR!!';  
+    $header =  '<div class="modal-footer  '. ($result?'btn-success':'btn-danger').'"> <h5 class="alert '.$class2.'">Enviat el: '.$time.' &#10147; '.$text.' <span class="glyphicon '.$class.'"></span> </h5>';
     $header .=  '<a href="mailto:'.$to.'" class="email_recipients" target="_blank">'.$to.'</a>';
     $header .=  '<div  class="email_subject">'.$subject.'</div></div>';
     

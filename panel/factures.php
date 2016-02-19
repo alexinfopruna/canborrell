@@ -1,6 +1,6 @@
 <?php
 	if (!defined('ROOT')) define('ROOT', "../taules/");
-	require(ROOT."Gestor.php");
+	require_once(ROOT."Gestor.php");
 	//require(ROOT."php/Configuracio.php");
 	$cfg=new Configuracio();
 	require(ROOT.INC_FILE_PATH."alex.inc");

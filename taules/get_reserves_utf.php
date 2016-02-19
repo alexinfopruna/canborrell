@@ -1,7 +1,7 @@
 <?php
 header('Content-Type: text/html; charset=utf-8');
 if (!defined('EOL')) define ('EOL',"\r\n");
-include("Gestor.php");
+require_once("Gestor.php");
 //$_REQUEST['s']="josep";
 
 class Gestor_chef extends Gestor

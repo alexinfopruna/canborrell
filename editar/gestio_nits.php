@@ -1,6 +1,6 @@
 <?php
 if (!defined('ROOT')) define('ROOT', "../taules/");
-require(ROOT."Gestor.php");
+require_once(ROOT."Gestor.php");
 
 require_once(INC_FILE_PATH.'alex.inc');valida_admin('editar.php') ;
 require(INC_FILE_PATH."llista_dies.php");

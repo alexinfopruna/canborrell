@@ -13,7 +13,7 @@ if (isset($_REQUEST['reset_estat']) && $_REQUEST['reset_estat'] == 'reset_estat'
 
 if (!defined('ROOT'))
   define('ROOT', "../taules/");
-require(ROOT . "Gestor.php");
+require_once(ROOT . "Gestor.php");
 require_once(ROOT . "gestor_reserves.php");
 
 require(ROOT . DB_CONNECTION_FILE);

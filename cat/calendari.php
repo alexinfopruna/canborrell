@@ -1,7 +1,7 @@
 <?php 
 header('Content-Type: text/html; charset=ISO-8859-15');
 if (!defined('ROOT')) define('ROOT', "../taules/");
-require(ROOT."Gestor.php");
+require_once(ROOT."Gestor.php");
 ?>
 <div id="calendarix">
 						<script type="text/javascript">

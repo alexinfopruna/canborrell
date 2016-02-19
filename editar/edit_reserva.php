@@ -1,6 +1,6 @@
 <?php
 if (!defined('ROOT')) define('ROOT', "../taules/");
-require(ROOT."Gestor.php");
+require_once(ROOT."Gestor.php");
 
 require(ROOT.DB_CONNECTION_FILE); 
 require_once(INC_FILE_PATH.'valors.php'); 
