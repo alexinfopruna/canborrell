@@ -761,6 +761,6 @@ if (FALSE && isset($_REQUEST["testTPV"]) &&  $_REQUEST["testTPV"] = 'testTPV'){
 <?php include("reservesInfo_" . substr($lang, 0, 2) . ".html"); ?>
                                                     </div>
 
-                                                    <div id="debug"> -- DEBUG -- </div>
+                                                    <div id="debug">  </div>
                                                     </body>
                                                     </html>
