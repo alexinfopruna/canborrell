@@ -29,6 +29,7 @@
 	#calendari{font-size:1.6em}
 	.col-dere{width:500px;float:left;}
 	.fr-seccio-carta .ui-button{width:170px;}
+	.grups-fr-seccio-carta .ui-button{width:170px;}
 	#bt-no-carta{color:#570600}
 	#bt-carta{color:#570600;float:right;margin-top:25px;}
 	#bt-carta:hover,#bt-no-carta:hover{color:white;}
@@ -68,6 +69,7 @@
 	
 	
 	.fr-seccio-carta  .ui-button, .fr-seccio-submit  .ui-button{border:2px solid #570600}
+	.grups-fr-seccio-carta  .ui-button, .fr-seccio-submit  .ui-button{border:2px solid #570600}
 	#fr-reserves{
 	  max-width:775px;
 /*	 margin-top:-500px;*/
@@ -140,7 +142,8 @@
 	.fr-seccio-quants .caixa{width:250px;}
 	.fr-seccio-client .caixa{margin-top:10px;font-size:0.8em;}
 	
-	.fr-seccio-carta  .info
+	.fr-seccio-carta  .info,
+	.grups-fr-seccio-carta  .info
 	{
 		background:#fbfbff;
 		/*width:280px;*/
@@ -220,6 +223,7 @@ padding: .4em .8em;
 /*.ui-state-focus{background:#F8F7F6 !important;}*/
 
 .fr-seccio-carta input{width:230px;float:left;visibility:hidden;}
+.grups-fr-seccio-carta input{width:230px;float:left;visibility:hidden;}
 /*.fr-seccio-carta input{width:230px;float:left;}*/
 /*.ui-state-default a:hover, .ui-state-default a:visited{color:white;}*/
 
@@ -246,7 +250,9 @@ padding: .4em .8em;
   }
   
   .tooltip-red{z-index:2100 !important;}
+
   
+  #cb_factura{ width:0 !important; }
   
 .fliflu {
     -webkit-animation: myfirst 2s; /* Chrome, Safari, Opera */
@@ -268,3 +274,5 @@ padding: .4em .8em;
     65% {color: red;font-size:1em;}
     100% {color: #999966;font-size:1em;}
 }
+
+

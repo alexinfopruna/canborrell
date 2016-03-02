@@ -112,16 +112,20 @@ Podeu exercir els vostres drets d\'accés, rectificació, cancel·lació i oposi
 					Recorda que, tret d\'alguns festius, el restaurant resta tancat els dilluns i dimarts<br/><br/>
 					Si un dia està desactivat pot ser que no quedin taules lliures.<br/><br/>';
 	
-	$translate['ALERTA_INFO_INICIAL_GRUPS']='Aquest formulari permet <b>SOL·LICITAR</b> una reserva que el restaurant haurà de CONFIRMAR o DENEGAR. <br/><br/>
+	$translate['ALERTA_INFO_INICIAL_GRUPS']='<p  class="alert alert-info "><span class=" glyphicon glyphicon-info-sign f1"></span> 
+                              Aquest formulari permet <b>SOL·LICITAR</b> una reserva que el restaurant haurà de CONFIRMAR o DENEGAR. </p>
+                              <p  class="alert alert-info "><span class=" glyphicon glyphicon-info-sign f1"></span> 
 			Recordeu que el fet d\'omplir i enviar aquest formulari és el primer pas d\'un procès que acaba 
 			amb un <b>pagament mitjançant targeta de crèdit</b> d\'una paga i senyal que serà descomptada del preu final, de manera que <b>no representarà cap despesa extra</b>. 
-			<br/><br/><b>Cap sol·licitud de reserva tindrà validesa si no s\'ha fet el pagament</b> abans de la data que us indicarem.';
-	$translate['ALERTA_INFO_INICIAL']='Omplint i enviant aquest formulari 
+			</p>
+                                                                                    <p  class="alert alert-warning "><span class=" glyphicon glyphicon-exclamation-sign f1"></span>  
+<b>Cap sol·licitud de reserva tindrà validesa si no s\'ha fet el pagament</b> abans de la data que us indicarem.</p>';
+	$translate['ALERTA_INFO_INICIAL']='<p  class="alert alert-info "><span class=" glyphicon glyphicon-info-sign f1"></span> Omplint i enviant aquest formulari 
 			<b>realitzaràs una reserva formal al restaurant, per un dia i hora concrets</b>. 
-			<br/><br/>
-			Aquest no és un formulari de contacte per fer consultes. 
+			</p>
+			<p  class="alert alert-warning "><span class=" glyphicon glyphicon-exclamation-sign f1"> </span> Aquest no és un formulari de contacte per fer consultes. 
 			Si el que desitges és plantejar-nos algun dubte, desplega la solapa "Contactar amb el restaurant", 
-			a sota del menú.<br/><br/>';
+			a sota del menú.</p>';
 
 			$translate['ALERTA_INFO']='<b>La teva reserva ha estat CONFIRMADA</b>.<br/><br/>
 					T\'hem enviat un SMS recordatori al número de mòbil que ens has indicat.<br/><br/>
@@ -206,7 +210,11 @@ $translate["cdata_reserva"] = "data";
 
 $translateJS['HOLA']="hole";
 $translateJS['Ho semtim.\n\nNo podem reservar per la data que ens demanes']='Ho semtim.\n\nNo podem reservar per la data que ens demanes';
-$translateJS['NENS_COTXETS']='<b>La suma de nens més cotxets ha de ser el nombre real de nens que vindran</b><br/>No comptis un mateix nen com a menor de 9 i com a cotxet simultàniament. Per no duplicar places, si inclous un cotxet en el que s&#39;estarà un nen, no l&#39;anotis al grup anterior (Nens menors de 9 anys).';
+$translateJS['NENS_COTXETS']='<p  class="alert alert-info "><span class=" glyphicon glyphicon-info-sign f1"></span> '
+    . '<b>La suma de nens més cotxets ha de ser el nombre real de nens que vindran</b>'
+    . '<br/>No comptis un mateix nen com a menor de 9 i com a cotxet simultàniament.</p> '
+    . '<p  class="alert alert-warning "><span class=" glyphicon glyphicon-exclamation-sign f1"></span>  Per no duplicar places, si inclous un cotxet en el que s&#39;estarà un nen, '
+    . 'no l&#39;anotis al grup anterior (Nens menors de 9 anys).</p>';
 //$translateJS['OBSERVACIONS_COTXETS']='Cal que especifiquis els cotxets de nadó a la secció 1 del formulari.<br/><br/> No podem garantir l&#39;espai pels cotxets que indiquis a les observacions';
 $translateJS['OBSERVACIONS_COTXETS']='No tindrem en compte les indicacions que ens facis al camp observacions referents a coberts de nens/adults o cotxets de nadó'
  . '<br/><br/>'
@@ -215,20 +223,83 @@ $translateJS['OBSERVACIONS_COTXETS']='No tindrem en compte les indicacions que e
         . 'Gracies la teva comprensió';
 
 /**/
-$translateJS["fr-seccio-quants"] = 'En aquesta secció has d&quot;indicar exactament quantes persones (adults, júniors i nens) vindran. <br/>'
-        . '<br/><div class=info-paga-i-senyal paga><b>Si sou més de '.(persones_paga_i_senyal-1).' persones, '
-        . 'caldrà que realitzeu una paga i senyal de '.import_paga_i_senyal.'€ amb targeta de crèdit.</b></div><br/>'
-        . 'A més, opcionalment, pots indicar si portareu cotxet i si us acompanya algú amb mobilitat reduïda o cadira de rodes. <br/><b>La suma de nens més cotxets ha de ser el nombre real de nens que vindran.</b>	<br/><br/><br/>		<b>Reservarem espai pels comensals que ens indiquis aquí. La reserva no serà vàlida per un nombre de persones que no coincideixi amb el que has sol·licitat</b><br/><br/>Aquest formulari és per a reserves de grups petits. Si sou més de '.($PERSONES_GRUP-1).' persones cal que premis a <b>Sol·licitud de reserva per Grups</b><br/><br/><br/><br/>Disposem d&quot;un nombre limitat de trones i no en podem garantir la disponibilitat.<br/><br/>Només permetem l&#39;entrada de gossos pigall acompanyant invidents<br/><br/>Un cop omplis aquestes dades, accediràs al pas 2, més avall ';
-$translateJS["fr-seccio-dia"] = 'Assegura&#39;t que el nombre d&#39;adults/nens/juniors és correcte i <b>selecciona el dia al calendari</b>.<br/><br/> Alguns dies apareixen desactivats perquè el resturant està tancat o perquè els menjadors ja estan plens. En el següent pas podràs seleccionar l&#39;hora ';
-$translateJS["fr-seccio-hora"] = 'Selecciona l&#39;hora entre les que apareixen a la botonera.<br/><br/> Només les hores que es presenten estn disponibles per reservar. Si no s&#39;ajusten a les teves preferències, pots canviar el dia en el pas anterior per veure si disposem de més horaris ';
-$translateJS["fr-seccio-carta"] = 'En aquest pas pots fer una ullada a la nostra carta i, si vols, seleccionar els plats que voldreu prendre. Això ens servirà a nosaltres per oferir-te un servei millor sense comprometre&#39;t a res. Aquesta selecció no et causarà cap despesa extra.<br/><br/> Només et cobrarem el que realment consumeixis. <br/><br/> Podràs canviar o cancel·lar aquesta selecció més endavant, en aquest mateix formulari, o un cop al restaurant en confirmar la comanda.<br/><br/> Pots ometre aquest pas prement el botó <b>Continuar</b>';
-$translateJS["fr-seccio-client"] = 'Necessitem algunes dades personals per garantir la reserva.<br/><br/> Omple-les aquí començant pel número de telèfon mòbil.<br/><br/> Recorda que pots fer comentaris o peticions al camp <b>Observacions</b>, però no et podem garantir el que hi sol·licitis. El restaurant atendrà i contestarà els teus comentaris per fer-te saber si podem o no satisfer-te';
-$translateJS["fr-seccio-submit"] = 'Comprova detingudament les dades introduïdes i el resum final per evitar confusions. <br/><br/>Si tot és correcte prem a <b>Sol·licitar reserva</b> i espera a veure la resposta en pantalla per assegurar-te que el procés finalitza satisfactòriament';
+$translateJS["fr-seccio-quants"] = '<p  class="alert alert-info "><span class=" glyphicon glyphicon-info-sign f1"></span> '
+    . 'En aquesta secció has d&quot;indicar exactament quantes persones vindran (adults, júniors i nens). </p>'
+        . 
+    '<p  class="alert alert-warning "><span class=" glyphicon glyphicon-exclamation-sign f1"></span> <b>Si sou més de '.(persones_paga_i_senyal-1).' persones, '
+        . 'caldrà que realitzeu una paga i senyal de '.import_paga_i_senyal.'€ amb targeta de crèdit.</b></p>'
+    
+        . '<p  class="alert alert-info "><span class=" glyphicon glyphicon-info-sign f1"></span> '
+    . 'A més, opcionalment, pots indicar si portareu cotxet i si us acompanya algú amb mobilitat reduïda o cadira de rodes.</p> '
+    . 
+    '<p  class="alert alert-warning "><span class=" glyphicon glyphicon-exclamation-sign f1"></span>  <b>La suma de nens més cotxets ha de ser el nombre real de nens que vindran.</b>	'
+    . '</p>		'
+    . '<p  class="alert alert-danger "><span class=" glyphicon glyphicon-exclamation-sign f1"></span> <b>Reservarem espai pels comensals que ens indiquis aquí. La reserva no serà vàlida per un nombre de persones que no coincideixi amb el que has sol·licitat'
+    . '</b></p>'
+    . ''
+    . '<p  class="alert alert-warning "><span class=" glyphicon glyphicon-exclamation-sign f1"></span>   '
+    . 'Aquest formulari és per a reserves de grups petits. Si sou més de '.($PERSONES_GRUP-1).' persones cal que premis a <b><a href="form_grups.php" style="color:#570600">Sol·licitud de reserva per Grups</a></b>'
+    . '<br/>Disposem d&quot;un nombre limitat de trones i no en podem garantir la disponibilitat.'
+    . '<br/>Només permetem l&#39;entrada de gossos pigall acompanyant invidents</p>'
+    . '<p  class="alert alert-success "><span class=" glyphicon glyphicon-info-sign f1"> </span>  '
+    . 'Un cop omplis aquestes dades, accediràs al pas 2, més avall</p> ';
+$translateJS["fr-seccio-dia"] = '<p  class="alert alert-info "><span class=" glyphicon glyphicon-info-sign f1"></span> Assegura&#39;t que el nombre d&#39;adults/nens/juniors és correcte i <b>'
+    . 'selecciona el dia al calendari</b>.'
+    . '<br/><br/> Alguns dies apareixen desactivats perquè el resturant està tancat o perquè els menjadors ja estan plens. </p>'
+    . '<p  class="alert alert-success "><span class=" glyphicon glyphicon-info-sign f1"></span> En el següent pas podràs seleccionar l&#39;hora </p>';
+$translateJS["fr-seccio-hora"] = '<p  class="alert alert-info "><span class=" glyphicon glyphicon-info-sign f1"></span> Selecciona l&#39;hora entre les que apareixen a la botonera.<br/><br/> Només les hores que es presenten estan disponibles per reservar. </p>'
+    . '<p  class="alert alert-warning "><span class=" glyphicon glyphicon-exclamation-sign f1"></span>  Si no s&#39;ajusten a les teves preferències, pots canviar el dia en el pas anterior per veure si disposem de més horaris </p>';
+$translateJS["fr-seccio-carta"] = '<p  class="alert alert-info "><span class=" glyphicon glyphicon-info-sign f1"></span>'
+    . ' En aquest pas pots fer una ullada a la nostra carta i, si vols, seleccionar els plats que voldreu prendre. '
+    . 'Això ens servirà a nosaltres per oferir-te un servei millor sense comprometre&#39;t a res. '
+    . 'questa selecció no et causarà cap despesa extra.</p> '
+    . '<p  class="alert alert-success "><span class=" glyphicon glyphicon-info-sign f1"></span> '
+    . 'Només et cobrarem el que realment consumeixis. </p> '
+    . '<p  class="alert alert-info "><span class=" glyphicon glyphicon-info-sign f1"></span> '
+    . 'Podràs canviar o cancel·lar aquesta selecció més endavant, en aquest mateix formulari, '
+    . 'o un cop al restaurant en confirmar la comanda.</p> '
+    . '<p  class="alert alert-success "><span class=" glyphicon glyphicon-info-sign f1"></span> Pots ometre aquest pas prement el botó <b>Continuar</b></br>';
+$translateJS["fr-seccio-client"] = '<p  class="alert alert-info "><span class=" glyphicon glyphicon-info-sign f1"></span> '
+    . 'Necessitem algunes dades personals per garantir la reserva.<br/> <br/> '
+    . 'Omple-les aquí començant pel número de telèfon mòbil.</p> '
+    . '<p  class="alert alert-warning "><span class=" glyphicon glyphicon-exclamation-sign f1"></span>  '
+    . 'Recorda que pots fer comentaris o peticions al camp <b>Observacions</b>, '
+    . 'però no et podem garantir el que hi sol·licitis. '
+    . 'El restaurant atendrà i contestarà els teus comentaris per fer-te saber si podem o no satisfer-te</p>';
+$translateJS["fr-seccio-submit"] = '<p  class="alert alert-info "><span class=" glyphicon glyphicon-info-sign f1"></span>  Comprova detingudament les dades introduïdes i el resum final per evitar confusions. '
+    . '</p>'
+    . '<p  class="alert alert-success "><span class=" glyphicon glyphicon-info-sign f1"> </span>    Si tot és correcte prem a '
+    . '<b>Sol·licitar reserva</b> i espera a veure la resposta en pantalla per assegurar-te que el procés finalitza satisfactòriament</p>';
 
-$translateJS["grups-fr-seccio-quants"] = 'En aquesta secció has d&#39;indicar exactament quantes persones (adults, júniors i nens) vindran.		<br/><br/>	<b>Reservarem espai pels comensals que ens induquis aquí. La reserva no serà vàlida per un nombre de persones que no coincideixi amb el que has sol·licitat</b><br/><br/>Aquest formulari és per a reserves de grups grans. Si sou menys de '.($PERSONES_GRUP).' persones cal que premis a <b><='.($PERSONES_GRUP-1).'</b><br/><br/>A més, opcionalment, pots indicar si portareu cotxet i si us acompanya algú amb mobilitat reduïda o cadira de rodes. <br/><br/>Disposem d&#39;un nombre limitat de trones i no podem garantir la disponibilitat.<br/><br/>Només permetem l&#39;entrada de gossos pigall acompanyant invidents<br/><br/>Un cop omplis aquestes dades, accediràs al pas 2, més avall ';
+$translateJS["grups-fr-seccio-quants"] = '<p  class="alert alert-info"><span class=" glyphicon glyphicon-info-sign f1"> </span>   '
+    . 'En aquesta secció has d&#39;indicar exactament quantes persones vindran (adults, júniors i nens).		'
+    . '</p>	'
+    . '<p  class="alert alert-danger "><span class=" glyphicon glyphicon-exclamation-sign f1"></span>  <b>'
+    . ''
+    . 'Reservarem espai pels comensals que ens induquis aquí. '
+    . 'La reserva no serà vàlida per un nombre de persones que no coincideixi amb el que has sol·licitat</b></p>'
+    . '<p  class="alert alert-warning "><span class=" glyphicon glyphicon-exclamation-sign f1"></span>  '
+    . 'Aquest formulari és per a reserves de grups grans. '
+    . 'Si sou menys de '.($PERSONES_GRUP).' persones cal que premis a <a href="form.php"  style="color:#570600"><b><='.($PERSONES_GRUP-1).'</b></a></p>'
+    . '<p  class="alert alert-info"><span class=" glyphicon glyphicon-info-sign f1"> </span>  '
+    . 'A més, opcionalment, pots indicar si portareu cotxet i si us acompanya algú amb mobilitat reduïda o cadira de rodes. </p>'
+    . '<p  class="alert alert-warning "><span class=" glyphicon glyphicon-exclamation-sign f1"></span>  '
+    . 'Disposem d&#39;un nombre limitat de trones i no podem garantir la disponibilitat.</p>'
+    . ''
+    . '<p  class="alert alert-warning "><span class=" glyphicon glyphicon-exclamation-sign f1"></span>  '
+    . 'Només permetem l&#39;entrada de gossos pigall acompanyant invidents</p>'
+    . ''
+    . '<p  class="alert alert-success "><span class=" glyphicon glyphicon-info-sign f1"></span>  '
+    . 'Un cop omplis aquestes dades, accediràs al pas 2, més avall </p>';
 $translateJS["grups-fr-seccio-dia"] = $translateJS["fr-seccio-dia"];
 $translateJS["grups-fr-seccio-hora"] = $translateJS["fr-seccio-hora"];
-$translateJS["grups-fr-seccio-carta"] = "Per reserves de grups cal que ens indiquis, <b>com a mínim, un menú per cada comensal </b><br/><br/>Si has marcat nens o juniors al pas 1 també necessitem saber quin menú prendran ells.<br/><br/>És imprescindible que marquis els menús per poder completar la reserva";
+$translateJS["grups-fr-seccio-carta"] = '<p  class="alert alert-warning "><span class=" glyphicon glyphicon-exclamation-sign f1"></span>  '
+    . ''
+    . 'Per reserves de grups cal que ens indiquis, <b>com a mínim, un menú per cada comensal </b></p>'
+    . '<p  class="alert alert-info "><span class=" glyphicon glyphicon-info-sign f1"></span> '
+    . 'Si has marcat nens o juniors al pas 1 també necessitem saber quin menú prendran ells.'
+    . ''
+    . 'És imprescindible que marquis els menús per poder completar la reserva</p>';
 $translateJS["grups-fr-seccio-client"] =$translateJS["fr-seccio-client"];
 $translateJS["grups-fr-seccio-submit"] =$translateJS["fr-seccio-submit"];
 

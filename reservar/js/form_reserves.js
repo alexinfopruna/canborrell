@@ -1,8 +1,8 @@
 var browser_malo = (navigator.appVersion.indexOf("MSIE 7.") != -1);
 
+//var TIMER_INTERVAL = 110000;
 var TIMER_INTERVAL = 110000;
-var TIMER_HELP_INTERVAL = 15000;
-var th;//timer d'ajuda
+
 var GESTOR = "Gestor_form.php";
 var client_auto = true;
 var TAULA = 0;
@@ -115,7 +115,6 @@ $(function () {
     var t = setTimeout("ctimer()", TIMER_INTERVAL);
 
     $("#flogin").hide();
-    //$("#a_editar_reserva")
     $(".cb-contacte").click(function () {
         $.scrollTo("#table_menu", 600);
         $("#a_consulta_online.r-petita").trigger("click")
@@ -235,17 +234,17 @@ $(function () {
 
 
     controlSubmit();
-    //RESETEJA EL TIMER D'AJUDA SI TOCA LA PANTALLA
-    $(document).change(function (e) {
-        clearTimeout(th);
-        if (SECCIO)
-            th = setTimeout('timer_help("' + l(SECCIO) + '")', TIMER_HELP_INTERVAL);
-    });
+
 
     $("body").fadeIn("slow");
 
-    $("#help").dialog(dlg);
-    help($("#help").html());
+/*********** HEEELP *************/
+   // $("#help").dialog(dlg);
+    
+
+    
+    
+    help();
 
     $(".info-ico").click(function (e) {
 
@@ -258,14 +257,6 @@ $(function () {
 
 
     $("textarea[name='observacions']").change(observacions_cotxets);
-    /* RESET HELP ON ANY INPUT */
-    $('*').bind('blur change click dblclick error focus focusin focusout keydown keypress keyup load mousedown  mouseleave    mouseup resize scroll select submit', function () {
-        clearTimeout(th);
-        if (SECCIO)
-            th = setTimeout('timer_help("' + l(SECCIO) + '")', TIMER_HELP_INTERVAL);
-
-    });
-
     $('.pastis_toggle').toggle($('#RESERVA_PASTIS').prop("checked"));
     $('#RESERVA_PASTIS').change(function () {
         $('.pastis_toggle').toggle(this.checked);
@@ -279,10 +270,7 @@ $(function () {
     $.post(desti, {r: rand}, function (datos) {
         if (datos == "backup" && permisos > 64)
             alert("S'ha realitzat una còpia de la base de dades");
-
     });
-
-
 
 }); //ONLOAD, PRESENTACIO UI
 /************************************************************************************************************/
@@ -316,12 +304,12 @@ function comportamentQuantsSou()
 {
     //ADULTS
     SECCIO = "fr-seccio-quants";
+    //update_debug();
     $(".fr-seccio-quants").change(function (e) {
         ADULTS = $("input[name='selectorComensals']:checked").val();
         $("input[name='adults']").val(ADULTS)
         totalPersones();
-        //$("#selectorComensals").buttonset("destroy");
-        //$("#selectorComensals").buttonset();
+
         if (!ADULTS)
             return;
 
@@ -329,53 +317,32 @@ function comportamentQuantsSou()
         {
             monta_calendari("#calendari");
             $(".fr-seccio-dia").show();
-            //seccio("fr-seccio-dia");
-
-            clearTimeout(th);//
-            th = setTimeout('timer_help("' + l("fr-seccio-dia") + '")', TIMER_HELP_INTERVAL);
             SECCIO = "fr-seccio-dia";
-
             updateCalendari();
         }
-
-
-
-
-
-
-        //return false;
     });
 
     $("input[name=selectorComensals]").change(function (e) {
         avis_modificacions(e);
-        // $.scrollTo("#titol_SelectorJuniors",600);
     });
     //JUNIORS
     $("input[name=selectorJuniors]").change(function () {
         JUNIORS = $("input[name='selectorJuniors']:checked").val();
         $("input[name='nens10_14']").val(JUNIORS)
-        //totalPersones();
         $.scrollTo("#titol_SelectorNens", 600);
-        //return false;
     });
 
     //NENS
     $("input[name=selectorNens]").change(function () {
         NENS = $("input[name='selectorNens']:checked").val();
         $("input[name='nens4_9']").val(NENS);
-        //totalPersones();
         $.scrollTo("#titol_SelectorCotxets", 600);
-        //return false;
     });
 
     //COTXETS
     $("input[name=selectorCotxets]").change(function () {
         COTXETS = $("input[name='selectorCotxets']:checked").val();
         help(l("NENS_COTXETS"));
-        // $.scrollTo("#titol_SelectorCadiraRodes",600,function(){help(l("NENS_COTXETS"));});
-        //BARREJA NENS COTXETS!!
-        //totalPersones();
-        //return false;
     });
 }
 
@@ -434,8 +401,6 @@ function totalPersones()
 function comportamentDia()
 {
     $("#calendari").change(function () {
-
-
         var dat = $("#calendari").datepicker("getDate");
         var minData = new Date();
         //DIA HORA LIMIT
@@ -582,11 +547,12 @@ function comportamentCarta()
         comportamentClient();
         return false;
     });
-    
+
     $(".resum-carta-nom").click(function (e) {
         $(this).closest("tr").find("td.mes a").trigger("click");
         e.preventDefault();
-        return false;});
+        return false;
+    });
 }
 
 /********************************************************************************************************************
@@ -637,7 +603,7 @@ function validaDadesClient() {
     t += ($(".fr-seccio-submit").is(':hidden') ? " HID " : " VIS ");
     //$("textarea[name='observacions']").val(t);
     /*
-     */ 
+     */
     updateResum();
     if (ok)
     {
@@ -757,7 +723,9 @@ function updateResum()
 
 
 // De vegades no interpreta bé al click sobre els boton/selects del jquery UI
-  jQuery("label.ui-button").mouseup(function(e){$(this).trigger("click");});
+    jQuery("label.ui-button").mouseup(function (e) {
+        $(this).trigger("click");
+    });
 }
 /********************************************************************************************************************/
 /********************************************************************************************************************/
@@ -966,8 +934,7 @@ function controlSubmit()
     $('#form-reserves').submit(function () {
         if (!$("#form-reserves").valid())
             return false;
-        
-        clearInterval(th);
+
         var control = setTimeout(function () {
             timer_submit();
         }, 15000);
@@ -976,7 +943,6 @@ function controlSubmit()
         if ($("#popup").is(':visible'))
             SUBMIT_OK = SUBMIT_OK;
         else {
-            //$( "#popup" ).dialog( "option", "height", 750 );
             $("#popup").html('<div style="height:320px"><img src="css/loading.gif" /></div>');
             $("#popup").dialog('open');
         }
@@ -987,7 +953,6 @@ function controlSubmit()
             if (dades.substring(0, 11) != '{"resposta"')
                 dades = '{"resposta":"ko","error":"err0","email":false}';
             var obj = JSON.parse(dades);
-            clearInterval(th);
             clearInterval(control);
             if (SUBMIT_OK)
                 return;//DOBLE SUBMIT?????????
@@ -1009,11 +974,6 @@ function controlSubmit()
                  * 
                  */
                 if (obj.TPV == "TPV") {
-                    //var idr="214" + obj.idr;
-                    //$("#tpv_order").val(idr);
-                    //nom=$("input[name=client_nom]").val()+" "+$("input[name=client_cognoms]").val();
-                    //$("#tpv_titular").val(nom);         
-                    //$("#tpv_signature").val(obj.signature);  
                     $("#td-form-tpv").html(obj.form_tpv);
                     if (getUrlParameter("testTPV") == "testTPV") {
                         $(".ui-dialog").remove();
@@ -1021,7 +981,6 @@ function controlSubmit()
                         return false;
                     }
 
-                    //$("#td_contingut").html('<iframe id="frame-tpv" name="frame-tpv" style="width:100%;height:500px"></iframe>');
                     var info = l('PAGA_I_SENYAL');
                     $("#popup").html(info + '<iframe id="frame-tpv" name="frame-tpv" style="width:100%;height:500px"></iframe>');
 
@@ -1034,7 +993,7 @@ function controlSubmit()
                         clearTimeout(timer);
 
                         $.post(GESTOR + "?a=estatReserva&b=" + obj.idr, function (d) {
-                            if (d == 2 || d==0) {
+                            if (d == 2 || d == 0) {
                                 alert("La sessió ha caducat");
                                 $("#popup").dialog('close');
                             } else {
@@ -1060,7 +1019,6 @@ function controlSubmit()
             else
             {
                 var err = "Error de servidor";
-                //if (obj && obj.error) err=obj.error+"\n "+l("err"+obj.error)+" \n\n"+l("err_contacti");
                 if (obj && obj.error)
                     err = obj.error + "\n <br>" + l(obj.error) + " <br><br>\n\n" + l("err_contacti");
                 if (obj.error == "err10")
@@ -1070,7 +1028,6 @@ function controlSubmit()
             }
 
             $("#popup").dialog('open');
-            //return false;
         });
         return false;
     });
@@ -1082,30 +1039,6 @@ function timer_submit() {
 
     var comensals = $("input[name='totalComensals']").val();
     var tel = $(".fr-seccio-client input[name='client_telefon']").val();
-    /*
-     $.post(GESTOR + "?a=comprovaSubmit&b="+$("#calendari").val()+"&c="+comensals+"&d="+tel, function(dades) {
-     alert("beeeee");
-     var obj = JSON.parse(dades);
-     var txt="";
-     if (obj.result) {
-     $("#popup").dialog('close');	
-     $("#popup").html(l("RESULTAT"));
-     $("#popup").dialog('open');		
-     
-     }       
-     
-     else {
-     $("#popup").dialog('close');	
-     $("#popup").html(l("ERROR_RESERVA"));
-     $("#popup").dialog('open');		
-     
-     }       
-     
-     
-     });
-     
-     */
-
 
     $("#popup").dialog('close');
 
@@ -1124,20 +1057,6 @@ function ctimer( )
     bloqueigTaula(true);
     var t = setTimeout("ctimer()", TIMER_INTERVAL);
 }
-
-function timer_help(txt)
-{
-    if (!SECCIO)
-        return clearInterval(th);
-    if (typeof window.orientation !== 'undefined')
-        return;
-
-    help(txt);
-
-    SECCIO = null;
-    clearInterval(th);
-}
-
 
 function roundNumber(num, dec) {
     var result = Math.round(num * Math.pow(10, dec)) / Math.pow(10, dec);
@@ -1163,7 +1082,6 @@ function getParameterByName(name)
 
 function loginon()
 {
-    //$("#editar_reserva").css('margin-top',-150);	
     $("#editar_reserva").unbind('click');
     $("#flogin").show();
 
@@ -1186,9 +1104,6 @@ function seccio(selector_seccio) {
         return;
 
     $.scrollTo("." + selector_seccio, 800);
-
-    clearTimeout(th);//
-    th = setTimeout('timer_help("' + l(selector_seccio) + '")', TIMER_HELP_INTERVAL);
     SECCIO = selector_seccio;
 }
 
@@ -1196,26 +1111,15 @@ function seccio(selector_seccio) {
 function observacions_cotxets()
 {
     var obs = $("textarea[name='observacions']").val();
-    //if (obs.indexOf("cochec")!==-1 || obs.indexOf("cotxet")!==-1) {
     if (obs.match(/cotxet|carret|person|nen|comensal|cobert|cochecito|carrito|niñ|cubierto/gi)) {
         $("#help").html(l("OBSERVACIONS_COTXETS"));
         $("#help").dialog("open");
-        clearTimeout(th);
-        if (SECCIO)
-            th = setTimeout('timer_help("' + l(SECCIO) + '")', TIMER_HELP_INTERVAL);
     }
 
 }
 
 
 
-function help(txt) {
-    if ($.browser.name == "opera")
-        $("#td_contingut").addClass("fals-overlay");
-    $("#help").html(txt);
-
-    $("#help").dialog("open");
-}
 
 function tanca_dlg() {
     //   $("#taula-estructura").removeClass("fals-overlay");
@@ -1230,7 +1134,6 @@ function calc() {
 
     document.getElementById('boto').style.display = 'none';
     vent = window.open('', 'frame-tpv', 'width=725,height=600,scrollbars=no,resizable=yes,status=yes,menubar=no,location=no');
-    // vent.moveTo(eje_x,eje_y);
     document.compra.submit();
 }
 
@@ -1238,8 +1141,7 @@ function avis_modificacions(e) {
     $("input[name=selectorComensals]").unbind("change");
     var secc = SECCIO;
     SECCIO = null;
-    window.clearTimeout(th);
-    //$("#avis-modificacions-overlay").hide();
+    
     var adults = $("input[name='selectorComensals']:checked").val()
     if (adults < 6) {
         $.scrollTo("#titol_SelectorJuniors", 600);
@@ -1255,8 +1157,7 @@ function avis_modificacions(e) {
         $("#avis-modificacions-overlay").removeClass("anima-avis");
         $("#avis-modificacions").removeClass("anima-avis");
         $.scrollTo("#titol_SelectorJuniors", 600);
-        SECCIO = secc;
-        th = setTimeout('timer_help("' + l(SECCIO) + '")', TIMER_HELP_INTERVAL);
+        SECCIO = 'fr-seccio-dia';
     });
 }
 

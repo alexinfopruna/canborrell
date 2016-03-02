@@ -28,10 +28,12 @@ PANTALLES FINS A 770
     div.info{display:none;} 
     .fr-seccio-submit .caixa.resum{display:block;}
     .fr-seccio-carta .caixa{display:block;}
+    .grups-fr-seccio-carta .caixa{display:block;}
     .info-comanda{display:block;}
     .info-legal{display:block;}
 
     .fr-seccio-carta .caixa .dere{float:none;}
+    .grups-fr-seccio-carta .caixa .dere{float:none;}
 
     .fr-seccio{margin-left:0px;margin-right:0px;padding:8px;}  
     #calendari{font-size:1.3em}
@@ -87,6 +89,7 @@ PANTALLES FINS A 770
         body{font-size:3em !important;}
         #poma-fons{background-image:url(../../img/fons_9a.jpg) }
         .fr-seccio-carta {max-width: 729px;}
+        .grups-fr-seccio-carta {max-width: 729px;}
         #calendari{font-size:1.6em}
 
         #jnc{max-width:50%;}

@@ -114,7 +114,8 @@ $translate['INFO_NO_CONFIRMADA']='<b> Recuerda </b>: La reserva <b> NO QUEDA CON
 
 
 $translate['INFO_CARTA'] = 'Si lo deseas puedes elegir los platos que pedireis para tener una idea del precio. <br/> <br/>
-<b> Esta selección no te compromete en absoluto </b>. <br/> <br/> Hasta el día anterior a la reserva puedes modificar tu elección online. Una vez en el restaurante  también podrás modificar o anular el pedido comunicándoselo al camarero y, en cualquier caso, te cobraremos únicamente los platos y bebidas que te sirvamos. ';
+<b> Esta selección no te compromete en absoluto </b>. <br/> <br/> 
+Hasta el día anterior a la reserva puedes modificar tu elección online. Una vez en el restaurante  también podrás modificar o anular el pedido comunicándoselo al camarero y, en cualquier caso, te cobraremos únicamente los platos y bebidas que te sirvamos. ';
 
 $translate['PREU'] = 'Precio (IVA incluido)';
 
@@ -131,18 +132,20 @@ Te hemos enviado un SMS recordatorio al número de móvil que nos has indicado. 
 Puedes cancelar o modificar los datos de la reserva desde el apartado <b> RESERVAS </b>, introduciendo tu móvil y la contraseña que encontrarás en el SMS. <br/> <br/>
 Te rogamos que nos comuniques cualquier cambio en la reserva, especialmente si se trata de una cancelación <br/> <br/>';
 
-$translate['ALERTA_INFO_INICIAL']='Rellenando y enviando este formulario 
+$translate['ALERTA_INFO_INICIAL']='<p  class="alert alert-info "><span class=" glyphicon glyphicon-info-sign f1"></span> Rellenando y enviando este formulario 
 		<b> realizaràs una reserva formal en el restaurante, para un día y hora concretos </b>. 
-		<br/><br/>
-		Este no es un formulario de contacto para realizar consultas. 
+		</p>
+		<p  class="alert alert-danger "><span class=" glyphicon glyphicon-exclamation-sign f1"></span>  Este no es un formulario de contacto para realizar consultas. 
 		Si lo que deseas es plantearnos alguna duda o sugerencia, 
-		despliega la solapa "Contactar con el restaurante", debajo del menú. <br/> <br/>';
+		despliega la solapa "Contactar con el restaurante", debajo del menú. </p> ';
 
-$translate['ALERTA_INFO_INICIAL_GRUPS']='Este formulario permite <b> SOLICITAR </b> una reserva que el restaurante tendrá que CONFIRMAR o DENEGAR. <br/> <br/>
-Recuerde que el hecho de rellenar y enviar este formulario es el primer paso de un proceso que termina
+$translate['ALERTA_INFO_INICIAL_GRUPS']='<p  class="alert alert-info "><span class=" glyphicon glyphicon-info-sign f1"></span> 
+  Este formulario permite <b> SOLICITAR </b> una reserva que el restaurante tendrá que CONFIRMAR o DENEGAR. </p>
+
+<p  class="alert alert-info "><span class=" glyphicon glyphicon-info-sign f1"></span> Recuerde que el hecho de rellenar y enviar este formulario es el primer paso de un proceso que termina
 con un <b> pago mediante tarjeta de crédito </b> de una paga y señal que será descontada del importe final, 
-		de manera que <b>no representará un gasto extra</b>.
-<br/> <br/> <b> Ninguna solicitud de reserva tendrá validez si no se ha satisfecho el pago</b> antes de la fecha que os indicaremos.';
+		de manera que <b>no representará un gasto extra</b>.</p>
+ <p class="alert alert-danger"><span class=" glyphicon glyphicon-exclamation-sign f1"></span> <b> Ninguna solicitud de reserva tendrá validez si no se ha satisfecho el pago</b> antes de la fecha que os indicaremos.</p>';
 
 
 
@@ -266,21 +269,86 @@ $translateJS['Ho semtim.\n\nNo podem reservar per la data que ens demanes']="Lo 
 // $translateDirectJS es passa directe a JS sense traduïr simbols
 
 /*******************************************************     VALIDATE   ***********************************/	
-$translateJS['fr-seccio-quants'] = 'En esta sección debes indicar exactamente cuántas personas (adultos, juniors y niños) van a venir. '
-        . '<br/><div class=info-paga-i-senyal> <b> Recuerda que si sois más de '. (persones_paga_i_senyal-1)
-        .' personas, será necesario que realices una paga y señal de '. import_paga_i_senyal.'€ con tarjeta de crédito </b>.</div><br/> '
-        . 'Además  puedes indicar si traeréis cochecito y si os acompaña alguien con mobilidad reducidad o silla de ruedas.<br/><b>La suma de niños más cochecitos ha de ser el número real de niños que van a venir</b><br/><br/>  		<b>Reservaremos espacio para los comensales que nos indicas aquí. La reserva no será válida para un número de persones que no coincida con el solicitado</b>  <br/><br/> Este formulario es para reservas de grupos pequeños. Si sois más de '.($PERSONES_GRUP-1).' personas clica sobre <b>Solicitud de reserva para grupos</b><br/><br/>	Disponemos de un número limitado de tronas y no podemos garantizar su disponibilidad <br/><br/> Solo permitimos la entrada de perros guía acompañando invidentes. <br/><br/>Una vez rellenes estos datos, accederás al paso 2, más abajo';
-$translateJS['fr-seccio-dia'] = 'Selecciona el día en el calendario. <br/><br/> Algunos dias aparecen desactivados debido a que el resturant está cerrado o porque los comedores ya están llenos. <br/><br/> En el siguiente paso podrás seleccionar la hora';
-$translateJS['fr-seccio-hora'] = 'Selecciona la hora entre las que aparecen en la botonera. <br/><br/> Solo las hora que se presentan está disponibles para reservar. <br/><br/> Si no se ajustan a tus preferencias, puedes cambiar el día en el paso anterior para ver si disponemos de más horarios';
-$translateJS['fr-seccio-carta'] = 'En este paso puedes echar un vistazo a nuestra carta y, si lo deseas, seleccionar ya los platos que tomaréis. <br/><br/> Esto nos servirá a nosotros para ofrecerte un servicio mejor y no te compromete a nada y no causará ningún gasto extra. <br/><br/> Solo te cobraremos lo que realmente consumas.<br/><br/>  Podrás cambiar o cancelar esta selección más adelante, en este mismo formulario, o en el mismo restaurant al confirmar el pedido.<br/><br/>  Puedes omitir este paso pulsando el botón <b>Continuar<b/>';
-$translateJS['fr-seccio-client'] = 'Necesitamos algunos datos personales para garantizar tu reserva. <br/><br/>Rellénalos aquí empezando por el número de teléfono móvil. <br/><br/>Recuerda que puedes hacer comentarios o peticiones en el campo <b>Observaciones</b>, pero no te podemos garantizar lo que allí solicites. El restaurant atenderá i contestará tus peticiones para hacerte saber si podemos o no satisfacerte';
-$translateJS['fr-seccio-submit'] = 'Comprueba detenidamente los datos introducidos y el resumen final para evitar confusiones.<br/><br/>  Si todo es correcto pulsa en <b>Solicitar reserva</b> y espera a ver la respuesta en pantalla para asegurarte que el proceso finaliza satisfactoriamente';
+$translateJS['fr-seccio-quants'] = '<p  class="alert alert-info "><span class=" glyphicon glyphicon-info-sign f1"></span> '
+    . 'En esta sección debes indicar exactamente cuántas personas van a venir (adultos, juniors y niños). </p>'
+        . '<p  class="alert alert-warning "><span class=" glyphicon glyphicon-exclamation-sign f1"></span>  <b> '
+    . 'Recuerda que si sois más de '. (persones_paga_i_senyal-1)
+        .' personas, será necesario que realices una paga y señal de '. import_paga_i_senyal.'€ con tarjeta de crédito </b>.</p> '
+        . '<p  class="alert alert-info "><span class=" glyphicon glyphicon-info-sign f1"></span> '
+    . 'Además  puedes indicar si traeréis cochecito y si os acompaña alguien con mobilidad reducidad o silla de ruedas.</p>'
+    . ''
+    . '<p  class="alert alert-warning "><span class=" glyphicon glyphicon-exclamation-sign f1"></span> '
+    . 'La suma de niños más cochecitos ha de ser el número real de niños que van a venir</b></p>'
+    . '<b><p  class="alert alert-danger "><span class=" glyphicon glyphicon-exclamation-sign f1"></span>  Reservaremos espacio para los comensales que nos indicas aquí. '
+    . 'La reserva no será válida para un número de persones que no coincida con el solicitado</b>  '
+    . '</p> '
+    . '<p  class="alert alert-warning "><span class=" glyphicon glyphicon-exclamation-sign f1"></span>  '
+    . 'Este formulario es para reservas de grupos pequeños. '
+    . ' Si sois más de '.($PERSONES_GRUP-1).' personas clica sobre <b>'
+    . '<a href="form_grups.php" style="color:#570600">Solicitud de reserva para grupos</a></b><br/><br/>	'
+    . 'Disponemos de un número limitado de tronas y no podemos garantizar su disponibilidad <br/><br/> '
+    . 'Solo permitimos la entrada de perros guía acompañando invidentes. </p>'
+    . '<p  class="alert alert-success "><span class=" glyphicon glyphicon-info-sign f1"> </span>  '
+    . 'Una vez rellenes estos datos, accederás al paso 2, más abajo</p>';
+$translateJS['fr-seccio-dia'] = '<p  class="alert alert-info "><span class=" glyphicon glyphicon-info-sign f1"></span> '
+    . 'Selecciona el día en el calendario. <br/><br/> '
+    . 'Algunos dias aparecen desactivados debido a que el resturant está cerrado o porque los comedores ya están llenos.</p> '
+    . '<p  class="alert alert-success "><span class=" glyphicon glyphicon-info-sign f1"></span>  En el siguiente paso podrás seleccionar la hora</p>';
+$translateJS['fr-seccio-hora'] = '<p  class="alert alert-info "><span class=" glyphicon glyphicon-info-sign f1"></span> '
+    . 'Selecciona la hora entre las que aparecen en la botonera. <br/><br/> '
+    . 'Solo las hora que se presentan está disponibles para reservar. </p> '
+    . '<p  class="alert alert-warning "><span class=" glyphicon glyphicon-exclamation-sign f1"></span>  '
+    . 'Si no se ajustan a tus preferencias, puedes cambiar el día en el paso anterior para ver si disponemos de más horarios</p>';
+$translateJS['fr-seccio-carta'] = '<p  class="alert alert-info "><span class=" glyphicon glyphicon-info-sign f1"></span>  '
+    . 'En este paso puedes echar un vistazo a nuestra carta y, si lo deseas, seleccionar ya los platos que tomaréis. '
+    . '<br/><br/> Esto nos servirá a nosotros para ofrecerte un servicio mejor y no te compromete a nada y no causará ningún gasto extra. </p>'
+    . '<p  class="alert alert-success "><span class=" glyphicon glyphicon-info-sign f1"></span>  Solo te cobraremos lo que realmente consumas.</p>  '
+    . '<p  class="alert alert-info "><span class=" glyphicon glyphicon-info-sign f1"></span> '
+    . 'Podrás cambiar o cancelar esta selección más adelante, en este mismo formulario, '
+    . 'o en el mismo restaurant al confirmar el pedido.</p>  '
+    . '<p  class="alert alert-success "><span class=" glyphicon glyphicon-info-sign f1"></span> '
+    . 'Puedes omitir este paso pulsando el botón <b>Continuar<b/></p>';
+$translateJS['fr-seccio-client'] = '<p  class="alert alert-info "><span class=" glyphicon glyphicon-info-sign f1"></span> '
+    . 'Necesitamos algunos datos personales para garantizar tu reserva. <br/><br/>'
+    . 'Rellénalos aquí empezando por el número de teléfono móvil. </p>'
+    . '<p  class="alert alert-warning "><span class=" glyphicon glyphicon-exclamation-sign f1"></span>  '
+    . 'Recuerda que puedes hacer comentarios o peticiones en el campo <b>Observaciones</b>, pero no te podemos garantizar lo que allí solicites. '
+    . 'El restaurant atenderá i contestará tus peticiones para hacerte saber si podemos o no satisfacerte</p>';
+$translateJS['fr-seccio-submit'] = '<p  class="alert alert-info "><span class=" glyphicon glyphicon-info-sign f1"></span>  '
+    . 'Comprueba detenidamente los datos introducidos y el resumen final para evitar confusiones.</p>  '
+    . '<p  class="alert alert-success "><span class=" glyphicon glyphicon-info-sign f1"> </span>    '
+    . 'Si todo es correcto pulsa en <b>Solicitar reserva</b> '
+    . 'y espera a ver la respuesta en pantalla para asegurarte que el proceso finaliza satisfactoriamente</p>';
 
-$translateJS['grups-fr-seccio-quants'] = 'En esta sección debes indicar exactamente cuántas personas (adultos, juniors y niños) van a venir.  <br/><br/> <b>Reservaremos espacio para los comensales que nos indicas aquí. La reserva no será válida para un número de persones que no coincida con el solicitado</b> <br/><br/>Este formulario es para reservas de grupos grandes. Si sois menos de '.($PERSONES_GRUP).' personas clica sobre <b><='.($PERSONES_GRUP-1).'</b><br/><br/>Disponemos de un número limitado de tronas y no podemos garantizar su disponibilidad<br/><br/>Además  puedes indicar si traeréis cochecito y si os acompaña alguien con mobilidad reducidad o silla de ruedas. <br/><br/> Solo permitimos la entrada de perros guía acompañando invidentes.<br/><br/> Una vez rellenes estos datos, accederás al paso 2, más abajo';
+$translateJS['grups-fr-seccio-quants'] = '<p  class="alert alert-info "><span class=" glyphicon glyphicon-info-sign f1"></span> '
+    . 'En esta sección debes indicar exactamente cuántas personas (adultos, juniors y niños) van a venir.  '
+    . '</p> '
+    . ''
+    . '<p  class="alert alert-danger "><span class=" glyphicon glyphicon-exclamation-sign f1"></span>  '
+    . '<b>Reservaremos espacio para los comensales que nos indicas aquí. '
+    . 'La reserva no será válida para un número de persones que no coincida con el solicitado</b> </p>'
+    . '<p  class="alert alert-warning "><span class=" glyphicon glyphicon-exclamation-sign f1"></span>  '
+    . 'Este formulario es para reservas de grupos grandes. '
+    . 'Si sois menos de '.($PERSONES_GRUP).' personas clica sobre <a href="form.php" style="color:#570600"><b><='.($PERSONES_GRUP-1).'</b> </a><br/><br/>  '
+    . 'Disponemos de un número limitado de tronas y no podemos garantizar su disponibilidad</p>'
+    . ''
+    . '<p  class="alert alert-info "><span class=" glyphicon glyphicon-info-sign f1"></span> '
+    . 'Además  puedes indicar si traeréis cochecito y si os acompaña alguien con mobilidad reducidad o silla de ruedas. </p>'
+    . '<p  class="alert alert-warning "><span class=" glyphicon glyphicon-exclamation-sign f1"></span>  '
+    . 'Solo permitimos la entrada de perros guía acompañando invidentes.</p>'
+    . '<p  class="alert alert-success "><span class=" glyphicon glyphicon-info-sign f1"></span>  '
+    . 'Una vez rellenes estos datos, accederás al paso 2, más abajo</p>';
 $translateJS["grups-fr-seccio-dia"] = $translateJS["fr-seccio-dia"];
 $translateJS["grups-fr-seccio-hora"] = $translateJS["fr-seccio-hora"];
 //$translateJS["grups-fr-seccio-carta"] = "Para reservas de grupos es necesario que nos indiques el menú que tomaréis por cada grupo de edad. <br/> <br/> Si has marcado niños o juniors en el paso 1 también necesitamos saber qué menú tomarán ellos. <br/> <br/> <b>Es imprescindible</b> que marques los menús para poder completar la reserva";
-$translateJS["grups-fr-seccio-carta"] = "Para reservas de grupos es necesario que nos indiques, <b>por lo menos, un menú para cada comensal</b> <br/> <br/> Si has marcado niños o juniors en el paso 1 también necesitamos saber qué menú tomarán ellos. <br/> <br/> <b>Es imprescindible</b> que marques los menús para poder completar la reserva";
+$translateJS["grups-fr-seccio-carta"] = ''
+    . '<p  class="alert alert-info "><span class=" glyphicon glyphicon-info-sign f1"></span> '
+    . 'Para reservas de grupos es necesario que nos indiques, <b>por lo menos, un menú para cada comensal</b> '
+    . '<br/> <br/> Si has marcado niños o juniors en el paso 1 también necesitamos saber qué menú tomarán ellos. '
+    . '</p> '
+    . ''
+    . '<p  class="alert alert-warning "><span class=" glyphicon glyphicon-exclamation-sign f1"></span>  '
+    . '<b>Es imprescindible</b> que marques los menús para poder completar la reserva</p>';
 $translateJS["grups-fr-seccio-client"] =$translateJS["fr-seccio-client"];
 $translateJS["grups-fr-seccio-submit"] =$translateJS["fr-seccio-submit"];
 
@@ -306,7 +374,12 @@ $translateJS['No hi ha cap plat seleccionat'] = 'No hay ningún plato selecciona
 
 $translateJS['Menús']='Menús';
 $translateJS['Menús Nadal']='Menús Navidad';
-$translateJS['NENS_COTXETS']='<b>La suma de niños más cochecitos ha de ser el número real de niños que van a venir</b><br/>No cuentes un mismo niño como menor de 9 y cochecito a la vez. Para no duplicar plazas, si incluyes un cochecito en el que permanecerá un niño, no lo anotes en el grupo anterior (Niños menores de 9 años).';
+$translateJS['NENS_COTXETS']='<p  class="alert alert-info "><span class=" glyphicon glyphicon-info-sign f1"></span> <b>'
+    . 'La suma de niños más cochecitos ha de ser el número real de niños que van a venir'
+    . '</b><br/>No cuentes un mismo niño como menor de 9 y cochecito a la vez.</p> '
+    . '<p  class="alert alert-warning "><span class=" glyphicon glyphicon-exclamation-sign f1"></span>  '
+    . 'Para no duplicar plazas, si incluyes un cochecito en el que permanecerá un niño, '
+    . 'no lo anotes en el grupo anterior (Niños menores de 9 años).</p>';
 //$translateJS['OBSERVACIONS_COTXETS']='<br/><br/> No podemos garantizar el espacio para cochecitos si lo indicas como observaciones';
 $translateJS['OBSERVACIONS_COTXETS']='No tendremos en cuenta las indicaciones que nos hagas en el campo observaciones referentes a cubiertos de niños/adultos o cochecitos de bebé. '
         . '<br/><br/>'

@@ -251,3 +251,5 @@ display:block;
 #help{font-size:1.4em}
 
  .tooltip-red{z-index:1100 !important;}
+ 
+ .ui-helper-hidden-accessible{width:0  !important;}

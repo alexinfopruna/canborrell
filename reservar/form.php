@@ -60,6 +60,10 @@ $paga_i_senyal = $PERSONES_GRUP >= persones_paga_i_senyal;
         <link type="text/css" href="css/jquery.tooltip.css" rel="stylesheet" />	
         <!--<link type="text/css" href="../estils.css" rel="stylesheet" />	-->
         <link type="text/css" href="css/form_reserves_mob.css" rel="stylesheet" />		
+        <link type="text/css" href="css/osx.css" rel="stylesheet" />
+        <link type="text/css" href="css/glyphicons.css" rel="stylesheet" />
+        <!--<link type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" />-->
+        
 
         <?php echo Gestor::loadJQuery(); ?>
 
@@ -186,8 +190,10 @@ print "\nvar HORA='" . $row['hora'] . "';";
 ?>
             </script>
 
+            <script type="text/javascript" src="js/jquery.simplemodal.js"></script>
             <script type="text/javascript" src="js/control_carta.js"></script>
             <script type="text/javascript" src="js/form_reserves.js<?php //echo '?'.time();  ?>"></script>		
+            <script type="text/javascript" src="js/popups_ajuda.js<?php //echo '?'.time();  ?>"></script>		
 
             <style>
 <?php
@@ -374,7 +380,7 @@ echo LOCAL ? " local " : ""
                                         </div>
 
 
-
+<a class="scroll-seccio-dia" id="scroll-seccio-dia"></a>
 
                                         <!------------------- AVIS MODIFICACIONS ---------------------------->
                                         <div id="avis-modificacions-overlay" class="ui-widget-overlay dspnn" > </div> 
@@ -474,7 +480,7 @@ echo LOCAL ? " local " : ""
                                     <!-- *******************************  QUIN DIA ********************************************************   -->
                                     <!-- *******************************  QUIN DIA ********************************************************   -->
                                     <!-- *******************************  QUIN DIA ********************************************************   -->
-                                    <a id="scroll-seccio-dia"></a>
+                                    
                                     <div class="fr-seccio ui-corner-all fr-seccio-dia"> 
                                         <div class="putoIE">
                                             <h1 class="titol"><span class="number">2</span><?php l("Quin dia voleu venir?") ?>
@@ -675,7 +681,7 @@ echo LOCAL ? " local " : ""
                                                     <div id="peu" style="margin-top:50px;	text-align:center;padding:15px;background:#FFFFFF" ><b>Restaurant CAN BORRELL:</b> <span class="dins cb-contacte" style="text-align:right">93 692 97 23 / 93 691 06 05 </span>  /  <a href="mailto:<?php echo MAIL_RESTAURANT; ?>" class="dins"><?php echo MAIL_RESTAURANT; ?></a>
                                                     </div>
                                                     -->	
-                                                    <div id="peu" style="margin-top:50px;	text-align:center;padding:15px;background:#FFFFFF" ><b>Restaurant CAN BORRELL:</b> <button class="dins cb-contacte" style="text-align:right">Contactar amb el restaurant </button>  /  <a href="mailto:<?php echo MAIL_RESTAURANT; ?>" class="dins"><?php echo MAIL_RESTAURANT; ?></a>
+                                                    <div id="peu" style="margin-top:50px;	text-align:center;padding:15px;background:#FFFFFF" ><b>Restaurant CAN BORRELL:</b> <button class="dins cb-contacte" style="text-align:right">Contactar amb el restaurant </button>  /  <a href="mailto:<?php echo MAIL_RESTAURANT; ?>" target="_blank"  class="dins"><?php echo MAIL_RESTAURANT; ?></a>
                                                     </div>
 
                                                     </td>
@@ -729,7 +735,19 @@ if (FALSE && isset($_REQUEST["testTPV"]) &&  $_REQUEST["testTPV"] = 'testTPV'){
                                                     <!-- ******************* POPUPS INFO *********************** -->
                                                     <!-- ******************* POPUPS INFO *********************** -->
                                                     <div id="popup" title="<?php l("Connexió amb el sistema de reserves") ?>"><img src="css/loading.gif"/></div>
-                                                    <div id="help" title="<?php l("Necessites ajuda?") ?>"><?php l('ALERTA_INFO_INICIAL'); ?></div>
+                                                    <!--
+                                                    <div id="helpxx" title="<?php l("Necessites ajuda?") ?>"><?php l('ALERTA_INFO_INICIAL'); ?>
+                                                    </div>
+                                                     -->
+		<div id="osx-modal-content">
+			<div id="osx-modal-title"><?php l("Necessites ajuda?") ?></div>
+			<div class="close"><a href="#" class="simplemodal-close">x</a></div>
+			<div id="osx-modal-data">
+                                                                                        <?php l('ALERTA_INFO_INICIAL'); ?>
+                                                                                        <p><button class="simplemodal-close"><?php l("Tanca") ?></button></p>
+				</div>
+		</div>                                                    
+                                                    
 
                                                     <div id="popupInfo" class="ui-helper-hidden">
 <?php l('ALERTA_INFO'); ?>
@@ -743,6 +761,6 @@ if (FALSE && isset($_REQUEST["testTPV"]) &&  $_REQUEST["testTPV"] = 'testTPV'){
 <?php include("reservesInfo_" . substr($lang, 0, 2) . ".html"); ?>
                                                     </div>
 
-
+                                                    <div id="debug"> -- DEBUG -- </div>
                                                     </body>
                                                     </html>
