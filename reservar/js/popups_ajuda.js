@@ -73,7 +73,9 @@ var tt = "";
 
 
 $(function () {
-    $('*').bind('blur change click dblclick error focus focusin focusout keydown keypress keyup load mousedown  ZZmouseleaveZZ    mouseup resize scroll select submit', function () {
+    $('*').bind('blur change click dblclick error focus focusin focusout keydown keypress keyup load mousedown  ZZmouseleaveZZ    mouseup resize scroll select submit', function (e) {
+        console.log(e.keyCode);
+        if (e.keyCode == 54)  help(l(SECCIO));
         var d = new Date();
         LAST_INPUT = d.getTime();
     });
@@ -100,12 +102,10 @@ function help(txt) {
     if ($.browser.name == "opera")
         $("#td_contingut").addClass("fals-overlay");
     
-   //txt = l("grups-fr-seccio-quants");
     if (txt) {
         txt = txt+ '<p><button class="simplemodal-close ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" role="button" aria-disabled="false"><span class="ui-button-text">'+l("Tanca")+'</span></button></p>';
         $("#osx-modal-data").html(txt);
     }
-   // $("#help").dialog("open");
   OSX.init();
 }
 
