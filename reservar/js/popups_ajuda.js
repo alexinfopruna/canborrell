@@ -1,5 +1,5 @@
 var TIMER_HELP_INTERVAL=5000;
-var LAST_INPUT = 5;
+var LAST_INPUT = 15000;
 var LAST_AJUDA = 0;
 var timer_h;//timer d'ajuda
 var tt = "";
