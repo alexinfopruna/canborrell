@@ -104,7 +104,7 @@ if (mysqli_num_rows($Result) <= 0) {
         <title>Detall de reserva</title>
         <?php echo Gestor::loadJQuery("2.0.3"); ?>
         <link href="reserves.css" rel="stylesheet" type="text/css" />
-        <link href="../estils.css" rel="stylesheet" type="text/css" />
+        <link href="../css/estils.css" rel="stylesheet" type="text/css" />
         <?php
         $translate['COMPRA_SEGURA']['esp'] = "Para realizar el pago a través de esta pasarela bancaria, es necesario que hayas activado la tarjeta para COMPRA SEGURA A INTERNET en tu banco.\\n\\nCon esta activación te facilitarán un código de cuatro cifras que se requiere al final del proceso.\\n\\nDisculpa las moléstias";
         $translate['COMPRA_SEGURA']['cat'] = "Per poder realitzar el pagament a través d´aquesta passarel·la bancaria, cal que hagis activat la tarja per a COMPRA SEGURA A INTERNET al teu banc. \\n\\nAmb aquesta activació et facilitaran un codi de quatre xifres que és requerit al final del procès.\\n\\nDisculpa les molèsties";
@@ -122,10 +122,7 @@ if (mysqli_num_rows($Result) <= 0) {
               });
           });
         </script>
-
-
-
-        <script type="text/javascript" src="../js/dynmenu.js"></script>
+        <!-- ANULAT dynmenu.js -->
 
         <style>
             #boto{

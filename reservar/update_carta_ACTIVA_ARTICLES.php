@@ -56,7 +56,7 @@ $max_juniors=$gestor->configVars("max_juniors");
 <link type="text/css" href="css/custom-theme/jquery.ui.all.css" rel="stylesheet" />
 -->
 
-<link type="text/css" href="../estils.css" rel="stylesheet" />	
+<link type="text/css" href="../css/estils.css" rel="stylesheet" />	
 <link type="text/css" href="css/form_reserves.css" rel="stylesheet" />		
 	
 
@@ -71,7 +71,7 @@ $max_juniors=$gestor->configVars("max_juniors");
 		<script type="text/javascript" src="../taules/js/jquery.form.js"></script>
 		<script type="text/javascript" src="js/jquery.scrollTo-1.4.2-min.js"></script>
 		<script type="text/javascript" src="js/json2.js"></script>
-		<script type="text/javascript" src="../js/dynmenu.js"></script>
+		<!-- ANULAT dynmenu.js -->
 		<script type="text/javascript" src="js/jquery.amaga.js"></script>
 		<script type="text/javascript" src="js/jquery.tooltip.js"></script>
 <!--[if lt IE 7]>

@@ -15,7 +15,7 @@
 <TITLE> Llistat de factures Proforma </TITLE>
 <link type="text/css" href="../taules/css/blitzer/jquery-ui-1.8.9.custom.css" rel="stylesheet" />	
 <link type="text/css" href="../reservar/css/custom-theme/jquery.ui.all.css" rel="stylesheet" />	
-<link type="text/css" href="../estils.css" rel="stylesheet" />	
+<link type="text/css" href="../css/estils.css" rel="stylesheet" />	
 <link type="text/css" href="../reservar/css/form_reserves.css" rel="stylesheet" />	
 <style>
 	.admin{display:none}

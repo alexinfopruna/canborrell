@@ -71,13 +71,13 @@ $row['observacions']=null;
 <HEAD>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" pageEncoding="UTF-8"/>
 <TITLE> Masia Can Borrell </TITLE>
-	<LINK rel="stylesheet" type="text/css" href="../estils.css">
+	<LINK rel="stylesheet" type="text/css" href="../css/estils.css">
 	
 <!-- this goes into the <head> tag ALEX ESTILS! -->
 <link type="text/css" href="../taules/css/blitzer/jquery-ui-1.8.9.custom.css" rel="stylesheet" />	
 <link type="text/css" href="css/custom-theme/jquery-ui-1.8.16.custom.css" rel="stylesheet" />	
 <link type="text/css" href="css/custom-theme/jquery.ui.all.css" rel="stylesheet" />	
-<link type="text/css" href="../estils.css" rel="stylesheet" />	
+<link type="text/css" href="../css/estils.css" rel="stylesheet" />	
 <link type="text/css" href="css/form_reserves_grups.css" rel="stylesheet" />	
 <link type="text/css" href="css/jquery.tooltip.css" rel="stylesheet" />	
     
@@ -99,7 +99,7 @@ $row['observacions']=null;
 		<script type="text/javascript" src="../taules/js/jquery.form.js"></script>
 		<script type="text/javascript" src="js/jquery.scrollTo-1.4.2-min.js"></script>
 		<script type="text/javascript" src="js/json2.js"></script>
-		<script type="text/javascript" src="../js/dynmenu.js"></script>
+		<!-- ANULAT dynmenu.js -->
 		<script type="text/javascript" src="js/jquery.amaga.js"></script>
 		<script type="text/javascript" src="js/jquery.tooltip.js"></script>
 		

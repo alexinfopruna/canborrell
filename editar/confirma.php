@@ -200,7 +200,7 @@ function mail_restaurant($id = false) {
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <title>Confirmación de reserva</title>
-        <link href="estils.css" rel="stylesheet" type="text/css" />
+        <link href="css/estils.css" rel="stylesheet" type="text/css" />
         <style type="text/css">
             <!--
             .Estilo2 {color: #570600; font-size: 14px; }

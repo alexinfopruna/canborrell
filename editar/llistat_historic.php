@@ -72,7 +72,7 @@ $totalPages_reserves = ceil($totalRows_reserves/$maxRows_reserves)-1;
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>Gestió de reserves</title>
 <link href="reserves.css" rel="stylesheet" type="text/css" />
-<link href="../estils.css" rel="stylesheet" type="text/css" />
+<link href="../css/estils.css" rel="stylesheet" type="text/css" />
                <?php echo Gestor::loadJQuery("2.0.3"); ?>
 <script>
 	$(function(){

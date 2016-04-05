@@ -13,7 +13,7 @@ $titol['esp']="SE HA PRODUCIDO UN ERROR EN EL PAGO.<br><br>Gracias por utilizar 
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>Error de pagament</title>
 <link href="../reserves.css" rel="stylesheet" type="text/css" />
-<link href="../../estils.css" rel="stylesheet" type="text/css" />
+<link href="../../css/estils.css" rel="stylesheet" type="text/css" />
 
 </head>
 

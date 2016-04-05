@@ -39,7 +39,7 @@ $totalPages_DetailRS1 = ceil($totalRows_DetailRS1/$maxRows_DetailRS1)-1;
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
 <title>Detall de reserva</title>
 <link href="reserves.css" rel="stylesheet" type="text/css" />
-<link href="../estils.css" rel="stylesheet" type="text/css" />
+<link href="../css/estils.css" rel="stylesheet" type="text/css" />
 <style type="text/css">
 <!--
 .Estilo4 {font-size: 12px}
@@ -47,7 +47,7 @@ $totalPages_DetailRS1 = ceil($totalRows_DetailRS1/$maxRows_DetailRS1)-1;
 -->
 </style>
 
-  <link rel="stylesheet" type="text/css" media="all" href="../calendari.css">
+  <link rel="stylesheet" type="text/css" media="all" href="../css/calendari.css">
   <script type="text/javascript" src="../js/calendar.js"></script>
   <script type="text/javascript" src="../js/lang/calendar-ca.js"></script>
   <script type="text/javascript" src="../js/calendar-setup.js"></script>

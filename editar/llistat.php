@@ -173,7 +173,7 @@ else
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <title>Gestió de reserves</title>
         <link href="reserves.css" rel="stylesheet" type="text/css" />
-        <link href="../estils.css" rel="stylesheet" type="text/css" />
+        <link href="../css/estils.css" rel="stylesheet" type="text/css" />
         <link rel="shortcut icon" type="image/ico" href="/gear-favicon.ico" />
 
         <link type="text/css" href="../taules/css/blitzer/jquery-ui-1.8.9.custom.css" rel="stylesheet" />	

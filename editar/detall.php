@@ -104,11 +104,11 @@ $sms .= '</uib-accordion>';
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /> 
 <title>Detall de reserva</title>
 <link href="reserves.css" rel="stylesheet" type="text/css" />
-<link href="../estils.css" rel="stylesheet" type="text/css" />
+<link href="../css/estils.css" rel="stylesheet" type="text/css" />
 
 
 <!------------ ANGUALAR + UI -------------->
-  <link rel="stylesheet" type="text/css" media="all" href="../calendari.css" />
+  <link rel="stylesheet" type="text/css" media="all" href="../css/calendari.css" />
   <script type="text/javascript" src="../js/calendar.js"></script>
   <script type="text/javascript" src="../js/lang/calendar-ca.js"></script>
   <script type="text/javascript" src="../js/calendar-setup.js"></script>

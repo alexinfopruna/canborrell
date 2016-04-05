@@ -14,7 +14,7 @@ $titol['esp']="EL PAGO SE HA REALIZADO CON ÉXITO.<br><br>Gracias por utilizar e
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>Pagament correcte</title>
 <link href="../reserves.css" rel="stylesheet" type="text/css" />
-<link href="../../estils.css" rel="stylesheet" type="text/css" />
+<link href="../../css/estils.css" rel="stylesheet" type="text/css" />
 
 </head>
 

@@ -58,7 +58,7 @@ $paga_i_senyal = $PERSONES_GRUP >= persones_paga_i_senyal;
 
         <link type="text/css" href="../taules/css/blitzer/jquery-ui-1.8.9.forms.css" rel="stylesheet" />	
         <link type="text/css" href="css/jquery.tooltip.css" rel="stylesheet" />	
-        <!--<link type="text/css" href="../estils.css" rel="stylesheet" />	-->
+        <!--<link type="text/css" href="../css/estils.css" rel="stylesheet" />	-->
         <link type="text/css" href="css/form_reserves_mob.css" rel="stylesheet" />		
         <link type="text/css" href="css/osx.css" rel="stylesheet" />
         <link type="text/css" href="css/glyphicons.css" rel="stylesheet" />
@@ -76,7 +76,7 @@ $paga_i_senyal = $PERSONES_GRUP >= persones_paga_i_senyal;
         <script type="text/javascript" src="../taules/js/jquery.scrollTo.min.js"></script>
         <script type="text/javascript" src="../taules/js/jquery.browser.js"></script>
         <script type="text/javascript" src="js/json2.js"></script>
-        <script type="text/javascript" src="../js/dynmenu.js"></script>
+        <!-- ANULAT dynmenu.js -->
         <script type="text/javascript" src="js/jquery.amaga.js"></script>
         <script type="text/javascript" src="js/jquery.tooltip.js"></script>
 

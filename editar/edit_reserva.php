@@ -99,7 +99,7 @@ if (isset($_GET['totalRows_reserves'])) {
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>Gestió de reserves</title>
 <link href="reserves.css" rel="stylesheet" type="text/css" />
-<link href="../estils.css" rel="stylesheet" type="text/css" />
+<link href="../css/estils.css" rel="stylesheet" type="text/css" />
 <style type="text/css">
 <!--
 .Estilo7 {font-size: 18px}

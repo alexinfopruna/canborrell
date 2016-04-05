@@ -22,12 +22,12 @@ document.getElementById('DATA2').value=calendar.date.getDate()+"/"+(calendar.dat
 						    }
 						  };
 						  
-///// ALEX	
-	
+///// ALEX		
 <?php
 
 // torn 0=migdia / 1=nit
 $fitxer=INC_FILE_PATH."bloq.txt";
+$_GET["torn"] = isset($_GET["torn"])?$_GET["torn"]:1;
 if ($_GET["torn"]==1) $fitxer=INC_FILE_PATH."bloq_nit.txt";
 
 require(INC_FILE_PATH."llista_dies.php");
@@ -86,12 +86,7 @@ function quindiaes(dd,mm,aa,ii){
 	document.getElementById(ii).value = Setmana[d.getDay()]+", "+dia+" "+Mesos[mes-1]+ " de "+any;
 }
 ////////////////////////////////////////
-
-
-
-
-						  
-						</script>
+</script>
 						
 <input type="text" value="" ID="DATA" name="data" style="width: 100%; border:0px; font-weight:bold; background-color:#F8F8F0; color:#999966;" VAL="OB" ALT="Si us plau, tri� una data." READONLY>
 						<input type="hidden" value="" ID="DATA2" name="DATA2" style="width: 100%; border:0px; font-weight:bold; background-color:#F8F8F0; color:#999966;"  READONLY>

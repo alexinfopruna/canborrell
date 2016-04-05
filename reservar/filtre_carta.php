@@ -41,7 +41,7 @@ $l=$gestor->lng;
 <TITLE>Masia Can Borrell</TITLE>
 <meta http-equiv="Content-Type" content="text/plain; charset=UTF-8" />
 <link type="text/css" href="../taules/css/blitzer/jquery-ui-1.8.9.forms.css"   rel="stylesheet" />
-<link type="text/css" href="../estils.css" rel="stylesheet" />
+<link type="text/css" href="../css/estils.css" rel="stylesheet" />
 <link type="text/css" href="css/form_reserves.css" rel="stylesheet" />
 <style>
 	#bt-menu,#bt-carta,a.bt{float:left;margin-left:20px;color: #570600;margin-top: 8px;}
