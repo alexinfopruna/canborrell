@@ -263,7 +263,7 @@ if (!$paga_i_senyal)
         </head>
         <body class="amagat <?php echo DEV ? " dev " : "";
 echo LOCAL ? " local " : ""
-?>" onload="loadMenu()" >
+?>"  >
             <table id="taula-estructura" bgcolor="#F8F8F0" cellpadding="0" cellspacing="0"   border="0" align="center">
                 <tr height="114">
                     <td id="poma-fons" colspan="2" align="RIGHT"><a href="../index.htm"><img src="../img/lg_sup.gif"  border="0" title="INICI"/></a></td>
@@ -271,7 +271,7 @@ echo LOCAL ? " local " : ""
                 <tr height="18">
                     <td bgcolor="#570600" colspan="2" align="">
                         <table cellpadding="0" cellspacing="0" width="761" height="19" border="0">
-<?php //require_once($ruta_lang."menu.php");  ?>
+<?php require_once(ROOT."../menu.php");  ?>
                         </table>
                     </td>
                 </tr>

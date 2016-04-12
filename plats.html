@@ -1,22 +1,7 @@
 <?php
-if (!defined('ROOT')) define('ROOT', "../taules/");
+if (!defined('ROOT')) define('ROOT', "taules/");
 require_once(ROOT."Carta.php");
 $carta=new Carta();
-
-
-//session_start();
-//$ruta_lang='../';
-//$_GET['url']=$_SERVER['PHP_SELF'];
-
-
-/*
-function valor_ANTIGA($camp) 
-{
-	$ini_array = parse_ini_file("../canborrellxxx.ini");
-	//if (in_array ($camp, $ini_array))
-		print  str_replace("[*]","<BR>", $ini_array[$camp]); 
-}
-*/
 ?>
 <HTML>
 <HEAD>
@@ -123,7 +108,7 @@ function openFoto(url,target,width,height) {
 			</TR>
 			<TR>
 				<TD CLASS="transparent"><IMG SRC="../img/pix.gif" WIDTH="1" HEIGHT="2" BORDER="0"><BR>
-<A HREF="infomenus.html">Informaci&oacute;<BR>sobre els Men&uacute;s</A><BR>
+<A HREF="infomenus">Informaci&oacute;<BR>sobre els Men&uacute;s</A><BR>
 <IMG SRC="../img/pix.gif" WIDTH="1" HEIGHT="3" BORDER="0"></TD>
 			</TR>
 			<TR>
@@ -131,7 +116,7 @@ function openFoto(url,target,width,height) {
 			</TR>
 			<TR>
 				<TD CLASS="transparent"><IMG SRC="../img/pix.gif" WIDTH="1" HEIGHT="2" BORDER="0"><BR>
-<A HREF="suggeriments.php">Suggeriments i informaci&oacute; general</A><BR>
+<A HREF="suggeriments">Suggeriments i informaci&oacute; general</A><BR>
 <IMG SRC="../img/pix.gif" WIDTH="1" HEIGHT="3" BORDER="0"></TD>
 			</TR>
 		</TABLE>

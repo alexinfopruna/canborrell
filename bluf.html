@@ -1,10 +1,46 @@
 <?php
+
+
+echo "BLUUUUUF....... "; 
+
+
 echo __FILE__;
 
 echo "<pre>";
 print_r($_REQUEST);
 echo "</pre>";
+/**/
+echo "<pre>";
+print_r($_SERVER);
+echo "</pre>";
 
-
-echo "BLUF"; 
 ?>
+#RewriteRule ^(taules|reserva|editar|panel)($|/) - [L]
+
+  # Pass all requests not referring directly to files in the filesystem to
+  # index.php. Clean URLs are handled in drupal_environment_initialize().
+
+
+  RewriteCond %{REQUEST_FILENAME} -f
+  RewriteCond %{REQUEST_URI} !=/favicon.ico
+  RewriteRule (.*) $1  [L]
+
+ # only if not an actual file exist
+ RewriteRule (.+)/(.+)\.pdf pdf/$1/$2.pdf [NC,L]
+
+RewriteRule ^(es|ca|en)/reservar/(.*) /bluf.html[L]
+#sense idioma, redirecciona a ca
+#RewriteRule !^[es|ca|en](.*)$ ca/$1 [R]
+
+#RewriteRule ^(es|ca|en)/(.*)/(.*)$ /bluf.php[L]
+#RewriteRule ^(es|ca|en)/(.*)/$ /bluf.php[L]
+
+#/multilang/multilang.php?lang=ca&r=rrr [L]
+# lang & page -> /ca/pagina.html
+RewriteRule ^(es|ca|en).?/(.+.*)$ /multilang.php?lang=$1&page=$2 [L]
+
+# Only lang  -> /ca/
+RewriteRule ^(es|ca|en).?$ /multilang.php?lang=$1 [L]
+
+# no lang -> default "ca" lang
+#RewriteRule ^$ ca [R=301,L]

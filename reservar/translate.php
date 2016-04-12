@@ -16,8 +16,7 @@ if (TRANSLATE_DEBUG) //ESTILS
 		</style>";
 }
 else define('TRANSLATE_NO_TRANS','');
-?>	
-<script type="text/javascript">
+?><script type="text/javascript">
 var translateKey=new Array("test translate: ERROR");
 //var translateJS=new Array("<span class=\'js-translated\'>Test translate: OK</span>");
 var translateJS=new Array("<span class=\'js-translated\'>Test translate: OK</span>");
@@ -34,6 +33,8 @@ if (TRANSLATE_DEBUG)
 }
 <?php 
 	//TRANSLATES
+if (!isset($translateJS)) $translateJS=array();
+if (!isset($translateDirectJS)) $translateDirectJS=array();
 	foreach($translateJS as $k=>$v) 
 	{
 		echo "translateKey.push('".$k."');\n";
@@ -67,8 +68,6 @@ function l(t)
 
 </script>
 
-<?php 
-?>
 <?php
 /****************************************************************************************************/	
 /*************************************************     FUNCIONS   ***********************************/	
@@ -102,4 +101,3 @@ function l($text,$echo=true)
 	
 	return ($trans);
 }
-

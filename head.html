@@ -1,0 +1,45 @@
+<?php 
+if (!defined("GESTOR")){
+            if (!defined('ROOT'))  define('ROOT', "taules/");
+            require_once (ROOT."gestor_reserves.php");  
+            
+            $lang = gestor_reserves::getLanguage();
+            require_once("translate_web_$lang.php");
+
+}
+?>    
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="ÀLex Garcia">
+    <link rel="icon" href="favicon.ico">        
+
+
+    <title> Masia Can Borrell </title>
+    <link rel="stylesheet" type="text/css" href="../css/estils.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <!-- <link rel="stylesheet" href="../css/bootstrap.min.css"> -->
+
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/cb_static.js"></script> 
+    
+    
+        <style scoped>
+        header{
+            background-image: url('../img/fons_<?php echo $bg_id;?>a.jpg');
+        }
+
+        .submenu{
+            background-image: url('../img/fons_<?php echo $bg_id;?>b.jpg');
+        }
+
+        #content{
+            background-image: url('../img/fons_<?php echo $bg_id;?>c.jpg');
+        }
+    </style>
+    

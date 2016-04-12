@@ -13,6 +13,8 @@
 // DEFINE FITXER AMB DADES DE CONNEXIO
 if (!defined('ROOT'))
   define('ROOT', "");
+if (!defined('GESTOR'))
+  define('GESTOR', 1);
 /* * ******************************************************************************************************************* */
 /* * ******************************************************************************************************************* */
 // DEFINE FITXER AMB DADES DE CONNEXIO
@@ -30,19 +32,21 @@ $config = new Configuracio();
 date_default_timezone_set('Europe/Madrid');
 setlocale(LC_TIME, "ca_ES.utf8");
 
-if (defined('MOSTRA_ERRORS') && MOSTRA_ERRORS == TRUE){
-  /* ERRORS ON */ 
+if (defined('MOSTRA_ERRORS') && MOSTRA_ERRORS == TRUE) {
+  /* ERRORS ON */
 //set_error_handler("var_dump");
-ini_set('error_reporting', E_ALL);
-error_reporting(E_ALL);
-ini_set("display_errors", 1);
-ini_set("track_errors", 1);
-ini_set("html_errors", 1);
+  ini_set('error_reporting', E_ALL);
+  error_reporting(E_ALL);
+  ini_set("display_errors", 1);
+  ini_set("track_errors", 1);
+  ini_set("html_errors", 1);
 }
 /* * ******************************************************************************************************************* */
 // DEFINE CARPETA DE TREBALL SOBRE LA ROOT
-if (!defined('INC_FILE_PATH'))  define('INC_FILE_PATH', "");
-if (!defined('TRANSLATE_DEBUG'))  define('TRANSLATE_DEBUG', FALSE);
+if (!defined('INC_FILE_PATH'))
+  define('INC_FILE_PATH', "");
+if (!defined('TRANSLATE_DEBUG'))
+  define('TRANSLATE_DEBUG', FALSE);
 /* * ******************************************************************************************************************* */
 
 /* * ******************************************************************************************************************* */
@@ -151,14 +155,16 @@ class Gestor {
     if (!isset($_SESSION))
       session_start();
     $a = isset($_SESSION['uSer']);
-    if (!$a) return FALSE;
+    if (!$a)
+      return FALSE;
 
     $b = !empty($_SESSION['uSer']);
     //$sessuser=unserialize($_SESSION['uSer']);
-    if (!$b) return FALSE;
-    
+    if (!$b)
+      return FALSE;
+
     $sessuser = $_SESSION['uSer'];
-    
+
     $c = $sessuser->id;
     if (!isset($_COOKIE['tok']))
       $_COOKIE['tok'] = FALSE; //lxlx
@@ -310,13 +316,13 @@ class Gestor {
     if (Gestor::stringMultiSearch($query, LOG_QUERYS) && DEBUG === false) {
       $ip = isset($ips[$_SERVER['REMOTE_ADDR']]) ? $ips[$_SERVER['REMOTE_ADDR']] : $_SERVER['REMOTE_ADDR'];
       $sessuser = $_SESSION['uSer'];
-      
+
       //$sep="";
       //$miniquery ='<span class="miniquery">'.substr($query,0,50).'</span>';
-     //if ($type==0) $sep = '</ul><ul class="level-0 ">/* >>>  ' . date("d M Y H:i:s") . ' >>> ' . $miniquery .EOL;
+      //if ($type==0) $sep = '</ul><ul class="level-0 ">/* >>>  ' . date("d M Y H:i:s") . ' >>> ' . $miniquery .EOL;
       //error_log($sep, 3, $log_querys_file);
       error_log('<li class="level-1 user">usr:' . $sessuser->id . " ($ip)</li>", 3, $log_querys_file);
-      
+
       $query = str_replace("\n", " ", $query);
       $query = str_replace("\r", " ", $query);
       $query = str_replace("<br/>", " ", $query);
@@ -326,7 +332,7 @@ class Gestor {
 
       if (substr($query, -1) != ";")
         $query = $query . ";";
-      error_log('<li  class="level-1 query" >'.$query.'</li>', 3, $log_querys_file);
+      error_log('<li  class="level-1 query" >' . $query . '</li>', 3, $log_querys_file);
       //if (substr($query,0,26)=='INSERT INTO reservestaules') die($query);
     }
 
@@ -340,9 +346,9 @@ class Gestor {
       $result = ' -- Affected: ' . $affected;
       if ($insert_id)
         $result.=' / Insert ID: ' . $insert_id;
-      error_log(EOL .'<li>'. $result.'</li>', 3, $log_querys_file);
+      error_log(EOL . '<li>' . $result . '</li>', 3, $log_querys_file);
       $req = '<pre>' . print_r($_REQUEST, true) . '</pre>';
-      error_log(EOL .'<li>'. $req . '</li>'.EOL . EOL, 3, $log_querys_file);
+      error_log(EOL . '<li>' . $req . '</li>' . EOL . EOL, 3, $log_querys_file);
     }
     Gestor::rename_big_file($log_querys_file, 2000000);
 
@@ -384,6 +390,7 @@ class Gestor {
   /*   * ************************************************************************************** */
 
   public static function out($t) {
+    if (is_array($t)) print_r($t);
     if (mb_detect_encoding($t) != "UTF-8")
       $t = utf8_encode($t);
     echo $t;
@@ -471,8 +478,8 @@ class Gestor {
       $req = '<pre>' . print_r($_REQUEST, true) . '</pre>';
     }
     $ip = isset($ips[$_SERVER['REMOTE_ADDR']]) ? $ips[$_SERVER['REMOTE_ADDR']] : $_SERVER['REMOTE_ADDR'];
-    $user=0;
-        $sessuser = isset($_SESSION['uSer'])?$_SESSION['uSer']:null;
+    $user = 0;
+    $sessuser = isset($_SESSION['uSer']) ? $_SESSION['uSer'] : null;
     if (isset($sessuser))
       $user = $sessuser->id;
     $sep = "/* >>> " . date("d M Y H:i:s") . " user:$user ($ip) <<< */" . EOL;
@@ -484,19 +491,20 @@ class Gestor {
 
     Gestor::rename_big_file($file, 10000000);
   }
+
   /*   * ************************************************************************************** */
 
-  public static function xgreg_log($text, $type=0, $file = false, $reqest = true) {
-    if (!is_numeric($type)){
+  public static function xgreg_log($text, $type = 0, $file = false, $reqest = true) {
+    if (!is_numeric($type)) {
       // COMPATIBILITAT PER ERROR EN ELS PARAMETRES
-      $reqest = $file; 
+      $reqest = $file;
       $file = $type;
     }
-    
-    if (!$file){
+
+    if (!$file) {
       $file = LOG_FILE;
     }
-    
+
     $file = ROOT . INC_FILE_PATH . $file;
     $req = '';
     if ($reqest && !$type) {
@@ -504,37 +512,40 @@ class Gestor {
     }
     $ip = isset($ips[$_SERVER['REMOTE_ADDR']]) ? $ips[$_SERVER['REMOTE_ADDR']] : $_SERVER['REMOTE_ADDR'];
     $sessuser = $_SESSION['uSer'];
-    
-    if (isset($sessuser))  $user = $sessuser->id;
-    
+
+    if (isset($sessuser))
+      $user = $sessuser->id;
+
     $sep = "";
-    if ($type==0)  $text = '</ul>'.EOL.'<ul class="level-0"> >>> <span class="date">' . date("Y-m-d H:i:s") . "</span> user:$user ($ip) >>>> " . $text . EOL;
-    if ($type==1)  $text = '<li>'. $text .'</li>'. EOL;
-    
+    if ($type == 0)
+      $text = '</ul>' . EOL . '<ul class="level-0"> >>> <span class="date">' . date("Y-m-d H:i:s") . "</span> user:$user ($ip) >>>> " . $text . EOL;
+    if ($type == 1)
+      $text = '<li>' . $text . '</li>' . EOL;
+
     error_log($text . EOL . $req . EOL, 3, $file);
 
     Gestor::rename_big_file($file, 10000000);
   }
-  
-   /*   * ************************************************************************************** */
 
-  public static function log_array($arr, $class='array') {
-    $tarr=print_r($arr, TRUE);
-    $t='<pre class="'.$class.'">'.$tarr.'</pre>';
+  /*   * ************************************************************************************** */
+
+  public static function log_array($arr, $class = 'array') {
+    $tarr = print_r($arr, TRUE);
+    $t = '<pre class="' . $class . '">' . $tarr . '</pre>';
     return $t;
   }
-
 
   /*   * ************************************************************************************** */
 
   public static function rename_big_file($file = NULL, $size = 1000000) {
-    if (!$file)  $file = ROOT . INC_FILE_PATH . LOG_FILE;
-    
+    if (!$file)
+      $file = ROOT . INC_FILE_PATH . LOG_FILE;
+
     clearstatcache();
     $fs = filesize($file);
-    $extra="";
+    $extra = "";
     if ($fs > $size) {
-      
+
       $extra.="_" . date("Y-m-d H:i:s");
       $path_parts = pathinfo($file);
       $parts = explode("." . $path_parts['extension'], $file);
@@ -543,10 +554,10 @@ class Gestor {
         $nom = $parts[$nparts - 2];
 
       $rename = $nom . $extra . "." . $path_parts['extension'];
-      
-      
+
+
       error_log("</ul>", 3, $file);
-      error_log('<ul class="fi-li">'.EOL.'<li>'.EOL.'<h2> /*RENAME_LOG: ' . $rename. " >>> " . date("Y-m-d H:i:s") . EOL . "*/ </h2>'.EOL.'</li></ul>******END******", 3, $file);
+      error_log('<ul class="fi-li">' . EOL . '<li>' . EOL . '<h2> /*RENAME_LOG: ' . $rename . " >>> " . date("Y-m-d H:i:s") . EOL . "*/ </h2>'.EOL.'</li></ul>******END******", 3, $file);
 
 
 
@@ -554,10 +565,10 @@ class Gestor {
       $f = fopen($file, "w");
       fclose($f);
 
-      $link= "/panel/read.php?f=$rename";
-      error_log('<div><a href="'.$link.'">FITXER ANTERIOR: '.$link.'</a></div>'.EOL, 3, $file);
-      error_log("<div><h2> ".date("Y-m-d H:i:s")." </h2></div>".EOL, 3, $file);
-      error_log('<ul class="ini-li">'.EOL, 3, $file);
+      $link = "/panel/read.php?f=$rename";
+      error_log('<div><a href="' . $link . '">FITXER ANTERIOR: ' . $link . '</a></div>' . EOL, 3, $file);
+      error_log("<div><h2> " . date("Y-m-d H:i:s") . " </h2></div>" . EOL, 3, $file);
+      error_log('<ul class="ini-li">' . EOL, 3, $file);
 
       return $rename;
     }
@@ -722,13 +733,13 @@ class Gestor {
     $resposta['error'] = $this->error = "err$codi";
     $resposta['error_desc'] = $this->l("err$codi", 0);
     $m = "";
-    if ($merge){
+    if ($merge) {
       $resposta = array_merge($resposta, $merge);
-       $m=print_r($merge, TRUE);
+      $m = print_r($merge, TRUE);
     }
-    
-    
-    $this->xgreg_log("jsonErr $codi >>> $m",1);
+
+
+    $this->xgreg_log("jsonErr $codi >>> $m", 1);
     return json_encode($resposta);
   }
 
@@ -740,13 +751,13 @@ class Gestor {
     $resposta['error'] = $this->error = null;
     $resposta['error_desc'] = null;
     $m = "";
-    if ($merge){
+    if ($merge) {
       $resposta = array_merge($resposta, $merge);
-       $m=print_r($merge, TRUE);
+      $m = print_r($merge, TRUE);
     }
-    
-    
-    $this->xgreg_log("jsonOK $text >>> $m",1);
+
+
+    $this->xgreg_log("jsonOK $text >>> $m", 1);
     return json_encode($resposta);
   }
 
@@ -823,7 +834,8 @@ class Gestor {
   /*   * *************************************************************************************************** */
 
   public function configVars($nom) {
-    if (!isset($this->conf->configVars[$nom])) return NULL;
+    if (!isset($this->conf->configVars[$nom]))
+      return NULL;
     return $this->conf->configVars[$nom];
   }
 
@@ -863,7 +875,8 @@ class Gestor {
         . "WHERE id_reserva=$idr";
     $result = mysqli_query($this->connexioDB, $query) or die(((is_object($GLOBALS["___mysqli_ston"])) ? mysqli_error($GLOBALS["___mysqli_ston"]) : (($___mysqli_res = mysqli_connect_error()) ? $___mysqli_res : false)));
     //$row=  mysql_fetch_assoc($result);
-    if (!mysqli_num_rows($result)) return 0;
+    if (!mysqli_num_rows($result))
+      return 0;
     return mysqli_result($result, 0);
   }
 
@@ -872,7 +885,7 @@ class Gestor {
   /*   * ******************************************************************************************************* */
 
   public function generaFormTpvSHA256($id_reserva, $import, $nom, $tpv_ok_callback_alter = NULL) {
-    $this->xgreg_log("generaFormTpvSHA256 $id_reserva $import $nom",0, "/log/log_TPV.txt", TRUE);
+    $this->xgreg_log("generaFormTpvSHA256 $id_reserva $import $nom", 0, "/log/log_TPV.txt", TRUE);
 
     $id = $order = substr(time(), -4, 3) . $id_reserva;
 
@@ -884,7 +897,8 @@ class Gestor {
     //include(ROOT . INC_FILE_PATH . TPV_CONFIG_FILE); //NECESSITO TENIR A PUNT 4id i $lang
     include(ROOT . INC_FILE_PATH . TPV_CONFIG_FILE); //NECESSITO TENIR A PUNT 4id i $lang
     ///* MODIFICA PARAMS */
-    if (isset($tpv_ok_callback_alter))      $tpv_ok_callback = $tpv_ok_callback_alter;
+    if (isset($tpv_ok_callback_alter))
+      $tpv_ok_callback = $tpv_ok_callback_alter;
     // Valores de entrada del ejemplo de redsy
     //$fuc="999008881";$terminal="871";$moneda="978";$trans="0";//$url="";$urlMerchant="";$urlOKKO="";$urlKO="";$urlOK="";$id=time();$amount="145";
     // Se incluye la librería
@@ -941,51 +955,68 @@ class Gestor {
     if (!$this->valida_sessio(200))
       die("Sense permisos");
 
-    $this->xgreg_log("TEST >>> generaTESTTpvSHA256 $id_reserva $import $nom",0, "/log/log_TPV.txt", TRUE);
-   
-    
+    $this->xgreg_log("TEST >>> generaTESTTpvSHA256 $id_reserva $import $nom", 0, "/log/log_TPV.txt", TRUE);
+
+
 
     $_REQUEST['pidr'] = $_GET['pidr'] = $id_reserva;
-    $_REQUEST['pamount'] = $_GET['pamount'] = $import*100;
+    $_REQUEST['pamount'] = $_GET['pamount'] = $import * 100;
     $_REQUEST['presponse'] = $_GET['presponse'] = $response;
     $_REQUEST['pcallback'] = $_GET['pcallback'] = $responaseok_callback_alter;
     $_REQUEST['init'] = $_GET['init'] = 1;
 
     $filename = ROOT . "../reservar/testTPV256.php";
     //require $filename;
-            ob_start();
-        include $filename;
-        $contents = ob_get_contents();
-        ob_end_clean();
-        return $contents;
+    ob_start();
+    include $filename;
+    $contents = ob_get_contents();
+    ob_end_clean();
+    return $contents;
   }
-  
- // PER COMPATIBILITAT!! (reserves grups)
- public function data_llarga($data,$lang="cat")
- {
-	if (empty($data)) return false; 
- 
- if ($lang=="cat")
- {
-    $dsem = array("Diumenge", "Dilluns", "Dimarts", "Dimecres", "Dijous", "Divendres", "Dissabte", "Diumenge");   
-    $mes=array( "zero", " de Gener", " de Febrer", " de Març", " d´Abril", " de Maig", " de Juny", " de Juliol", " d´Agost", " de Setembre", " d´Octubre", " de Novembre", " de Desembre");
- }else{
-    $dsem = array("Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado", "Domingo");   
-    $mes=array( "zero", " de Enero", " de Febrero", " de Marzo", " de Abril", " de Mayo", " de Junio", " de Julio", " de Agosto", " de Septiembre", " de Octubre", " de Noviembre", " de Diciembre");
+
+  // PER COMPATIBILITAT!! (reserves grups)
+  public function data_llarga($data, $lang = "cat") {
+    if (empty($data))
+      return false;
+
+    if ($lang == "cat") {
+      $dsem = array("Diumenge", "Dilluns", "Dimarts", "Dimecres", "Dijous", "Divendres", "Dissabte", "Diumenge");
+      $mes = array("zero", " de Gener", " de Febrer", " de Març", " d´Abril", " de Maig", " de Juny", " de Juliol", " d´Agost", " de Setembre", " d´Octubre", " de Novembre", " de Desembre");
+    }
+    else {
+      $dsem = array("Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado", "Domingo");
+      $mes = array("zero", " de Enero", " de Febrero", " de Marzo", " de Abril", " de Mayo", " de Junio", " de Julio", " de Agosto", " de Septiembre", " de Octubre", " de Noviembre", " de Diciembre");
+    }
+
+    $exp = explode("-", $data);
+    $y = $exp[0];
+    $m = $exp[1];
+    $d = $exp[2];
+
+    $mk = mktime(0, 0, 0, (int) $m, (int) $d, (int) $y);
+    $ar_dat = getdate($mk);
+    $ds = $ar_dat["wday"];
+
+    $data_cat = $dsem[(int) $ds] . ", " . $d . $mes[(int) $m] . " de " . $y;
+    return $data_cat;
   }
-      
-      $exp=explode("-",$data);
-      $y=$exp[0];
-      $m=$exp[1];     
-      $d=$exp[2];
-           
-      $mk=mktime(0,0,0,(int)$m,(int)$d,(int)$y);
-      $ar_dat=getdate($mk);
-      $ds=$ar_dat["wday"];
-      
-      $data_cat=$dsem[(int)$ds].", ".$d.$mes[(int)$m]." de ".$y;       
-      return $data_cat;
- }
+
+  /** ***************************************************************************************************
+    Recupera idioma
+  */
+  public static function getLanguage() {
+    //$url = isset($_GET['url'])?$_GET['url']:'/';
+    $lang = 'ca';
+    if (!isset($_SESSION))
+      session_start();
+    if (isset($_SESSION['lang']))
+      $lang = $_SESSION['lang'];
+    if (isset($_GET['lang']))
+      $lang = $_GET['lang'];
+//$_SESSION['lang'] = $lang;  
+
+    return $lang;
+  }
 
   /*   * *************************************************************************************************** */
   /*
@@ -1031,6 +1062,8 @@ EOHTML;
     echo $test = "Gestor TEST: " . $t;
     return $test;
   }
-} ///CLASS
 
+}
+
+///CLASS
 ?>

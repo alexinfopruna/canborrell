@@ -137,15 +137,15 @@ if (mysqli_num_rows($Result) <= 0) {
     <body>
         <table width="775" border="0" align="center" cellpadding="0" cellspacing="0" bgcolor="#F8F8F0">
             <tr>
-                <td width="775" colspan="2" align="right" background="../img/fons_9a.jpg"><a href="../index.html"><img src="../img/lg_sup.gif" alt="img" width="303" height="114" border="0" title="INICI" /></a></td>
+                <td width="775" colspan="2" align="right" background="../img/fons_9a.jpg"><a href="../index"><img src="../img/lg_sup.gif" alt="img" width="303" height="114" border="0" title="INICI" /></a></td>
             </tr>
             <tr>
                 <td bgcolor="#570600" colspan="2" align="center">
                     <?php if ($lang == "cat") { ?>	
                       <table cellpadding="0" cellspacing="0" width="761" height="18" border="0">
                           <tr>
-                              <td><a href="index.html">CAN BORRELL</a> <img src="../img/separa_mn.gif" alt="g" width="1" height="8" border="0" /> <a href="fotos.html">FOTOS</a> <img src="../img/separa_mn.gif" alt="f" width="1" height="8" border="0" /> <a href="plats.php">PLATS</a> <img src="../img/separa_mn.gif" alt="e" width="1" height="8" border="0" /> <a href="on.html">COM ARRIBAR-HI</a> <img src="../img/separa_mn.gif" alt="d" width="1" height="8" border="0" /> <a href="excursions.html">EXCURSIONS</a> <img src="../img/separa_mn.gif" alt="c" width="1" height="8" border="0" /> <a href="historia.html">HIST&Ograve;RIA</a></td>
-                              <td align="right"><a href="horaris.html">HORARIS</a> <img src="../img/separa_mn.gif" alt="b" width="1" height="8" border="0" /> <a href="reserves.html">RESERVES</a> <img src="../img/separa_mn.gif" alt="a" width="1" height="8" border="0" /> <font color="#FFFFFF"><b>CONTACTAR</b></font></td>
+                              <td><a href="index">CAN BORRELL</a> <img src="../img/separa_mn.gif" alt="g" width="1" height="8" border="0" /> <a href="fotos">FOTOS</a> <img src="../img/separa_mn.gif" alt="f" width="1" height="8" border="0" /> <a href="plats">PLATS</a> <img src="../img/separa_mn.gif" alt="e" width="1" height="8" border="0" /> <a href="on">COM ARRIBAR-HI</a> <img src="../img/separa_mn.gif" alt="d" width="1" height="8" border="0" /> <a href="excursions">EXCURSIONS</a> <img src="../img/separa_mn.gif" alt="c" width="1" height="8" border="0" /> <a href="historia">HIST&Ograve;RIA</a></td>
+                              <td align="right"><a href="horaris">HORARIS</a> <img src="../img/separa_mn.gif" alt="b" width="1" height="8" border="0" /> <a href="reserves">RESERVES</a> <img src="../img/separa_mn.gif" alt="a" width="1" height="8" border="0" /> <font color="#FFFFFF"><b>CONTACTAR</b></font></td>
                           </tr>
                       </table>
                     <?php }
@@ -153,8 +153,8 @@ if (mysqli_num_rows($Result) <= 0) {
                       ?>	
                       <table cellpadding="0" cellspacing="0" width="761" height="18" border="0">
                           <tr>
-                              <td><a href="index.html">CAN BORRELL</a> <img src="../img/separa_mn.gif" alt="g" width="1" height="8" border="0" /> <a href="fotos.html">FOTOS</a> <img src="../img/separa_mn.gif" alt="f" width="1" height="8" border="0" /> <a href="plats.php">PLATOS</a> <img src="../img/separa_mn.gif" alt="e" width="1" height="8" border="0" /> <a href="on.html">COMO LLEGAR </a> <img src="../img/separa_mn.gif" alt="d" width="1" height="8" border="0" /> <a href="excursions.html">EXCURSIONES</a> <img src="../img/separa_mn.gif" alt="c" width="1" height="8" border="0" /> <a href="historia.html">HISTORIA</a></td>
-                              <td align="right"><a href="horaris.html">HORARIOS</a> <img src="../img/separa_mn.gif" alt="b" width="1" height="8" border="0" /> <a href="reserves.html">RESERVAS</a> <img src="../img/separa_mn.gif" alt="a" width="1" height="8" border="0" /> <font color="#FFFFFF"><b>CONTACTAR</b></font></td>
+                              <td><a href="index">CAN BORRELL</a> <img src="../img/separa_mn.gif" alt="g" width="1" height="8" border="0" /> <a href="fotos">FOTOS</a> <img src="../img/separa_mn.gif" alt="f" width="1" height="8" border="0" /> <a href="plats">PLATOS</a> <img src="../img/separa_mn.gif" alt="e" width="1" height="8" border="0" /> <a href="on">COMO LLEGAR </a> <img src="../img/separa_mn.gif" alt="d" width="1" height="8" border="0" /> <a href="excursions">EXCURSIONES</a> <img src="../img/separa_mn.gif" alt="c" width="1" height="8" border="0" /> <a href="historia">HISTORIA</a></td>
+                              <td align="right"><a href="horaris">HORARIOS</a> <img src="../img/separa_mn.gif" alt="b" width="1" height="8" border="0" /> <a href="reserves">RESERVAS</a> <img src="../img/separa_mn.gif" alt="a" width="1" height="8" border="0" /> <font color="#FFFFFF"><b>CONTACTAR</b></font></td>
                           </tr>
                       </table>
 

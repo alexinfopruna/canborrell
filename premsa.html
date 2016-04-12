@@ -64,6 +64,12 @@
 		.publicacio-premsa{color:#C00;font-size:1.2em;font-weight:bold;}
 		.publicacio-premsa:hover{color:#F00;}
 		iframe{width:99%;height:95%}
+                
+                #table_menu td{
+                    text-align:right;
+                    font-size:11px;
+                }
+                #table_menu td a:hover{color:white;}
 	</style>
 </HEAD>
 <BODY>
@@ -72,7 +78,7 @@
 <CENTER>
 <TABLE BGCOLOR="#F8F8F0" CELLPADDING="0" CELLSPACING="0" WIDTH="775" HEIGHT="100%" BORDER="0">
 	<TR>
-		<TD BACKGROUND="../img/fons_premsa_a.jpg" COLSPAN="2" ALIGN="RIGHT"><A HREF="../index.htm"><IMG SRC="../img/lg_sup.gif" WIDTH="303" HEIGHT="114" BORDER="0" TITLE="INICI"></A></TD>
+		<TD BACKGROUND="../img/fons_premsa_a.jpg" COLSPAN="2" ALIGN="RIGHT" style="text-align:right"><A HREF="../index.htm"><IMG SRC="../img/lg_sup.gif" WIDTH="303" HEIGHT="114" BORDER="0" TITLE="INICI"></A></TD>
 	</TR>
 	<TR>
 		<TD BGCOLOR="#570600" COLSPAN="2" ALIGN="CENTER"> <?php   require_once('menu.php');  ?>
@@ -98,9 +104,10 @@
 			<TR>
 				<TD>&nbsp;<BR>
 &nbsp;<BR>
-<FONT CLASS="titol">Recull de premsa</FONT><BR>
+<FONT CLASS="titol"><?php l("Recull de premsa"); ?></FONT><BR>
 <BR>
-Us oferim un recull de les darreres aparicions a la premsa del restaurant Can Borrell, fent referència a la nostra cuina i al l'excepcional entorn on es troba emplaçada la masia.
+<?php l("Us oferim un recull de les darreres aparicions a la premsa del restaurant Can Borrell, 
+fent referència a la nostra cuina i al l'excepcional entorn on es troba emplaçada la masia."); ?>
 <BR>
 <BR>
 <BR>

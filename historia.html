@@ -1,171 +1,79 @@
-<HTML>
-<HEAD>
-<TITLE> Masia Can Borrell </TITLE>
-	<LINK rel="stylesheet" type="text/css" href="../css/estils.css">
-</HEAD>
-<body>
-<div id="dhtmltooltip"></div>
-<script type="text/javascript">
-var offsetxpoint=-50 //Customize x offset of tooltip
-var offsetypoint=20 //Customize y offset of tooltip
-var ie=document.all
-var ns6=document.getElementById && !document.all
-var enabletip=false
-if (ie||ns6)
-var tipobj=document.all? document.all["dhtmltooltip"] : document.getElementById? document.getElementById("dhtmltooltip") : ""
+<html>
+    <head>
+        <?php include("head.html");  ?>
+    </head>
+    <?php 
+    $submenu_elements = array(
+    array('link' => 'historia', 'txt' => 'La Vall de Gausac' ),
+    array('link' => 'historia1', 'txt' => 'La pagesia catalana: els Mansus' ),
+    array('link' => 'historia2', 'txt' => 'La Quadra de Vilanova' ),
+    array('link' => 'historia3', 'txt' => 'La Masia de Can Borrell' ),
+    array('link' => 'historia4', 'txt' => 'Fonts' ),
+    array('link' => 'historia5', 'txt' => 'Agraïments' ),
+    );
 
-function ietruebody(){
-return (document.compatMode && document.compatMode!="BackCompat")? document.documentElement : document.body
-}
+    $bg_id=6;
+    ?>
+    <body>
+        <div id="container">
+            <div class="row">
+                <?php include("header.html"); ?>
+                <?php include("submenu.html"); ?>
 
-function ddrivetip(thetext, thecolor, thewidth){
-if (ns6||ie){
-if (typeof thewidth!="undefined") tipobj.style.width=thewidth+"px"
-if (typeof thecolor!="undefined" && thecolor!="") tipobj.style.backgroundColor=thecolor
-tipobj.innerHTML=thetext
-enabletip=true
-return false
-}
-}
 
-function positiontip(e){
-if (enabletip){
-var curX=(ns6)?e.pageX : event.clientX+ietruebody().scrollLeft;
-var curY=(ns6)?e.pageY : event.clientY+ietruebody().scrollTop;
-//Find out how close the mouse is to the corner of the window
-var rightedge=ie&&!window.opera? ietruebody().clientWidth-event.clientX-offsetxpoint : window.innerWidth-e.clientX-offsetxpoint-20
-var bottomedge=ie&&!window.opera? ietruebody().clientHeight-event.clientY-offsetypoint : window.innerHeight-e.clientY-offsetypoint-20
 
-var leftedge=(offsetxpoint<0)? offsetxpoint*(-1) : -1000
 
-//if the horizontal distance isn't enough to accomodate the width of the context menu
-if (rightedge<tipobj.offsetWidth)
-//move the horizontal position of the menu to the left by it's width
-tipobj.style.left=ie? ietruebody().scrollLeft+event.clientX-tipobj.offsetWidth+"px" : window.pageXOffset+e.clientX-tipobj.offsetWidth+"px"
-else if (curX<leftedge)
-tipobj.style.left="5px"
-else
-//position the horizontal position of the menu where the mouse is positioned
-tipobj.style.left=curX+offsetxpoint+"px"
+                <div id="content" class="content col-md-10">
+                    <!----------------------------------------------------------------------------------------->
+                    <!----------------------------------------------------------------------------------------->
+                    <!----------------------------------------------------------------------------------------->
+                    <!----------------------------------------------------------------------------------------->
+                    <!----------------------------------------------------------------------------------------->
+                    <!----------------------------------------------------------------------------------------->
+                    <!----------------------------------------------------------------------------------------->
+                    <h2 class="titol"><?php l("Un xic d'història de la masia i els seus entorns"); ?></H2>
+                    <p>
+                        <?php l("HISTORIA_tx11"); ?>
+                    </p>
+                    <p>
+                        <?php l("HISTORIA_tx12"); ?>
+                    </p>
+                    <h2 class="titol"><?php l("Què va passar a la Vall de Gausac?"); ?></H2>
+                    <div class="txt-foto-dere">
+                        <img src="../img/f_historia_1.jpg"  class="txt-foto-dere" title="Foto cedida pel Consorci del Parc de Collserola">
+                        <p>
+                            <?php l("HISTORIA_tx21"); ?>
+                        </p>
+                        <p>
+                            <?php l("HISTORIA_tx22"); ?>
+                        </p>
+                        <p>
+                            <?php l("HISTORIA_tx23"); ?>
+                        </p>
+                    </div>
+                    <div class="c-b"></div>   
+                    <p class="nota">
+                        <?php l("Nota: Definicions extretes del Diccionari de la llengua catalana de l'<I>Institut d'Estudis Catalans. Edici&oacute; 1995</I>"); ?>.
+                    </p>
+                    <!----------------------------------------------------------------------------------------->
+                    <!----------------------------------------------------------------------------------------->
+                    <!----------------------------------------------------------------------------------------->
+                    <!----------------------------------------------------------------------------------------->
+                    <!----------------------------------------------------------------------------------------->
+                    <!----------------------------------------------------------------------------------------->
+                    <!----------------------------------------------------------------------------------------->
+                </div> 
+                <div class="c-b"></div> 
 
-//same concept with the vertical position
-if (bottomedge<tipobj.offsetHeight)
-tipobj.style.top=ie? ietruebody().scrollTop+event.clientY-tipobj.offsetHeight-offsetypoint+"px" : window.pageYOffset+e.clientY-tipobj.offsetHeight-offsetypoint+"px"
-else
-tipobj.style.top=curY+offsetypoint+"px"
-tipobj.style.visibility="visible"
-}
-}
-
-function hideddrivetip(){
-if (ns6||ie){
-enabletip=false
-tipobj.style.visibility="hidden"
-tipobj.style.left="-1000px"
-tipobj.style.backgroundColor=''
-tipobj.style.width=''
-}
-}
-
-document.onmousemove=positiontip
-
-</script>
-<CENTER>
-<TABLE BGCOLOR="#F8F8F0" CELLPADDING="0" CELLSPACING="0" WIDTH="775" HEIGHT="100%" BORDER="0">
-	<TR>
-		<TD BACKGROUND="../img/fons_6a.jpg" COLSPAN="2" ALIGN="RIGHT"><A HREF="../index.htm"><IMG SRC="../img/lg_sup.gif" WIDTH="303" HEIGHT="114" BORDER="0" TITLE="INICI"></A></TD>
-	</TR>
-	<TR>
-		<TD BGCOLOR="#570600" COLSPAN="2" ALIGN="CENTER"> <?php   require_once('menu.php');  ?>
-		<!-- OLD STATIC MENU -->
-		</TD>
-	</TR>
-	<TR>
-		<TD style="background-image:url(../img/fons_6b.jpg); background-repeat:no-repeat;" HEIGHT="100%" WIDTH="154" ALIGN="center" VALIGN="TOP">&nbsp;<BR>
-&nbsp;<BR>
-&nbsp;<BR>
-&nbsp;<BR>
-&nbsp;<BR>
-&nbsp;<BR>
-&nbsp;<BR>
-		<TABLE CELLPADDING="0" CELLSPACING="0" WIDTH="154" BORDER="0">
-			<TR>
-				<TD CLASS="opac"><FONT COLOR="#FFFFFF"><B>La Vall de Gausac</B></FONT></TD>
-			</TR>
-			<TR>
-				<TD>&nbsp;</TD>
-			</TR>
-			<TR>
-				<TD CLASS="transparent"><IMG SRC="../img/pix.gif" WIDTH="1" HEIGHT="2" BORDER="0"><BR>
-<A HREF="historia1.html">La pagesia catalana: els Mansus</A><BR>
-<IMG SRC="../img/pix.gif" WIDTH="1" HEIGHT="3" BORDER="0"></TD>
-			</TR>
-			<TR>
-				<TD>&nbsp;</TD>
-			</TR>
-			<TR>
-				<TD CLASS="transparent"><IMG SRC="../img/pix.gif" WIDTH="1" HEIGHT="2" BORDER="0"><BR><A HREF="historia2.html">La Quadra<BR>
-de Vilanova</A><BR>
-<IMG SRC="../img/pix.gif" WIDTH="1" HEIGHT="3" BORDER="0"></TD>
-			</TR>
-			<TR>
-				<TD>&nbsp;</TD>
-			</TR>
-			<TR>
-				<TD CLASS="transparent"><IMG SRC="../img/pix.gif" WIDTH="1" HEIGHT="2" BORDER="0"><BR>
-<A HREF="historia3.html">La Masia de<BR>
-Can Borrell</A><BR>
-<IMG SRC="../img/pix.gif" WIDTH="1" HEIGHT="3" BORDER="0"></TD>
-			</TR>
-			<TR>
-				<TD>&nbsp;</TD>
-			</TR>
-			<TR>
-				<TD CLASS="transparent"><A HREF="historia4.html">Fonts</A></TD>
-			</TR>
-			<TR>
-				<TD>&nbsp;</TD>
-			</TR>
-			<TR>
-				<TD CLASS="transparent"><A HREF="historia5.html">Agra&iuml;ments</A></TD>
-			</TR>
-		</TABLE>
-		</TD>
-		<TD style="background-image:url(../img/fons_6c.jpg); background-repeat:no-repeat;" WIDTH="621" ALIGN="CENTER" VALIGN="TOP">
-		<TABLE CELLPADDING="0" CELLSPACING="0" WIDTH="490" BORDER="0">
-			<TR>
-				<TD>&nbsp;<BR>
-&nbsp;<BR>
-<FONT CLASS="titol">Un xic d'hist&ograve;ria de la masia i els seus entorns</FONT><BR>
-<BR>
-A la vall de Gausac, un paratge ple d'hist&ograve;ria on l'empremta humana del passat hi &eacute;s molt present, trobem la masia de Can Borrell, just quan la vall s'obre cap a la plana del Vall&egrave;s. Temps enrera, la vall tingu&eacute; propietaris, en Bertran d'Esplugues i la seva muller Berenguera de Cercedol, que la vengueren l'any 1272 (s. XIII) a Bernat de Palou.<BR>
-<BR>
-L'&egrave;poca medieval tingu&eacute; una gran rellev&agrave;ncia a Catalunya. La societat catalana va esdevenir un dels models m&eacute;s complets de jerarquia feudal. Aix&ograve; fa que aquesta etapa sigui probablement, una de les m&eacute;s explicatives per entendre el present de la zona on es troba Can Borrell. Una zona rica en patrimoni arquitect&ograve;nic, arqueol&ograve;gic, hist&ograve;ric i paisatg&iacute;stic. Tota aquesta riquesa patrimonial, ens permetr&agrave; entendre un xic m&eacute;s el present tot rememorant el passat, un passat, no tant lluny&agrave;.<BR>
-<BR>
-<BR>
-<FONT CLASS="titol">Qu&egrave; va passar a la Vall de Gausac?</FONT><BR>
-<BR>
-<TABLE CELLPADDING="0" CELLSPACING="0" BORDER="0">
-	<TR>
-		<TD VALIGN="TOP">Per aquestes contrades, i no gaire lluny d'aqu&iacute;, exist&iacute; en el seu temps una vila anomenada Cercedol. Durant la primera meitat del segle XI, la uni&oacute; d'aquesta vila termenada, juntament amb l'<A HREF="#" onMouseover="ddrivetip('<B>Alou:</B> Propietat territorial lliure i exempta de tota c&agrave;rrega i dret senyorial.','#E1E1E1', 250)"; onMouseout="hideddrivetip()" style="cursor: help" CLASS="nobold">alou</A> que envoltava el monestir de Sant Cugat, i la vall de Gausac, entre altres propietats, formaren el que ara coneixem com a terme de Sant Cugat conegut antigament com a castell d'Octavi&agrave; <I>(Castrum Octavianum)</I>. Aquest darrer mot &eacute;s el que inicialment va donar nom al municipi, per&ograve; va anar quedant en des&uacute;s des del segle XIII i s'acabar&agrave; identificant m&eacute;s amb el castell feudal, quedant el mot de Sant Cugat com el referent del terme vilat&agrave;, tal i com el coneixem avui dia.<BR>
-<BR>
-Sembla ser que la vall de Gausac depenia de la parr&ograve;quia de Sant Vicen&ccedil; de Cercedol pertanyent a l'esmentada vila de Cercedol, tot i que l'escassetat de documents no acaben de corroborar el fet. El que s&iacute; sembla m&eacute;s probable &eacute;s l'exist&egrave;ncia d'una parr&ograve;quia anomenada Sta. Maria de Gausac, la qual surt documentada per primera vegada l'any 1201 i posteriorment tamb&eacute; al 1272,<BR>
-en la <A HREF="#" onMouseover="ddrivetip('<B>Butlla:</B> Lletra pontif&iacute;cia expedida per la c&uacute;ria romana, relativa a mat&egrave;ria de fe o d�inter&egrave;s general, a concessi&oacute; de gr&agrave;cies, privilegis, etc.','#E1E1E1', 280)"; onMouseout="hideddrivetip()" style="cursor: help" CLASS="nobold">butlla</A> papal de Calixte II. De fet,</TD>
-		<TD>&nbsp;&nbsp;</TD>
-		<TD VALIGN="TOP"><IMG SRC="../img/pix.gif" WIDTH="1" HEIGHT="2" BORDER="0"><BR>
-<IMG SRC="../img/f_historia_1.jpg" WIDTH="242" HEIGHT="365" BORDER="0" TITLE="Foto cedida pel Consorci del Parc de Collserola"></TD>
-	</TR>
-</TABLE>
-en temps de la <A HREF="#" onMouseover="ddrivetip('<B>Quadra:</B> Petit nucli de poblaci&oacute;. Districte especial dins el terme d�un castell termenat.','#E1E1E1', 270)"; onMouseout="hideddrivetip()" style="cursor: help" CLASS="nobold">Quadra de Vilanova</A>, el lloc on els habitants d'aquesta Quadra es reunien no era a St. Vicen&ccedil; de Cercedol, sin&oacute; a Sta. Maria de Gausac, que m&eacute;s tard s'anomenar&agrave; Sta. Maria del Bosc i que actualment &eacute;s l'ermita de Sant Adjutori molt a prop de Can Borrell.<BR>
-<BR>
-<FONT CLASS="petita" COLOR="#999999">Nota: Definicions extretes del Diccionari de la llengua catalana de l'<I>Institut d'Estudis Catalans. Edici&oacute; 1995</I>.</FONT><BR>
-<BR>
-&nbsp;</TD>
-			</TR>
-		</TABLE>
-		</TD>
-	</TR>
-</TABLE>
-</CENTER>
-</BODY>
-</HTML>
+                <?php include("footer.html"); ?>
+            </div> <!-- row -->
+        </div> <!-- container -->
+        <!-- Bootstrap core JavaScript
+        ================================================== -->
+        <!-- Placed at the end of the document so the pages load faster 
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
+        <script src="/js/bootstrap.min.js"></script>
+        <script src="/js/ie10-viewport-bug-workaround.js"></script>-->
+    </body>
+</html>

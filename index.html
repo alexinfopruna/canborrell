@@ -1,118 +1,132 @@
-<?php
-            define('ROOT',"taules/");
-            require_once (ROOT."gestor_reserves.php");  
-            $g=new gestor_reserves();
-             $_POST['reserva_consulta_online']=isset( $_POST['reserva_consulta_online'])?$_POST['reserva_consulta_online']:"";
-             $_POST['client_email']=isset( $_POST['client_email'])?$_POST['client_email']:"";
-             $_POST['client_nom']=isset( $_POST['client_nom'])?$_POST['client_nom']:"";
-             
-            $extres['subject']="Can Borrell: FORMULARI DE CONTACTE HOME";
-		$extres['reserva_consulta_online']=$_POST['reserva_consulta_online'];
-		$extres['client_email']=$_POST['client_email'];
-		$extres['client_nom']=$_POST['client_nom'];
-		$extres['client_cognoms']="";
-                
-            if (isset($_REQUEST['client_email'])){
-                $g->enviaMail(null, "../reservar/contactar_restaurant_",MAIL_RESTAURANT,$extres);
-                header("Location: ".  $_SERVER['PHP_SELF']."?snd");
-                echo '<script>var ENVIAT=true;</script>';
-            }
-           include(ROOT."../reservar/translate_ca.php");
-?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <HTML>
-<HEAD>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <TITLE> Masia Can Borrell </TITLE>
+        <meta name="Keywords" content="Plats típics, Restaurant, Sant Cugat del Vallès">
+            <meta name="Description" content="Restaurant Masia Can Borrell" />
+                <meta name="Author" content="topeweb.com">
+                    <link type="text/css" href="reservar/css/custom-theme/jquery-ui-1.8.16.custom.css" rel="stylesheet" />	
 
-<TITLE> Masia Can Borrell </TITLE>
-	
-	 <?php 
-     
-         echo Gestor::loadJQuery(); 
-         
-         /* CONTACTE */
-         
-            
-            if (isset($_REQUEST['snd'])) echo '<script>var ENVIAT=true;</script>';
-         ?>
- 	<!-- ANULAT dynmenu.js -->
-        <script type="text/javascript" src="../taules/js/jquery.metadata.js"></script>
-	<script type="text/javascript" src="../taules/js/jquery.validate.min.js"></script>
-	<script type="text/javascript" src="../taules/js/jquery.validate_ca.js"></script>
+                    <script  type="text/javascript" src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
 
-       <link type="text/css" href="../taules/css/blitzer/jquery-ui-1.8.9.forms.css" rel="stylesheet" />	
-	<LINK rel="stylesheet" type="text/css" href="../css/estils.css">
+                    <script  type="text/javascript">window.jQuery || document.write('<script  type="text/javascript" src="../taules/js/jquery-1.11.0.min.js"><script>');</script>
 
-        <script>
-            $(function(){
-                if (typeof ENVIAT != 'undefined') $(".cb-contacte").html('<span style="color:green">Correu enviat!</span>');
-                else   $(".cb-contacte").html("<button>Contacte</button>").click(function(){$("#caixa_contacte").dialog("open")});
-                
-        $("#caixa_contacte").dialog({
-                    autoOpen:false,
-                    title:"Formulari de contacte",
-                });
-                $("#form_contactar").validate({
-                    errorElement: "em",
-                });
-                
-            });
-        </script>
-            
-</HEAD>
-<body>
-<CENTER>
 
-<TABLE BGCOLOR="#F8F8F0" CELLPADDING="0" CELLSPACING="0" WIDTH="775" HEIGHT="100%" BORDER="0">
-	<TR>
-		<TD BACKGROUND="../img/fons_1a.jpg" COLSPAN="2" ALIGN="RIGHT">
-		
-		<div class="novetat ui-corner-all">
-			<a href="../reservar/form.php?lang=cat" title="Reserva online ràpida i senzilla: Des de casa, sense trucades ni esperes">
-                            Reserva online, <b>ara també des del mòbil</b>
-			</a>
-		</div>
-		
-		<A HREF="../index.htm"><IMG SRC="../img/lg_sup.gif" WIDTH="303" HEIGHT="114" BORDER="0" TITLE="INICI"></A>
-                </TD>
-	</TR>
-	<TR>
-		<TD BGCOLOR="#570600" COLSPAN="2" ALIGN="CENTER">
-		<?php   require_once('menu.php');  ?>
-		</TD>
-	</TR>
-	<TR>
-		<TD style="background-image:url(../img/fons_1b.jpg); background-repeat:no-repeat;" HEIGHT="100%" WIDTH="154" ALIGN="RIGHT" VALIGN="BOTTOM"><B>Masia Can Borrell<BR>
-Sant Cugat del Vall&egrave;s</B><BR>
-<span class="cb-contacte">Tel.: 93 692 97 23<BR>
-93 691 06 05<BR>
-Fax: 93 692 40 57<BR></span>
-<IMG SRC="../img/pix.gif" WIDTH="1" HEIGHT="38" BORDER="0"></TD>
-		<TD style="background-image:url(../img/fons_1c.jpg); background-repeat:no-repeat;" WIDTH="621" ALIGN="CENTER" VALIGN="TOP">
-		
-                                                            <TABLE CELLPADDING="0" CELLSPACING="0" WIDTH="490" BORDER="0">
-			<TR>
-				<TD><BR>
-<BR>
-<BR>
-La masia de Can Borrell es troba en un entorn privilegiat. Situada al terme municipal de Sant Cugat del Vall&egrave;s, i amb una extensi&oacute; de 216 hect&agrave;rees &eacute;s  en ple cor del  Parc Natural de Collserola.<BR>
-<BR>
-<IMG SRC="../img/f_canborrell_1.jpg" WIDTH="332" HEIGHT="220" BORDER="0" ALT="Foto" VSPACE="12"><IMG SRC="../img/pix.gif" WIDTH="12" HEIGHT="1" BORDER="0"><IMG SRC="../img/f_canborrell_2.jpg" WIDTH="146" HEIGHT="220" BORDER="0" ALT="Foto" VSPACE="12"><BR>
-<BR>
-Aquesta bella masia gaudeix d'un paisatge forestal i agr&iacute;cola que ens fa retrobar amb la natura i ens fa pensar que som ben lluny de l'&agrave;rea metropolitana, tot i ser a escassos vint minuts de Barcelona.<BR>
-&nbsp;<BR>
-<CENTER>Carretera d'Horta a Cerdanyola (BV-1415), km 3 - 08171 Sant Cugat del Vall&egrave;s</CENTER><BR>
-&nbsp;</TD>
-			</TR>
-		</TABLE>
-		</TD>
-	</TR>
-        <tr><td><BR><BR><BR></TD><td></TD></TR>
-</TABLE>
-</CENTER>
-<?php
+                    <STYLE TYPE="text/css">
+                        BODY {font-family:verdana, arial, helvetica; font-size: 13px;height:100%}
+                        html, body {
+                            height: 100%
+                        }
 
-  include("../form_contacte.php");
-?>
+                        TD {font-family:verdana, arial, helvetica; font-size: 13px;}
+                        A {Text-decoration:none; font-weight:bold;}
+                        A:hover { text-decoration: none; color: #FF9900;}
+                        .novetat
+                        {
+                            /*display:none;*/
+                            margin:auto auto;
+                            margin-bottom:12px;
+                            background: white;
+                            background-image: url('reservar/css/nuevo.png');
+                            max-width: 600px;
 
-</BODY>
-</HTML>
+                            padding: 8px;
+                            border: red solid 1px;
+                            text-align: center;
+                            font-size:1.2em;
+
+                            -moz-box-shadow: 4px 4px 4px #ccc;
+                            -webkit-box-shadow: 4px 4px 4px #ccc;
+                            box-shadow: 4px 4px 4px #ccc;	
+
+                        }
+                        .novetat a{display:block;margin-bottom:0.1em;}
+                        .novetat a:link{	color: red;}
+                        .novetat a:visited{	color: red;}
+                        .novetat a:hover{	color: #c00;}
+
+
+                        img.img-porro{max-width:80%}
+                        object, embed {
+                            max-width: 730px;
+                            height: auto;
+                        }
+
+
+                        @media all and (max-width:500px) {
+                            .novetat{font-size:1.1em;}
+
+                            #lang a{font-size:1.1em;}
+                        }
+
+
+                        embed{height:100% !important;   }
+
+                    </STYLE>
+                    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/swfobject/2.2/swfobject.js"></script>
+
+                    </head>
+                    <BODY BGCOLOR="#F8F8F0" TEXT="#000000" ALINK="#CC0000" VLINK="#CC0000" LINK="#CC0000">
+                        <TABLE CELLPADDING="0" CELLSPACING="0" WIDTH="100%" HEIGHT="95%" BORDER="0">
+                            <TR>
+                                <td valign="TOP"></td>		
+                                <TD ALIGN="RIGHT" style="">
+                                    <div class="novetat ui-corner-all">
+                                        <img src="img/mobil.png" style="float:left;margin-top:-6px;" />
+                                        <a  href="reservar/form.php?lang=cat" title="Reserva online ràpida i senzilla: Des de casa o el mòbil, sense trucades ni esperes">
+                                            Ara, reserva la teva taula des de Mòbil, Tablet o PC
+                                        </a>
+                                        <br/>
+                                        <a href="reservar/form.php?lang=esp" title="Reserva online rápida y sencilla: Desde casa o el móvil, sin telefonear ni esperar">
+                                            Ahora, reserva tu mesa desde el Móvil, Tablet o PC
+                                        </a>
+                                    </div>
+                                </td>
+                                <TD ALIGN="RIGHT">
+                            </TR>
+                            <TR height="100%">
+                                <TD VALIGN="TOP"></TD>
+                                <TD id="animacio" ALIGN="CENTER" >
+
+                                    <object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=5,0,0,0" width="100%">
+                                        <param name=movie value="img/porro.swf" />
+                                        <param name=quality value=high />
+                                        <PARAM NAME=bgcolor VALUE=#F8F8F0 />
+                                        <param name="scale" value="exactfit">
+                                            <EMBED id="fls" SRC="img/porro.swf" quality=high pluginspage="http://www.macromedia.com/shockwave/download/index.cgi?P1_Prod_Version=ShockwaveFlash" type="application/x-shockwave-flash" width="100%"   height="100%"  loop="false"></EMBED>
+                                    </object><!-- --></TD>
+                                <TD ROWSPAN="2" VALIGN="TOP"  ><IMG SRC="img/pix.gif" WIDTH="10"   BORDER="0" /></TD>
+                            </TR>
+                            <TR>
+                                <td valign="TOP"></td>		
+                                <TD id="lang" ALIGN="RIGHT" >
+                                    <A HREF="/ca/canborrell">[ Catal&agrave; ]</A><BR>
+                                        <A HREF="/es/canborrell">[ Castellano ]</A>
+                                </td>
+                                <TD ALIGN="RIGHT">
+                                </TD>
+                            </TR>
+                        </TABLE>
+                    </BODY>
+
+                    <script type="text/javascript">
+                        if (swfobject.getFlashPlayerVersion().major !== 0) {
+                            a = 0
+                        }
+                        else
+                            document.getElementById("animacio").innerHTML = '<a href="/cat/index.html"><img src="img/porro.gif" class="img-porro" /></a>';
+
+                        var tube = [];
+                        $(document).ready(function () {
+                            resize_flash();
+                            $(window).resize(resize_flash);
+                        });
+
+                        function resize_flash() {
+                            $("#fls").height($("#fls").width() * 0.8)
+                        }
+                        ;
+                    </script>
+                    </HTML>

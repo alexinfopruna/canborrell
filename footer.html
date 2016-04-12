@@ -1,0 +1,31 @@
+<div class="c-b"></div>
+<footer>
+    <div class="col-md-9" style="">
+        <a href="/<?php echo $lang ?>/canborrell" style="font-size:40px;COLOR:WHITE;text-decoration: none;">Masia Can Borrell</a>
+        <p style="font-size:15px;COLOR:WHITE;">Carretera d'Horta a Cerdanyola (BV-1415), km 3 <br> 08171 Sant Cugat del Vallès</p>
+        <br>
+        <style scoped>
+
+        </style>
+        <?php
+
+        $footer_elements = array(
+        array('link' => 'reservar', 'txt' => 'RESERVES'),
+        array('link' => 'plats', 'txt' => 'CARTA I MENU'),
+        array('link' => 'on', 'txt' => 'ON SOM: MAPA'),
+        array('link' => 'horaris', 'txt' => 'HORARI'),
+        array('link' => 'canborrell', 'txt' => 'CAN BORRELL'),
+        );
+
+        echo main_menu($footer_elements, $lang);
+        ?>
+    </div>
+
+    <div class="col-md-3">
+        <div id="datepicker"></div>  
+        <!-- <a class="btn btn-default" href="#" role="button">Reserva ara</a> -->
+    </div>
+
+    <div class="c-b"></div>
+</footer>
+
