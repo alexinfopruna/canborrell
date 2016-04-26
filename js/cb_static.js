@@ -44,8 +44,6 @@ function monta_calendari(selector)
     $(selector).datepicker("destroy");
     $(selector).datepicker({
         beforeShowDay: function (date, inst) {
-            
-            alert(date);
             var r = new Array(3);
             if ((date.getDay() == 1 || date.getDay() == 2 || llistanegra(date)) && (!llistablanca(date)) || !taulaDisponible(date))
             {
