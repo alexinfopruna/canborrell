@@ -775,7 +775,7 @@ function monta_calendari(selector)
             {
                 r[0] = true;
                 r[1] = "bondia";
-                r[2] = l("Obert");
+                r[2] = l("Reservar");
             }
             return r;
         },

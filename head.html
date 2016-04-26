@@ -5,15 +5,14 @@ if (!defined("GESTOR")){
             
             $lang = gestor_reserves::getLanguage();
             require_once("translate_web_$lang.php");
-
 }
-?>    
+?>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <meta name="description" content="">
-    <meta name="author" content="ÀLex Garcia">
+    <meta name="author" content="Àlex Garcia">
     <link rel="icon" href="favicon.ico">        
 
 
@@ -26,14 +25,46 @@ if (!defined("GESTOR")){
     <link href='https://fonts.googleapis.com/css?family=Raleway:400,300,700,300italic' rel='stylesheet' type='text/css'>
     <!-- <link href='https://fonts.googleapis.com/css?family=Oxygen||PT+Sans+Narrow' rel='stylesheet' type='text/css'> -->
     
-    
     <!-- <link rel="stylesheet" href="https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css"> -->
-    <link type="text/css" href="taules/css/blitzer/jquery-ui-1.8.9.custom.css" rel="stylesheet" />
-    
-    
+    <link type="text/css" href="css/jquery-ui.css" rel="stylesheet" />
     
    <?php echo Gestor::loadJQuery("2.0.3","1.10.3", FALSE); ?>
-    
-    
+   
+   
+    <script src="/js/jquery.ui.datepicker-ca.js"></script>
     <script src="/js/bootstrap.min.js"></script>
-    <script src="/js/cb_static.js"></script> 
+    
+    <script>
+    <?php 
+    $gestor = new gestor_reserves();
+    
+    $PERSONES_GRUP = $gestor->configVars("persones_grup");
+    echo  $gestor->dumpJSVars(); 
+    ?>
+            var PERSONES_GRUP =<?php echo $PERSONES_GRUP; ?>;
+              var lang = "<?php echo $lang; ?>";
+ <?php
+//TRANSLATES
+if(!defined("LLISTA_DIES_NEGRA")) define("LLISTA_DIES_NEGRA", INC_FILE_PATH . "llista_dies_negra_online.txt");
+if(!defined("LLISTA_DIES_BLANCA")) define("LLISTA_DIES_BLANCA", INC_FILE_PATH . "llista_dies_blanca.txt");
+if(!defined("LLISTA_NITS_NEGRA")) define("LLISTA_NITS_NEGRA", INC_FILE_PATH . "llista_dies_negra_online.txt");
+
+require_once(ROOT.INC_FILE_PATH . 'alex.inc');
+require_once (ROOT.INC_FILE_PATH . "llista_dies_taules.php"); 
+
+$llista_negra = llegir_dies(LLISTA_DIES_NEGRA);
+print crea_llista_js($llista_negra, "LLISTA_NEGRA");
+print "\n////////////1\n";
+
+$llista_blanca = llegir_dies(LLISTA_DIES_BLANCA);
+print crea_llista_js($llista_blanca, "LLISTA_BLANCA");
+print "\n////////////2\n";
+
+
+$llista_dies_no_carta = llegir_dies(INC_FILE_PATH . "llista_dies_no_carta.txt");
+print crea_llista_js($llista_dies_no_carta, "LLISTA_DIES_NO_CARTA");
+print "\n////////////3\n";
+?>           
+           var RDATA; 
+            </script> 
+            <script src="/js/cb_static.js"></script> 

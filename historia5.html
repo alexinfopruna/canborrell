@@ -1,95 +1,32 @@
-<HTML>
-<HEAD>
-<TITLE> Masia Can Borrell </TITLE>
-		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /> 	
-                <LINK rel="stylesheet" type="text/css" href="../css/estils.css"> 
-</HEAD>
-<body>
-<CENTER>
-<TABLE BGCOLOR="#F8F8F0" CELLPADDING="0" CELLSPACING="0" WIDTH="775" HEIGHT="100%" BORDER="0">
-	<TR>
-		<TD BACKGROUND="../img/fons_6a.jpg" COLSPAN="2" ALIGN="RIGHT"><A HREF="../index.htm"><IMG SRC="../img/lg_sup.gif" WIDTH="303" HEIGHT="114" BORDER="0" TITLE="INICI"></A></TD>
-	</TR>
-	<TR>
-		<TD BGCOLOR="#570600" COLSPAN="2" ALIGN="CENTER"> <?php   require_once('menu.php');  ?>
-		</TD>
-	</TR>
-	<TR>
-		<TD style="background-image:url(../img/fons_6b.jpg); background-repeat:no-repeat;" HEIGHT="100%" WIDTH="154" ALIGN="center" VALIGN="TOP">&nbsp;<BR>
-&nbsp;<BR>
-&nbsp;<BR>
-&nbsp;<BR>
-&nbsp;<BR>
-&nbsp;<BR>
-&nbsp;<BR>
-		<TABLE CELLPADDING="0" CELLSPACING="0" WIDTH="154" BORDER="0">
-			<TR>
-				<TD CLASS="transparent"><A HREF="historia">La Vall de Gausac</A></TD>
-			</TR>
-			<TR>
-				<TD>&nbsp;</TD>
-			</TR>
-			<TR>
-				<TD CLASS="transparent"><IMG SRC="../img/pix.gif" WIDTH="1" HEIGHT="2" BORDER="0"><BR>
-<A HREF="historia1">La pagesia catalana: els Mansus</A><BR>
-<IMG SRC="../img/pix.gif" WIDTH="1" HEIGHT="3" BORDER="0"></TD>
-			</TR>
-			<TR>
-				<TD>&nbsp;</TD>
-			</TR>
-			<TR>
-				<TD CLASS="transparent"><IMG SRC="../img/pix.gif" WIDTH="1" HEIGHT="2" BORDER="0"><BR>
-<A HREF="historia2">La Quadra<BR>
-de Vilanova</A><BR>
-<IMG SRC="../img/pix.gif" WIDTH="1" HEIGHT="3" BORDER="0"></TD>
-			</TR>
-			<TR>
-				<TD>&nbsp;</TD>
-			</TR>
-			<TR>
-				<TD CLASS="transparent"><IMG SRC="../img/pix.gif" WIDTH="1" HEIGHT="2" BORDER="0"><BR>
-<A HREF="historia3">La Masia de<BR>
-Can Borrell</A><BR>
-<IMG SRC="../img/pix.gif" WIDTH="1" HEIGHT="3" BORDER="0"></TD>
-			</TR>
-			<TR>
-				<TD>&nbsp;</TD>
-			</TR>
-			<TR>
-				<TD CLASS="transparent"><A HREF="historia4">Fonts</A></TD>
-			</TR>
-			<TR>
-				<TD>&nbsp;</TD>
-			</TR>
-			<TR>
-				<TD CLASS="opac"><FONT COLOR="#FFFFFF"><B>Agra&iuml;ments</B></FONT></TD>
-			</TR>
-		</TABLE>
-		</TD>
-		<TD style="background-image:url(../img/fons_6c.jpg); background-repeat:no-repeat;" WIDTH="621" ALIGN="CENTER" VALIGN="TOP">
-		<TABLE CELLPADDING="0" CELLSPACING="0" BORDER="0">
-			<TR>
-				<TD>&nbsp;<BR>
-<BR>
-<BR>
-<BR>
-<BR>
-<BR>
-<BR>
-<FONT CLASS="titol">Agra&iuml;ments</FONT><BR>
-<BR>
-Amb la col·laboraci&oacute; del Parc de Collserola<BR>
-i amb l'especial ajuda de <B>Silvia Mampel</B>,<BR>
-coordinadora d'&uacute;s p&uacute;blic del Parc de Collserola<BR>
-i elaboradora del contingut dels apartats<BR>
-d'Excursions i d'Hist&ograve;ria d'aquest web.<BR>
-<BR>
-&nbsp;</TD>
-			</TR>
-		</TABLE>
-		</TD>
-	</TR>
-</TABLE>
-</CENTER>
-</BODY>
-</HTML>
+<?php 
+require_once("translate_historia_{$lang}.php");
+
+$submenu_elements = array(
+array('link' => 'historia', 'txt' => 'La Vall de Gausac' ),
+array('link' => 'historia1', 'txt' => 'La pagesia catalana: els Mansus' ),
+array('link' => 'historia2', 'txt' => 'La Quadra de Vilanova' ),
+array('link' => 'historia3', 'txt' => 'La Masia de Can Borrell' ),
+array('link' => 'historia4', 'txt' => 'Fonts' ),
+array('link' => 'historia5', 'txt' => 'Agraïments' ),
+);
+
+$bg_id=6;
+
+
+$html = <<<HEREDOC
+
+<h2 class="titol">{$fnl("Agraïments")}</H2>
+<p>
+
+
+{$fnl("Amb la col·laboració del Parc de Collserola
+i amb l'especial ajuda de <b>Silvia Mampel</b>,
+coordinadora d'ús públic del Parc de Collserola
+i elaboradora del contingut dels apartats
+d'Excursions i d'Història d'aquest web.")}
+</p>
+
+
+HEREDOC;
+
+?>

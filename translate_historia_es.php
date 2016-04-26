@@ -103,7 +103,7 @@ $translate["La masia de Can Borrell però, és de les poques amb
 
 //  hostoria2 -------------------------------------------------------------
 
-$translate["La Quadra de Vilanova (sigles XIV-XVIII)"] =  "La Quadra de Vilanova (siglos XIV-XVIII)";
+$translate["La Quadra de Vilanova<br>(sigles XIV-XVIII)"] =  "La Quadra de Vilanova<br>(siglos XIV-XVIII)";
 
 $translate["Un dels elements que tenen rellevància en l'etapa feudal, són les Quadres. Una Quadra és un conjunt 
   de propietats d'un senyor feudal que, tot i estar adscrites a un castell termenat, té un tractament especial 
@@ -179,25 +179,44 @@ $translate["El pas d'excursionistes i gent va fer que es comencessin a servir es
 
 
 //  hostoria4 -------------------------------------------------------------
-$translate[""] =  "";
+$translate["Fonts"] =  "Fuentes";
 
 
-$translate[""] =  "";
+$translate["Les informacions s'han extret de"] =  "La información se ha extraído de";
+
+$translate["les revistes Gausac,<br>
+<span class='llista'>editades pel Grup d'Estudis Locals de Sant Cugat del Vallès</span>"] 
+=  "las revistas Gausac,<br>
+  span class='llista'>editadas por el Grup d'Estudis Locals de Sant Cugat del Vallès</span>";
+
+$translate["el catàleg de Patrimoni de la Diputació de Barcelona"] 
+    =  "el catálogo de Patrimoni de la Diputació de Barcelona";
+
+$translate["el llibre La Masia a Sant Cugat (Vallès Occidental) de J. Sala, C. Soler,<br>
+span class='llista'>editat per Edicions Independents del Vallès Occidental, abril 1988</span>"] 
+    =  "el libro La Masia a Sant Cugat (Vallès Occidental) de J. Sala, C. Soler, <br>
+span class='llista'>editado por Edicions Independents del Vallès Occidental, abril 1988</span>";
+
+$translate["el llibre Sant Cugat del Vallès de J. Llop i Ll. Ribas,<br>
+span class='llista'>editat per GAL ART l'any 1999</span>"] =  "el libro Sant Cugat del Vallès de J. Llop i Ll. Ribas, <br>
+span class='llista'>editado por GAL ART el 1999</span>";
 
 
 
+//  hostoria5 -------------------------------------------------------------
 
-$translate[""] =  "";
-$translate[""] =  "";
-$translate[""] =  "";
-$translate[""] =  "";
-$translate[""] =  "";
-$translate[""] =  "";
-$translate[""] =  "";
-$translate[""] =  "";
-$translate[""] =  "";
-$translate[""] =  "";
-$translate[""] =  "";
+
+$translate["Agraïments"] =  "Agradecimientos";
+
+$translate["Amb la col·laboració del Parc de Collserola
+i amb l'especial ajuda de <b>Silvia Mampel</b>,
+coordinadora d'ús públic del Parc de Collserola
+i elaboradora del contingut dels apartats
+d'Excursions i d'Història d'aquest web."] =  "Con la colaboració del Parc de Collserola
+y con la especial ayuda de <b>Silvia Mampel</b>,
+coordinadora de uso público del Parc de Collserola
+y elaboradora del contenido de los apartados
+de Excursiones y de Historia de esta web.";
 $translate[""] =  "";
 $translate[""] =  "";
 

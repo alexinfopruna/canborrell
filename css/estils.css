@@ -9,13 +9,21 @@ body
    // background-image:url(img/fons.gif);
     margin-top:0;
     
-        background: -webkit-linear-gradient(#E3DCC9, #B39E89); /* For Safari 5.1 to 6.0 */
+        background: -webkit-linear-gradient(#E3DCC9, #67492C); /* For Safari 5.1 to 6.0 */
     background: -o-linear-gradient(#E3DCC9, #B39E89); /* For Opera 11.1 to 12.0 */
     background: -moz-linear-gradient(#E3DCC9, #B39E89); /* For Firefox 3.6 to 15 */
     background: linear-gradient(#E3DCC9, #B39E89); /* Standard syntax (must be last) */
-    
+    background-attachment: fixed;
     
 }
+
+a, li, button, img{
+  -webkit-transition: all 0.4s ease-in-out;
+  -moz-transition: all 0.4s ease-in-out;
+  -o-transition: all 0.4s ease-in-out;
+  transition: all 0.4s ease-in-out;
+}
+
 
 
 .fl{float:left}
@@ -30,11 +38,19 @@ body
     text-align:left;
 }
 
+.row{
+    border-left: #666 solid 1px;
+    border-right: #666 solid 1px;
+    -moz-box-shadow: 0px 12px 8px #444;
+    -webkit-box-shadow: 0px 12px 8px #444;
+    box-shadow: 0px 12px 8px #444;
+}
+
 TD
 {
     font-family: Raleway,  Oxygen, Poiret One, Pt Sans Narrow, verdana, arial, helvetica;
     font-size: 11px;
-    color: #570600;
+    //color: #570600;
 }
 
 #img-logo-dere{float:right;}
@@ -45,6 +61,7 @@ TD
     background-repeat:no-repeat;
     background-color: #F8F8F0;
     padding-bottom:40px;
+    min-height: 500px;
     
     
         font-family: Raleway,  Oxygen, Poiret One, Pt Sans Narrow, verdana, arial, helvetica;
@@ -57,7 +74,7 @@ TD
 
     max-width:775px;
     margin:auto;
-    margin-top:50px;
+    margin-top:85px;
 }
 
 header{
@@ -96,6 +113,12 @@ p{
    // color: #570600;
     font-size: 14px;
     color: #444;
+    
+    
+}
+
+#content p{
+    margin-bottom: 20px;
 }
 
 .nota{
@@ -138,19 +161,21 @@ border: #fff solid 6px;
 
 }
 
-A:link
+a, A:link
 {
     font-family: Raleway,  Oxygen, Poiret One, Pt Sans Narrow, verdana, arial, helvetica;
-    text-decoration: none;
+    text-decoration: none !important;
     //color: #FFCC99;
     //color: #555;
    // font-weight: bold;
+
+
 }
 
 A:visited
 {
     font-family: Raleway,  Oxygen, Poiret One, Pt Sans Narrow, verdana, arial, helvetica;
-    text-decoration: none;
+    text-decoration: none !important;
    // color: #FFCC99;
   //  font-weight: bold;
 }
@@ -158,7 +183,7 @@ A:visited
 a:active
 {
     font-family: Raleway,  Oxygen, Poiret One, Pt Sans Narrow, verdana, arial, helvetica;
-    text-decoration: none;
+    text-decoration: none !important;
   //  color: #FFCC99;
    // font-weight: bold;
 }
@@ -166,9 +191,10 @@ a:active
 a:hover
 {
     font-family: Raleway,  Oxygen, Poiret One, Pt Sans Narrow, verdana, arial, helvetica;
-    text-decoration: none;
+    text-decoration: none !important;
     color: #FFFFFF;
  //   font-weight: bold;
+      
 }
 
 a.selec:link
@@ -415,7 +441,7 @@ table#menu{visibility:visible}
         padding-top: 5px;
     padding-bottom: 5px;
 }
-#main-menu a:hover{color:white;}
+#main-menu a:hover{color:white;background-color:#353535;}
 
 .menu-element{float:left;padding:0 4px;border-right:#ccc solid 1px;}
 .menu-element:last-child{border-right:none;padding-right:0;}
@@ -494,6 +520,13 @@ ul.submenu{
 #language-menu a{
     color:white;
     font-weight: 100;
+}
+#language-menu a:hover{
+    
+  border-bottom: #ccc solid 6px;
+  background-color: #444; 
+
+
 }
 
 
@@ -694,3 +727,18 @@ footer #main-menu li{
 }
 
 #ressenya a:hover{color:#CCC;}
+
+#ressenya .btn-success {
+    margin-top:10px;
+    float:right;
+    text-align: right;
+    color: #fff;
+    background-color: #222;
+    border-color: #333;
+}
+
+#ressenya .btn-success:hover {
+    color: #fff;
+    background-color: #333;
+    border-color: #000;
+}

@@ -841,7 +841,7 @@ class Gestor {
 
   /*   * *************************************************************************************************** */
 
-  public function dumpJSVars($tags) {
+  public function dumpJSVars($tags = FALSE) {
     return $this->conf->dumpJSVars($tags);
   }
 

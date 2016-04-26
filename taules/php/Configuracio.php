@@ -160,7 +160,8 @@ class Configuracio
 	
 	public function dumpJSVars($tag=false)
 	{
-		if ($tag) $out="<script>\n";
+		$out="";
+                                                        if ($tag) $out="<script>\n";
 		$out.="/*******************************/\n/****** dumpJSDefines **********/\n\n";
 		foreach($this->JS__defines as $k=>$v)
 		{

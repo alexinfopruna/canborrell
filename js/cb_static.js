@@ -4,8 +4,11 @@
  * and open the template in the editor.
  */
 $(function() {
-    $( "#top-datepicker" ).datepicker();
-    $( "#datepicker" ).datepicker();
+    //$( "#top-datepicker" ).datepicker();
+    monta_calendari("#top-datepicker");
+    //$( "#datepicker" ).datepicker();
+    monta_calendari("#datepicker");
+    
     $( ".tooltip" ).datepicker();
     
     $(window).on('resize', function(){
@@ -41,12 +44,19 @@ function monta_calendari(selector)
     $(selector).datepicker("destroy");
     $(selector).datepicker({
         beforeShowDay: function (date, inst) {
+            
+            alert(date);
             var r = new Array(3);
             if ((date.getDay() == 1 || date.getDay() == 2 || llistanegra(date)) && (!llistablanca(date)) || !taulaDisponible(date))
             {
                 r[0] = false;
                 r[1] = "maldia";
                 r[2] = l("Tancat");
+            }
+            else if(date<currentTime){
+                                r[0] = false;
+                r[1] = "maldia";
+                r[2] = l("Passat");
             }
             else
             {
@@ -79,4 +89,48 @@ function monta_calendari(selector)
     }
 
 
+}
+
+/********************************************************************************************************************/
+function llistanegra(date)
+{
+//return false;
+    var y = date.getFullYear();
+    var m = date.getMonth();     // integer, 0..11
+    var d = date.getDate();      // integer, 1..31
+
+    var t = LLISTA_NEGRA[m];
+
+    if (!t)
+        return false;
+    for (var i in t)
+        if (t[i] == d)
+            return true;
+
+    return false;
+}
+
+/********************************************************************************************************************/
+function llistablanca(date)
+{
+    var y = date.getFullYear();
+    var m = date.getMonth();     // integer, 0..11
+    var d = date.getDate();      // integer, 1..31
+
+    var t = LLISTA_BLANCA[m];
+
+    if (!t)
+        return false;
+    for (var i in t)
+        if (t[i] == d)
+            return true;
+
+
+    return false;
+}
+
+function taulaDisponible(date)
+{
+    //TODO, comprovar si hi ha taula
+    return true;
 }
