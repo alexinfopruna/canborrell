@@ -1,8 +1,6 @@
-<html>
-    <head>
-        <?php include("head.html");  ?>
-    </head>
     <?php 
+    require_once("translate_historia_{$lang}.php");
+    
     $submenu_elements = array(
     array('link' => 'historia', 'txt' => 'La Vall de Gausac' ),
     array('link' => 'historia1', 'txt' => 'La pagesia catalana: els Mansus' ),
@@ -13,67 +11,37 @@
     );
 
     $bg_id=6;
-    ?>
-    <body>
-        <div id="container">
-            <div class="row">
-                <?php include("header.html"); ?>
-                <?php include("submenu.html"); ?>
+    
+    
+    $html = <<<HEREDOC
 
-
-
-
-                <div id="content" class="content col-md-10">
-                    <!----------------------------------------------------------------------------------------->
-                    <!----------------------------------------------------------------------------------------->
-                    <!----------------------------------------------------------------------------------------->
-                    <!----------------------------------------------------------------------------------------->
-                    <!----------------------------------------------------------------------------------------->
-                    <!----------------------------------------------------------------------------------------->
-                    <!----------------------------------------------------------------------------------------->
-                    <h2 class="titol"><?php l("Un xic d'història de la masia i els seus entorns"); ?></H2>
+<div style="margin-top:40px"></div>
+                    <h2 class="titol">{$fnl("Un xic d'història de la masia i els seus entorns")}</H2>
                     <p>
-                        <?php l("HISTORIA_tx11"); ?>
+                        {$fnl("HISTORIA_tx11")}
                     </p>
                     <p>
-                        <?php l("HISTORIA_tx12"); ?>
+                        {$fnl("HISTORIA_tx12")}
                     </p>
-                    <h2 class="titol"><?php l("Què va passar a la Vall de Gausac?"); ?></H2>
+                    <h2 class="titol">{$fnl("Què va passar a la Vall de Gausac?")}</H2>
                     <div class="txt-foto-dere">
-                        <img src="../img/f_historia_1.jpg"  class="txt-foto-dere" title="Foto cedida pel Consorci del Parc de Collserola">
+                        <img src="../img/f_historia_1.jpg"  class="txt-foto-dere" title="{$fnl("Foto cedida pel Consorci del Parc de Collserola")}">
                         <p>
-                            <?php l("HISTORIA_tx21"); ?>
+                            {$fnl("HISTORIA_tx21")}
                         </p>
                         <p>
-                            <?php l("HISTORIA_tx22"); ?>
+                            {$fnl("HISTORIA_tx22")}
                         </p>
                         <p>
-                            <?php l("HISTORIA_tx23"); ?>
+                            {$fnl("HISTORIA_tx23")}
                         </p>
                     </div>
                     <div class="c-b"></div>   
                     <p class="nota">
-                        <?php l("Nota: Definicions extretes del Diccionari de la llengua catalana de l'<I>Institut d'Estudis Catalans. Edici&oacute; 1995</I>"); ?>.
+                    {$fnl("Nota: Definicions extretes del Diccionari de la llengua catalana de l'<I>Institut d'Estudis Catalans. Edici&oacute; 1995</I>")}
                     </p>
-                    <!----------------------------------------------------------------------------------------->
-                    <!----------------------------------------------------------------------------------------->
-                    <!----------------------------------------------------------------------------------------->
-                    <!----------------------------------------------------------------------------------------->
-                    <!----------------------------------------------------------------------------------------->
-                    <!----------------------------------------------------------------------------------------->
-                    <!----------------------------------------------------------------------------------------->
-                </div> 
-                <div class="c-b"></div> 
 
-                <?php include("footer.html"); ?>
-            </div> <!-- row -->
-        </div> <!-- container -->
-        <!-- Bootstrap core JavaScript
-        ================================================== -->
-        <!-- Placed at the end of the document so the pages load faster 
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-        <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
-        <script src="/js/bootstrap.min.js"></script>
-        <script src="/js/ie10-viewport-bug-workaround.js"></script>-->
-    </body>
-</html>
+HEREDOC;
+
+?>
+ 

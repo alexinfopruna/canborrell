@@ -1023,10 +1023,31 @@ class Gestor {
     treu el codi html per carregar jquery + jquery ui del cdn de jquery
    */
 
-  public static function loadJQuery($jqversion = "2.0.3", $uiversion = "1.10.3") {
+  public static function loadJQuery($jqversion = "2.0.3", $uiversion = "1.10.3", $cdn = TRUE) {
 
     $ROOT = ROOT;
 
+    if (!$cdn){
+      $html = <<< EOHTML
+<!-- ************************************************* -->            
+<!-- ************************************************* -->            
+<!-- *********      GESTOR::loadJQuery      ********** -->            
+<!-- *********      LOOOOOOOOOCAAAAAAL      ********** -->            
+<!-- *********      LOOOOOOOOOCAAAAAAL      ********** -->            
+<!-- ************************************************* -->            
+<!-- ************************************************* -->
+ <script  type="text/javascript" src="{$ROOT}js/jquery-{$jqversion}.min.js"></script>
+ <script  type="text/javascript" src="{$ROOT}js/jquery-ui-{$uiversion}.custom/js/jquery-ui-{$uiversion}.custom.min.js"></script>
+<!-- ************************************************* -->            
+<!-- *********      LOOOOOOOOOCAAAAAAL      ********** -->            
+<!-- *********      LOOOOOOOOOCAAAAAAL      ********** -->            
+ <!-- ************************************************* -->            
+<!-- ************************************************* -->            
+<!-- ************************************************* --> 
+EOHTML;
+ 
+ return $html;
+    }
 
     $html = <<< EOHTML
                 

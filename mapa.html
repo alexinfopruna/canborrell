@@ -1,12 +1,25 @@
-<HTML>
-<HEAD>
-<TITLE> Masia Can Borrell </TITLE>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /> 
-<STYLE TYPE="text/css">
-BODY {margin: 0px 0px 0px 0px;}
-</STYLE>
-</HEAD>
-<BODY BGCOLOR="#FFFFFF">
-<CENTER><A HREF="on"><IMG SRC="../img/mapa_topografic.jpg" WIDTH="1000" HEIGHT="709" BORDER="0" ALT="Mapa" TITLE="Feu &quot;Clic&quot; per tornar"></A></CENTER>
-</BODY>
-</HTML>
+<?php 
+$submenu_elements = array(
+array('link' => 'on', 'txt' => 'Mapa esquemàtic' ),
+array('link' => 'mapa', 'txt' => 'Mapa topogràfic' ),
+);
+
+$bg_id=4;
+
+/*****************************************************************************/
+
+
+$html = <<<HEREDOC
+
+<style>
+   img{width:100%;height:initial}
+   img:hover{opacity:1;}
+   
+</style>
+
+<CENTER><A HREF="on"><IMG SRC="../img/mapa_topografic.jpg"  BORDER="0" ALT="Mapa" TITLE="Feu &quot;Clic&quot; per tornar"></A></CENTER>
+
+
+HEREDOC
+?>
+

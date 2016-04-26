@@ -1,27 +1,38 @@
 body
 {	
-    font-family: verdana, arial, helvetica;
+    font-family: Raleway,  Oxygen, Poiret One, Pt Sans Narrow, verdana, arial, helvetica;
     font-size: 18px;
-    color: #570600;
+    //color: #570600;
+    color: #444;
     margin: 20px 0px 20px 0px;
-    bgcolor:#FFFFFF;
-    background-image:url(img/fons.gif);
+    bgcolor:#E3DCC9;
+   // background-image:url(img/fons.gif);
     margin-top:0;
+    
+        background: -webkit-linear-gradient(#E3DCC9, #B39E89); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(#E3DCC9, #B39E89); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(#E3DCC9, #B39E89); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(#E3DCC9, #B39E89); /* Standard syntax (must be last) */
+    
+    
 }
 
 
-.submenu.col-md-2{
-    width:19%;
-}
+.fl{float:left}
 
-.content.col-md-10{
-    width:81%;
+.ta-center{
+    text-align:center;
 }
-
+.ta-rught{
+    text-align:right;
+}
+.ta-left{
+    text-align:left;
+}
 
 TD
 {
-    font-family: verdana, arial, helvetica;
+    font-family: Raleway,  Oxygen, Poiret One, Pt Sans Narrow, verdana, arial, helvetica;
     font-size: 11px;
     color: #570600;
 }
@@ -33,7 +44,13 @@ TD
     text-align:left;
     background-repeat:no-repeat;
     background-color: #F8F8F0;
-    margin-bottom:40px;
+    padding-bottom:40px;
+    
+    
+        font-family: Raleway,  Oxygen, Poiret One, Pt Sans Narrow, verdana, arial, helvetica;
+   // font-size: 11px;
+    //color: #570600;
+    //color: 444;
 }
 
 #container{
@@ -55,71 +72,108 @@ header{
 }
 h2, .titol
 {
-    margin-top:30px;
-    font-family: verdana, arial, helvetica;
-    font-size: 18px;
-    color: #999966;
+    margin-top:26px;
+    margin-bottom:20px;
+    font-family: Raleway,  Oxygen, Poiret One, Pt Sans Narrow, verdana, arial, helvetica;
+    font-size: 30px;
+ //   color: #999966;
+    color:black;
     font-weight: bold;
 }
 
 .titol2
 {
-    font-family: verdana, arial, helvetica;
+    font-family: Raleway,  Oxygen, Poiret One, Pt Sans Narrow, verdana, arial, helvetica;
     font-size: 15px;
     color: #999966;
     font-weight: bold;
 }
+#content h5{margin-top: 25px;font-weight: bold;}
 
 p{
-    font-family: verdana, arial, helvetica;
-    font-size: 11px;
-    color: #570600;
+    font-family: Raleway,  Oxygen, Poiret One, Pt Sans Narrow, verdana, arial, helvetica;
+    //font-size: 11px;
+   // color: #570600;
+    font-size: 14px;
+    color: #444;
 }
 
 .nota{
-    color:#999;
+    color:#666;
+    background: #EEE;
+    font-style: italic;
+    padding:4px;
 }
 
 .c-b{clear: both}
-img{}
-img.txt-foto-dere{float:right;margin-left:10px;margin-bottom:8px;}
-img.txt-foto-isqui{float:left;margin-right:10px;margin-bottom:8px;}
+img{max-width:100%;height:initial;}
+img.txt-foto-dere{
+    float:right;
+    margin-left:10px;
+    margin-bottom:8px;
+    border: #fff solid 6px;
+   -moz-box-shadow: 2px 2px 2px #ccc;
+    -webkit-box-shadow: 2px 2px 2px #ccc;
+    box-shadow: 2px 2px 2px #ccc;	
+}
+img.txt-foto-isqui{
+    float:left;
+               margin-right:10px;
+               margin-bottom:8px;
+               border: #fff solid 6px;
+   -moz-box-shadow: 2px 2px 2px #ccc;
+    -webkit-box-shadow: 2px 2px 2px #ccc;
+    box-shadow: 2px 2px 2px #ccc;	
+}
+
+
+.galeria img{margin-right:0px;
+            margin-bottom: 8px;
+            //border: #222 solid 2px;
+border: #fff solid 6px;
+    -moz-box-shadow: 2px 2px 2px #ccc;
+    -webkit-box-shadow: 2px 2px 2px #ccc;
+    box-shadow: 2px 2px 2px #ccc;
+
+
+}
 
 A:link
 {
-    font-family: verdana, arial, helvetica;
+    font-family: Raleway,  Oxygen, Poiret One, Pt Sans Narrow, verdana, arial, helvetica;
     text-decoration: none;
-    color: #FFCC99;
-    font-weight: bold;
+    //color: #FFCC99;
+    //color: #555;
+   // font-weight: bold;
 }
 
 A:visited
 {
-    font-family: verdana, arial, helvetica;
+    font-family: Raleway,  Oxygen, Poiret One, Pt Sans Narrow, verdana, arial, helvetica;
     text-decoration: none;
-    color: #FFCC99;
-    font-weight: bold;
+   // color: #FFCC99;
+  //  font-weight: bold;
 }
 
 a:active
 {
-    font-family: verdana, arial, helvetica;
+    font-family: Raleway,  Oxygen, Poiret One, Pt Sans Narrow, verdana, arial, helvetica;
     text-decoration: none;
-    color: #FFCC99;
-    font-weight: bold;
+  //  color: #FFCC99;
+   // font-weight: bold;
 }
 
 a:hover
 {
-    font-family: verdana, arial, helvetica;
+    font-family: Raleway,  Oxygen, Poiret One, Pt Sans Narrow, verdana, arial, helvetica;
     text-decoration: none;
     color: #FFFFFF;
-    font-weight: bold;
+ //   font-weight: bold;
 }
 
 a.selec:link
 {
-    font-family: verdana, arial, helvetica;
+    font-family: Raleway,  Oxygen, Poiret One, Pt Sans Narrow, verdana, arial, helvetica;
     text-decoration: none;
     color: #FFFFFF;
     font-weight: bold;
@@ -127,7 +181,7 @@ a.selec:link
 
 A.selec:visited
 {
-    font-family: verdana, arial, helvetica;
+    font-family: Raleway,  Oxygen, Poiret One, Pt Sans Narrow, verdana, arial, helvetica;
     text-decoration: none;
     color: #FFFFFF;
     font-weight: bold;
@@ -135,7 +189,7 @@ A.selec:visited
 
 A.selec:active
 {
-    font-family: verdana, arial, helvetica;
+    font-family: Raleway,  Oxygen, Poiret One, Pt Sans Narrow, verdana, arial, helvetica;
     text-decoration: none;
     color: #FFFFFF;
     font-weight: bold;
@@ -143,7 +197,7 @@ A.selec:active
 
 A.selec:hover
 {
-    font-family: verdana, arial, helvetica;
+    font-family: Raleway,  Oxygen, Poiret One, Pt Sans Narrow, verdana, arial, helvetica;
     text-decoration: none;
     color: #FFFFFF;
     font-weight: bold;
@@ -151,39 +205,41 @@ A.selec:hover
 
 A.dins:link
 {
-    font-family: verdana, arial, helvetica;
+    font-family: Raleway,  Oxygen, Poiret One, Pt Sans Narrow, verdana, arial, helvetica;
     text-decoration: none;
-    color: #CC0000;
+    //color: #CC0000;
+    color: #444;
     font-weight: bold;
 }
 
 A.dins:visited
 {
-    font-family: verdana, arial, helvetica;
+    font-family: Raleway,  Oxygen, Poiret One, Pt Sans Narrow, verdana, arial, helvetica;
     text-decoration: none;
-    color: #CC0000;
+    color: #444;
     font-weight: bold;
 }
 
 A.dins:active
 {
-    font-family: verdana, arial, helvetica;
+    font-family: Raleway,  Oxygen, Poiret One, Pt Sans Narrow, verdana, arial, helvetica;
     text-decoration: none;
-    color: #CC0000;
+    color: #444;
     font-weight: bold;
 }
 
 A.dins:hover
 {
-    font-family: verdana, arial, helvetica;
+    font-family: Raleway,  Oxygen, Poiret One, Pt Sans Narrow, verdana, arial, helvetica;
     text-decoration: none;
-    color: #FF9900;
+    //color: #FF9900;
+    color: black;
     font-weight: bold;
 }
 
 A.nobold:link
 {
-    font-family: verdana, arial, helvetica;
+    font-family: Raleway,  Oxygen, Poiret One, Pt Sans Narrow, verdana, arial, helvetica;
     text-decoration: none;
     color: #CC0000;
     font-weight: normal;
@@ -191,7 +247,7 @@ A.nobold:link
 
 A.nobold:visited
 {
-    font-family: verdana, arial, helvetica;
+    font-family: Raleway,  Oxygen, Poiret One, Pt Sans Narrow, verdana, arial, helvetica;
     text-decoration: none;
     color: #CC0000;
     font-weight: normal;
@@ -199,7 +255,7 @@ A.nobold:visited
 
 A.nobold:active
 {
-    font-family: verdana, arial, helvetica;
+    font-family: Raleway,  Oxygen, Poiret One, Pt Sans Narrow, verdana, arial, helvetica;
     text-decoration: none;
     color: #CC0000;
     font-weight: normal;
@@ -207,12 +263,14 @@ A.nobold:active
 
 A.nobold:hover
 {
-    font-family: verdana, arial, helvetica;
+    font-family: Raleway,  Oxygen, Poiret One, Pt Sans Narrow, verdana, arial, helvetica;
     text-decoration: none;
     color: #FF9900;
     font-weight: normal;
 }
 
+
+a > img:hover{opacity:0.7;}
 .petita
 {
     font-size: 10px;
@@ -225,7 +283,7 @@ A.nobold:hover
 
 
 INPUT {
-    font-family: verdana, arial, helvetica;
+    font-family: Raleway,  Oxygen, Poiret One, Pt Sans Narrow, verdana, arial, helvetica;
     font-size: 11px;
     color: #003366;
     border:1px Solid #CCCCCC;
@@ -233,7 +291,7 @@ INPUT {
 }
 
 SELECT {
-    font-family: verdana, arial, helvetica;
+    font-family: Raleway,  Oxygen, Poiret One, Pt Sans Narrow, verdana, arial, helvetica;
     font-size: 11px;
     color: #003366;
     border:1px Solid #CCCCCC;
@@ -241,7 +299,7 @@ SELECT {
 }
 
 INPUT.bt {
-    font-family: verdana, arial, helvetica;
+    font-family: Raleway,  Oxygen, Poiret One, Pt Sans Narrow, verdana, arial, helvetica;
     font-size: 11px;
     width: 90px;
     color: #CC0000;
@@ -250,7 +308,7 @@ INPUT.bt {
 }
 
 TEXTAREA {
-    font-family: verdana, arial, helvetica;
+    font-family: Raleway,  Oxygen, Poiret One, Pt Sans Narrow, verdana, arial, helvetica;
     font-size: 11px;
     width: 310px;
     color: #003366; 
@@ -287,7 +345,7 @@ UL {
 }
 
 #dhtmltooltip{
-    font-family:verdana, arial, helvetica;
+    font-family:Raleway,  Oxygen, Poiret One, Pt Sans Narrow, verdana, arial, helvetica;
     font-size:8pt;
     position: absolute;
     border: 1px solid #999999;
@@ -296,20 +354,47 @@ UL {
     z-index: 100;
 }
 .input_blanc {
-    font-family: verdana, arial, helvetica;
+    font-family: Raleway,  Oxygen, Poiret One, Pt Sans Narrow, verdana, arial, helvetica;
     font-size: 11px;
     color: #003366;
     border:1px Solid #FFFFFF;
     background-color: #FFFFFF;
 }
 
+.submenu.col-md-2{
+    width:19%;
+}
+
+.content.col-md-10{
+    width:81%;
+}
+
 .bg-dev{
     background-image:url('img/obres.png');}
 
+.navbar-inverse a.navbar-brand {
+    color:white;
+}
+
+.navbar-header{
+    width:100%;
+}
 .navbar-header .navbar-brand{
     font-size: 24px;
     color:white;
 }
+
+#nav-main-menu{
+    background-color: black;
+    height:22px;
+    padding:1px;
+    color: white;
+    font-size: 16px;
+    //font-weight: bold;
+    padding-left:25px;
+    
+}
+
 nav{
     background-color:#570600;
     font-size: 11px;
@@ -323,9 +408,13 @@ header ul#main-menu{
 .menu-active, .menu-active:link, .menu-active:visited	{color:white;}
 table:first-child  table:first-child[height='18']{visibility:hidden}
 table#menu{visibility:visible}
-img[height='114']{height:112px}
+//img[height='114']{height:112px}
 
-#main-menu li{margin-bottom: 0px;margin:2px 0;}
+#main-menu li{margin-bottom: 0px;margin:2px 0}
+#main-menu li a{
+        padding-top: 5px;
+    padding-bottom: 5px;
+}
 #main-menu a:hover{color:white;}
 
 .menu-element{float:left;padding:0 4px;border-right:#ccc solid 1px;}
@@ -336,13 +425,19 @@ img[height='114']{height:112px}
 /** MENU **/
 #tr_menu a{
     padding: 0 2px;
+    background-color: transparent;
+}
+
+#cos{
+        background-color: #F8F8F0;
+    background-repeat: no-repeat;
+
 }
 
 .submenu.col-md-2{
     padding:0;
-    height:100%;
-    background-color: #F8F8F0;
-    background-repeat: no-repeat;
+   // height:100%;
+    background-color: transparent;
 
 }
 
@@ -353,8 +448,12 @@ ul.submenu{
 
 
 .submenu-element a{
-    background-color: transparent;
+    color:white;
 }
+.submenu-element:hover{
+    background:#444;
+}
+
 
 .submenu-element{
     font-weight: bold;
@@ -383,10 +482,11 @@ ul.submenu{
 
 #language-menu{
     color:white;
-    //background: #444;
+    float: right;
     //background: rgba(87,6,0,0.7)  ;
     font-size:16px;
     font-weight: 100;
+    margin-left: 25px;
     //position:absolute;
     //top:0px;
     padding:0 8px;
@@ -426,6 +526,7 @@ ul.submenu{
 
 .error{display:block;color:red}
 
+.form-group .form-control{max-width:177px;float:left;  }
 
 footer .menu-element{
     color:white !important;
@@ -443,12 +544,17 @@ footer #main-menu a,footer #main-menu  a:visited{
 
 footer #main-menu{
     padding: 0;
+        //padding-left: 15px;
 }
 
 footer{
+    clear:both;
     background:#570600;
     background:#222;
-    padding:20px 0;
+    padding: 10px;
+    padding-left:20px;
+    padding-bottom:20px;
+    mrgin-top: 50px;
 }
 
 footer #datepicker{
@@ -463,3 +569,128 @@ footer li{
 #colorbox{
 	z-index:1040;
 }
+
+/**********************************************************/
+/**********************************************************/
+/**********************************************************/
+/**********************************************************/
+@media (min-width: 768px){
+    
+#submenu-toggle{display:none}
+}
+/**********************************************************/
+
+@media (max-width: 1000px){
+    #main-menu li a{
+        padding: 8px;
+}
+
+footer {
+    padding-left: 10px;
+}
+footer #main-menu li{
+    float:left;
+}
+
+}
+/**********************************************************/
+
+@media (max-width: 768px){
+    .navbar-form{display:none;}
+    //#navbar.collapse.in{display:initial}
+    #submenu-toggle{
+        transform: rotate(-90deg);
+    transform-origin: left top 0;
+    left: 100%;
+    top: 250px;
+    position: relative  !important;;
+    z-index: 1000;
+    background-color: #676767;
+    border-color:transparent;
+    border:none  !important;
+    padding: 8px;
+    padding-top: 15px;
+    
+    }
+    
+    #submenu-toggle:hover{
+        background-color: #444;
+        border:none  !important;
+        border-color:#444 !important;
+    
+    }
+
+  .row-offcanvas {
+    position: relative;
+    -webkit-transition: all .25s ease-out;
+         -o-transition: all .25s ease-out;
+            transition: all .25s ease-out;
+  }
+  
+  .submenu.col-md-2 {
+      background-color: #676767;
+    width: 50%;
+}
+
+  #navbar{
+      margin-bottom: 10px;
+      overflow: visible;
+}
+    
+  .row-offcanvas-left
+  .sidebar-offcanvas {
+    left: -50%; /* 6 columns */
+  }
+
+  
+  .row-offcanvas-left.active {
+    left: 50%; /* 6 columns */
+  }
+
+  .sidebar-offcanvas {
+    position: absolute !important;
+    top: 0;
+    width: 50%; /* 6 columns */
+  }
+  
+  
+  .row-offcanvas-right {
+    right: 0;
+  }
+  
+.row-offcanvas-right
+  .sidebar-offcanvas {
+    right: -1%; /* 6 columns */
+  }
+.row-offcanvas-right.active {
+    right: 50%; /* 6 columns */
+  }
+
+  .row-offcanvas-left {
+    left: 0;
+  }
+
+
+}
+
+
+@media (max-width: 600px){
+    img{float:none !important;display:block; margin: auto;}
+}
+
+#ressenya{
+    //margin-top:25px;
+   // clear: both;
+	float:right;
+	background:black;
+	padding:15px;
+	color:white;
+	font-size:15px;
+        min-width:50%;
+}
+
+#ressenya a,#ressenya a:hover, #ressenya a:visited{
+    color:white;
+}
+
+#ressenya a:hover{color:#CCC;}

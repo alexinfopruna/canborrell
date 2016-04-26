@@ -1,105 +1,53 @@
-<HTML>
-<HEAD>
-<TITLE> Masia Can Borrell </TITLE>
-		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /> 	
-                <LINK rel="stylesheet" type="text/css" href="../css/estils.css"> 
-</HEAD>
-<body>
-<CENTER>
-<TABLE BGCOLOR="#F8F8F0" CELLPADDING="0" CELLSPACING="0" WIDTH="775" HEIGHT="100%" BORDER="0">
-	<TR>
-		<TD BACKGROUND="../img/fons_6a.jpg" COLSPAN="2" ALIGN="RIGHT"><A HREF="../index.htm"><IMG SRC="../img/lg_sup.gif" WIDTH="303" HEIGHT="114" BORDER="0" TITLE="INICI"></A></TD>
-	</TR>
-	<TR>
-		<TD BGCOLOR="#570600" COLSPAN="2" ALIGN="CENTER"> <?php   require_once('menu.php');  ?>
-		<!-- OLD STATIC MENU -->
-		</TD>
-	</TR>
-	<TR>
-		<TD style="background-image:url(../img/fons_6b.jpg); background-repeat:no-repeat;" HEIGHT="100%" WIDTH="154" ALIGN="center" VALIGN="TOP">&nbsp;<BR>
-&nbsp;<BR>
-&nbsp;<BR>
-&nbsp;<BR>
-&nbsp;<BR>
-&nbsp;<BR>
-&nbsp;<BR>
-		<TABLE CELLPADDING="0" CELLSPACING="0" WIDTH="154" BORDER="0">
-			<TR>
-				<TD CLASS="transparent"><A HREF="historia">La Vall de Gausac</A></TD>
-			</TR>
-			<TR>
-				<TD>&nbsp;</TD>
-			</TR>
-			<TR>
-				<TD CLASS="transparent"><IMG SRC="../img/pix.gif" WIDTH="1" HEIGHT="2" BORDER="0"><BR>
-<A HREF="historia1">La pagesia catalana: els Mansus</A><BR>
-<IMG SRC="../img/pix.gif" WIDTH="1" HEIGHT="3" BORDER="0"></TD>
-			</TR>
-			<TR>
-				<TD>&nbsp;</TD>
-			</TR>
-			<TR>
-				<TD CLASS="transparent"><IMG SRC="../img/pix.gif" WIDTH="1" HEIGHT="2" BORDER="0"><BR>
-<A HREF="historia2">La Quadra<BR>
-de Vilanova</A><BR>
-<IMG SRC="../img/pix.gif" WIDTH="1" HEIGHT="3" BORDER="0"></TD>
-			</TR>
-			<TR>
-				<TD>&nbsp;</TD>
-			</TR>
-			<TR>
-				<TD CLASS="opac"><IMG SRC="../img/pix.gif" WIDTH="1" HEIGHT="2" BORDER="0"><BR>
-<FONT COLOR="#FFFFFF"><B>La Masia de<BR>
-Can Borrell</B></FONT><BR>
-<IMG SRC="../img/pix.gif" WIDTH="1" HEIGHT="3" BORDER="0"></TD>
-			</TR>
-			<TR>
-				<TD>&nbsp;</TD>
-			</TR>
-			<TR>
-				<TD CLASS="transparent"><A HREF="historia4">Fonts</A></TD>
-			</TR>
-			<TR>
-				<TD>&nbsp;</TD>
-			</TR>
-			<TR>
-				<TD CLASS="transparent"><A HREF="historia5">Agra&iuml;ments</A></TD>
-			</TR>
-		</TABLE>
-		</TD>
-		<TD style="background-image:url(../img/fons_6c.jpg); background-repeat:no-repeat;" WIDTH="621" ALIGN="CENTER" VALIGN="TOP">
-		<TABLE CELLPADDING="0" CELLSPACING="0" WIDTH="490" BORDER="0">
-			<TR>
-				<TD>&nbsp;<BR>
-&nbsp;<BR>
-<FONT CLASS="titol">La Masia de Can Borrell</FONT><BR>
-<BR>
-<TABLE CELLPADDING="0" CELLSPACING="0" BORDER="0">
-	<TR>
-		<TD VALIGN="TOP">Els primers referents hist&ograve;rics d'assentaments humans a  l'indret on avui en dia se situa Can Borrell, porten a recapitular molts segles enrera. Hi ha cites que parlen de troballes de fragments de cer&agrave;mica &iacute;bera i romana pels voltants del mas.<BR>
-<BR>
-Per la seva situaci&oacute; a l'antic cam&iacute; de Sant Cugat a Barcelona i lloc de pas cap a Sant Medir, el mas es convert&iacute; en lloc obligat de parada, primer pels pagesos de la contrada que portaven els seus productes a la capital, i m&eacute;s tard pels excursionistes i romeus de<BR>
-Sant Medir. El dia d'aquesta celebraci&oacute; la casa obria<BR>
-les portes del davant i del darrera i es convertia en<BR>
-una part mes del cam&iacute;. A la tornada, s'hi feia ball i es dansava l'&uacute;ltima sardana de l'Aplec. Fins no fa gaire, encara s'hi cel·lebrava el darrer ball de la  festa.</TD>
-		<TD>&nbsp;&nbsp;</TD>
-		<TD VALIGN="TOP"><IMG SRC="../img/pix.gif" WIDTH="1" HEIGHT="2" BORDER="0"><BR>
-<IMG SRC="../img/f_historia_4.jpg" WIDTH="160" HEIGHT="226" BORDER="0"></TD>
-	</TR>
-</TABLE>
-<TABLE CELLPADDING="0" CELLSPACING="0" BORDER="0">
-	<TR>
-		<TD VALIGN="TOP"><IMG SRC="../img/f_historia_4c.jpg" WIDTH="129" HEIGHT="130" BORDER="0"><IMG SRC="../img/pix.gif" WIDTH="1" HEIGHT="1" BORDER="0"><IMG SRC="../img/f_historia_4b.jpg" WIDTH="200" HEIGHT="130" BORDER="0"></TD>
-		<TD>&nbsp;&nbsp;</TD>
-		<TD>El pas d'excursionistes i gent va fer que es comencessin a servir esmorzars i begudes i, en vistes de l'&egrave;xit es convert&iacute; en la casa restaurant que &eacute;s avui.</TD>
-	</TR>
-</TABLE><BR>
-&nbsp;</TD>
-			</TR>
-		</TABLE>
-		</TD>
-	</TR>
-</TABLE>
-</CENTER>
-</BODY>
-</HTML>
+<?php 
+require_once("translate_historia_{$lang}.php");
+
+$submenu_elements = array(
+array('link' => 'historia', 'txt' => 'La Vall de Gausac' ),
+array('link' => 'historia1', 'txt' => 'La pagesia catalana: els Mansus' ),
+array('link' => 'historia2', 'txt' => 'La Quadra de Vilanova' ),
+array('link' => 'historia3', 'txt' => 'La Masia de Can Borrell' ),
+array('link' => 'historia4', 'txt' => 'Fonts' ),
+array('link' => 'historia5', 'txt' => 'Agraïments' ),
+);
+
+$bg_id=6;
+
+
+$html = <<<HEREDOC
+
+<div style="margin-top:40px"></div>
+<h2 class="titol">{$fnl("La Masia de Can Borrell")}</H2>
+<p>
+
+<img src="../img/f_historia_4.jpg"  class="txt-foto-dere" STYLE="margin-right: 5px;" title="{$fnl("Foto cedida pel Consorci del Parc de Collserola")}">
+
+{$fnl("Els primers referents històrics d'assentaments humans a l'indret on avui en dia se situa Can Borrell, porten a recapitular 
+molts segles enrera. Hi ha cites que parlen de troballes de fragments de ceràmica íbera i romana pels voltants del mas.")}
+</p>
+
+<p>
+{$fnl("Per la seva situació a l'antic camí de Sant Cugat a Barcelona i lloc de pas cap a Sant Medir, el mas es convertí 
+en lloc obligat de parada, primer pels pagesos de la contrada que portaven els seus productes a la capital, i més tard pels 
+excursionistes i romeus de
+Sant Medir. El dia d'aquesta celebració la casa obria
+les portes del davant i del darrera i es convertia en
+una part mes del camí. A la tornada, s'hi feia ball i es dansava l'última sardana de l'Aplec. Fins no fa gaire, encara s'hi 
+cel·lebrava el darrer ball de la festa.")}
+</p>
+
+
+
+<div class="c-b" style="margin-top:40px"></div>
+<img src="../img/f_historia_4b.jpg"  class="txt-foto-isqui" STYLE="margin-right: 5px;"  title="{$fnl("Foto cedida pel Consorci del Parc de Collserola")}">
+<img src="../img/f_historia_4c.jpg"  class="txt-foto-isqui" STYLE="margin-right: 5px;" title="{$fnl("Foto cedida pel Consorci del Parc de Collserola")}">
+<div style="margin-top:40px"></div> 
+<p>
+<div class="c-b" style="margin-top:40px"></div>
+{$fnl("El pas d'excursionistes i gent va fer que es comencessin a servir esmorzars i begudes i, en vistes de l'èxit 
+  es convertí en la casa restaurant que és avui.")}
+</p>
+    
+
+HEREDOC;
+
+?>

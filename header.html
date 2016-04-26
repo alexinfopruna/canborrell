@@ -1,11 +1,50 @@
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only"><?php l("Desplega menú") ?></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+
+            <a class="navbar-brand" href="canborrell">Masia Can Borrell</a>
+            <div id="data-reserva" class="" >
+                    <?php 
+                    $cb_printed_menu=TRUE;
+                    require_once('menu.php');
+                    echo menu_idiomes(); ?>
+                <div>
+                <form class="navbar-form navbar-right" action="reservar/form.php">
+
+                    <div class="form-group">
+                        <input type="text" placeholder="Data de reserva" id="top-datepicker" class="form-control">
+                        <button type="submit" class="btn btn-success"><?php l("Reservar") ?></button>
+                    </div>
+
+                </form>
+                </div>
+            </div><!--/.navbar-collapse -->
+<div class="c-b"></div>
+            <div id="navbar" class="collapse navbar-collapse">
+                
+                <?php 
+
+                echo main_menu($main_menu_elements, $lang);  ?>
+            </div><!-- /.nav-collapse -->
+        </div> 
+    </div>
+</nav>
+
 <header class="">
     <a href="<?php echo $lang ?>/index.htm" id="img-logo-dere">
         <img src="../img/lg_sup.gif" width="303" height="114"  title="<?php l("Inici"); ?>"></a>
 </header>
 
-<nav id="nav-main-menu" style="height:12px;">
-    <?php require_once('menu.php');  ?>
-    <div class="c-b"></div>
-    
+<nav id="nav-main-menu" style="">
+    <?php require_once('menu.php');    ?>
+    <?php   echo apartat($main_menu_elements); ?>
+
+    <div class="c-b" style=""></div>
 </nav>
 

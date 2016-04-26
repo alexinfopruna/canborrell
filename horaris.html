@@ -1,70 +1,60 @@
-<HTML>
-<HEAD>
-<TITLE> Masia Can Borrell </TITLE>
-		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /> 	
-                <LINK rel="stylesheet" type="text/css" href="../css/estils.css"> 
-	<!-- ANULAT dynmenu.js -->
-</HEAD>
-<body>
-<CENTER>
-<TABLE BGCOLOR="#F8F8F0" CELLPADDING="0" CELLSPACING="0" WIDTH="775" HEIGHT="100%" BORDER="0">
-	<TR>
-		<TD BACKGROUND="../img/fons_7a.jpg" COLSPAN="2" ALIGN="RIGHT"><A HREF="../index.htm"><IMG SRC="../img/lg_sup.gif" WIDTH="303" HEIGHT="114" BORDER="0" TITLE="INICI"></A></TD>
-	</TR>
-	<TR>
-		<TD BGCOLOR="#570600" COLSPAN="2" ALIGN="CENTER"> <?php   require_once('menu.php');  ?>
-		<!-- OLD STATIC MENU -->
-		</TD>
-	</TR>
-	<TR>
-		<TD style="background-image:url(../img/fons_7b.jpg); background-repeat:no-repeat;" HEIGHT="100%" WIDTH="154">&nbsp;</TD>
-		<TD style="background-image:url(../img/fons_7c.jpg); background-repeat:no-repeat;" WIDTH="621" ALIGN="CENTER" VALIGN="TOP">
-		<TABLE CELLPADDING="0" CELLSPACING="0" WIDTH="490" BORDER="0">
-			<TR>
-				<TD WIDTH="140">&nbsp;</TD>
-				<TD ALIGN="CENTER" WIDTH="350">&nbsp;<BR>
+<?php
+$bg_id=7;
+
+/*****************************************************************************/
+
+
+$html = <<<HEREDOC
+<style>
+#content {
+text-align:center;
+}
+
+table{margin:auto}
+td{height:15px;}
+</style>
+<div style="margin-top:40px"></div>
+
+<FONT CLASS="titol">{$fnl("Horari general de cuina")}</FONT><BR>
 <BR>
-<FONT CLASS="titol"><?php l("Horari general de cuina");?></FONT><BR>
-<IMG SRC="../img/pix.gif" WIDTH="1" HEIGHT="6" BORDER="0"><BR>
+<FONT CLASS="titol">{$fnl("MIGDIA")} </FONT>
+
+
 				<TABLE CELLPADDING="0" CELLSPACING="3" BORDER="0">
 					<TR>
-						<TD COLSPAN="3" ALIGN="CENTER"><FONT CLASS="titol"><?php l("MIGDIA");?></FONT></TD>
+						<TD COLSPAN="3" ALIGN="CENTER"></TD>
 					</TR>
 					<TR>
-						<TD><?php l("DIMECRES");?></TD>
-						<TD>&nbsp;&nbsp;<?php l("de");?>&nbsp;&nbsp;</TD>
-						<TD>13.00 <?php l("a");?> 16.00</TD>
+						<TD>{$fnl("DIMECRES")}</TD>
+						<TD>&nbsp;&nbsp;{$fnl("de")}&nbsp;&nbsp;</TD>
+						<TD>13.00 {$fnl("a")} 16.00</TD>
 					</TR>
 					<TR>
-						<TD><?php l("DIJOUS");?></TD>
-						<TD>&nbsp;&nbsp;<?php l("de");?>&nbsp;&nbsp;</TD>
-						<TD>13.00 <?php l("a");?> 16.00</TD>
+						<TD>{$fnl("DIJOUS")} </TD>
+						<TD>&nbsp;&nbsp;{$fnl("de")}&nbsp;&nbsp;</TD>
+						<TD>13.00 {$fnl("a")} 16.00</TD>
 					</TR>
 					<TR>
-						<TD><?php l("DIVENDRES");?></TD>
-						<TD>&nbsp;&nbsp;<?php l("de");?>&nbsp;&nbsp;</TD>
-						<TD>13.00 <?php l("a");?> 16.00</TD>
+						<TD>{$fnl("DIVENDRES")} </TD>
+						<TD>&nbsp;&nbsp;{$fnl("de")}&nbsp;&nbsp;</TD>
+						<TD>13.00 {$fnl("a")} 16.00</TD>
 					</TR>
 					<TR>
-						<TD><?php l("DISSABTE");?></TD>
-						<TD>&nbsp;&nbsp;<?php l("de");?>&nbsp;&nbsp;</TD>
-						<TD>13.00 <?php l("a");?> 17.00</TD>
+						<TD>{$fnl("DISSABTE")} </TD>
+						<TD>&nbsp;&nbsp;{$fnl("de")}&nbsp;&nbsp;</TD>
+						<TD>13.00 {$fnl("a")} 17.00</TD>
 					</TR>
 					<TR>
-						<TD><?php l("DIUMENGE");?></TD>
-						<TD>&nbsp;&nbsp;<?php l("de");?>&nbsp;&nbsp;</TD>
-						<TD>13.00 <?php l("a");?> 17.00</TD>
-					</TR>
-					<TR>
-						<TD COLSPAN="3" ALIGN="CENTER"><IMG SRC="../img/pix.gif" WIDTH="1" HEIGHT="6" BORDER="0"><BR>
-					<!--
-<FONT CLASS="titol">NIT</FONT></TD>
+						<TD>{$fnl("DIUMENGE")}</TD>
+						<TD>&nbsp;&nbsp;{$fnl("de")}&nbsp;&nbsp;</TD>
+						<TD>13.00 {$fnl("a")} 17.00</TD>
 					</TR>
 					<TR>
 						<TD>DIVENDRES</TD>
 						<TD>&nbsp;&nbsp;de&nbsp;&nbsp;</TD>
 						<TD>21.00 a 23.00</TD>
 					</TR>
+                                        <!--
 					<TR>
 						<TD>DISSABTE</TD>
 						<TD>&nbsp;&nbsp;de&nbsp;&nbsp;</TD>
@@ -72,34 +62,45 @@
 					</TR>
 					-->
 					<TR>
-						<TD COLSPAN="3" ALIGN="CENTER">(<?php l("Excepte festius");?>)</TD>
+						<TD COLSPAN="3" ALIGN="CENTER">({$fnl("Excepte festius")})</TD>
 					</TR>
 				</TABLE>
-<IMG SRC="../img/pix.gif" WIDTH="1" HEIGHT="6" BORDER="0"><BR>
-<FONT CLASS="titol"><?php l("ESMORZARS");?></FONT><BR>
+
+                                <BR><BR>
+                                {$fnl("")}
+                                
+                                <FONT CLASS="titol">{$fnl("ESMORZARS")} </FONT><BR>
 <IMG SRC="../img/pix.gif" WIDTH="1" HEIGHT="3" BORDER="0"><BR>
-<?php l("DISSABTE");?>S, <?php l("DIUMENGE");?>S <?php l("i");?> <?php l("FESTIU");?>S<BR>
-<?php l("de");?> 10 <?php l("del matí");?> <?php l("a");?> 12 <?php l("del migdia");?><BR>
+ {$fnl("DISSABTE")}S,  {$fnl("DIUMENGE")}S  {$fnl("i")}  {$fnl("FESTIU")}S<BR>
+ {$fnl("de")} 10  {$fnl("del matí")}  {$fnl("a")} 12  {$fnl("del migdia")}<BR>
+
 <BR>
 <BR>
-				<TABLE BGCOLOR="#666666" CELLPADDING="3" CELLSPACING="1" BORDER="0">
-					<TR>
-						<TD BGCOLOR="#F8F8F0" ALIGN="CENTER">&nbsp;&nbsp;<B><?php l("TANCAT");?> <?php l("DILLUNS");?> <?php l("I");?> <?php l("DIMARTS");?>   <?php l("no");?> <?php l("Festiu");?>s</B>&nbsp;&nbsp;</TD>
-					</TR>
-				</TABLE>
+<BR>
+
+<div style="font-weight:bold;padding:5px;border: #570600 solid 1px;margin 20px 0;display: inline-table;">{$fnl("TANCAT")}   {$fnl("DILLUNS")}  {$fnl("I")}  {$fnl("DIMARTS")}   
+     {$fnl("no")}  {$fnl("Festiu")}s</B>&nbsp;&nbsp;
+</div>
+
+
 <BR>
 <BR>
-<FONT CLASS="titol"><?php l("Horari de reserves, confirmació de reserves i coberts");?>:</FONT><BR>
-<B><?php l("Divendres");?> <?php l("a partir de les 13:00 hores");?><BR>
-<?php l("Dissabte");?>s, <?php l("Diumenge");?>s <?php l("i");?> <?php l("festiu");?>s, <?php l("a partir de les 10:00 hores (matí)");?>.</B><BR><br>
-<?php l("NO S'ADMETEN RESERVES PER E-MAIL");?>.
 <BR>
-&nbsp;</TD>
-			</TR>
-		</TABLE>
-		</TD>
-	</TR>
-</TABLE>
-</CENTER>
-</BODY>
-</HTML>
+<FONT CLASS="titol">{$fnl("Horari de reserves, confirmació de reserves i coberts")}:</FONT><BR>
+
+
+<B>{$fnl("Divendres")}   {$fnl("a partir de les 13:00 hores")}<BR>
+ {$fnl("Dissabte")}s,  {$fnl("Diumenge")}s {$fnl("i")}  {$fnl("festiu")}s,  {$fnl("a partir de les 10:00 hores (matí)")}.</B>
+ 
+ <BR>
+<BR>
+<BR>
+<a href="reservar/reservar.php" class="btn btn-success" style="color:white">{$fnl("Reserva online")}</a>
+ <BR><br>
+ {$fnl("NO S'ADMETEN RESERVES PER E-MAIL")}.
+
+
+HEREDOC;
+
+?>
+ 

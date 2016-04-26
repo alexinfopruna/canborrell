@@ -1,100 +1,57 @@
-<HTML>
-<HEAD>
-<TITLE> Masia Can Borrell </TITLE>
-		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /> 	
-                <LINK rel="stylesheet" type="text/css" href="../css/estils.css"> 
-	<!-- ANULAT dynmenu.js -->
-</HEAD>
-<body>
-<CENTER>
-<TABLE BGCOLOR="#F8F8F0" CELLPADDING="0" CELLSPACING="0" WIDTH="775" HEIGHT="100%" BORDER="0">
-	<TR>
-		<TD BACKGROUND="../img/fons_6a.jpg" COLSPAN="2" ALIGN="RIGHT"><A HREF="../index.htm"><IMG SRC="../img/lg_sup.gif" WIDTH="303" HEIGHT="114" BORDER="0" TITLE="INICI"></A></TD>
-	</TR>
-	<TR>
-		<TD BGCOLOR="#570600" COLSPAN="2" ALIGN="CENTER"> <?php   require_once('menu.php');  ?>
-		</TD>
-	</TR>
-	<TR>
-		<TD style="background-image:url(../img/fons_6b.jpg); background-repeat:no-repeat;" HEIGHT="100%" WIDTH="154" ALIGN="center" VALIGN="TOP">&nbsp;<BR>
-&nbsp;<BR>
-&nbsp;<BR>
-&nbsp;<BR>
-&nbsp;<BR>
-&nbsp;<BR>
-&nbsp;<BR>
-		<TABLE CELLPADDING="0" CELLSPACING="0" WIDTH="154" BORDER="0">
-			<TR>
-				<TD CLASS="transparent"><A HREF="historia">La Vall de Gausac</A></TD>
-			</TR>
-			<TR>
-				<TD>&nbsp;</TD>
-			</TR>
-			<TR>
-				<TD CLASS="transparent"><IMG SRC="../img/pix.gif" WIDTH="1" HEIGHT="2" BORDER="0"><BR>
-<A HREF="historia1">La pagesia catalana: els Mansus</A><BR>
-<IMG SRC="../img/pix.gif" WIDTH="1" HEIGHT="3" BORDER="0"></TD>
-			</TR>
-			<TR>
-				<TD>&nbsp;</TD>
-			</TR>
-			<TR>
-				<TD CLASS="opac"><IMG SRC="../img/pix.gif" WIDTH="1" HEIGHT="2" BORDER="0"><BR>
-<FONT COLOR="#FFFFFF"><B>La Quadra<BR>
-de Vilanova</B></FONT><BR>
-<IMG SRC="../img/pix.gif" WIDTH="1" HEIGHT="3" BORDER="0"></TD>
-			</TR>
-			<TR>
-				<TD>&nbsp;</TD>
-			</TR>
-			<TR>
-				<TD CLASS="transparent"><IMG SRC="../img/pix.gif" WIDTH="1" HEIGHT="2" BORDER="0"><BR>
-<A HREF="historia3">La Masia de<BR>
-Can Borrell</A><BR>
-<IMG SRC="../img/pix.gif" WIDTH="1" HEIGHT="3" BORDER="0"></TD>
-			</TR>
-			<TR>
-				<TD>&nbsp;</TD>
-			</TR>
-			<TR>
-				<TD CLASS="transparent"><A HREF="historia4">Fonts</A></TD>
-			</TR>
-			<TR>
-				<TD>&nbsp;</TD>
-			</TR>
-			<TR>
-				<TD CLASS="transparent"><A HREF="historia5">Agra&iuml;ments</A></TD>
-			</TR>
-		</TABLE>
-		</TD>
-		<TD style="background-image:url(../img/fons_6c.jpg); background-repeat:no-repeat;" WIDTH="621" ALIGN="CENTER" VALIGN="TOP">
-		<TABLE CELLPADDING="0" CELLSPACING="0" WIDTH="490" BORDER="0">
-			<TR>
-				<TD>&nbsp;<BR>
-&nbsp;<BR>
-<FONT CLASS="titol">La Quadra de Vilanova (segles XIV-XVIII)</FONT><BR>
-<BR>
-Un dels elements que tenen rellev&agrave;ncia en l'etapa feudal, s&oacute;n les Quadres. Una Quadra &eacute;s un conjunt de propietats d'un senyor feudal que, tot i estar adscrites a un castell termenat, t&eacute; un tractament especial respecte a aquest. La Quadra de Vilanova fou una de les m&eacute;s rellevants i importants de l'&egrave;poca.<BR>
-<BR>
-No tenim informaci&oacute; que ens digui que Can Borrell pertanyia a aquesta Quadra, per&ograve; per la import&agrave;ncia que tingu&eacute; a la zona, &eacute;s interessant con&egrave;ixer la seva exist&egrave;ncia ja que ens ajuda a contextualitzar els esdeveniments.<BR>
-<BR>
-<BR>
-<B>La seva formaci&oacute;</B><BR>
-<BR>
-L'origen de la Quadra de Vilanova s'emmarca entre dues dates: el 1303 i el 1411. En la primera, Bernat de Palou que ja havia comprat la vall de Gausac, adquireix la casa de la fam&iacute;lia Vilanova que al llarg del segle XIII va venent el patrimoni que t&eacute; a la zona. Aquest fet de compra &eacute;s determinant en la formaci&oacute; de la Quadra, ja que Bernat de Palou, havia anat adquirint diferents masos que ara juntament amb la casa feudal, formar&agrave; i donar&agrave; nom a l'esmentada Quadra de Vilanova. &Eacute;s en un document del 1411 on aquest mot surt referenciat per primera vegada; en el mateix document tamb&eacute; surt per primer cop el nom i l'exist&egrave;ncia d'un batlle, en Pere Verdaguer.<BR>
-<BR>
-<BR>
-<B>La seva transmissi&oacute;</B><BR>
-<BR>
-Els Palou ostentaren la propietat de la Quadra fins a finals del segle XVI, concretament fins al 1590, moment en qu&egrave; els Erill passen a ser els hereus. Durant el temps que fou propietat dels Erill, els conflictes amb el Monestir de Sant Cugat sobre la possessi&oacute; de la Quadra foren freq&uuml;ents fins que, finalment, la Quadra fou venuda al Monestir l'any 1728.
-<BR>
-<BR>
-&nbsp;</TD>
-			</TR>
-		</TABLE>
-		</TD>
-	</TR>
-</TABLE>
-</CENTER>
-</BODY>
-</HTML>
+    <?php 
+    require_once("translate_historia_{$lang}.php");
+    
+    $submenu_elements = array(
+    array('link' => 'historia', 'txt' => 'La Vall de Gausac' ),
+    array('link' => 'historia1', 'txt' => 'La pagesia catalana: els Mansus' ),
+    array('link' => 'historia2', 'txt' => 'La Quadra de Vilanova' ),
+    array('link' => 'historia3', 'txt' => 'La Masia de Can Borrell' ),
+    array('link' => 'historia4', 'txt' => 'Fonts' ),
+    array('link' => 'historia5', 'txt' => 'Agraïments' ),
+    );
+
+    $bg_id=6;
+    
+    
+    $html = <<<HEREDOC
+
+<div style="margin-top:40px"></div>
+                    <h2 class="titol">{$fnl("La Quadra de Vilanova (sigles XIV-XVIII)")}</H2>
+                    <p>
+                        {$fnl("Un dels elements que tenen rellevància en l'etapa feudal, són les Quadres. Una Quadra és un conjunt 
+  de propietats d'un senyor feudal que, tot i estar adscrites a un castell termenat, té un tractament especial 
+  respecte a aquest. La Quadra de Vilanova fou una de les més rellevants i importants de l'època.")}
+                    </p>
+                    <p>
+                        {$fnl("No tenim informació que ens digui que Can Borrell pertanyia a aquesta Quadra, però per la importància que tingué a la 
+  zona, és interessant conèixer la seva existència ja que ens ajuda a contextualitzar els esdeveniments.")}
+                    </p>
+                    
+                    <p>
+                        {$fnl("La pagesia lliga estretament prats de pastura amb camps de conreu, ramaderia amb agricultura. La proximitat 
+  del bosc també facilita fusta per obrar els embigats, balconades, i recursos energètics com llenya i carbó vegetal, 
+  així com aliments com ara els bolets, espàrrecs, pinyons, castanyes i peces de caça.")}
+                    </p>
+                    <h5>{$fnl("La seva formació")}</h5>
+                    <p>
+                        {$fnl("L'origen de la Quadra de Vilanova s'emmarca entre dues dates: el 1303 i el 1411. En la primera, Bernat de Palou 
+  que ja havia comprat la vall de Gausac, adquireix la casa de la família Vilanova que al llarg del segle XIII va venent el 
+  patrimoni que té a la zona. Aquest fet de compra és determinant en la formació de la Quadra, ja que Bernat de Palou, havia 
+  anat adquirint diferents masos que ara juntament amb la casa feudal, formarà i donarà nom a l'esmentada Quadra de Vilanova. 
+  És en un document del 1411 on aquest mot surt referenciat per primera vegada; en el mateix document també surt per primer 
+  cop el nom i l'existència d'un batlle, en Pere Verdaguer.")}
+                    </p>
+                    <h5>{$fnl("La seva transmissió")}</h5>
+                    <p>
+                        {$fnl("Els Palou ostentaren la propietat de la Quadra fins a finals del segle XVI, concretament fins al 1590, moment en què 
+  els Erill passen a ser els hereus. Durant el temps que fou propietat dels Erill, els conflictes amb el Monestir de Sant Cugat 
+  sobre la possessió de la Quadra foren freqüents fins que, finalment, la Quadra fou venuda al Monestir l'any 1728.")}
+                    </p>              
+                    
+                    
+               <div style="margin-top:40px"></div>     
+
+HEREDOC;
+
+?>
+ 

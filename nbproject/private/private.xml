@@ -15,14 +15,6 @@
             </bookmark>
         </file>
         <file>
-            <url>taules/js/taules.js</url>
-            <bookmark id="1">
-                <name/>
-                <line>783</line>
-                <key/>
-            </bookmark>
-        </file>
-        <file>
             <url>reservar/js/form_reserves.js</url>
             <bookmark id="4">
                 <name/>
@@ -30,8 +22,31 @@
                 <key/>
             </bookmark>
         </file>
+        <file>
+            <url>taules/js/taules.js</url>
+            <bookmark id="1">
+                <name/>
+                <line>783</line>
+                <key/>
+            </bookmark>
+        </file>
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group/>
+        <group>
+            <file>file:/var/www/canborrell/header.html</file>
+            <file>file:/var/www/canborrell/multilang.php</file>
+            <file>file:/var/www/canborrell/submenu.html</file>
+            <file>file:/var/www/canborrell/reservar/js/form_reserves.js</file>
+            <file>file:/var/www/canborrell/head.html</file>
+            <file>file:/var/www/canborrell/css/estils.css</file>
+            <file>file:/var/www/canborrell/excursio8.html</file>
+            <file>file:/var/www/canborrell/reservar/translate.php</file>
+            <file>file:/var/www/canborrell/excursions.html</file>
+            <file>file:/var/www/canborrell/translate_historia_es.php</file>
+            <file>file:/var/www/canborrell/translate_web_es.php</file>
+            <file>file:/var/www/canborrell/excursio7.html</file>
+            <file>file:/var/www/canborrell/template</file>
+            <file>file:/var/www/canborrell/historia1.html</file>
+        </group>
     </open-files>
 </project-private>

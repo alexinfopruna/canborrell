@@ -1,74 +1,45 @@
-<html>
-    <?php 
-    $submenu_elements = array(
-    array('link' => 'fotos', 'txt' => 'Fotos de l\'exterior' ),
-    array('link' => 'fotos_interior', 'txt' => 'Fotos de l\'interior' ),
-    array('link' => 'fotos_cuina', 'txt' => 'Fotos de la cuina' ),
-    array('link' => 'video', 'txt' => 'Vídeo' ),
-    );
-    
-    $bg_id=2;
-    ?>
-    <head>
-        <?php include("head.html");  ?>
-        <link rel="stylesheet" href="css/colorbox.css">
-       <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.colorbox/1.6.3/jquery.colorbox-min.js"></script> -->
-        <script src="js/jquery.colorbox-min.js"></script>
-        <script>
-            $(function(){
-            $('.cboxElement').colorbox({rel:'cboxElement',slideshow:true, transition:"fade"});
-            });
-            
-        </script>
-            
-        <style>
-            img{margin:5px;}
-        </style>
-    </head>
-    <body>
-        <div id="container">
-            <div class="row">
-                <?php  include("header.html"); ?>
-                <?php  include("submenu.html"); ?>
-                
-                <div id="content" class="content col-md-10">
-                <!----------------------------------------------------------------------------------------->
-                <!----------------------------------------------------------------------------------------->
-                <!----------------------------------------------------------------------------------------->
-                <!----------------------------------------------------------------------------------------->
-                <!----------------------------------------------------------------------------------------->
-                <!----------------------------------------------------------------------------------------->
-                <!----------------------------------------------------------------------------------------->
-                
-                <a href="../img/f_exterior_1.jpg" data-lightbox="fotos-set" class="cboxElement"><img src="../img/f_exterior_1pt.jpg" ></a>
-                <a href="../img/f_exterior_2.jpg" data-lightbox="fotos-set" class="cboxElement"><img src="../img/f_exterior_2pt.jpg" ></a>
-                <a href="../img/f_exterior_3.jpg" data-lightbox="fotos-set" class="cboxElement"><img src="../img/f_exterior_3pt.jpg" ></a>
-                <a href="../img/f_exterior_4.jpg" data-lightbox="fotos-set" class="cboxElement"><img src="../img/f_exterior_4pt.jpg" ></a>
-                <a href="../img/f_exterior_5.jpg" data-lightbox="fotos-set" class="cboxElement"><img src="../img/f_exterior_5pt.jpg" ></a>
-                <a href="../img/f_exterior_6.jpg" data-lightbox="fotos-set" class="cboxElement"><img src="../img/f_exterior_6pt.jpg" ></a>
-                <a href="../img/f_exterior_7.jpg" data-lightbox="fotos-set" class="cboxElement"><img src="../img/f_exterior_7pt.jpg" ></a>
-                <a href="../img/f_exterior_8.jpg" data-lightbox="fotos-set" class="cboxElement"><img src="../img/f_exterior_8pt.jpg" ></a>
-                
-                <!----------------------------------------------------------------------------------------->
-                <!----------------------------------------------------------------------------------------->
-                <!----------------------------------------------------------------------------------------->
-                <!----------------------------------------------------------------------------------------->
-                <!----------------------------------------------------------------------------------------->
-                <!----------------------------------------------------------------------------------------->
-                <!----------------------------------------------------------------------------------------->
-                </div> 
-                <div class="c-b"></div> 
-                
-                <?php include("footer.html"); ?>
-            </div> <!-- row -->
-        </div> <!-- container -->
-        <!-- Bootstrap core JavaScript
-        ================================================== -->
-        <!-- Placed at the end of the document so the pages load faster 
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-        <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
-        <script src="/js/bootstrap.min.js"></script>
-        <script src="/js/ie10-viewport-bug-workaround.js"></script>-->
-         
-    </body>
-</html>
+<?php 
+$submenu_elements = array(
+array('link' => './fotos', 'txt' => 'Fotos de l\'exterior' ),
+array('link' => 'fotos_interior', 'txt' => 'Fotos de l\'interior' ),
+array('link' => 'fotos_cuina', 'txt' => 'Fotos de la cuina' ),
+array('link' => 'video', 'txt' => 'Vídeo' ),
+);
+
+$bg_id=2;
+?>
+<link rel="stylesheet" href="/js/lightbox2-master/src/css/lightbox.css">
+<style>
+    #content{padding:30px;}
+    .im1 img{margin-right:10px;}
+</style>
+<?php
+$html= <<<EOT
+
+<h2 class="titol">{$fnl("Fotos de l'exterior")}</h2>
+
+
+<div style="margin-top:60px;"></div>
+<a href="../img/f_exterior_1.jpg" data-lightbox="fotos-set" class="txt-foto-dere c-b galeria im1"><img src="../img/f_exterior_1pt.jpg" ></a>
+<a href="../img/f_exterior_2.jpg" data-lightbox="fotos-set" class="galeria im2"><img src="../img/f_exterior_2pt.jpg" ></a>
+<a href="../img/f_exterior_3.jpg" data-lightbox="fotos-set" class="galeria im3 "><img src="../img/f_exterior_3pt.jpg" ></a>
+<a href="../img/f_exterior_4.jpg" data-lightbox="fotos-set" class="galeria im4 "><img src="../img/f_exterior_4pt.jpg" ></a>
+<a href="../img/f_exterior_5.jpg" data-lightbox="fotos-set" class="galeria im5 "><img src="../img/f_exterior_5pt.jpg" ></a>
+<a href="../img/f_exterior_6.jpg" data-lightbox="fotos-set" class="galeria im6 "><img src="../img/f_exterior_6pt.jpg" ></a>
+<a href="../img/f_exterior_7.jpg" data-lightbox="fotos-set" class="galeria im7 "><img src="../img/f_exterior_7pt.jpg" ></a>
+<a href="../img/f_exterior_8.jpg" data-lightbox="fotos-set" class="galeria im8 "><img src="../img/f_exterior_8pt.jpg" ></a>
+
+
+<div style="margin-top:60px;" class="c-b"></div>
+
+<script src="/js/lightbox2-master/src/js/lightbox.js"></script> 
+<script>
+lightbox.option({
+'resizeDuration': 200,
+'wrapAround': true,
+'showImageNumberLabel': false
+})
+</script>
+
+EOT;
+?>

@@ -20,8 +20,6 @@ $actiu = array(
   'horaris' => '',
   'form' => '',
   'premsa' => '',
-  'premsa' => '',
-  'premsa' => '',
 );
 
 $main_menu_elements = array(
@@ -37,6 +35,14 @@ $main_menu_elements = array(
 );
 
 /* * *************************************** */
+
+function apartat($main_menu_elements){
+  foreach($main_menu_elements as $k => $v){
+    if (active($v['link'])) return $v['txt'];
+  }
+  
+  return FALSE;
+}
 
 /**
  * Determina quin menú està actiu
@@ -55,7 +61,7 @@ function active($desti, $lang = 'ca') {
   $filename = preg_split('/(?=\.[^.]+$)/', $filename);
   $filename = $filename[0];
 
-  $v = $actiu[$desti];
+  $v = $actiu[$desti] ;
   if (empty($v)) {
     $match = ($desti == $filename);
   }
@@ -75,10 +81,10 @@ function active($desti, $lang = 'ca') {
 /* * ******************************************************************************* */
 /* * ******************************************************************************* */
 
-function main_menu($elements, $lang) {
+function main_menu($elements, $lang, $classes="nav navbar-nav  collapse navbar-collapse") {
   $n = 0;
   $menu = '';
-  $menu .= '<ul class= "  nav navbar-nav  collapse navbar-collapse">';
+  $menu .= '<ul id="main-menu" class= "  nav navbar-nav ">';
 
   foreach ($elements as $k => $v) {
     $n++;
@@ -112,7 +118,7 @@ function sub_menu($elements, $lang) {
     $class = active($v['link'], $lang) ? 'menu-active' : '';
     $submenu .= '<li class="submenu-element sml1 sm1' . $n . ' ' . $class . '">';
     $submenu .= '<a href="' . $v['link'] . '"  class="submenu-link sml1 sm1' . $n . '">';
-    $submenu .= $v['txt'];
+    $submenu .= lv($v['txt']);
     $submenu .= '</a>';
     $submenu .= '</li>';
   }
@@ -121,7 +127,6 @@ function sub_menu($elements, $lang) {
 
   return $submenu;
 }
-
 /* * ******************************************************************************* */
 /* * ******************************************************************************* */
 /* MENU IDIOMES

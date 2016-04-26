@@ -1,49 +1,47 @@
-<HTML>
-<HEAD>
-<TITLE> Masia Can Borrell </TITLE>
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /> 	
-                <LINK rel="stylesheet" type="text/css" href="../css/estils.css"> 
-	
-</HEAD>
-<BODY >
-<CENTER>
-<TABLE BGCOLOR="#F8F8F0" CELLPADDING="0" CELLSPACING="0" WIDTH="775" HEIGHT="100%" BORDER="0">
-	<TR>
-		<TD BACKGROUND="../img/fons_4a.jpg" COLSPAN="2" ALIGN="RIGHT">
-                    <A HREF="../index.htm">
-                        <IMG SRC="../img/lg_sup.gif" WIDTH="303" HEIGHT="114" BORDER="0" TITLE="INICI">
-                    </A>
-                </TD>
-	</TR>
-	<TR>
-		<TD BGCOLOR="#570600" COLSPAN="2" ALIGN="CENTER"> 
-                    <?php 
-                    require_once('menu.php');
-                    ?>
-		
-		</TD>
-	</TR>
-	<TR>
-		<TD style="background-image:url(../img/fons_4b.jpg); background-repeat:no-repeat;" HEIGHT="100%" WIDTH="154" ALIGN="center" VALIGN="TOP">&nbsp;<BR>
-&nbsp;<BR>
-&nbsp;<BR>
-&nbsp;<BR>
-&nbsp;<BR>
-&nbsp;<BR>
-&nbsp;<BR>
-		<TABLE CELLPADDING="0" CELLSPACING="0" WIDTH="154" BORDER="0">
-			<TR>
-				<TD CLASS="opac"><FONT COLOR="#FFFFFF"><B><?php l("Mapa esquemàtic"); ?></B></FONT></TD>
-			</TR>
-			<TR>
-				<TD>&nbsp;</TD>
-			</TR>
-			<TR>
-				<TD CLASS="transparent"><A HREF="mapa"><?php l("Mapa topogràfic"); ?></A></TD>
-			</TR>
-		</TABLE>
-<IMG SRC="../img/pix.gif" WIDTH="1" HEIGHT="387" BORDER="0"><BR>
+<?php 
+$submenu_elements = array(
+array('link' => 'on', 'txt' => 'Mapa esquemàtic' ),
+array('link' => 'mapa', 'txt' => 'Mapa topogràfic' ),
+);
+
+$bg_id=4;
+/*****************************************************************************/
+$html = <<<HEREDOC
+
+<div style="margin-top:40px"></div>
+<p>  
+
+<IMG SRC="../img/dib_mapa.gif" WIDTH="540" HEIGHT="390" BORDER="0" ALT="Mapa" VSPACE="10">
+</p>
+<p class="ta-center">
+<B>Carretera d'Horta a Cerdanyola (BV-1415), km 3 - 08171 Sant Cugat del Vall&egrave;s</B>
+</p>
+
+<p class="ta-center">
+{$fnl("Adreça postal")}: Cam&iacute; de Can Borrell, s/n - apt. 99 - 08171 Sant Cugat del Vall&egrave;s
+</p>
+
+<FONT CLASS="titol">{$fnl("Com arribar-hi")}</FONT>
+<ul>
+   {$fnl("<LI><B>Des de Sant Cugat</B> s'hi arriba a peu o en bicicleta des de la Pl. Rotary.  
+<LI><B>Des de Cerdanyola</B> del Vall&egrave;s s'hi arriba en vehicle en 15 minuts per la ctra. de Cerdanyola a Horta. Despr&eacute;s cam&iacute; de pista fins arribar al restaurant.
+<LI><B>Des de Barcelona</B> s'hi arriba:
+<UL>
+<LI>En vehicle per la ctra. del Vel&ograve;drom d'Horta (30 minuts). 
+<LI>En transport p&uacute;blic amb els FGC des de l'estaci&oacute; de Sant Cugat a peu fins la<BR>
+Pl. Rotary i despr&eacute;s fent l'excursi&oacute; fins al restaurant per la pista forestal B06, tot passant pel Pi d'en Xandri.
+</UL>")}
+</ul>
+
+HEREDOC;
+
+
+
+/***************************************/
+
+
+$submenu_peu = <<<HEREDOC
+<p id="submenu-peu";>
 <B>GPS:</B><BR>
 LONGITUD:<BR>
 E 02º 07' 22&quot;<BR>
@@ -58,39 +56,11 @@ Can Borrell<BR>
 <a href="http://www.guiagps.com/descargas_generales/ov2/Seleccion_GuiaGPS.zip" target="_blank"> <img src="../img/tomtom.gif" /></a>
 <a href="http://www.guiagps.com/descargas_generales/csv/Seleccion_GuiaGPS.zip" target="_blank"> <img src="../img/garmin.gif" /></a>
 <a href="http://www.guiagps.com/htm/descargas.htm" target="_blank"> <img src="../img/otrosnav.gif" /></a>
-</TD>
-		<TD style="background-image:url(../img/fons_4c.jpg); background-repeat:no-repeat;" WIDTH="621" ALIGN="CENTER">
-		<TABLE CELLPADDING="0" CELLSPACING="0" WIDTH="540" BORDER="0">
-			<TR>
-				<TD ALIGN="CENTER">&nbsp;<BR>
-&nbsp;<BR>
-<IMG SRC="../img/dib_mapa.gif" WIDTH="540" HEIGHT="390" BORDER="0" ALT="Mapa" VSPACE="10"><BR>
-&nbsp;<BR>
-<B>Carretera d'Horta a Cerdanyola (BV-1415), km 3 - 08171 Sant Cugat del Vall&egrave;s</B><BR>
-&nbsp;<BR>
-<?php l("Adreça postal"); ?>: Cam&iacute; de Can Borrell, s/n - apt. 99 - 08171 Sant Cugat del Vall&egrave;s<BR>
-&nbsp;</TD>
-			</TR>
-			<TR>
-				<TD>&nbsp;<BR>
-<FONT CLASS="titol"><?php l("Com arribar-hi"); ?></FONT>
-<UL>
-    <?php l("<LI><B>Des de Sant Cugat</B> s'hi arriba a peu o en bicicleta des de la Pl. Rotary.  
-<LI><B>Des de Cerdanyola</B> del Vall&egrave;s s'hi arriba en vehicle en 15 minuts per la ctra. de Cerdanyola a Horta. Despr&eacute;s cam&iacute; de pista fins arribar al restaurant.
-<LI><B>Des de Barcelona</B> s'hi arriba:
-<UL>
-<LI>En vehicle per la ctra. del Vel&ograve;drom d'Horta (30 minuts). 
-<LI>En transport p&uacute;blic amb els FGC des de l'estaci&oacute; de Sant Cugat a peu fins la<BR>
-Pl. Rotary i despr&eacute;s fent l'excursi&oacute; fins al restaurant per la pista forestal B06, tot passant pel Pi d'en Xandri.
-</UL>"); ?>
+</p>
 
-</UL>
-&nbsp;</TD>
-			</TR>
-		</TABLE>
-		</TD>
-	</TR>
-</TABLE>
-</CENTER>
-</BODY>
-</HTML>
+HEREDOC;
+
+?>
+ 
+
+

@@ -1,42 +1,4 @@
-<HTML>
-<HEAD>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<TITLE> Masia Can Borrell </TITLE>
-		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /> 	<LINK rel="stylesheet" type="text/css" href="../css/estils.css"> 
-
-<link type="text/css" href="../taules/css/blitzer/jquery-ui-1.8.9.custom.css" rel="stylesheet" />	
-<link type="text/css" href="css/custom-theme/jquery-ui-1.8.16.custom.css" rel="stylesheet" />	
-	
-	<script type="text/javascript">
-		document.write("\<script src='//ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js' type='text/javascript'>\<\/script>");
-	</script>				
-	<script type="text/javascript" src="../taules/js/ui/js/jquery-ui-1.8.9.custom.min.js"></script>
-	
-	<!-- ANULAT dynmenu.js -->
-	<script>
-		$(function(){
-			$("#popup_pdf").dialog({
-				width:1000,
-				height:850,
-				modal:true,
-				autoOpen:false
-			});
-			
-			$("li a").click(function(){
-				if($.browser.msie && parseInt($.browser.version, 10) == 7) return true;
-				
-				$("#iframe").attr("src","");
-				$("#popup_pdf").html("");
-				var doc=$(this).attr("href");
-				$("#popup_pdf").html('<iframe id="iframe" src="'+doc+'"></iframe>');
-				//$("#iframe").attr("src",doc);
-				$("#popup_pdf").dialog("open");
-
-				return false;
-			});
-		});
-	</script>
-	<style>
+<style>
 		
 		ul.press{
 			/*list-style-image:url(../img/list-style-news2.gif);*/
@@ -45,10 +7,10 @@
 			margin:0;
 			
 		}
-		li{
+		.press li{
 			padding-left: 56px;
 			padding-top: 0px;
-			margin-bottom:20px;
+			margin-bottom:30px;
 			list-style-image:none;
 			background-image: url(../img/list-style-news4.gif);
 			background-repeat: no-repeat;
@@ -71,50 +33,27 @@
                 }
                 #table_menu td a:hover{color:white;}
 	</style>
-</HEAD>
-<BODY>
-<div id="dhtmltooltip"></div>
 
-<CENTER>
-<TABLE BGCOLOR="#F8F8F0" CELLPADDING="0" CELLSPACING="0" WIDTH="775" HEIGHT="100%" BORDER="0">
-	<TR>
-		<TD BACKGROUND="../img/fons_premsa_a.jpg" COLSPAN="2" ALIGN="RIGHT" style="text-align:right"><A HREF="../index.htm"><IMG SRC="../img/lg_sup.gif" WIDTH="303" HEIGHT="114" BORDER="0" TITLE="INICI"></A></TD>
-	</TR>
-	<TR>
-		<TD BGCOLOR="#570600" COLSPAN="2" ALIGN="CENTER"> <?php   require_once('menu.php');  ?>
-		<!-- OLD STATIC MENU -->
-		</TD>
-	</TR>
-	<TR>
-		<TD style="background-image:url(../img/fons_premsa_b.jpg); background-repeat:no-repeat;" HEIGHT="100%" WIDTH="154" ALIGN="center" VALIGN="TOP">&nbsp;<BR>
-&nbsp;<BR>
-&nbsp;<BR>
-&nbsp;<BR>
-&nbsp;<BR>
-&nbsp;<BR>
-&nbsp;<BR>
-		<TABLE CELLPADDING="0" CELLSPACING="0" WIDTH="154" BORDER="0">
-			<TR>
-				<TD ></TD>
-			</TR>
-		</TABLE>
-		</TD>
-		<TD style="background-image:url(../img/fons_premsa_c.jpg); background-repeat:no-repeat;" WIDTH="621" ALIGN="CENTER" VALIGN="TOP">
-		<TABLE CELLPADDING="0" CELLSPACING="0" WIDTH="490" BORDER="0">
-			<TR>
-				<TD>&nbsp;<BR>
-&nbsp;<BR>
-<FONT CLASS="titol"><?php l("Recull de premsa"); ?></FONT><BR>
-<BR>
-<?php l("Us oferim un recull de les darreres aparicions a la premsa del restaurant Can Borrell, 
-fent referència a la nostra cuina i al l'excepcional entorn on es troba emplaçada la masia."); ?>
-<BR>
-<BR>
-<BR>
-</TD>
-			</TR>
-<TR>
-	<TD>
+<?php
+$bg_id=1;
+
+/*****************************************************************************/
+
+
+$html = <<<HEREDOC
+
+<div style="margin-top:40px"></div>
+
+<FONT CLASS="titol">{$fnl("Recull de premsa")}</FONT>
+
+<p>  
+{$fnl("Us oferim un recull de les darreres aparicions a la premsa del restaurant Can Borrell, 
+fent referència a la nostra cuina i al l'excepcional entorn on es troba emplaçada la masia.")}
+</p>
+<br>
+<p>  
+</p>
+
 			<ul class="press">
 				<li>
 					<a href="../premsa/Treekking_en_Barcelona_p10.pdf" target="_blank" class="publi">La Almudaina - Diario de Mallorca (16/5/2010)<br/><span class="publicacio-premsa"> ¿Trecking en Barcelona?</span></a>
@@ -129,15 +68,11 @@ fent referència a la nostra cuina i al l'excepcional entorn on es troba emplaç
 					<a href="../premsa/TREKKINGBARNA.pdf" target="_blank" class="publi">El mundo a tus pies<br/> <span class="publicacio-premsa">Article Masia Can Borrell</span></a>
 				</li>
 			</ul>
-	</TD>
-</TR>		
-			
-		</TABLE>
-		</TD>
-	</TR>
-</TABLE>
-</CENTER>
-<div id="popup_pdf" title="Recull de premsa">
-</div>
-</BODY>
-</HTML>
+
+<div style="margin-top:140px"></div>
+
+HEREDOC;
+
+?>
+ 
+

@@ -8,12 +8,12 @@
     array('link' => 'historia4', 'txt' => 'Fonts' ),
     array('link' => 'historia5', 'txt' => 'Agraïments' ),
     );
-
     
     $bg_id=6;
-
-    include("head.html"); 
     ?>
+    <head>
+        <?php include("head.html");  ?>
+    </head>
     <body>
         <div id="container">
             <div class="row">

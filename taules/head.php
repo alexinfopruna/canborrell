@@ -16,7 +16,7 @@
 <script type="text/javascript">
     /* */
     if (typeof jQuery.ui == 'undefined') {
-        document.write(unescape("%3Cscript src='js/jquery-ui-1.10.3.custom/js/jquery-ui-1.10.3.custom.min.js' type='text/javascript'%3E%3C/script%3E"));
+        document.write(unescape("%3Cscript src='js/jquery-ui-1.10.3.custom.min.js' type='text/javascript'%3E%3C/script%3E"));
     };
 </script>                
 

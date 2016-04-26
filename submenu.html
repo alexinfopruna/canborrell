@@ -1,50 +1,16 @@
                 <!----------------------------------------------------------------------------------------->
                 <!----------------------------------------------------------------------------------------->
-                <!--------------------------------       SUBMENU     -------------------------------------->
+                <!-----------------------------     COLUMNA ISQUI SUBMENU     ----------------------------->
                 <!----------------------------------------------------------------------------------------->
                 <!----------------------------------------------------------------------------------------->
-                <div class="submenu col-md-2">
-                    <?php
-                    $cb_printed_menu=TRUE;
-                    require_once('menu.php');
-                    echo sub_menu($submenu_elements, $lang);
+                
+                <div class="submenu col-md-2 sidebar-offcanvas" id="sidebar">
+ <button type="button" id="submenu-toggle" class="btn btn-primary btn-xs" data-toggle="offcanvas" style="">Toggle nav</button>
+                                   <?php
+                    if (isset($submenu_elements))  echo sub_menu($submenu_elements, $lang);
+                    if (isset($submenu_peu))  echo $submenu_peu;
                     ?> 
                 </div> 
 
-                <nav class="navbar navbar-inverse navbar-fixed-top">
-                    <div class="container">
-                        <div class="navbar-header">
-                       <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-                          <span class="sr-only"><?php l("Desplega menú") ?></span>
-                                <span class="icon-bar"></span>
-                                <span class="icon-bar"></span>
-                                <span class="icon-bar"></span>
-                            </button>
-                            
-                            <a class="navbar-brand" href="canborrell">Masia Can Borrell</a>
-                                  
-        <div id="navbar" class="collapse navbar-collapse">
-            <?php echo main_menu($main_menu_elements, $lang);  ?>
-        </div><!-- /.nav-collapse -->
- 
-                           
-                        </div> 
-                        <div style="float:right;margin-left: 50px;">
-                                <?php echo menu_idiomes(); ?>
-                            </div> 
-                        <div id="data-reserva" class="" >
-                            <form class="navbarxx-form navbar-right" action="reservar/form.php">
-                                <div class="form-group">
-                                    
-                                </div>
-                                <div class="form-group">
-                                    <input type="text" placeholder="Data de reserva" id="top-datepicker" class="form-control">
-                                    <button type="submit" class="btn btn-success"><?php l("Reservar") ?></button>
-                                </div>
-                                
-                            </form>
-                        </div><!--/.navbar-collapse -->
-                        
-                    </div>
-                </nav>
+                
 

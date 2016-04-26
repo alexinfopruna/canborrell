@@ -101,3 +101,7 @@ function l($text,$echo=true)
 	
 	return ($trans);
 }
+
+function lv($text){
+  return l($text, FALSE);
+}
