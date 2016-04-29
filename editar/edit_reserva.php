@@ -101,6 +101,8 @@ if (isset($_GET['totalRows_reserves'])) {
 <link href="reserves.css" rel="stylesheet" type="text/css" />
 <link href="../css/estils.css" rel="stylesheet" type="text/css" />
 <style type="text/css">
+    td a, td a:visited, td a:link {color:#ccc} 
+td a:hover {color:white} 
 <!--
 .Estilo7 {font-size: 18px}
 .Estilo8 {font-size: 12px}

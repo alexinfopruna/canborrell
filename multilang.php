@@ -1,3 +1,6 @@
+<html>
+    <!-- MULTILANG -->
+    <head>
 <?php
 //echo "Multilang...";die();
 
@@ -32,8 +35,6 @@ if (!file_exists($ruta)) {
   header("Location: /404.html");
 }
 ?>
-<html>
-    <head>
 <?php 
 include("head.html"); 
 include($ruta);

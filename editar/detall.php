@@ -4,15 +4,13 @@ require_once(ROOT."Gestor.php");
 require_once(ROOT."gestor_reserves.php");
 $gestor=new gestor_reserves();
 
-
-//echo mail('alexinfopruna@gmail.com','holaaaa','holaaaaaaa bbb')?"SI":"NO";die();
 if (!isset($_SESSION)) session_start(); 
 
 require(ROOT.DB_CONNECTION_FILE); 
 require_once(INC_FILE_PATH.'valors.php'); 
 require_once(INC_FILE_PATH.'alex.inc'); valida_admin('editar.php') ;
-
-?><?php
+?>
+  <?php
 $maxRows_DetailRS1 = 10;
 $pageNum_DetailRS1 = 0;
 if (isset($_GET['pageNum_DetailRS1'])) {
@@ -137,6 +135,8 @@ $sms .= '</uib-accordion>';
 #detall tr{background-color: white;}
 #detall  td{padding:2px !important;}
     
+td a, td a:visited, td a:link {color:#ccc} 
+td a:hover {color:white} 
 <!--
 .Estilo4 {font-size: 12px}
 .Estilo6 {font-size: 9px}

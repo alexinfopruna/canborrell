@@ -9,6 +9,15 @@
 $translate['Reserva online, ara també des del mòbil'] = 'Reserva online, ahora también desde el móvil';
 $translate['CONTACTAR'] = 'CONTACTAR';
 
+$translate['FORA DE SERVEI']='FUERA DE SERVICIO'; 
+$translate['EL FORMULARI DE RESERVES ONLINE ESTÀ MOMENTÀNIAMENT FORA DE SERVEI	
+Estem treballant per millorar el servei. Torna a intentar-ho passats 30 minuts']
+    ='EL FORMULARIO DE RESERVAS ONLINE ESTA MOMENTANEAMENTE FUERA DE SERVICIO 
+Estamos trabajando para mejorar el servicio. Vuelve a intentarlo pasados 30 minutos'; 
+
+$translate['Disculpeu les molèsties']
+    ='Disculpad las molestias. '; 
+
 /************************
  *****************************************************************************/	
 /****************************************************************************************************/	

@@ -1,4 +1,4 @@
-<?php 
+<?php
 if (!defined("GESTOR")){
             if (!defined('ROOT'))  define('ROOT', "taules/");
             require_once (ROOT."gestor_reserves.php");  
@@ -19,7 +19,7 @@ if (!defined("GESTOR")){
     <title> Masia Can Borrell </title>
     <link rel="stylesheet" type="text/css" href="../css/estils.css">
    
-     <link rel="stylesheet" href="css/bootstrap.min.css"> 
+     <link rel="stylesheet" href="/css/bootstrap.min.css"> 
     <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">-->
     
     <link href='https://fonts.googleapis.com/css?family=Raleway:400,300,700,300italic' rel='stylesheet' type='text/css'>
@@ -28,9 +28,11 @@ if (!defined("GESTOR")){
     <!-- <link rel="stylesheet" href="https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css"> -->
     <link type="text/css" href="css/jquery-ui.css" rel="stylesheet" />
     
+    <link rel="stylesheet" href="/js/fancyBox/source/jquery.fancybox.css">
+    
    <?php echo Gestor::loadJQuery("2.0.3","1.10.3", FALSE); ?>
    
-   
+    <script src="/js/fancyBox/source/jquery.fancybox.js"></script> 
     <script src="/js/jquery.ui.datepicker-ca.js"></script>
     <script src="/js/bootstrap.min.js"></script>
     

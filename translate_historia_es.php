@@ -26,7 +26,7 @@ $translate["HISTORIA_tx12"]="La &eacute;poca medieval tuvo una gran relevancia e
 
 $translate["HISTORIA_tx21"] =  "Por esta zona, y no muy lejos de aqu&iacute;, existi&oacute; en su tiempo una villa nombrada Cercedol. "
     . "Durante la primera mitad del siglo XI, la uni&oacute;n de esta villa, junto con el "
-    . "<A HREF=\"#\" class='tooltip'  title=\"<B>Alodio:</B> Propiedad territorial libre y exenta de toda carga y derecho se&ntilde;orial.\" style=\"cursor: help\" CLASS=\"nobold\">alodio</A> "
+    . "<A HREF=\"#\" class='xxtooltip'  title=\"Alodio:\n Propiedad territorial libre y exenta de toda carga y derecho se&ntilde;orial.\" style=\"cursor: help\" CLASS=\"nobold\">alodio</A> "
     ." que rodeaba el monasterio de Sant Cugat, y el valle de Gausac, entre otras popiedades, formaron lo que ahora conocemos como "
     ." t&eacute;rmino de Sant Cugat, conocido antiguamente como castillo de Octavi&agrave; "
     ." <I>(Castrum Octavianum)</I>. Esta &uacute;ltima palabra es el que inicialmente dio nombre al municipio, "
@@ -38,10 +38,10 @@ $translate["HISTORIA_tx22"] =  "Parece ser que el valle de Gausac depend&iacute;
     . "corroborar el hecho. Lo que s&iacute; parece m&aacute;s probable es la existencia de una parroquia nombrada "
     . "Sta. Maria de Gausac, la cual sale documentada por primera vez el a&ntilde;o 1201 y posteriormente tambi&eacute;n en el 1272,";
 $translate["HISTORIA_tx23"] =  "en la "
-    . "<A HREF=\"#\" class='tooltip'  title=\"<B>Bula:</B> Letra pontificia expedida por la curia romana, "
+    . "<A HREF=\"#\" class='xxxtooltip'  title=\"Bula:\n Letra pontificia expedida por la curia romana, "
     . "relativa a materia de fe o de inter&eacute;s general, concesi&oacute;n de gracias, privilegios, etc.\" "
     . "style=\"cursor: help\" CLASS=\"nobold\">bula</A> papal de Calixte II. "
-    . "De hecho, en tiempos de la <A HREF=\"#\" class='tooltip'  title=\"<B>Quadra:</B> (Catal&aacute;n) "
+    . "De hecho, en tiempos de la <A HREF=\"#\" class='mmtooltip'  title=\"Quadra:\n (Catal&aacute;n) "
     . "Peque&ntilde;o n&uacute;cleo de poblaci&oacute;n. Distrito especial dentro del t&eacute;rmino de un castillo.\" "
     . " style=\"cursor: help\" CLASS=\"nobold\">Quadra de Vilanova</A>, "
     . "el lugar donde los habitantes de esta Quadra se reun&iacute;an no era en St. Vicen&ccedil; de Cercedol, sino en "

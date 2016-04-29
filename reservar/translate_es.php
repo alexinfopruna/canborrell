@@ -252,6 +252,18 @@ $translate["resposta"] = "respuesta";
 $translate["Data límit per efectuar el pagament"] = "Data límite para efectuar el pago";
 $translate["menu"] = "menú";
 $translate["cdata_reserva"] = "fecha";
+
+
+
+/****************************** SMS **************************************/
+$translate["Recuerde: reserva en Restaurant Can Borrell el %s a las %s (%s).Rogamos comunique cualquier cambio: 936929723 - 936910605.Gracias.(ID:%s)"] 
+    = "Recuerde: reserva en Restaurant Can Borrell el %s a las %s (%s).Rogamos comunique cualquier cambio: 936929723 - 936910605.Gracias.(ID:%s)";
+
+$translate["Restaurant Can Borrell, reserva MODIFICADA: L'esperem el %s a les %s. Preguem comuniqui qualsevol canvi al web o tel.936929723 - 936910605. Gràcies.(ID:%s)"] 
+    = "Restaurant Can Borrell, reserva MODIFICADA: Le esperamos el %s a las %s. Rogamos comunique cualquier cambio en la web o tels.936929723 - 936910605. Gracias.(ID:%s)";
+
+
+
 /****************************************************************************************************/	
 /*******************************************************     JS   ***********************************/	
 /****************************************************************************************************/	

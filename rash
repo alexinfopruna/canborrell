@@ -1,0 +1,58 @@
+nombre
+adultos
+niños de 10 a 14
+niños de 4 a 9
+cochecito bebé
+observaciones
+precio reserva
+fecha reserva
+
+ Muchas gracias. La reserva ha sido enviada a Can Borrell. Recibirá un correo electrónico en 
+  con la confirmación de la reserva y las instrucciones para realizar el pago.
+ LA RESERVA NO SERÁ EFECTIVA HASTA QUE RECIVA EL CORREO Y REALICE EL PAGO 
+
+
+ CONFIRMACIÓN RESERVA 
+ Nos complace informarle que su reserva ha sido confirmada, Para finalizar el proceso acceda al sistema de pago haciendo click  
+ El pago se podré realizar hasta el  
+ . <b>Pasada esta fecha la reserva dejará de ser válida</b>. 
+
+
+ CONFIRMACIÓN DE PAGO DE RESERVA 
+ Nos complace informarle que hemos recibido correctamente el pago de  
+ €. Su reserva queda registrada<br>Le esperamos el próximo  
+
+
+ DENEGACIÓN RESERVA 
+ Lo sentimos, su solicitud ha sido denegada porque no hay espacio suficiente para los cubiertos que ha solicitado para este dia. Si lo desea puede hacer la reserva para otra fecha haciendo click <a href='http://www.can-borrell.com/esp/contactar.php' class='dins'><aquí></a> 
+  
+
+ Si tiene cualquier duda póngase en contacto con nosotros en <a href='mailto: ".MAIL_RESTAURANT."' class='dins'>".MAIL_RESTAURANT."</a>  
+
+ Para finalizar el proceso de reserva, es necesario que realice el pago del importe de la reserva. Para reservas online, el restaurant sólo adminte pagos con tarjeta de crédito. Haga click sobre el botón y le transferiremos directamente al terminal de comercio electrónico de 'La Caixa' 
+
+
+ RECORDATORIO DE PAGO DE RESERVA 
+ Le recordamos que para confirmar su reserva en el Restaurante Can Borrell ha de realizar el pago antes del<br> 
+ Si desea realizar el pago con targeta de crédito, haga click  
+
+ </br>Si decide cancelar la reserva, haga click aquí 
+
+ RESPUESTA 
+
+ Por favor, NO REALICE EL PAGO PASADA ESTA FECHA, ya que una vez caducada la reserva no podemos garantizar que la mesa siga disponible 
+
+ La reserva del %diaReserva caduca hoy. Para confirmar haga ingreso de %importReserva E al NC.2059-0280-45-8000215539 (indique ref:%idReserva). INGRESO NO VALIDO DESPUES HOY. +info:can-borrell.com/reserva.php?%idReserva 
+
+ La presente factura proforma sólo tiene validez hasta la emisión de la factura definitiva tras realizar el pago de los menús en el restaurant 
+
+ En el momento de emitirse esta factura proforma, el importe abonado es el de la reserva 
+<br/>El preu total que s'indica és una estimació basada en les dades introduïdes al formulari de reserva, i pot variar segons les consumicions que es realitzin el dia de l'event. 
+  i no el importe total indicado, que será abonado directamente en el restaurante el dia reservado (descontando el importe de la reserva) 
+<br/>El precio total que se indica es una estimación basada en los datos introducidos en el formulario de reserva, y podrá variar según las consumiciones que se realicen el día del evento. 
+ Dirección 
+ Importe abonado (reserva) 
+ Subtotal 
+ Importe total 
+ Fecha 
+ Cliente 

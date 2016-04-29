@@ -218,6 +218,8 @@ else
           }
         </script>
         <style type="text/css">
+            td a, td a:visited, td a:link {color:#ccc} 
+td a:hover {color:white} 
             .EXIT{color:green}
             .ERROR{color:RED}
             .mail_error{background:red}

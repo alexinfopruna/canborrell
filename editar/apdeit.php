@@ -8,6 +8,7 @@ if (!isset($_SESSION)) session_start();
 
 require_once(INC_FILE_PATH.'alex.inc');valida_admin('editar.php');
 
+
 require(ROOT.DB_CONNECTION_FILE); 
 require_once(INC_FILE_PATH.'valors.php'); 
 require_once('mailer.php');
@@ -15,7 +16,7 @@ require_once('mailer.php');
 //$lang='cat';
 ((bool)mysqli_query( $canborrell, "USE " . $database_canborrell));
 
-$id = $_GET['id'];
+$id = $id_reserva = $_GET['id'];
 $P_ID = isset($_POST['P_ID'])?$_POST['P_ID']:FALSE;
 if (isset($_GET["sub"]) && $_GET["sub"]=="Confirmar") $_POST["Submit"]="Confirmar";
 $func=$_POST["Submit"];
@@ -23,6 +24,15 @@ $func=$_POST["Submit"];
 if (isset($_GET['resend'])) $func="Confirmar";
 if ($id!=$P_ID) return;
 $SMS=null;
+
+
+$gestor = new gestor_reserves();
+$reserva = $gestor->load_reserva($id_reserva, 'reserves');
+
+$lang_r=Gestor::codelang($reserva['lang']);
+
+require_once(ROOT."../editar/translate_editar_$lang_r.php");valida_admin('editar.php');
+
 
 switch($func)
 {
@@ -32,17 +42,24 @@ case "Pendent":
 
   case "Confirmar":
     $estat=2;
-    $SMS="TU RESERVA {ID} PARA EL DIA {DIA} ESTA CONFIRMADA.HEMOS ENVIADO MAIL CON INTRUCCIONES PARA EL PAGO.SI NO RECIBES MAIL REVISA SPAM O CANTACTANOS: restaurant@can-borrell.com";
+    //$SMS="TU RESERVA {ID} PARA EL DIA {DIA} ESTA CONFIRMADA.HEMOS ENVIADO MAIL CON INTRUCCIONES PARA EL PAGO.SI NO RECIBES MAIL REVISA SPAM O CANTACTANOS: restaurant@can-borrell.com";
+    $SMS=Gestor::lv("LA RESERVA {ID} PER AL DIA {DIA} ESTA CONFIRMADA.HEM ENVIAT MAIL AMB INTRUCCIONS PER AL PAGAMENT.");
+    $SMS.=Gestor::lv("SI NO REPS MAIL REVISA SPAM O CANTACTAN'S: restaurant@can-borrell.com");
   break;
   
   case "Denegar":
     $estat=4;
-    $SMS="TU RESERVA {ID} PARA EL DIA {DIA} HA SIDO DENEGADA. TE HEMOS ENVIADO EMAIL CON MAS DETALLES.SI NO RECIBES MAIL REVISA SPAM O CANTACTANOS: restaurant@can-borrell.com";
+   // $SMS="TU RESERVA {ID} PARA EL DIA {DIA} HA SIDO DENEGADA. TE HEMOS ENVIADO EMAIL CON MAS DETALLES.SI NO RECIBES MAIL REVISA SPAM O CANTACTANOS: restaurant@can-borrell.com";
+        $SMS=Gestor::lv("LA RESERVA {ID} PER AL DIA {DIA} HA ESTAT DENEGADA.HEM ENVIAT MAIL AMB MES DETALLS.");
+        $SMS.=Gestor::lv("SI NO REPS MAIL REVISA SPAM O CANTACTAN'S: restaurant@can-borrell.com");
     break;
 
   case "Pagada":
     $estat=3;
-    $SMS="HEMOS RECIBIDO CONFIRMACION DEL PAGO DE TU RESERVA {ID} PARA EL DIA {DIA}. TE ESPERAMOS EN CAN-BORRELL";
+    $SMS=Gestor::lv("HEM REBUT CONFIRMACIO DEL PAGAMENT DE LA TEVA RESERVA {ID} PER AL DIA {DIA}. TE ESPERAMOS EN CAN-BORRELL");
+
+    
+    $SMS="";
     break;
 
   case "Eliminar":

@@ -9,10 +9,16 @@ body
    // background-image:url(img/fons.gif);
     margin-top:0;
     
-        background: -webkit-linear-gradient(#E3DCC9, #67492C); /* For Safari 5.1 to 6.0 */
-    background: -o-linear-gradient(#E3DCC9, #B39E89); /* For Opera 11.1 to 12.0 */
-    background: -moz-linear-gradient(#E3DCC9, #B39E89); /* For Firefox 3.6 to 15 */
-    background: linear-gradient(#E3DCC9, #B39E89); /* Standard syntax (must be last) */
+  //      background: -webkit-linear-gradient(#E3DCC9, #67492C); /* For Safari 5.1 to 6.0 */
+  //  background: -o-linear-gradient(#E3DCC9, #B39E89); /* For Opera 11.1 to 12.0 */
+  //  background: -moz-linear-gradient(#E3DCC9, #B39E89); /* For Firefox 3.6 to 15 */
+  //  background: linear-gradient(#E3DCC9, #B39E89); /* Standard syntax (must be last) */
+
+    background: -webkit-linear-gradient(#ECE2C4, #C7A98A); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(#ECE2C4, #C7A98A); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(#ECE2C4, #C7A98A); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(#ECE2C4, #C7A98A); /* Standard syntax (must be last) */
+    
     background-attachment: fixed;
     
 }
@@ -161,10 +167,11 @@ border: #fff solid 6px;
 
 }
 
-a, A:link
+ a, A:link
 {
     font-family: Raleway,  Oxygen, Poiret One, Pt Sans Narrow, verdana, arial, helvetica;
     text-decoration: none !important;
+    color: #444;
     //color: #FFCC99;
     //color: #555;
    // font-weight: bold;
@@ -176,6 +183,7 @@ A:visited
 {
     font-family: Raleway,  Oxygen, Poiret One, Pt Sans Narrow, verdana, arial, helvetica;
     text-decoration: none !important;
+    color: #444;
    // color: #FFCC99;
   //  font-weight: bold;
 }
@@ -184,15 +192,16 @@ a:active
 {
     font-family: Raleway,  Oxygen, Poiret One, Pt Sans Narrow, verdana, arial, helvetica;
     text-decoration: none !important;
+    color: 444;
   //  color: #FFCC99;
    // font-weight: bold;
 }
 
-a:hover
+body a:hover
 {
     font-family: Raleway,  Oxygen, Poiret One, Pt Sans Narrow, verdana, arial, helvetica;
     text-decoration: none !important;
-    color: #FFFFFF;
+    color: #000;
  //   font-weight: bold;
       
 }
@@ -387,6 +396,8 @@ UL {
     background-color: #FFFFFF;
 }
 
+
+
 .submenu.col-md-2{
     width:19%;
 }
@@ -418,7 +429,18 @@ UL {
     font-size: 16px;
     //font-weight: bold;
     padding-left:25px;
+    overflow: hidden;
     
+}
+
+.apartat{
+    padding: 0px 10px;
+    background: black;
+    font-size: 26px;
+    position: relative;
+    top: -8px;
+    font-weight: bold;
+    /* float: right; */
 }
 
 nav{

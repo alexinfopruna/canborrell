@@ -27,6 +27,7 @@ $_SESSION['permisos'] = $_SESSION['uSer']->permisos;
 require_once("Gestor_form.php");
 $gestor = new Gestor_form();
 
+
 if (defined("CB_FORA_DE_SERVEI") && CB_FORA_DE_SERVEI === true && !$gestor->valida_login())
   header("Location:fora_de_servei.html");
 

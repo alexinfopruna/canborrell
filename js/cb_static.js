@@ -9,7 +9,7 @@ $(function() {
     //$( "#datepicker" ).datepicker();
     monta_calendari("#datepicker");
     
-    $( ".tooltip" ).datepicker();
+    //$( "document" ).tooltip();
     
     $(window).on('resize', function(){
         jQuery("#container").css("margin-top",jQuery(".navbar-header").height());
@@ -18,6 +18,31 @@ $(function() {
     $('[data-toggle="offcanvas"]').click(function () {
         $('.row-offcanvas').toggleClass('active')
   });
+  
+  $(".gmaps").fancybox({
+                type : 'iframe',
+		//maxWidth	: 300,
+		//maxHeight	: 290,
+		fitToView	: true,
+		//width		: '70%',
+		//height		: '70%',
+		autoSize	: true,
+		//closeClick	: false,
+		openEffect	: 'none',
+		closeEffect	: 'none'
+	});
+  $(".dins").fancybox({
+                type : 'iframe',
+		//maxWidth	: 300,
+		//maxHeight	: 290,
+		fitToView	: true,
+		//width		: '70%',
+		//height		: '70%',
+		autoSize	: true,
+		//closeClick	: false,
+		openEffect	: 'none',
+		closeEffect	: 'none'
+	});
 });
 
 

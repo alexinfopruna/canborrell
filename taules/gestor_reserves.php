@@ -1006,11 +1006,11 @@ $this->xgreg_log(DB_CONNECTION_FILE_DEL, 1);
   /*   * ************************************* */
   /*   * ************************************* */
 
-  public function load_reserva($id_reserva) {
-    $query = "SELECT * FROM " . T_RESERVES . " 
-    LEFT JOIN client ON " . T_RESERVES . ".client_id=client.client_id
-    LEFT JOIN " . ESTAT_TAULES . " ON " . T_RESERVES . ".id_reserva=" . ESTAT_TAULES . ".reserva_id
-    WHERE " . T_RESERVES . ".id_reserva='" . $id_reserva . "'";
+  public function load_reserva($id_reserva, $T_RESERVES = T_RESERVES) {
+    $query = "SELECT * FROM " . $T_RESERVES . " 
+    LEFT JOIN client ON " . $T_RESERVES . ".client_id=client.client_id
+    LEFT JOIN " . ESTAT_TAULES . " ON " . $T_RESERVES . ".id_reserva=" . ESTAT_TAULES . ".reserva_id
+    WHERE " . $T_RESERVES . ".id_reserva='" . $id_reserva . "'";
     $this->qry_result = mysqli_query($this->connexioDB, $query) or die(((is_object($GLOBALS["___mysqli_ston"])) ? mysqli_error($GLOBALS["___mysqli_ston"]) : (($___mysqli_res = mysqli_connect_error()) ? $___mysqli_res : false)));
 
     $this->last_row = mysqli_fetch_assoc($this->qry_result);

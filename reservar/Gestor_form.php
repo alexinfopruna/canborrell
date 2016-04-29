@@ -643,8 +643,10 @@ FROM client
     //envia SMS
     $persones = $_POST['selectorComensals'] + $_POST['selectorJuniors'] + $_POST['selectorNens'];
     $persones.='p';
-    $mensa = "Recuerde: reserva en Restaurant Can Borrell el $data a las $hora ($persones).Rogamos comunique cualquier cambio: 936929723 - 936910605.Gracias.(ID:$idr)";
-
+    //$mensa = "Recuerde: reserva en Restaurant Can Borrell el $data a las $hora ($persones).Rogamos comunique cualquier cambio: 936929723 - 936910605.Gracias.(ID:$idr)";
+    $mensa = $this->lv("Recordi: reserva al Restaurant Can Borrell el %s a les %s (%s).Preguem comuniqui qualsevol canvi: 936929723 - 936910605.Gràcies.(ID:%s)");
+    $mensa = sprintf($mensa, $data,$hora,$persones,$idr);
+    
     $TPV = $this->paga_i_senyal($coberts);
     $extres['subject'] = "Can-Borrell: CONFIRMACIÓ DE RESERVA ONLINE";
     
@@ -673,6 +675,8 @@ FROM client
     return $this->jsonOK("Reserva creada", $resposta);
   }
 
+  
+  
   /*   * ****************************************************************************************************************** */
   /*   * ****************************************************************************************************************** */
 // U P D A T E
@@ -820,7 +824,11 @@ FROM client
 
 //envia SMS
     $idr = $_POST['id_reserva'];
-    $mensa = "Restaurant Can Borrell, reserva MODIFICADA: Le esperamos el $data a las $hora. Rogamos comunique cualquier cambio en la web o tels.936929723 - 936910605. Gracias.(ID:$idr)";
+    //$mensa = "Restaurant Can Borrell, reserva MODIFICADA: Le esperamos el $data a las $hora. Rogamos comunique cualquier cambio en la web o tels.936929723 - 936910605. Gracias.(ID:$idr)";
+    
+    $mensa = $this->lv("Restaurant Can Borrell, reserva MODIFICADA: L'esperem el %s a les %s. Preguem comuniqui qualsevol canvi al web o tel.936929723 - 936910605. Gràcies.(ID:%s)");
+    $mensa = sprintf($mensa, $data,$hora,$idr);
+
     $this->enviaSMS($idr, $mensa);
 
 //envia MAIL
@@ -1348,7 +1356,18 @@ SQL;
 
   public function test($t) { //over
     $this->valida_sessio(1);
-    echo "Gestor_form: " . $t;
+    echo "Gestor_form: " . $t. '<br>';
+    
+    $data="12/2/2016";
+    $hora = "14:00";
+        
+        $persones = 5;
+        $idr = 1345 ;
+        
+        $mensa = $this->lv("Recordi: reserva al Restaurant Can Borrell el %s a les %s (%s).Preguem comuniqui qualsevol canvi: 936929723 - 936910605.Gràcies.(ID:%s)");
+    $mensa = sprintf($mensa, $data,$hora,$persones,$idr);
+
+    return $mensa;
   }
 
   public function reserva_entra_avui($data, $torn) {

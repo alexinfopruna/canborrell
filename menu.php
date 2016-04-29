@@ -41,7 +41,8 @@ function apartat($main_menu_elements){
     if (active($v['link'])) return $v['txt'];
   }
   
-  return FALSE;
+  global $apartat;
+  return $apartat;
 }
 
 /**

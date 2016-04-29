@@ -665,7 +665,7 @@ class Gestor {
     $this->lng = substr($lang, 0, 2);
   }
 
-  protected function l($text, $echo = true) {
+  static function l($text, $echo = true) {
     global $translate; //	return $translate[$text];
     global $notrans;
 
@@ -694,6 +694,11 @@ class Gestor {
 
     return ($trans);
   }
+ /*   * *************************************************************************************************** */
+  
+    static function lv($text) {
+      return Gestor::l($text, FALSE);
+    }
 
   /*   * *************************************************************************************************** */
 
@@ -1014,10 +1019,16 @@ class Gestor {
     if (isset($_GET['lang']))
       $lang = $_GET['lang'];
 //$_SESSION['lang'] = $lang;  
+    
+    
 
-    return $lang;
+    return Gestor::codelang($lang);
   }
 
+  public static function codelang($lang) {
+    return substr($lang,0,2);
+  }
+  
   /*   * *************************************************************************************************** */
   /*
     treu el codi html per carregar jquery + jquery ui del cdn de jquery
