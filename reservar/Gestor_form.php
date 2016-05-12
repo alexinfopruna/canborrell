@@ -417,12 +417,12 @@ FROM client
     if (isset($_POST['id_reserva']) && !empty($_POST['id_reserva'])) {
       if (strtolower(substr($_POST['id_reserva'], 0, 2)) == 'id')
         $_POST['id_reserva'] = substr($_POST['id_reserva'], 2, 20);
-      if ($_POST['id_reserva'] > 3000){
+      if ($_POST['id_reserva'] > 3000) {
         //$this->xgreg_log("Submit update reserva grups");
         return $this->salvaUpdate(); // GUARDA UPDATE
       }
       else {
-        $this->xgreg_log("RESERVA DESCONEGUDA",1);
+        $this->xgreg_log("RESERVA DESCONEGUDA", 1);
         $resposta['request'] = "update";
         return $this->jsonErr(1, $resposta); //RESERVA DESCONEGUDA
       }
@@ -440,6 +440,7 @@ FROM client
     if ($_POST['adults'] < 2)
       return $this->jsonErr(7, $resposta); //Adults < 2
 
+      
 // MIREM SI ESTÀ EDITANT UNA RESERVA EXISTENT
 //MIRA SI ENS VOLEM FER UNA DUPLICADA
     if (!isset($_POST['client_mobil']))
@@ -451,7 +452,7 @@ FROM client
       $_POST['client_mail'] = null;
     $result = json_decode($this->recuperaClient($_POST['client_mobil'], $_POST['client_mail']));
     if (isset($result->{'err'}) && $result->{'err'}) {
-      $this->xgreg_log("ERROR SUBMIT->CLIENT REPETIT" . $result->{'err'},1);
+      $this->xgreg_log("ERROR SUBMIT->CLIENT REPETIT" . $result->{'err'}, 1);
       return $this->jsonErr($result->{'err'}, $resposta);
     }
 
@@ -460,7 +461,7 @@ FROM client
     $_POST['reserva_info'] = 1;
     //TODO COTXETS
 
-    if (!isset($_POST['selectorComensals']) || $_POST['selectorComensals']==0){
+    if (!isset($_POST['selectorComensals']) || $_POST['selectorComensals'] == 0) {
       $_POST['selectorComensals'] = $_POST['adults'];
     }
 
@@ -474,6 +475,7 @@ FROM client
     $PERSONES_GRUP = $this->configVars("persones_grup");
     if ($total_coberts < 2 || $total_coberts > $PERSONES_GRUP)
       return $this->jsonErr(7, $resposta); // "err7 adults";
+
       
 //ESBRINA EL TORN	
     $data = $this->cambiaf_a_mysql($_POST['selectorData']);
@@ -492,6 +494,7 @@ FROM client
     //COMPROVEM HORA LIMIT
     if (!$this->reserva_entra_avui($data, $hora))
       return $this->jsonErr(11, $resposta); // "err7 adults";
+
       
 //COMPROVA hora - torn - taula ok?
     $coberts = $_POST['adults'] + $_POST['nens10_14'] + $_POST['nens4_9'];
@@ -541,6 +544,7 @@ FROM client
     if (empty($_POST['client_cognoms']))
       return $this->jsonErr(6, $resposta); // "err6: cognoms";
 
+      
 //comanda?		
     //FINS AQUI TOT HA ANAT BE, ANEM A GUARDAR LA RESERVA...
     ////////////// TODO
@@ -567,27 +571,11 @@ FROM client
 
     $estat = $this->paga_i_senyal($coberts) ? 2 : 100;
     //$import_reserva=$this->configVars("import_paga_i_senyal");
-    $import_reserva = 0; 
+    $import_reserva = 0;
     $insertSQL = sprintf("INSERT INTO " . T_RESERVES . " ( id_reserva, client_id, data, hora, adults, 
 		  nens4_9, nens10_14, cotxets,lang,observacions, reserva_pastis, reserva_info_pastis,
                   resposta, estat, preu_reserva, usuari_creacio, 
-                  reserva_navegador, reserva_info) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)", 
-        $this->SQLVal($_POST['id_reserva'], "text"), 
-        $this->SQLVal($idc, "text"), 
-        $this->SQLVal($_POST['selectorData'], "datePHP"), 
-        $this->SQLVal($_POST['hora'], "text"), 
-        $this->SQLVal($_POST['selectorComensals'], "zero"), 
-        $this->SQLVal($_POST['selectorNens'], "zero"), 
-        $this->SQLVal($_POST['selectorJuniors'], "zero"), 
-        $this->SQLVal($_POST['selectorCotxets'], "zero"), 
-        $this->SQLVal($_POST['lang'], "text"), 
-        $this->SQLVal($_POST['observacions'], "text"), 
-        $this->SQLVal($_POST['RESERVA_PASTIS'] == 'on', "zero"), 
-        $this->SQLVal($_POST['INFO_PASTIS'], "text"), 
-        $this->SQLVal($_POST['resposta'], "text"), 
-        $this->SQLVal($estat, "text"), $this->SQLVal($import_reserva, "text"), 
-        $this->SQLVal($idc, "text"), $this->SQLVal($_SERVER['HTTP_USER_AGENT'], "text"), 
-        $this->SQLVal($info, "zero"));
+                  reserva_navegador, reserva_info) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)", $this->SQLVal($_POST['id_reserva'], "text"), $this->SQLVal($idc, "text"), $this->SQLVal($_POST['selectorData'], "datePHP"), $this->SQLVal($_POST['hora'], "text"), $this->SQLVal($_POST['selectorComensals'], "zero"), $this->SQLVal($_POST['selectorNens'], "zero"), $this->SQLVal($_POST['selectorJuniors'], "zero"), $this->SQLVal($_POST['selectorCotxets'], "zero"), $this->SQLVal($_POST['lang'], "text"), $this->SQLVal($_POST['observacions'], "text"), $this->SQLVal($_POST['RESERVA_PASTIS'] == 'on', "zero"), $this->SQLVal($_POST['INFO_PASTIS'], "text"), $this->SQLVal($_POST['resposta'], "text"), $this->SQLVal($estat, "text"), $this->SQLVal($import_reserva, "text"), $this->SQLVal($idc, "text"), $this->SQLVal($_SERVER['HTTP_USER_AGENT'], "text"), $this->SQLVal($info, "zero"));
 
     $this->qry_result = $this->log_mysql_query($insertSQL, $this->connexioDB) or die(((is_object($GLOBALS["___mysqli_ston"])) ? mysqli_error($GLOBALS["___mysqli_ston"]) : (($___mysqli_res = mysqli_connect_error()) ? $___mysqli_res : false)));
     //$idr = ((is_null($___mysqli_res = mysqli_insert_id($this->connexioDB))) ? false : $___mysqli_res);
@@ -644,27 +632,39 @@ FROM client
     $persones = $_POST['selectorComensals'] + $_POST['selectorJuniors'] + $_POST['selectorNens'];
     $persones.='p';
     //$mensa = "Recuerde: reserva en Restaurant Can Borrell el $data a las $hora ($persones).Rogamos comunique cualquier cambio: 936929723 - 936910605.Gracias.(ID:$idr)";
-    $mensa = $this->lv("Recordi: reserva al Restaurant Can Borrell el %s a les %s (%s).Preguem comuniqui qualsevol canvi: 936929723 - 936910605.Gràcies.(ID:%s)");
-    $mensa = sprintf($mensa, $data,$hora,$persones,$idr);
-    
+    //$mensa = $this->lv("Recordi: reserva al Restaurant Can Borrell el %s a les %s (%s).Preguem comuniqui qualsevol canvi: 936929723 - 936910605.Gràcies.(ID:%s)");
+
+    $args[] = $data;
+    $args[] = $hora;
+    $args[] = $persones;
+    $args[] = $idr;
+    $lang = $_POST["lang"];
+    $mensa = "Recordi: reserva al Restaurant Can Borrell el %s a les %s (%s).Preguem comuniqui qualsevol canvi: 936929723 - 936910605.Gràcies.(ID:%s)";
+    $mensa = gestor_reserves::SMS_language($mensa, $lang, $args);
+
+
+
     $TPV = $this->paga_i_senyal($coberts);
     $extres['subject'] = "Can-Borrell: CONFIRMACIÓ DE RESERVA ONLINE";
-    
+
     //envia MAIL
     if ($_POST['client_email'] && !$TPV)
       $mail = $this->enviaMail($idr, "confirmada_", FALSE, $extres);
-    
+
     $resposta['mail'] = isset($mail) ? $mail : FALSE;
     $resposta['virtual'] = $taulaVirtual;
     $resposta['TPV'] = $TPV ? "TPV" : "";
     $resposta['idr'] = $idr;
-    
-    if (isset($_POST['recuperaReservaPaperera'])) $TPV=FALSE; // Cas que recuperem reserva
+
+    if (isset($_POST['recuperaReservaPaperera']))
+      $TPV = FALSE; // Cas que recuperem reserva
     if ($TPV) {
       $nom = $_POST['client_nom'] . ' ' . $_POST['client_cognoms'];
-      
-      if (isset($_REQUEST["testTPV"]) &&  $_REQUEST["testTPV"] == 'testTPV') $resposta['form_tpv'] = $this->generaTESTTpvSHA256($idr, import_paga_i_senyal, $nom, 'reserva_pk_tpv_ok_callback','99');
-      else $resposta['form_tpv'] = $this->generaFormTpvSHA256($idr, import_paga_i_senyal, $nom);
+
+      if (isset($_REQUEST["testTPV"]) && $_REQUEST["testTPV"] == 'testTPV')
+        $resposta['form_tpv'] = $this->generaTESTTpvSHA256($idr, import_paga_i_senyal, $nom, 'reserva_pk_tpv_ok_callback', '99');
+      else
+        $resposta['form_tpv'] = $this->generaFormTpvSHA256($idr, import_paga_i_senyal, $nom);
     }
     else {
       $this->enviaSMS($idr, $mensa);
@@ -675,10 +675,9 @@ FROM client
     return $this->jsonOK("Reserva creada", $resposta);
   }
 
-  
-  
   /*   * ****************************************************************************************************************** */
   /*   * ****************************************************************************************************************** */
+
 // U P D A T E
 // U P D A T E
 // U P D A T E
@@ -688,10 +687,10 @@ FROM client
   /*   * ****************************************************************************************************************** */
 
   public function salvaUpdate() {
-    $this->xgreg_log("Update <span class='idr'>".$_POST['id_reserva']."</span>", 1);
+    $this->xgreg_log("Update <span class='idr'>" . $_POST['id_reserva'] . "</span>", 1);
     $resposta['request'] = "update";
 //TODO VALIDA 
-    $_POST['lang'] = $_SESSION["lang"];
+    $lang = $_POST['lang'] = $_SESSION["lang"];
     $dat = date("d/m");
     $_POST['observacions'] = "MODIFICADA $dat " . $_POST['observacions'];
 
@@ -703,6 +702,7 @@ FROM client
     $torn = $this->torn($data, $hora);
     if (!$torn)
       return $this->jsonErr(8, $resposta); // COMPROVA torn
+
       
 //VALIDA DADES	
 
@@ -720,7 +720,7 @@ FROM client
     if ($coberts < 2 || $coberts > $PERSONES_GRUP)
       return $this->jsonErr(7, $resposta);;
 
-    $cotxets = $_POST['selectorCotxets'];
+    $cotxets = isset($_POST['selectorCotxets'])? $_POST['selectorCotxets']:0;
 
     if (!isset($_POST['selectorAccesible']))
       $_POST['selectorAccesible'] = false;
@@ -777,7 +777,7 @@ FROM client
     /*     * ****************************************************************************************************************** */
     $_POST['estat_taula_taula_id'] = $taula;
     $_POST['data'] = $_POST['selectorData'];
-    $_POST['cotxets'] = $_POST['selectorCotxets'];
+    $_POST['cotxets'] = $cotxets;
 
 
     //RESERVA INFO
@@ -825,9 +825,15 @@ FROM client
 //envia SMS
     $idr = $_POST['id_reserva'];
     //$mensa = "Restaurant Can Borrell, reserva MODIFICADA: Le esperamos el $data a las $hora. Rogamos comunique cualquier cambio en la web o tels.936929723 - 936910605. Gracias.(ID:$idr)";
-    
-    $mensa = $this->lv("Restaurant Can Borrell, reserva MODIFICADA: L'esperem el %s a les %s. Preguem comuniqui qualsevol canvi al web o tel.936929723 - 936910605. Gràcies.(ID:%s)");
-    $mensa = sprintf($mensa, $data,$hora,$idr);
+
+    //$mensa = $this->lv("Restaurant Can Borrell, reserva MODIFICADA: L'esperem el %s a les %s. Preguem comuniqui qualsevol canvi al web o tel.936929723 - 936910605. Gràcies.(ID:%s)");
+    //$mensa = sprintf($mensa, $data, $hora, $idr);
+
+    $args[] = $data;
+    $args[] = $hora;
+    $args[] = $idr;
+    $mensa = "Restaurant Can Borrell, reserva MODIFICADA: L'esperem el %s a les %s. Preguem comuniqui qualsevol canvi al web o tel.936929723 - 936910605. Gràcies.(ID:%s)";
+    $mensa = gestor_reserves::SMS_language($mensa, $lang, $args);
 
     $this->enviaSMS($idr, $mensa);
 
@@ -839,12 +845,12 @@ FROM client
 
 //PREPARA RESPOSTA JSON	
     $resposta['mail'] = $mail;
-    $this->xgreg_log("Update reserva ok des de form <span class='idr'>".$_POST['id_reserva']."</span>", 1);
+    $this->xgreg_log("Update reserva ok des de form <span class='idr'>" . $_POST['id_reserva'] . "</span>", 1);
     return $this->jsonOK("Reserva modificada: " . $extra, $resposta);
   }
 
   public function cancelReserva($mob, $idr) {
-        $this->xgreg_log("cancelReserva $mob <span class='idr'>$idr</span>");
+    $this->xgreg_log("cancelReserva $mob <span class='idr'>$idr</span>");
 
     if ($this->recuperaReserva($mob, $idr)) {
       $perm = $_SESSION['permisos'];
@@ -872,7 +878,7 @@ FROM client
   }
 
   public function insertUpdateClient($mobil) {
-    $this->xgreg_log("insertUpdateClient $mobil",1);
+    $this->xgreg_log("insertUpdateClient $mobil", 1);
 
     //VERIFICA SI EXISTEIX
     $query = "SELECT * FROM client WHERE client_mobil='" . $mobil . "'";
@@ -906,7 +912,7 @@ WHERE  `client`.`client_id` =$idc;
   public function contactar($post) {
     $this->xgreg_log("contactar");
 
-    
+
     if (!empty($post['cotrol_rob']))
       return false;
 
@@ -927,7 +933,7 @@ WHERE  `client`.`client_id` =$idc;
   /*   * ****************************************************************************************************************** */
 
   public function contactar_grups($post) {
-        $this->xgreg_log("contactar_grups");
+    $this->xgreg_log("contactar_grups");
 
     if (!empty($post['cotrol_rob']))
       return false;
@@ -989,8 +995,8 @@ WHERE  `client`.`client_id` =$idc;
   /*   * ******************************************************************************************************* */
   /*   * ******************************************************************************************************* */
   /*   * ******************************************************************************************************* */
-/*
-  public function ANULATgeneraFormTpv($id_reserva, $import, $nom) {
+  /*
+    public function ANULATgeneraFormTpv($id_reserva, $import, $nom) {
     echo __FILE__;die("<br><br>ANUAT");
 
     die("ANULATgeneraFormTpv");
@@ -1014,55 +1020,55 @@ WHERE  `client`.`client_id` =$idc;
     //$url_tpvv="https://sis-t.redsys.es:25443/sis/realizarPago";
 
     $HTML = "    <script language=JavaScript>
-    function calc() { 
-	
-		
+    function calc() {
+
+
     document.getElementById('boto').style.display = 'none';
     vent=window.open('','frame-tpv','width=725,height=600,scrollbars=no,resizable=yes,status=yes,menubar=no,location=no');
-   // vent.moveTo(eje_x,eje_y);
+    // vent.moveTo(eje_x,eje_y);
     document.compra.submit();}
     </script>
-";
+    ";
     $hidden = "hidden";
     $HTML .= "<form id='compra' name='compra' action='$url_tpvv' method='post' target='frame-tpv'  style='display:none'>
-                          
-                <input type=$hidden name=Ds_Merchant_Amount value='$amount'>
-                <input type=$hidden name=Ds_Merchant_Currency value='$currency'>
-                <input id=tpv_order type=$hidden name=Ds_Merchant_Order  value='$order'>
-                <input type=$hidden name=Ds_Merchant_MerchantCode value='$code'>
-                <input type=$hidden name=Ds_Merchant_Terminal value='$terminal'>
-                <input type=$hidden name=Ds_Merchant_TransactionType value='$transactionType'>
-                  
-                <input type=$hidden name=Ds_Merchant_ProductDescription value='$producte'>
-                <input id=tpv_titular type=$hidden name=Ds_Merchant_Titular value='$titular'>
-                <input type=$hidden name=Ds_Merchant_UrlOK value='$urlOK'>
-                <input type=$hidden name=Ds_Merchant_UrlKO value='$urlKO'>
-                <input type=$hidden name=Ds_Merchant_ConsumerLanguage value='$idioma'>
-		<input type=$hidden name=Ds_Merchant_PayMethods value='C'>
-                <input type=$hidden name=Ds_Merchant_MerchantURL value='$urlMerchant'>";
+
+    <input type=$hidden name=Ds_Merchant_Amount value='$amount'>
+    <input type=$hidden name=Ds_Merchant_Currency value='$currency'>
+    <input id=tpv_order type=$hidden name=Ds_Merchant_Order  value='$order'>
+    <input type=$hidden name=Ds_Merchant_MerchantCode value='$code'>
+    <input type=$hidden name=Ds_Merchant_Terminal value='$terminal'>
+    <input type=$hidden name=Ds_Merchant_TransactionType value='$transactionType'>
+
+    <input type=$hidden name=Ds_Merchant_ProductDescription value='$producte'>
+    <input id=tpv_titular type=$hidden name=Ds_Merchant_Titular value='$titular'>
+    <input type=$hidden name=Ds_Merchant_UrlOK value='$urlOK'>
+    <input type=$hidden name=Ds_Merchant_UrlKO value='$urlKO'>
+    <input type=$hidden name=Ds_Merchant_ConsumerLanguage value='$idioma'>
+    <input type=$hidden name=Ds_Merchant_PayMethods value='C'>
+    <input type=$hidden name=Ds_Merchant_MerchantURL value='$urlMerchant'>";
 
 
 
     $HTML.= "<input id=tpv_signature type=$hidden name=Ds_Merchant_MerchantSignature value='------------'>
-                    <input id='boto' type='submit' name='Submit' value='" . $this->l('Realizar Pago', false) . "' onclick='javascript:calc(); '/>
-                </form>";
+    <input id='boto' type='submit' name='Submit' value='" . $this->l('Realizar Pago', false) . "' onclick='javascript:calc(); '/>
+    </form>";
 
 
-    $this->xgreg_log("generaFormTpv:$id_reserva > $import > $nom",0, LOG_FILE_TPVPKPK); 
+    $this->xgreg_log("generaFormTpv:$id_reserva > $import > $nom",0, LOG_FILE_TPVPKPK);
     return $HTML;
-  }
- */
- 
-/*
-  private function signatureTpv($order, $import, $urlMerchant = 'http://www.can-borrell.com/editar/TPV/respostaTPV.php') {
+    }
+   */
+
+  /*
+    private function signatureTpv($order, $import, $urlMerchant = 'http://www.can-borrell.com/editar/TPV/respostaTPV.php') {
     include(INC_FILE_PATH . TPV_CONFIG_FILE);
     //echo $amount." / ".$order." / ".$code." / ".$currency." / ".$transactionType." / ".$urlMerchant." / ".$clave;
     $clave = 0;
     $amount = $import * 100;
     $message = $amount . $order . $code . $currency . $transactionType . $urlMerchant . $clave;
     return strtoupper(sha1($message));
-  }
-*/
+    }
+   */
   /*   * ******************************************************************************************************* */
   /*   * ******************************************************************************************************* */
   /*   * ******************************************************************************************************* */
@@ -1083,7 +1089,7 @@ WHERE  `client`.`client_id` =$idc;
   /*   * ************************************************ */
   public function respostaTPV_SHA256() {
     echo "RESPOSTA TPV >>> ";
-    
+
     $id = $lang = "not set";
     include(INC_FILE_PATH . TPV_CONFIG_FILE); //NECESSITO TENIR A PUNT $id i $lang
     require_once INC_FILE_PATH . 'API_PHP/redsysHMAC256_API_PHP_5.2.0/apiRedsys.php';
@@ -1097,11 +1103,11 @@ WHERE  `client`.`client_id` =$idc;
       $params = $miObj->decodeMerchantParameters($datos);
       $signatureEsperada = $miObj->createMerchantSignatureNotif($clave256, $datos);
       $param = json_decode($params, TRUE);
-      
-      $this->xgreg_log("RESPOSTA TPV256 >>>>>>>>> <span class='idr'>".$param['Ds_Order']."</span>",0, "/log/log_TPV.txt", FALSE);
+
+      $this->xgreg_log("RESPOSTA TPV256 >>>>>>>>> <span class='idr'>" . $param['Ds_Order'] . "</span>", 0, "/log/log_TPV.txt", FALSE);
       $p = print_r($param, TRUE);
-      $p = '<pre class="tpv-response-params">'. $p. "</pre>";
-        $this->xgreg_log("DECODE Paràmetres >>> $p",1, "/log/log_TPV.txt", FALSE);
+      $p = '<pre class="tpv-response-params">' . $p . "</pre>";
+      $this->xgreg_log("DECODE Paràmetres >>> $p", 1, "/log/log_TPV.txt", FALSE);
       echo " >>> ";
       echo "<pre>";
       print_r($param);
@@ -1116,16 +1122,16 @@ WHERE  `client`.`client_id` =$idc;
       /*       * *********************************************************************************** */
       if ($signatureEsperada === $signatureRecibida) { //**** VALIDA SIGNATURA
         echo "<br/>SIGNATURE OK<br/>";
-        $this->xgreg_log("SIGNATURE OK",1, "/log/log_TPV.txt", FALSE);
+        $this->xgreg_log("SIGNATURE OK", 1, "/log/log_TPV.txt", FALSE);
         $response = $param['Ds_Response'];
-        $response=intval($response);
+        $response = intval($response);
         if ($response < 0 || $response > 99) {  // ****** VERIFICA RESPOSTA entre 0000 i 0099
           echo "Response incorrecta!! >>>  $response";
-          $this->xgreg_log("Response incorrecta >>> $response", 1,"/log/log_TPV.txt", FALSE);
+          $this->xgreg_log("Response incorrecta >>> $response", 1, "/log/log_TPV.txt", FALSE);
           return FALSE;
         }
-        
-        $this->xgreg_log("Response ok >>> $response",1, "/log/log_TPV.txt", FALSE);
+
+        $this->xgreg_log("Response ok >>> $response", 1, "/log/log_TPV.txt", FALSE);
         $k = substr($param['Ds_Order'], 3, 6);
         //$k = substr($param['Ds_Order'], -5);
         $idr = $order = (int) $k;
@@ -1143,15 +1149,15 @@ WHERE  `client`.`client_id` =$idc;
         }
 
         echo "<br/>FIRMA OK<br/>";
-        $this->xgreg_log("dades >>> ",1, "/log/log_TPV.txt", FALSE);
-        $this->xgreg_log("$order $amount", 1,"/log/log_TPV.txt", FALSE);
+        $this->xgreg_log("dades >>> ", 1, "/log/log_TPV.txt", FALSE);
+        $this->xgreg_log("$order $amount", 1, "/log/log_TPV.txt", FALSE);
         $this->xgreg_log("$callback ", 1, "/log/log_TPV.txt", FALSE);
 
         $this->$callback($idr, $amount, $data, $hora);
       }
       else {
         echo "<br/>FIRMA KO<br/>";
-        $this->xgreg_log("xxx SIGNATURE KO xxx >>> ", 1,"/log/log_TPV.txt", FALSE);
+        $this->xgreg_log("xxx SIGNATURE KO xxx >>> ", 1, "/log/log_TPV.txt", FALSE);
       }
     }
     else {
@@ -1161,7 +1167,7 @@ WHERE  `client`.`client_id` =$idc;
   }
 
   private function reserva_pk_tpv_ok_callback($idr, $amount, $pdata, $phora) {
-          $this->xgreg_log("reserva_pk_tpv_ok_callback", 1, "/log/log_TPV.txt", FALSE);
+    $this->xgreg_log("reserva_pk_tpv_ok_callback", 1, "/log/log_TPV.txt", FALSE);
     $query = "SELECT estat, client_email, data, hora, adults, nens10_14, nens4_9 "
         . "FROM " . T_RESERVES . " "
         . "LEFT JOIN client ON client.client_id=" . T_RESERVES . ".client_id "
@@ -1169,45 +1175,45 @@ WHERE  `client`.`client_id` =$idc;
 
     $result = mysqli_query($this->connexioDB, $query) or die(((is_object($GLOBALS["___mysqli_ston"])) ? mysqli_error($GLOBALS["___mysqli_ston"]) : (($___mysqli_res = mysqli_connect_error()) ? $___mysqli_res : false)));
     $files = mysqli_num_rows($result);
-    
-    if (!$files){
+
+    if (!$files) {
       //echo "NO TROBO RESERVA TPV!!!!";
-      $this->xgreg_log("NO TROBO RESERVA TPV!!!!",1, LOG_FILE_TPVPK, TRUE, 1); /* LOG */
-      $this->xgreg_log("Recuperem reserve eliminada...",1, LOG_FILE_TPVPK, TRUE, 1); /* LOG */
-      $post=$this->recuperaReservaPaperera($idr);
-      
-    $query = "SELECT estat, client_email, data, hora, adults, nens10_14, nens4_9 "
-        . "FROM " . T_RESERVES . " "
-        . "LEFT JOIN client ON client.client_id=" . T_RESERVES . ".client_id "
-        . "WHERE id_reserva=$idr";
-    $result = mysqli_query($this->connexioDB, $query) or die(((is_object($GLOBALS["___mysqli_ston"])) ? mysqli_error($GLOBALS["___mysqli_ston"]) : (($___mysqli_res = mysqli_connect_error()) ? $___mysqli_res : false)));
-    $files = mysqli_num_rows($result);
+      $this->xgreg_log("NO TROBO RESERVA TPV!!!!", 1, LOG_FILE_TPVPK, TRUE, 1); /* LOG */
+      $this->xgreg_log("Recuperem reserve eliminada...", 1, LOG_FILE_TPVPK, TRUE, 1); /* LOG */
+      $post = $this->recuperaReservaPaperera($idr);
+
+      $query = "SELECT estat, client_email, data, hora, adults, nens10_14, nens4_9 "
+          . "FROM " . T_RESERVES . " "
+          . "LEFT JOIN client ON client.client_id=" . T_RESERVES . ".client_id "
+          . "WHERE id_reserva=$idr";
+      $result = mysqli_query($this->connexioDB, $query) or die(((is_object($GLOBALS["___mysqli_ston"])) ? mysqli_error($GLOBALS["___mysqli_ston"]) : (($___mysqli_res = mysqli_connect_error()) ? $___mysqli_res : false)));
+      $files = mysqli_num_rows($result);
     }
-    
-    
+
+
     $row = mysqli_fetch_assoc($result);
 
     $estat = $row['estat'];
     $mail = $row['client_email'];
-   
+
     if ($estat != 2) { // NO ESTÀ CONFIRMADA PER PAGAR
       $msg = "PAGAMENT INAPROPIAT RESERVA PETITA???: " . $idr . " estat: $estat  $mail";
-      $this->xgreg_log($msg,1, LOG_FILE_TPVPK, TRUE, 1); /* LOG */
-      $this->xgreg_log($msg,1, LOG_FILE_TPVPK, TRUE, 0); /* LOG */
+      $this->xgreg_log($msg, 1, LOG_FILE_TPVPK, TRUE, 1); /* LOG */
+      $this->xgreg_log($msg, 1, LOG_FILE_TPVPK, TRUE, 0); /* LOG */
       //echo "ERROR ESTAT!=2";
 
-      
+
       $extres['subject'] = "Can-Borrell: !!!! $msg!!!";
       $mail = $this->enviaMail($idr, "paga_i_senyal_", MAIL_RESTAURANT, $extres);
       return FALSE;
     }
- 
+
     $referer = $_SERVER['REMOTE_ADDR'];
     $import = $amount / 100;
     $resposta = "PAGA I SENYAL TPV: " . $import . "Euros (" . $pdata . " " . $phora . ")";
     $query = "UPDATE " . T_RESERVES . " SET estat=100, preu_reserva='$import', resposta='$resposta' WHERE id_reserva=$idr";
     $result = $this->log_mysql_query($query, $this->connexioDB) or die(((is_object($GLOBALS["___mysqli_ston"])) ? mysqli_error($GLOBALS["___mysqli_ston"]) : (($___mysqli_res = mysqli_connect_error()) ? $___mysqli_res : false)));
-    
+
     $extres['subject'] = $this->l("Can-Borrell: RESERVA CONFIRMADA", false);
 
     //echo $query." >>> ".$result;
@@ -1222,21 +1228,31 @@ WHERE  `client`.`client_id` =$idc;
 
     $missatge = "Recuerde: reserva en Restaurant Can Borrell el $data a las $hora ($persones).Rogamos comunique cualquier cambio: 936929723 - 936910605.Gracias.(ID:$idr)";
     $missatge.="\n***\nConserve este SMS como comprobante de la paga y señal de " . $import . "€ que le será descontada. También hemos enviado un email que puede imprimir";
+    
+    $args[] = $data;
+    $args[] = $hora;
+    $args[] = $persones;
+    $args[] = $idr;
+    $args[] = $import;
+    $missatge = "Recordi: reserva al Restaurant Can Borrell. %s %s (%s).Preguem comuniqui qualsevol canvi: 936929723/936910605.Gràcies.(ID%s)"; 
+    
+    $missatge .= "\n***\nConservi quest SMS com a comprovant de la paga y senyal de %s€ que li serà descomptada. També hem enviat un email que pot imprimir";
+    $missatge = gestor_reserves::SMS_language($missatge, $row['lang'], $args);
     $this->enviaSMS($idr, $missatge);
 
     if ($result) { //ACTUALITZADA BBDD
-      $this->xgreg_log("PAGAMENT OK + UPDATE OK " . $query . " >> " . $result, 1,LOG_FILE_TPVPK); /* LOG */
+      $this->xgreg_log("PAGAMENT OK + UPDATE OK " . $query . " >> " . $result, 1, LOG_FILE_TPVPK); /* LOG */
     }
     else {
-      $this->greg_log("PAGAMENT OK + UPDATE KO!!! " . $query . " >> " . $result,1, LOG_FILE_TPVPK); /* LOG */
+      $this->greg_log("PAGAMENT OK + UPDATE KO!!! " . $query . " >> " . $result, 1, LOG_FILE_TPVPK); /* LOG */
     }
   }
 
   private function reserva_grups_tpv_ok_callback($idrl, $amount, $pdata, $phora) {
-              $this->xgreg_log("reserva_grups_tpv_ok_callback", 1, "/log/log_TPV.txt", FALSE);
+    $this->xgreg_log("reserva_grups_tpv_ok_callback", 1, "/log/log_TPV.txt", FALSE);
 
-    $idr = substr($idrl,-4);
-    $query = "SELECT estat, client_email, data, hora, adults, nens10_14, nens4_9 "
+    $idr = substr($idrl, -4);
+    $query = "SELECT estat, client_email, data, hora, lang, adults, nens10_14, nens4_9, lang "
         . "FROM reserves "
         . "LEFT JOIN client ON client.client_id=reserves.client_id "
         . "WHERE id_reserva=$idr";
@@ -1248,7 +1264,7 @@ WHERE  `client`.`client_id` =$idc;
     $mail = $row['client_email'];
     if ($estat != 2) { // NO ESTÀ CONFIRMADA PER PAGAR
       $msg = "PAGAMENT INAPROPIAT RESERVA PETITA???: " . $idr . " estat: $estat  $mail";
-      $this->xgreg_log($msg, 1,LOG_FILE_TPVPK, FALSE); /* LOG */
+      $this->xgreg_log($msg, 1, LOG_FILE_TPVPK, FALSE); /* LOG */
       echo "ERROR ESTAT!=2";
       $extres['subject'] = "Can-Borrell: !!!! $msg!!!";
       $mail = $this->enviaMail($idr, "paga_i_senyal_", MAIL_RESTAURANT, $extres);
@@ -1257,24 +1273,24 @@ WHERE  `client`.`client_id` =$idc;
     $referer = $_SERVER['REMOTE_ADDR'];
     $import = $amount / 100;
     $resposta = "PAGA I SENYAL GRUPS TPV: " . $import . "Euros (" . $pdata . " " . $phora . ")";
-    
-    /*******ATENCIO *********************/
-    /*******ATENCIO *********************/
-    /*******ATENCIO *********************/
-    /*******ATENCIO *********************/
-    /*******ATENCIO *********************/
+
+    /*     * *****ATENCIO ******************** */
+    /*     * *****ATENCIO ******************** */
+    /*     * *****ATENCIO ******************** */
+    /*     * *****ATENCIO ******************** */
+    /*     * *****ATENCIO ******************** */
     $query = "UPDATE reserves SET estat=7, preu_reserva='$import', resposta='$resposta' WHERE id_reserva=$idr";
     $result = $this->log_mysql_query($query, $this->connexioDB) or die(((is_object($GLOBALS["___mysqli_ston"])) ? mysqli_error($GLOBALS["___mysqli_ston"]) : (($___mysqli_res = mysqli_connect_error()) ? $___mysqli_res : false)));
     include('translate_' . $this->lng . '.php');
-    echo $query." >>> ".$result;
+    echo $query . " >>> " . $result;
 //
-    $extres['subject']=$translate["MAIL_GRUPS_PAGAT_subject"];
+    $extres['subject'] = $translate["MAIL_GRUPS_PAGAT_subject"];
     $extres['titol'] = $translate["MAIL_GRUPS_PAGAT_titol"];
-    $extres['text1']= $translate["MAIL_GRUPS_PAGAT_text1"].number_format($import,2);
-    $extres['text2']= $translate["MAIL_GRUPS_PAGAT_text2"];
+    $extres['text1'] = $translate["MAIL_GRUPS_PAGAT_text1"] . number_format($import, 2);
+    $extres['text2'] = $translate["MAIL_GRUPS_PAGAT_text2"];
     $extres['contacti'] = $translate["MAIL_GRUPS_PAGAT_contacti"];
     $mydata = $this->cambiaf_a_mysql($pdata);
-    $extres['datat'] = $this->data_llarga($row['data'], $this->lang).", ".$phora."h";
+    $extres['datat'] = $this->data_llarga($row['data'], $this->lang) . ", " . $phora . "h";
     //$extres['datat'] = $this->data_llarga($row['data'], $this->lang).", ".$phora."h";
     $extres['cnom'] = $translate["nom"];
     $extres['cadults'] = $translate["adults"];
@@ -1288,15 +1304,24 @@ WHERE  `client`.`client_id` =$idc;
     $extres['cdata_reserva'] = $translate["cdata_reserva"];
     $extres['menu'] = $translate["menu"];
 
-    if ($mail){
+    if ($mail) {
       $this->enviaMail($idr, "../editar/templates/mail_cli_", "", $extres);
     }
 
-    $persones = $row['adults'] + $row['nens10_14'] + $row['nens4_9'].'p';
+    $persones = $row['adults'] + $row['nens10_14'] + $row['nens4_9'] . 'p';
     $data = $this->cambiaf_a_normal($row['data']);
     $hora = $row['hora'];
-    $missatge = "Recuerde: reserva en Restaurant Can Borrell el $data a las $hora ($persones).Rogamos comunique cualquier cambio: 936929723 - 936910605.Gracias.(ID:$idr)";
-    $missatge.="\n***\nConserve este SMS como comprobante de la paga y señal de " . $import . "€ que le será descontada. También hemos enviado un email que puede imprimir";
+    //$missatge = "Recuerde: reserva en Restaurant Can Borrell el $data a las $hora ($persones).Rogamos comunique cualquier cambio: 936929723 - 936910605.Gracias.(ID:$idr)";
+    //$missatge.="\n***\nConserve este SMS como comprobante de la paga y señal de " . $import . "€ que le será descontada. También hemos enviado un email que puede imprimir";
+    
+        $args[] = $data;
+    $args[] = $hora;
+    $args[] = $persones;
+    $args[] = $idr;
+    $args[] = $import;
+    $missatge = "Recordi: reserva al Restaurant Can Borrell. %s %s (%s).Preguem comuniqui qualsevol canvi: 936929723/936910605.Gràcies.(ID%s)"; 
+    $missatge .= "\n***\nConservi quest SMS com a comprovant de la paga y senyal de %s€ que li serà descomptada. També hem enviat un email que pot imprimir";
+    $missatge = gestor_reserves::SMS_language($missatge, $row['lang'], $args);
     $this->enviaSMS($idr, $missatge);
 
     if ($result) { //ACTUALITZADA BBDD
@@ -1324,8 +1349,8 @@ WHERE  `client`.`client_id` =$idc;
 
     $estat = $row['estat'];
     $mail = $row['client_email'];
-    
-    
+
+
     return ($estat == 2);
   }
 
@@ -1356,16 +1381,16 @@ SQL;
 
   public function test($t) { //over
     $this->valida_sessio(1);
-    echo "Gestor_form: " . $t. '<br>';
-    
-    $data="12/2/2016";
+    echo "Gestor_form: " . $t . '<br>';
+
+    $data = "12/2/2016";
     $hora = "14:00";
-        
-        $persones = 5;
-        $idr = 1345 ;
-        
-        $mensa = $this->lv("Recordi: reserva al Restaurant Can Borrell el %s a les %s (%s).Preguem comuniqui qualsevol canvi: 936929723 - 936910605.Gràcies.(ID:%s)");
-    $mensa = sprintf($mensa, $data,$hora,$persones,$idr);
+
+    $persones = 5;
+    $idr = 1345;
+
+    $mensa = $this->lv("Recordi: reserva al Restaurant Can Borrell el %s a les %s (%s).Preguem comuniqui qualsevol canvi: 936929723 - 936910605.Gràcies.(ID:%s)");
+    $mensa = sprintf($mensa, $data, $hora, $persones, $idr);
 
     return $mensa;
   }
@@ -1378,14 +1403,14 @@ SQL;
     return $entra;
   }
 
-  public function reset_estat($pidr, $taula='reservestaules') {
-  
-    if (!$this->valida_sessio(63)){
+  public function reset_estat($pidr, $taula = 'reservestaules') {
+
+    if (!$this->valida_sessio(63)) {
       die("Sense permisos");
     }
-    
+
     $this->xgreg_log("reset_estat <span class='idr'>$pidr</span> $taula", 0, LOG_FILE_TPVPK); /* LOG */
-      
+
     $idr = substr($pidr, -5);
     $query = "UPDATE $taula SET estat=2, preu_reserva='15', resposta='TEST' WHERE id_reserva=$idr";
     $result = $this->log_mysql_query($query, $this->connexioDB) or die(((is_object($GLOBALS["___mysqli_ston"])) ? mysqli_error($GLOBALS["___mysqli_ston"]) : (($___mysqli_res = mysqli_connect_error()) ? $___mysqli_res : false)));
@@ -1394,11 +1419,9 @@ SQL;
     echo "<br>" . mysqli_affected_rows($this->connexioDB);
     echo "<br>RESET ESTAT !!!";
   }
-  
-  
-  
-private function recuperaReservaPaperera($id_reserva){
-   if ($_SESSION['permisos'] < 16)
+
+  private function recuperaReservaPaperera($id_reserva) {
+    if ($_SESSION['permisos'] < 16)
       return "error:sin permisos";
 
     $this->xgreg_log("RECUPERA PAPERERA paperera_reserves($id_reserva)", 0);
@@ -1406,17 +1429,18 @@ private function recuperaReservaPaperera($id_reserva){
       return;
 
     include(ROOT . DB_CONNECTION_FILE_DEL);
-    
-    $query = "SELECT * FROM " . T_RESERVES . " LEFT JOIN client ON client.client_id = ".T_RESERVES.".client_id WHERE id_reserva=$id_reserva";
+
+    $query = "SELECT * FROM " . T_RESERVES . " LEFT JOIN client ON client.client_id = " . T_RESERVES . ".client_id WHERE id_reserva=$id_reserva";
     $this->qry_result = $this->log_mysql_query($query, $GLOBALS["___mysqli_stonDEL"]); // or die(((is_object($GLOBALS["___mysqli_ston"])) ? mysqli_error($GLOBALS["___mysqli_ston"]) : (($___mysqli_res = mysqli_connect_error()) ? $___mysqli_res : false)));
     $files = mysqli_num_rows($this->qry_result);
-    
-    $this->xgreg_log($query.' >> '.$files,1, LOG_FILE_TPVPK, TRUE, 1); /* LOG */
-    if (!$files) return FALSE;
-    $row  = mysqli_fetch_assoc($this->qry_result);
+
+    $this->xgreg_log($query . ' >> ' . $files, 1, LOG_FILE_TPVPK, TRUE, 1); /* LOG */
+    if (!$files)
+      return FALSE;
+    $row = mysqli_fetch_assoc($this->qry_result);
     $_POST['id_reserva'] = NULL; // PER FER EL SUBMIT CAL QUE id_reserva sigui null
     //$_POST['id_reserva'] = $id_reserva;
-    $_POST['selectorData'] = $this->cambiaf_a_normal($row['data']);//$row[''];
+    $_POST['selectorData'] = $this->cambiaf_a_normal($row['data']); //$row[''];
     $_POST['hora'] = $row['hora'];
     $_POST['adults'] = $_POST['selectorComensals'] = $row['adults'];
     $_POST['nens10_14'] = $row['nens10_14'];
@@ -1424,28 +1448,28 @@ private function recuperaReservaPaperera($id_reserva){
     $_POST['nens4_9'] = $row['nens4_9'];
     $_POST['selectorNens'] = $row['nens4_9'];
     $_POST['totalComensals'] = $row['nens4_9'] + $row['nens10_14'] + $row['adults'];
-    
-    $_POST['totalCotxets'] = '/ '. $row['cotxets'];
+
+    $_POST['totalCotxets'] = '/ ' . $row['cotxets'];
     $_POST['selectorCotxets'] = $row['cotxets'];
     $_POST['reserva_info'] = $row['reserva_info'];
-    $ar=$this->decodeInfo($row['reserva_info']);
+    $ar = $this->decodeInfo($row['reserva_info']);
     $_POST['amplaCotxets'] = $ar['ampla'];
-    $_POST['selectorAccesible'] = $ar['accesible']?"on":0;
-    $_POST['selectorCadiraRodes'] = $ar['cadiraRodes']?"on":0;
-    $_POST['esborra_dades'] = $ar['esborra_cli']?"on":0;
-    
+    $_POST['selectorAccesible'] = $ar['accesible'] ? "on" : 0;
+    $_POST['selectorCadiraRodes'] = $ar['cadiraRodes'] ? "on" : 0;
+    $_POST['esborra_dades'] = $ar['esborra_cli'] ? "on" : 0;
+
     $_POST['INFO_PASTIS'] = $row['reserva_info_pastis'];
-    $_POST['RESERVA_PASTIS'] = $row['reserva_pastis']?"on":0;
+    $_POST['RESERVA_PASTIS'] = $row['reserva_pastis'] ? "on" : 0;
     $_POST['observacions'] = $row['observacions'];
     $_POST['resposta'] = $row['resposta'];
-    
+
     $_POST['client_mobil'] = $row['client_mobil'];
     $_POST['client_telefon'] = $row['client_telefon'];
     $_POST['client_email'] = $row['client_email'];
     $_POST['client_nom'] = $row['client_nom'];
     $_POST['client_cognoms'] = $row['client_cognoms'];
     $_POST['client_id'] = $row['client_id'];
-    
+
     $_POST['last_submit'] = 0;
     $_POST['pidr'] = $id_reserva;
     $_POST['pamount'] = $row['preu_reserva'];
@@ -1453,32 +1477,34 @@ private function recuperaReservaPaperera($id_reserva){
     $_POST['client_id'] = 'reserva_pk_tpv_ok_callback';
     $_POST['recuperaReservaPaperera'] = 'recuperaReservaPaperera';
 
-    $this->xgreg_log("SUBMIT...",1, LOG_FILE_TPVPK, TRUE, 1); /* LOG */
+    $this->xgreg_log("SUBMIT...", 1, LOG_FILE_TPVPK, TRUE, 1); /* LOG */
     $rjson = $this->submit();
-    
+
     $r = json_decode($rjson);
     //echo "<pre>";
     //print_r($r);
     //echo "</pre>";
-    
-    if (!isset($r->idr)) return FALSE;
-    
+
+    if (!isset($r->idr))
+      return FALSE;
+
     $idr = $r->idr;
-    
-    
-    $update= "UPDATE " . ESTAT_TAULES . " SET reserva_id=$id_reserva WHERE   reserva_id = $idr";
+
+
+    $update = "UPDATE " . ESTAT_TAULES . " SET reserva_id=$id_reserva WHERE   reserva_id = $idr";
     $this->qry_result = $this->log_mysql_query($update, $this->connexioDB); // or die(((is_object($GLOBALS["___mysqli_ston"])) ? mysqli_error($GLOBALS["___mysqli_ston"]) : (($___mysqli_res = mysqli_connect_error()) ? $___mysqli_res : false)));
-    
-    $update= "UPDATE " . T_RESERVES . " SET id_reserva=$id_reserva WHERE   id_reserva = $idr";
+
+    $update = "UPDATE " . T_RESERVES . " SET id_reserva=$id_reserva WHERE   id_reserva = $idr";
     $this->qry_result = $this->log_mysql_query($update, $this->connexioDB); // or die(((is_object($GLOBALS["___mysqli_ston"])) ? mysqli_error($GLOBALS["___mysqli_ston"]) : (($___mysqli_res = mysqli_connect_error()) ? $___mysqli_res : false)));
-     
-    $updatecomanda= "REPLACE INTO comanda ( comanda_id, comanda_reserva_id, comanda_plat_id, comanda_plat_quantitat) SELECT `$database_canborrell`.comanda_id, comanda_reserva_id, comanda_plat_id, comanda_plat_quantitat FROM comanda WHERE comanda_reserva_id=41923;";
+
+    $updatecomanda = "REPLACE INTO comanda ( comanda_id, comanda_reserva_id, comanda_plat_id, comanda_plat_quantitat) SELECT `$database_canborrell`.comanda_id, comanda_reserva_id, comanda_plat_id, comanda_plat_quantitat FROM comanda WHERE comanda_reserva_id=41923;";
     $this->qry_result = $this->log_mysql_query($updatecomanda, $this->connexioDB); // or die(((is_object($GLOBALS["___mysqli_ston"])) ? mysqli_error($GLOBALS["___mysqli_ston"]) : (($___mysqli_res = mysqli_connect_error()) ? $___mysqli_res : false)));
-    
+
     return $rjson;
-  }  
-  
+  }
+
 }
+
 //END CLASS
 
 /* * **************************************************************************************************** */
@@ -1535,7 +1561,4 @@ if (isset($accio) && !empty($accio)) {
     $gestor->out(call_user_func(array($gestor, $accio), $_REQUEST['b'], $_REQUEST['c'], $_REQUEST['d'], $_REQUEST['e'], $_REQUEST['f'], $_REQUEST['g']));
   }
 }
-
-
-
 ?>

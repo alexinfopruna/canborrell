@@ -70,10 +70,16 @@ function esborra_clients_llei($t)
     mysqli_query( $DBConn, $query_reserves) or die(((is_object($GLOBALS["___mysqli_ston"])) ? mysqli_error($GLOBALS["___mysqli_ston"]) : (($___mysqli_res = mysqli_connect_error()) ? $___mysqli_res : false)));
     	
      
-    $sms_mensa="RESTAURANT CAN BORRELL: A SOLICITUD SUYA, HEMOS ELIMINADO SUS DATOS DE NUESTRA BASE DE DATOS";
+    //$sms_mensa="RESTAURANT CAN BORRELL: A SOLICITUD SUYA, HEMOS ELIMINADO SUS DATOS DE NUESTRA BASE DE DATOS";
+    $sms_mensa="RESTAURANT CAN BORRELL: SEGONS SOLICITUD, HEM ESBORRAT LES TEVES ES DE LA NOSTRA BASE DE DADES";
+			
+    //$sms_mensa = $this->lv("RESTAURANT CAN BORRELL: SEGONS SOLICITUD, HEM ESBORRAT LES TEVES ES DE LA NOSTRA BASE DE DADES");
+   // $sms_mensa = sprintf($mensa, $lafecha,$row["id_reserva"]);
+    
+    
     if (ENVIA_SMS)
     {
-      enviaSMS_esborrat($row['client_mobil'],$sms_mensa);
+      enviaSMS_esborrat($row['client_mobil'],$sms_mensa, $row['lang']);
       $mensa.="ESBORRA_CLIENT ".$row["client_id"]." - SMS ENVIAT tel: ".$row['client_mobil']." \\n";
     }
     else
@@ -88,7 +94,7 @@ function esborra_clients_llei($t)
 }
 
 
-function enviaSMS_esborrat($numMobil,$mensa)
+function enviaSMS_esborrat($numMobil,$mensa, $lang='ca')
 {
     $idReserva=0;
   //return;
@@ -96,6 +102,11 @@ function enviaSMS_esborrat($numMobil,$mensa)
   /********************/
   /********************/
   if (LOCAL===TRUE) return;
+  
+  
+  include(ROOT."../editar/translate_editar_$lang_r.php");
+  $mensa = Gestor::lv($mensa);
+  
   include_once( "../editar/SMSphp/EsendexSendService.php" );
 
   // Test Variables - assign values accordingly:

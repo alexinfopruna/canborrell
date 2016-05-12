@@ -34,6 +34,10 @@ $ruta .= $_REQUEST['page'];
 if (!file_exists($ruta)) {
   header("Location: /404.html");
 }
+
+$bg = isset($_REQUEST['bg'])?'style="background-image:url('.$_REQUEST['bg'].')"':'';
+//echo $bg;die();
+//print_r($_REQUEST);die();
 ?>
 <?php 
 include("head.html"); 
@@ -42,6 +46,7 @@ include($ruta);
         <style scoped>
         header{
             background-image: url('../img/fons_<?php echo $bg_id;?>a.jpg');
+            
         }
 
         #cos{
@@ -54,7 +59,7 @@ include($ruta);
     </style>
             
     </head>
-    <body><p class="pull-right visible-xs">
+    <body  class="front" <?php echo $bg; ?>><p class="pull-right visible-xs">
           </p>
   
         <div id="container">
@@ -64,7 +69,7 @@ include($ruta);
                     <?php include("submenu.html"); ?>
                     
 
-                    <div id="content" class="content col-md-10">
+                    <div id="content" class="content col-md-10 col">
                         <!----------------------------------------------------------------------------------------->
                         <!----------------------------------------------------------------------------------------->
                         <!----------------------------------------------------------------------------------------->

@@ -27,11 +27,13 @@ $SMS=null;
 
 
 $gestor = new gestor_reserves();
+valida_admin('editar.php');
+
 $reserva = $gestor->load_reserva($id_reserva, 'reserves');
-
 $lang_r=Gestor::codelang($reserva['lang']);
+require_once(ROOT."../editar/translate_editar_$lang_r.php");
 
-require_once(ROOT."../editar/translate_editar_$lang_r.php");valida_admin('editar.php');
+
 
 
 switch($func)

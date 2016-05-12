@@ -9,51 +9,49 @@
 /** SUB MENU **/
 
 
-$translate["Un xic d'història de la masia i els seus entorns"] =  "Un poco de historia de la masía y su entorno";
-$translate["Què va passar a la Vall de Gausac?"] =  "¿Qué pasó en la Vall de Gausac?";
+$translate["Un xic d'història de la masia i els seus entorns"] =  "A bit of history about the farmhouse and its surroundings.";
+$translate["Què va passar a la Vall de Gausac?"] =  "What happened in the Gausac Valley?";
 
-$translate["HISTORIA_tx11"] =  "En el valle de Gausac, un paraje lleno de historia donde la huella humana del pasado est&aacute; "
-    . "muy presente, encontramos la mas&iacute;a de Can Borrell, justo cuando el valle se abre hacia la plana del Vall&egrave;s. "
-    . "Tiempo atr&aacute;s, el valle tuvo propietarios, "
-    . "Bertran d'Esplugues y su mujer Berenguera de Cercedol, que la vendieron el a&ntilde;o 1272 a Bernat de Palou.";
+$translate["HISTORIA_tx11"] =  "In the Gausac valley, a setting full of history and where the human footprint of the past is very 
+  present, we come across the Can Borrell farmhouse just when the valley opens up to the plains of Vallès. Some time ago the valley 
+  had owners, Bertran d'Esplugues and his wife Berenguera de Cercedol, who sold it in 1272 to Bernat de Palou.";
 
-$translate["HISTORIA_tx12"]="La &eacute;poca medieval tuvo una gran relevancia en Catalunya. 
-  La sociedad catalana se convirti&oacute; en uno de los modelos m&aacute;s completos de jerarqu&iacute;a feudal. 
-  Eso hace que esta etapa sea probablemente, una de las m&aacute;s explicativas para entender el presente de la 
-  zona d&oacute;nde se encuentra Can Borrell. Una zona rica en patrimonio arquitect&oacute;nico, arqueol&oacute;gico, 
-  hist&oacute;rico y paisaj&iacute;stico. Toda esta riqueza patrimonial, nos permitir&aacute; entender mejor el presente 
-  rememorando el pasado, un pasado no tan lejano.";
+$translate["HISTORIA_tx12"]="The medieval era was of great importance in Catalonia. Catalan society became one of the most complete "
+    . "models of feudal hierarchy. This results in this period being probably one of the most explanatory enabling us to understand "
+    . "present times in the area where Can Borrell is found. An area rich in architectural, archaeological, historic and scenic heritage."
+    . " All of these patrimonial riches help us understand the present remembering the past, a not so distant past.";
 
-$translate["HISTORIA_tx21"] =  "Por esta zona, y no muy lejos de aqu&iacute;, existi&oacute; en su tiempo una villa nombrada Cercedol. "
-    . "Durante la primera mitad del siglo XI, la uni&oacute;n de esta villa, junto con el "
-    . "<A HREF=\"#\" class='xxtooltip'  title=\"Alodio:\n Propiedad territorial libre y exenta de toda carga y derecho se&ntilde;orial.\" style=\"cursor: help\" CLASS=\"nobold\">alodio</A> "
-    ." que rodeaba el monasterio de Sant Cugat, y el valle de Gausac, entre otras popiedades, formaron lo que ahora conocemos como "
-    ." t&eacute;rmino de Sant Cugat, conocido antiguamente como castillo de Octavi&agrave; "
-    ." <I>(Castrum Octavianum)</I>. Esta &uacute;ltima palabra es el que inicialmente dio nombre al municipio, "
-    ." pero fue quedando en desuso desde el siglo XIII y se acabar&aacute; identificando m&aacute;s con el castillo feudal, "
-    ." quedando la palabra Sant Cugat como el referente del t&eacute;rmino vecino, tal como lo conocemos hoy d&iacute;a.";
+$translate["HISTORIA_tx21"] =  "In this area, not too far from here, there was a time when a town called Cercedol existed. "
+    . "During the first half of the XI century, the union of this town, with the "
+    . "<A HREF=\"#\" class='xxtooltip'  title=\"Alodio:\n Properties without charges\" style=\"cursor: help\" CLASS=\"nobold\">alodio</A> that surrounded the San Cugat Monastery, "
+    . "and the valley of Gausac, among other properties, formed what we now know as the district of Sant Cugat, known in earlier "
+    . "times as Octavià castle <I>(Castrum Octavianum)</I>. This last word is what initially gave name to the district, but it has been "
+    . "used less and less since the XIII century and ended up being used more in relation to the feudal castle, the words Sant Cugat "
+    . "were used referring to the surrounding area, as we know it today.";
 
-$translate["HISTORIA_tx22"] =  "Parece ser que el valle de Gausac depend&iacute;a de la parroquia de Sant Vicen&ccedil; "
-    . "de Cercedol perteneciente a la mencionada villa de Cercedol, todo y que la escasez de documentos no acaban de "
-    . "corroborar el hecho. Lo que s&iacute; parece m&aacute;s probable es la existencia de una parroquia nombrada "
-    . "Sta. Maria de Gausac, la cual sale documentada por primera vez el a&ntilde;o 1201 y posteriormente tambi&eacute;n en el 1272,";
-$translate["HISTORIA_tx23"] =  "en la "
-    . "<A HREF=\"#\" class='xxxtooltip'  title=\"Bula:\n Letra pontificia expedida por la curia romana, "
+$translate["HISTORIA_tx22"] =  "It seems that the Gausac valley was under the authority of the Sant Vicenç de Cercedol parish belonging to "
+    . "the aforementioned town of Cercedol, although the lack of documents don't clearly confirm this. What does seem more probable is "
+    . "the existence of a parish named Sta. Maria de Gausac, which is first documented in the year 1201 and subsequently in 1272, ";
+
+
+$translate["HISTORIA_tx23"] =  "in the papal <A HREF=\"#\" class='xxxtooltip'  title=\"Bula:\n Letra pontificia expedida por la curia romana, "
     . "relativa a materia de fe o de inter&eacute;s general, concesi&oacute;n de gracias, privilegios, etc.\" "
-    . "style=\"cursor: help\" CLASS=\"nobold\">bula</A> papal de Calixte II. "
-    . "De hecho, en tiempos de la <A HREF=\"#\" class='mmtooltip'  title=\"Quadra:\n (Catal&aacute;n) "
-    . "Peque&ntilde;o n&uacute;cleo de poblaci&oacute;n. Distrito especial dentro del t&eacute;rmino de un castillo.\" "
-    . " style=\"cursor: help\" CLASS=\"nobold\">Quadra de Vilanova</A>, "
-    . "el lugar donde los habitantes de esta Quadra se reun&iacute;an no era en St. Vicen&ccedil; de Cercedol, sino en "
-    . "Sta. Maria de Gausac, que m&aacute;s tarde se llamar&aacute; Sta. Maria del Bosc y que actualmente es la Ermita de "
-    . "Sant Adjutori, situada muy cerca de Can Borrell.";
+    . "style=\"cursor: help\" CLASS=\"nobold\">bula</A> of Calixte II. In fact, in the times of la "
+    . "<A HREF=\"#\" class='mmtooltip'  title=\"Quadra:\n (Catal&aacute;n) Peque&ntilde;o n&uacute;cleo de poblaci&oacute;n. Distrito especial dentro del t&eacute;rmino de un castillo.\" "
+    . " style=\"cursor: help\" CLASS=\"nobold\">Quadra de Vilanova</A>, the place where this Quadra gathered was not in St. "
+    . "Vicenç de Cercedol, but in Sta. Maria de Gausac, which later on would be called Sta. Maria del Bosc and is currently the Ermita de "
+    . "Sant Adjutori, situated very near Can Borrell";
+
+    
 $translate[""] =  "";
 $translate[""] =  "";
-$translate["Note: Definicions extretes del Diccionari de la llengua catalana de l'<I>Institut d'Estudis Catalans. Edici&oacute; 1995</I>"] =  "Nota: Definiciones extraidas del Diccionari de la llengua catalana de l'Institut d'Estudis Catalans. Edición 1995.";
+$translate["Nota: Definicions extretes del Diccionari de la llengua catalana de l'<I>Institut d'Estudis Catalans. Edici&oacute; 1995</I>"] 
+    =  "Nota: Definitions taken from the \"Diccionari de la llengua catalana de l'<I>Institut d'Estudis Catalans. Edici&oacute; 1995\"</I>";
 
 
 //  hostoria1 -------------------------------------------------------------
-$translate["La pagesia catalana:<br>els Mansus com Can Borrell"] =  "La pagesia catalana:<br>los Mansus como Can Borrell";
+$translate["La pagesia catalana:<br>els Mansus com Can Borrell"] =  "The Catalan peasantry:  
+The Mansus such as Can Borrell ";
 
 $translate["Can Borrell és una de les masies que ha tingut una llarga tradició agrícola i rural al llarg dels segles. 
   En són una bona mostra els camps de conreu que envolten la finca. Un d'ells, considerat dels més grans en el conjunt 
@@ -103,7 +101,7 @@ $translate["La masia de Can Borrell però, és de les poques amb
 
 //  hostoria2 -------------------------------------------------------------
 
-$translate["La Quadra de Vilanova<br>(sigles XIV-XVIII)"] =  "La Quadra de Vilanova<br>(siglos XIV-XVIII)";
+$translate["La Quadra de Vilanova<br>(sigles XIV-XVIII)"] =  "La Quadra de Vilanova<br>(century XIV – XVIII)";
 
 $translate["Un dels elements que tenen rellevància en l'etapa feudal, són les Quadres. Una Quadra és un conjunt 
   de propietats d'un senyor feudal que, tot i estar adscrites a un castell termenat, té un tractament especial 
@@ -146,7 +144,7 @@ $translate["Els Palou ostentaren la propietat de la Quadra fins a finals del seg
 
 //  hostoria3 -------------------------------------------------------------
 
-$translate["La Masia de Can Borrell"] =  "La Masia de Can Borrell";
+$translate["La Masia de Can Borrell"] =  "The Can Borrell Country House";
 
 
 $translate["Els primers referents històrics d'assentaments humans a l'indret on avui en dia se situa Can Borrell, porten a recapitular 
@@ -179,7 +177,7 @@ $translate["El pas d'excursionistes i gent va fer que es comencessin a servir es
 
 
 //  hostoria4 -------------------------------------------------------------
-$translate["Fonts"] =  "Fuentes";
+$translate["Fonts"] =  "Sources";
 
 
 $translate["Les informacions s'han extret de"] =  "La información se ha extraído de";
@@ -206,7 +204,7 @@ span class='llista'>editado por GAL ART el 1999</span>";
 //  hostoria5 -------------------------------------------------------------
 
 
-$translate["Agraïments"] =  "Agradecimientos";
+$translate["Agraïments"] =  "Aknowledgements";
 
 $translate["Amb la col·laboració del Parc de Collserola
 i amb l'especial ajuda de <b>Silvia Mampel</b>,

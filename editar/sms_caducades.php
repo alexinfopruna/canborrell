@@ -15,11 +15,11 @@ function sms_caducades()
 	/******************************************************************************/	
    //  $query_reserves = "SELECT * FROM reserves WHERE data_limit <= ADDDATE(CURDATE(), INTERVAL 0 DAY) AND data_limit >=CURDATE() AND data >=CURDATE()  AND estat=2 AND data>=CURDATE() AND  (num_1<1000 OR num_1<=>NULL) AND  (num_2<>666 OR num_2<=>NULL)";
      $query_reserves = "SELECT * FROM reserves WHERE data_limit < CURDATE() AND data_limit>'2008-01-01' AND estat=2";
-    $reserves = mysqli_query( $canborrell, $query_reserves) or die(((is_object($GLOBALS["___mysqli_ston"])) ? mysqli_error($GLOBALS["___mysqli_ston"]) : (($___mysqli_res = mysqli_connect_error()) ? $___mysqli_res : false)));
-    $nr=mysqli_num_rows($reserves);
-echo "<br/><br/>CADUCADES (SMS)<br/>";
-echo $query_reserves;
-    echo "<br/><br/><br/>";
+    $reserves = mysqli_query($canborrell, $query_reserves) or die(((is_object($GLOBALS["___mysqli_ston"])) ? mysqli_error($GLOBALS["___mysqli_ston"]) : (($___mysqli_res = mysqli_connect_error()) ? $___mysqli_res : false)));
+  $nr = mysqli_num_rows($reserves);
+  echo "<br/><br/>CADUCADES (SMS)<br/>";
+  echo $query_reserves;
+  echo "<br/><br/><br/>";
     if (!$nr) return "NO HI HA CADUCADES";
 	$mensa="";
 	//$mensa="ENVIEM SMS RESERVES CADUCADES. TROBATS $nr REGISTRES";
@@ -27,10 +27,26 @@ echo $query_reserves;
     {
 			ereg( "([0-9]{2,4})-([0-9]{1,2})-([0-9]{1,2})", $row['data'], $mifecha); 
 			$lafecha=$mifecha[3]."/".$mifecha[2]; 
-			$sms_mensa="SU SOLICITUD DE RESERVA EN CAN BORRELL PARA EL $lafecha (ID".$row["id_reserva"].") HA CADUCADO. Can Borrell NO GARANTIZA LA DISPONIBILIDAD DE MESA PARA EL GRUPO!!";
-			if (SMS_ACTIVAT) 
+			//$sms_mensa="SU SOLICITUD DE RESERVA EN CAN BORRELL PARA EL $lafecha (ID".$row["id_reserva"].") HA CADUCADO. Can Borrell NO GARANTIZA LA DISPONIBILIDAD DE MESA PARA EL GRUPO!!";
+			
+                                                                                    $args[]=$lafecha;
+                                                                                    $args[]=$row["id_reserva"];
+                                                                                    $sms_mensa = "LA SOL·LICITUD DE RESERVA A CAN BORRELL PER AL %s (ID%s HA CADUCAT. Can Borrell NO GARANTITZA LA DISPONIBILITAT DE TAULA PER AL GRUP!!";
+                                                                                    $sms_mensa = gestor_reserves::SMS_language($sms_mensa,$row['lang'],$args);
+
+//$sms_mensa = $this->lv("LA SOL·LICITUD DE RESERVA A CAN BORRELL PER AL %s (ID%s HA CADUCAT. Can Borrell NO GARANTITZA LA DISPONIBILITAT DE TAULA PER AL GRUP!!");
+                                                                                    //$sms_mensa = sprintf($mensa, $lafecha,$row["id_reserva"]);
+
+                                                                                    if (SMS_ACTIVAT) 
 			{
 				
+                                                                                            $args[]=$dataSMS;
+                                                                                            $args[]=$hora;
+                                                                                            $args[]=$coberts;
+                                                                                            $args[]=$idr;
+                                                                                            $mensa = "Recordi: reserva al Restaurant Can Borrell. %s %s (%s).Preguem comuniqui qualsevol canvi: 936929723/936910605.Gràcies.(ID%s)";
+                                                                                            $mensa = gestor_reserves::SMS_language($mensa, $lang, $args);
+
 				enviaSMS_caducades($row['tel'],$sms_mensa);
        			$mensa.="CADUCADA ".$row["id_reserva"]." - SMS ENVIAT tel: ".$row['tel']." \\n";
 			}

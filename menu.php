@@ -31,7 +31,7 @@ $main_menu_elements = array(
   array('link' => 'historia', 'txt' => 'HISTORIA'),
   array('link' => 'premsa', 'txt' => 'PREMSA'),
   array('link' => 'horaris', 'txt' => 'HORARI'),
-  array('link' => 'reservar', 'txt' => 'RESERVES'),
+  array('link' => 'reservar/form.php', 'txt' => 'RESERVES'),
 );
 
 /* * *************************************** */
@@ -68,7 +68,8 @@ function active($desti, $lang = 'ca') {
   }
   else {
     $regex = !is_array($v) ? $v : '(' . implode('|', $v) . ')';
-    $match = preg_match('/' . $regex . '/i', $filename);
+    
+    $match = preg_match('/' . $regex . '$/i', $filename);
   }
 
   if ($match) {
@@ -114,9 +115,19 @@ function sub_menu($elements, $lang) {
   $submenu = '';
   $submenu .= '<ul id="submenu" class="submenu submenu-1">';
 
+  
+  
+    $parts = pathinfo($_SERVER['REQUEST_URI']);
+  $filename = $parts['filename'];
+  $filename = preg_split('/(?=\.[^.]+$)/', $filename);
+  $filename = $filename[0];
+
   foreach ($elements as $k => $v) {
     $n++;
-    $class = active($v['link'], $lang) ? 'menu-active' : '';
+    
+     $match = preg_match('%' . $v['link'] . '$%i', $_SERVER['REQUEST_URI'] );
+     $class = $match? 'menu-active' : '';
+    
     $submenu .= '<li class="submenu-element sml1 sm1' . $n . ' ' . $class . '">';
     $submenu .= '<a href="' . $v['link'] . '"  class="submenu-link sml1 sm1' . $n . '">';
     $submenu .= lv($v['txt']);
@@ -140,13 +151,15 @@ function menu_idiomes() {
   else
     $url = $matches[$s - 1];
 
-
+  $active_ca=$_SESSION['lang']=='ca'?'active':'';
+  $active_es=$_SESSION['lang']=='es'?'active':'';
+  $active_en=$_SESSION['lang']=='en'?'active':'';
   $out = <<<EOT
-      
+
    <div id="language-menu" style="">
-        <a href="/ca$url">ca</a> | 
-        <a href="/es$url">es</a> | 
-        <a href="/en$url">en</a>
+        <a href="/ca$url" class="$active_ca">ca</a> | 
+        <a href="/es$url" class="$active_es">es</a> | 
+        <a href="/en$url" class="$active_en">en</a>
 </div>   
 EOT;
 

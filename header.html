@@ -18,7 +18,7 @@
                 <form class="navbar-form navbar-right" action="reservar/form.php">
 
                     <div class="form-group">
-                        <input type="text" placeholder="Data de reserva" id="top-datepicker" class="form-control">
+                        <input type="text" name="rdata" placeholder="<?php l('Data de reserva') ?>" id="top-datepicker" class="form-control">
                         <button type="submit" class="btn btn-success"><?php l("Reservar") ?></button>
                     </div>
 
@@ -47,7 +47,7 @@
     
     
     ?>
-    <span style="" class="apartat">&#10171; <?php   echo apartat($main_menu_elements); ?> </span>
+    <span style="" class="apartat">&#10171; <?php   echo lv(apartat($main_menu_elements)); ?> </span>
 
     <div class="c-b" style=""></div>
 </nav>

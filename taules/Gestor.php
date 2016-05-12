@@ -629,16 +629,18 @@ class Gestor {
   /*   * ************************************************************************************** */
 
   public static function cambiaf_a_mysql($fecha) {
-
     $fecha = str_replace("-", "/", $fecha);
     preg_match('/([0-9]{1,2})\/([0-9]{1,2})\/([0-9]{2,4})/', $fecha, $mifecha);
-
-    if (strlen($mifecha[3]) != 4) {
+    
+    if (!isset($mifecha[3])) return $fecha;
+    if ( strlen($mifecha[3]) != 4) {
       $fecha = str_replace("/", "-", $fecha);
       return $fecha;
     }
     else
       $lafecha = $mifecha[3] . "-" . str_pad($mifecha[2], 2, '0', STR_PAD_LEFT) . "-" . str_pad($mifecha[1], 2, '0', STR_PAD_LEFT);
+    //print_r($mifecha);
+//echo $fecha;die();
 
     return $lafecha;
   }
@@ -1018,10 +1020,13 @@ class Gestor {
       $lang = $_SESSION['lang'];
     if (isset($_GET['lang']))
       $lang = $_GET['lang'];
+    
+    $language = preg_replace('%^/(\w+?)/.*$%', '$1', $_SERVER["REQUEST_URI"]);
+       
+    if (in_array($language, array('ca','es','en'))) $lang = $language;
 //$_SESSION['lang'] = $lang;  
     
-    
-
+    $_SESSION['lang'] = $lang;
     return Gestor::codelang($lang);
   }
 

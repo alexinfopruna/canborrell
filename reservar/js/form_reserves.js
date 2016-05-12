@@ -81,6 +81,19 @@ if (!Array.prototype.indexOf)
 
 $(function () {
 
+
+    $(window).on('resize', function(){
+        jQuery("#container").css("margin-top",jQuery(".navbar-header").height());
+    }).resize();
+    
+        $('.navbar-toggle').click(function () {
+       //$('#navbar').toggleClass('collapse');
+       if ($('#navbar').is(':visible'))
+        $('#navbar').hide("slow");
+    else
+        $('#navbar').show("slow");
+  });
+
     /* popupGrups */
     $("#popupGrups").dialog({
         autoOpen: false,
@@ -271,9 +284,18 @@ $(function () {
         if (datos == "backup" && permisos > 64)
             alert("S'ha realitzat una còpia de la base de dades");
     });
-
+   
+   // Si ens passen la data
+   if (typeof rdata != 'undefined')  setCalendDate(rdata);
+   if (typeof obre_contacte != 'undefined')  {
+       $("#a_consulta_online.r-petita").click();
+      // $("#caixa_reserva_consulta_online").css("background-color",'yellow').delay(3).css("background-color",'gold');
+        $("#caixa_reserva_consulta_online").dialog({modal:true});
+   }//click();
+   
+   
 }); //ONLOAD, PRESENTACIO UI
-/************************************************************************************************************/
+//***********************************************************************************************************/
 /************************************************************************************************************/
 /************************************************************************************************************/
 /************************************************************************************************************/
@@ -306,6 +328,7 @@ function comportamentQuantsSou()
     SECCIO = "fr-seccio-quants";
     //update_debug();
     $(".fr-seccio-quants").change(function (e) {
+        
         ADULTS = $("input[name='selectorComensals']:checked").val();
         $("input[name='adults']").val(ADULTS)
         totalPersones();
@@ -320,6 +343,11 @@ function comportamentQuantsSou()
             SECCIO = "fr-seccio-dia";
             updateCalendari();
         }
+        else{
+            //comportamentDia();
+           // $("#calendari").change();
+        }
+        
     });
 
     $("input[name=selectorComensals]").change(function (e) {
@@ -1156,8 +1184,19 @@ function avis_modificacions(e) {
     $("#avis-modificacions .tanca-avis a").click(function () {
         $("#avis-modificacions-overlay").removeClass("anima-avis");
         $("#avis-modificacions").removeClass("anima-avis");
-        $.scrollTo("#titol_SelectorJuniors", 600);
-        SECCIO = 'fr-seccio-dia';
+        
+        if (typeof rdata != 'undefined'){
+           comportamentDia();
+            $("#calendari").change();
+        }
+        else{
+             $.scrollTo("#titol_SelectorJuniors", 600);
+            SECCIO = 'fr-seccio-dia';
+        }
+        
+        
+        
+        
     });
 }
 
@@ -1175,3 +1214,20 @@ var getUrlParameter = function getUrlParameter(sParam) {
         }
     }
 };
+
+function setCalendDate(date){
+              monta_calendari("#calendari");
+              
+             var dt=new Date(date);
+            // alert(date);
+            $(".fr-seccio-dia").show();
+            SECCIO = "fr-seccio-dia";
+            updateCalendari();  
+             $('#calendari').datepicker("setDate", dt );
+            comportamentQuantsSou();
+            //$.scrollTo("#table_menu", 600);
+            window.scrollTo(0, 0);
+           // comportamentDia();
+
+   
+}

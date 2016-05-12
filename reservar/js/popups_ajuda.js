@@ -101,7 +101,7 @@ function timer_help()
 function help(txt) {
     if ($.browser.name == "opera")
         $("#td_contingut").addClass("fals-overlay");
-    
+    if (dialog_opened())    return;
     if (txt) {
         txt = txt+ '<p><button class="simplemodal-close ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" role="button" aria-disabled="false"><span class="ui-button-text">'+l("Tanca")+'</span></button></p>';
         $("#osx-modal-data").html(txt);
@@ -111,7 +111,7 @@ function help(txt) {
 
 function dialog_opened() {
     if ($("#popup").dialog("isOpen"))       return true;
-    //if ($("#help").dialog("isOpen"))        return true;
+    if ($("#caixa_reserva_consulta_online").is(":visible")) return true;
     if ($("#osx-modal-content").is(":visible")) return true;
     if ($("#popupGrups").dialog("isOpen"))  return true;
 

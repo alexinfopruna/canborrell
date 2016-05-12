@@ -2,6 +2,14 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="4">
         <file>
+            <url>taules/js/taules.js</url>
+            <bookmark id="1">
+                <name/>
+                <line>783</line>
+                <key/>
+            </bookmark>
+        </file>
+        <file>
             <url>editar/detall.php</url>
             <bookmark id="3">
                 <name/>
@@ -18,31 +26,12 @@
             <url>reservar/js/form_reserves.js</url>
             <bookmark id="4">
                 <name/>
-                <line>1122</line>
-                <key/>
-            </bookmark>
-        </file>
-        <file>
-            <url>taules/js/taules.js</url>
-            <bookmark id="1">
-                <name/>
-                <line>783</line>
+                <line>1150</line>
                 <key/>
             </bookmark>
         </file>
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group>
-            <file>file:/var/www/canborrell/reservar/confirmada_es.lbi</file>
-            <file>file:/var/www/canborrell/editar/caducades.php</file>
-            <file>file:/var/www/canborrell/reservar/translate_es.php</file>
-            <file>file:/var/www/canborrell/reservar/cancelada_es.lbi</file>
-            <file>file:/var/www/canborrell/multilang.php</file>
-            <file>file:/var/www/canborrell/reservar/Gestor_form.php</file>
-            <file>file:/var/www/canborrell/taules/gestor_reserves.php</file>
-            <file>file:/var/www/canborrell/reservar/contactar_restaurant_es.lbi</file>
-            <file>file:/var/www/canborrell/taules/Gestor.php</file>
-            <file>file:/var/www/canborrell/editar/apdeit.php</file>
-        </group>
+        <group/>
     </open-files>
 </project-private>

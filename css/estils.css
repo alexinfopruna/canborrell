@@ -9,25 +9,32 @@ body
    // background-image:url(img/fons.gif);
     margin-top:0;
     
-  //      background: -webkit-linear-gradient(#E3DCC9, #67492C); /* For Safari 5.1 to 6.0 */
-  //  background: -o-linear-gradient(#E3DCC9, #B39E89); /* For Opera 11.1 to 12.0 */
-  //  background: -moz-linear-gradient(#E3DCC9, #B39E89); /* For Firefox 3.6 to 15 */
-  //  background: linear-gradient(#E3DCC9, #B39E89); /* Standard syntax (must be last) */
-
-    background: -webkit-linear-gradient(#ECE2C4, #C7A98A); /* For Safari 5.1 to 6.0 */
-    background: -o-linear-gradient(#ECE2C4, #C7A98A); /* For Opera 11.1 to 12.0 */
-    background: -moz-linear-gradient(#ECE2C4, #C7A98A); /* For Firefox 3.6 to 15 */
-    background: linear-gradient(#ECE2C4, #C7A98A); /* Standard syntax (must be last) */
-    
-    background-attachment: fixed;
-    
+ background-image: url(../css/img/fons.gif);
 }
 
+body.front{
+   background-image: url(img/floral_bg2.png);
+   background:  url(img/floral_bg2.png), -webkit-linear-gradient(#ECE2C4, #C7A98A); /* For Safari 5.1 to 6.0 */
+    background:  url(img/floral_bg2.png),-o-linear-gradient(#ECE2C4, #C7A98A); /* For Opera 11.1 to 12.0 */
+    background:  url(img/floral_bg2.png),  -moz-linear-gradient(#ECE2C4, #C7A98A); /* For Firefox 3.6 to 15 */
+    background:  url(img/floral_bg2.png), linear-gradient(#666, #444); /* Standard syntax (must be last) */
+   // background-color: red;
+   // background:  url(img/floral_bg3.png), #000;
+    
+    
+    background-attachment: fixed;
+}
+/*
+header, #cos, #content{
+    -webkit-filter: grayscale(100%);
+	filter: grayscale(100%);
+}
+*/
 a, li, button, img{
-  -webkit-transition: all 0.4s ease-in-out;
-  -moz-transition: all 0.4s ease-in-out;
-  -o-transition: all 0.4s ease-in-out;
-  transition: all 0.4s ease-in-out;
+  -webkit-transition: all 0.4s ease;
+  -moz-transition: all 0.4s ease;
+  -o-transition: all 0.4s ease;
+  transition: all 0.4s ease;
 }
 
 
@@ -45,11 +52,11 @@ a, li, button, img{
 }
 
 .row{
-    border-left: #666 solid 1px;
-    border-right: #666 solid 1px;
+    //border-left: #666 solid 1px;
+   // border-right: #666 solid 1px;
     -moz-box-shadow: 0px 12px 8px #444;
     -webkit-box-shadow: 0px 12px 8px #444;
-    box-shadow: 0px 12px 8px #444;
+    box-shadow: 0px 12px 48px #000;
 }
 
 TD
@@ -156,8 +163,12 @@ img.txt-foto-isqui{
 }
 
 
-.galeria img{margin-right:0px;
-            margin-bottom: 8px;
+.galeria img{margin-right:10px;
+            margin-bottom: 10px;
+            
+    width: 92px;
+    height: 92px;
+    border-radius: 12px;
             //border: #222 solid 2px;
 border: #fff solid 6px;
     -moz-box-shadow: 2px 2px 2px #ccc;
@@ -423,12 +434,13 @@ UL {
 
 #nav-main-menu{
     background-color: black;
-    height:22px;
+    height:24px;
     padding:1px;
     color: white;
     font-size: 16px;
     //font-weight: bold;
     padding-left:25px;
+    padding-top:2px;
     overflow: hidden;
     
 }
@@ -544,13 +556,12 @@ ul.submenu{
     font-weight: 100;
 }
 #language-menu a:hover{
-    
-  border-bottom: #ccc solid 6px;
+  //border-bottom: #ccc solid 6px;
   background-color: #444; 
-
-
 }
-
+#language-menu a.active{
+    border-bottom: #ccc solid 4px;
+}
 
 .novetat
 {
@@ -609,7 +620,7 @@ footer{
     padding: 10px;
     padding-left:20px;
     padding-bottom:20px;
-    mrgin-top: 50px;
+    //margin-top: 70px;
 }
 
 footer #datepicker{
@@ -630,7 +641,7 @@ footer li{
 /**********************************************************/
 /**********************************************************/
 @media (min-width: 768px){
-    
+    .col-md-2{float:left;}
 #submenu-toggle{display:none}
 }
 /**********************************************************/
@@ -651,6 +662,10 @@ footer #main-menu li{
 /**********************************************************/
 
 @media (max-width: 768px){
+    .row{
+        margin:auto;
+    }
+    
     .navbar-form{display:none;}
     //#navbar.collapse.in{display:initial}
     #submenu-toggle{
@@ -660,7 +675,7 @@ footer #main-menu li{
     top: 250px;
     position: relative  !important;;
     z-index: 1000;
-    background-color: #676767;
+    background-color: #333;
     border-color:transparent;
     border:none  !important;
     padding: 8px;
@@ -668,6 +683,9 @@ footer #main-menu li{
     
     }
     
+    .submenu-element.menu-active {
+        background-color: #666;
+    }
     #submenu-toggle:hover{
         background-color: #444;
         border:none  !important;
@@ -683,7 +701,7 @@ footer #main-menu li{
   }
   
   .submenu.col-md-2 {
-      background-color: #676767;
+      background-color: #333;
     width: 50%;
 }
 
@@ -726,6 +744,12 @@ footer #main-menu li{
   }
 
 
+  img.txt-foto-isqui,  img.txt-foto-dere{
+      float:none;
+      margin:auto;
+      margin-bottom:15px;
+  }
+  
 }
 
 
@@ -764,3 +788,11 @@ footer #main-menu li{
     background-color: #333;
     border-color: #000;
 }
+
+/*
+#cos { overflow: hidden; padding-bottom:50px;}
+#cos .col {
+ 
+  float: left;
+}
+*/

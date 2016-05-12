@@ -4,8 +4,13 @@
                 <!----------------------------------------------------------------------------------------->
                 <!----------------------------------------------------------------------------------------->
                 
-                <div class="submenu col-md-2 sidebar-offcanvas" id="sidebar">
- <button type="button" id="submenu-toggle" class="btn btn-primary btn-xs" data-toggle="offcanvas" style="">Toggle nav</button>
+                <div class="submenu col-md-2 sidebar-offcanvas col" id="sidebar">
+                    <button type="button" id="submenu-toggle" class="btn btn-primary btn-xs" data-toggle="offcanvas" style="">
+                                        <span class="sr-only"><?php l("Desplega menú") ?></span>
+                <span class="icon-bar" style='font-weight: bold;font-size: 18px;'>| | |</span>
+                        
+                        
+                    </button>
                                    <?php
                     if (isset($submenu_elements))  echo sub_menu($submenu_elements, $lang);
                     if (isset($submenu_peu))  echo $submenu_peu;

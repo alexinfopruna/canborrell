@@ -2,9 +2,7 @@
 
 /* 
  * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- 
+ * To change this template file, choose Tools | Templatesxº
 
 FIRST- ENTRANTES
 Home Macaroni / Macarrones de la casa
@@ -22,7 +20,7 @@ Home snails / Caracoles de la casa
 Assorted pates / Surtido de patés
 Anchovies / Anchoas de la Escala
 Pineapple with ham / Piña con jamón
-Lettuce cores with tuna and anchovies / Cogollos con atún y anchoas
+Lettuce cores with tuna and anchovies / Cogollos con atún y anchoascor
 Melon with ham / Melón con jamón
 Roast snails / Caracoles a la "llauna"
 MEAT- CARNES

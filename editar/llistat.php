@@ -219,6 +219,8 @@ else
         </script>
         <style type="text/css">
             td a, td a:visited, td a:link {color:#ccc} 
+            
+            .llista.mail_no a:hover{padding-right:5px}
 td a:hover {color:white} 
             .EXIT{color:green}
             .ERROR{color:RED}

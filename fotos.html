@@ -11,7 +11,13 @@ $bg_id=2;
 <link rel="stylesheet" href="/js/lightbox2-master/src/css/lightbox.css">
 <style>
     #content{padding:30px;}
-    .im1 img{margin-right:10px;}
+  //  .im1 img{margin-right:10px;}
+  img{width: 92px;height:92px;
+      //position:absolute;
+  //clip: rect(92px);
+  }
+  .grid-item { width: 200px; }
+.grid-item--width2 { width: 400px; }
 </style>
 <?php
 $html= <<<EOT
@@ -19,26 +25,46 @@ $html= <<<EOT
 <h2 class="titol">{$fnl("Fotos de l'exterior")}</h2>
 
 
-<div style="padding-top:60px;"></div>
+<div class="grid" style="padding-top:30px;"></div>
+
+
 <a href="../img/f_exterior_1.jpg" data-lightbox="fotos-set" class="txt-foto-dere c-b galeria im1"><img src="../img/f_exterior_1pt.jpg" ></a>
-<a href="../img/f_exterior_2.jpg" data-lightbox="fotos-set" class="galeria im2"><img src="../img/f_exterior_2pt.jpg" ></a>
-<a href="../img/f_exterior_3.jpg" data-lightbox="fotos-set" class="galeria im3 "><img src="../img/f_exterior_3pt.jpg" ></a>
-<a href="../img/f_exterior_4.jpg" data-lightbox="fotos-set" class="galeria im4 "><img src="../img/f_exterior_4pt.jpg" ></a>
-<a href="../img/f_exterior_5.jpg" data-lightbox="fotos-set" class="galeria im5 "><img src="../img/f_exterior_5pt.jpg" ></a>
-<a href="../img/f_exterior_6.jpg" data-lightbox="fotos-set" class="galeria im6 "><img src="../img/f_exterior_6pt.jpg" ></a>
-<a href="../img/f_exterior_7.jpg" data-lightbox="fotos-set" class="galeria im7 "><img src="../img/f_exterior_7pt.jpg" ></a>
-<a href="../img/f_exterior_8.jpg" data-lightbox="fotos-set" class="galeria im8 "><img src="../img/f_exterior_8pt.jpg" ></a>
+<a href="../img/f_exterior_2.jpg" data-lightbox="fotos-set" class="grid-item galeria im2"><img src="../img/f_exterior_2pt.jpg" ></a>
+<a href="../img/f_exterior_3.jpg" data-lightbox="fotos-set" class="grid-item galeria im3 "><img src="../img/f_exterior_3pt.jpg" ></a>
+<a href="../img/f_exterior_4.jpg" data-lightbox="fotos-set" class="grid-item galeria im4 "><img src="../img/f_exterior_4pt.jpg" ></a>
+<a href="../img/f_exterior_5.jpg" data-lightbox="fotos-set" class="grid-item galeria im5 "><img src="../img/f_exterior_5pt.jpg" ></a>
+<a href="../img/f_exterior_6.jpg" data-lightbox="fotos-set" class="grid-item galeria im6 "><img src="../img/f_exterior_6pt.jpg" ></a>
+<a href="../img/f_exterior_7.jpg" data-lightbox="fotos-set" class="grid-item galeria im7 "><img src="../img/f_exterior_7pt.jpg" ></a>
+
+
+<a href="../img/f_exterior_8.jpg" data-lightbox="fotos-set" class="grid-item galeria im8 "><img src="../img/f_exterior_8pt.jpg" ></a>
+<a href="../img/f_exterior_5.jpg" data-lightbox="fotos-set" class="grid-item galeria im5 "><img src="../img/f_exterior_5pt.jpg" ></a>
+<a href="../img/f_exterior_6.jpg" data-lightbox="fotos-set" class="grid-item galeria im6 "><img src="../img/f_exterior_6pt.jpg" ></a>
+<a href="../img/f_exterior_7.jpg" data-lightbox="fotos-set" class="grid-item galeria im7 "><img src="../img/f_exterior_7pt.jpg" ></a>
 
 
 <div style="padding-top:60px;" class="c-b"></div>
 
 <script src="/js/lightbox2-master/src/js/lightbox.js"></script> 
+<script src="/js/masonry.pkgd.min.js"></script> 
+<script src="https://npmcdn.com/imagesloaded@4.1/imagesloaded.pkgd.min.js"></script>
 <script>
 lightbox.option({
 'resizeDuration': 200,
 'wrapAround': true,
 'showImageNumberLabel': false
 })
+
+$('.grid').imagesLoaded( function() {
+alert("EEE");
+jQuery('.grid').masonry({
+  // options
+  itemSelector: '.grid-item',
+  columnWidth: 100
+});
+});
+
+
 </script>
 
 EOT;

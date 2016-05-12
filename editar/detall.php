@@ -166,7 +166,7 @@ td{border:white solid 3px;}
 </style>
 </head>
 
-    <body>
+    <body class="back">
 <span us-spinner="{radius:30, width:8, length: 16}"></span>		
 <table width="775" border="0" align="center" cellpadding="0" cellspacing="0" bgcolor="#F8F8F0">
   <tr>
