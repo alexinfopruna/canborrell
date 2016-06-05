@@ -3,69 +3,70 @@ if (!isset($lang)) $lang='cat';
 if (!isset($PERSONES_GRUP)) $PERSONES_GRUP=12;
 
 
-$translate['INFO_COMANDA_GRUPS']="En las reservas de grupos debes escoger, como mínimo, un menú para cada comensal (contando adultos, juniors y niños";
-$translate['Escull els menús']="Elige los menús";
- $translate['Veure els menús']='Ver los menús';
+$translate['INFO_COMANDA_GRUPS']="In group reservations you should choose, at least, one menu for each diner (counting adults, juniors and children)";
+$translate['Escull els menús']="Choose menus";
+ $translate['Veure els menús']='See menus';
 
-$translate['INFO_QUANTS_SOU_GRUPS']='<b>Dinos cuantas personas vendrán,</b> indicando en primer lugar los mayores de 14 años. Indica también el número de juniors y niños. 
+$translate['INFO_QUANTS_SOU_GRUPS']='<b>Tell us how many people will come, indicate firstly people over 14 years of age. Also, mark the number of juniors and children. 
 		<br/> <br/>
-<b>Reservaremos espacio para los comensales que nos indicas aquí. La reserva no será válida para un número de persones que no coincida con el solicitado</b>
+<b>We will reserve spaces for the number of diners shown here. The reservation will not be valid for a number of people that does not coincide with the reservation request. </b>
 			 <br/>
-		<b>(NO PODEMOS GARANTIZAR LA DISPONIBILIDAD DE TRONAS).</b><br/>
+		<b>(WE CANNOT GUARANTEE THE AVAILABILITY OF HIGH CHAIRS).</b><br/>
 <br/> <br/>
-		Solo aceptamos perros guía acompañando a invidentes
+		We only allow access to guide dogs accompanied by blind people 
 <br/> <br/>
-		<em> Si, en total, sois menos de <b> '. ($PERSONES_GRUP ).'</b> personas, marca el botón "<='. ($PERSONES_GRUP-1 ).'" </em> <br/> <br/>
-<b> TOTAL PERSONAS: ';
+		<em> If, in total, you are less than <b> '. ($PERSONES_GRUP ).'</b> people, mark the "<='. ($PERSONES_GRUP-1 ).'" </em> <br/> <br/>
+<b> TOTAL PEOPLE: ';
 
-	$translate['INFO_CARTA_GRUPS']='Debes indicar el menú para los adultos.
-	<br/><strong style="font-size:1.2em">Si han de venir niños/junior, es necesario que indiques también qué menú queréis para ellos</strong>
+	$translate['INFO_CARTA_GRUPS']='You should indicate the adults’ menu.
+	<br/><strong style="font-size:1.2em"> If you are accompanied by children/juniors, you also need to indicate the menu you would like for them </strong>
 			<br/><br/>
-Para vegetarianos disponemos de un menú de verduras a la brasa por 25€. Añade un comentario en el campo <b>Observaciones</b>, en el siguiente paso, para hacérnoslo saber.';
+For vegetarians we have a menu of grilled vegetables for 25€. Add a commentary in the <b>Other Information</b> field on the next stage of the reservation so that we are informed';
      
 
         
         
-$translate['Escull el menú']='Escoge el menú';
-$translate['Menú per a adults']='Menú para adultos';
-$translate['Menú per a juniors']='Menú para juniors (niños de 10 a 14 años)';
-$translate['Menú per a nens']='Menú para niños (niños de 4 a 9 años)';
+$translate['Escull el menú']='Choose the menu';
+$translate['Menú per a adults']='Menu for adults';
+$translate['Menú per a juniors']='Menu for juniors (children from 10 to 14 years old)';
+$translate['Menú per a nens']='Menu for children (children from 4 to 9 years old)';
 
 
-$translate['ALERTA_INFO_GRUPS']='La <b>solicitud</b> de reserva ha sido enviada.
+$translate['ALERTA_INFO_GRUPS']='The reservation <b>request</b> has been sent.
 <br/><br/>
-<b>Esto NO significa que esté confirmada</b>.
+<b>this does NOT mean that it is confirmed. </b>.
 <br/><br/>
-Tenemos que verificar la disponibilidad de mesa para el dia que has solicitado. 
-En breve recibirás un correo electrónico en el que te informaremos de si, finalmente, hemos podido reservar mesa para vosotros y cómo continuar el proceso para confirmar la reserva<br/> <br/>
-Revisa tu correo en las próximas horas y ten presente que <b>TODAVIA NO ESTÁ CONFIRMADA LA RESERVA</b>
+We have to verify the availability of a table for the date you have requested.  
+hortly you will receive an email informing you if we have been able to reserve a table for you and how to continue 
+the process to confirm the reservation 
+Check your emails in the following two or three hours and be aware that the <b>RESERVATION IS NOT YET CONFIRMED</b>
 
 <br/><br/>
 <b style="font-size:1.2em">
-Siempre contestamos las solicitudes en un plazo de un día.
-Si pasadas 24 horas no has recibido respuesta puede tratarse de un problema con el correo electrónico.
-Comprueba la carpeta de spam y, si no localizas el mail del restaurante,
-ponte en contacto con nosotros con un correo electrónico y facilítanos:
+we always respond to requests within one day. If in twenty four hours you haven’t 
+received a response it could be due to a problem with the email. 
+Check your spam folder, if you cannot find the restaurants email message contact us by sending an email giving us: 
 <ul>
 <li>
-Otra dirección donde responderte
+Another email address where we can contact you 
 </li>
 <li>
-		Tu nombre
+		Your name
 </li>
 <li>
-La fecha para la que pides la reserva
+The date of the reservation request
 </li>
 <li>
-El número de comensales
+The number of diners 
 </li>
 </ul>
 </b>
 <br/><br/>
-El importe de la paga y señal será descontado del precio final, de manera que no representará un gasto extra, 
-ni en el caso de que modifiquéis el número de comensales al confirmar la reserva.'						
-.'<div class = "info-paga-i-senyal"> Atención: Si no puedes venir el día de la reserva <b>puedes recuperar la paga y señal si nos avisas con 48 horas de \ antelación</b>. En caso contrario, el \ importe abonado no será devuelto </div> '
-.'<br/><br/>Gracias por utilizar este servicio.<br/><br/>';
+The price of the deposit is discounted from your bill, therefore there is no added expense, 
+this applies even if you change the number of diners when confirming the reservation.'					
+.'<div class = "info-paga-i-senyal">Attention: If you cannot come on the day of your reservation <b>Attention: If you cannot come on the day of your reservation your deposit will be refunded if 48 hours \ notice is given. </b>. '
+    . 'Otherwise, the amount paid will not be returned </div> '
+.'<br/><br/>Thank you for using this service.<br/><br/>';
 
 
 
@@ -120,10 +121,10 @@ Crema catalana<br/>
 <B>CAF&Eacute;S, CORTADOS o CARAJILLOS</B><br/>
 <B>CHUPITOS</B>
 <br/>
-<B>PRECIO</B>
+<B>PRICE</B>
 <UL>
-{preu_2001} Euros/unidad adultos (IVA incluido)<br/>
-{preu_2002} Euros/unidad adultos con cava (IVA incluido)<br/>
+{preu_2001} Euros/unidad adultos (including VAT)<br/>
+{preu_2002} Euros/unidad adultos con cava (including VAT)<br/>
 </UL>
 ';
 
@@ -172,10 +173,10 @@ Pastel y cava
 <B>CAF&Eacute;S, CORTADOS o CARAJILLOS</B><br/>
 <B>CHUPITOS</B>
 <br/>
-<B>PRECIO</B>
+<B>PRICE</B>
 <UL>
-{preu_2024} Euros/unidad adultos sin cava (IVA incluido)<br/>
-{preu_2025} Euros/unidad adultos con cava (IVA incluido)<br/>
+{preu_2024} Euros/unidad adultos sin cava (including VAT)<br/>
+{preu_2025} Euros/unidad adultos con cava (including VAT)<br/>
 </UL>';
 
 /*******************************************************************************************/
@@ -229,10 +230,10 @@ Crema catalana<br/
 <B>CAF&Eacute;S, CORTADOS o CARAJILLOS</B><br/>
 <B>CHUPITOS</B>
 <P>&nbsp;<br/>
-<B>PRECIO</B>
+<B>PRICE</B>
 <UL>
-{preu_2003} Euros/unidad adultos sin cava (IVA incluido)<br/>
-{preu_2004} Euros/unidad adultos con cava (IVA incluido)<br/>
+{preu_2003} Euros/unidad adultos sin cava (including VAT)<br/>
+{preu_2004} Euros/unidad adultos con cava (including VAT)<br/>
 </UL>
 ';
 
@@ -285,10 +286,10 @@ Pastel y cava
 <B>CAF&Eacute;S, CORTADOS o CARAJILLOS</B><br/>
 <B>CHUPITOS</B>
 <br/>
-<B>PRECIO</B>
+<B>PRICE</B>
 <UL>
-{preu_2023} Euros/unidad adultos sin cava (IVA incluido)<br/>
-{preu_2027} Euros/unidad adultos con cava (IVA incluido)<br/>
+{preu_2023} Euros/unidad adultos sin cava (including VAT)<br/>
+{preu_2027} Euros/unidad adultos con cava (including VAT)<br/>
 </UL>
 ';
 
@@ -331,9 +332,9 @@ Tarta Selva trufa<br/>
 <B>CAF&Eacute;S, CORTADOS o CARAJILLOS</B><br/>
 <B>CHUPITOS</B>
 <br/>
-<B>PRECIO</B>
+<B>PRICE</B>
 <UL>
-{preu_2012} Euros (IVA incluido)
+{preu_2012} Euros (including VAT)
 </UL>
 ';
 
@@ -390,9 +391,9 @@ Tarta Selva trufa<br/>
 <B>CHUPITOS<br/>
 <br/>
 </B>
-<B>PRECIO</B>
+<B>PRICE</B>
 <UL>
-  {preu_2007} Euros (IVA incluido)
+  {preu_2007} Euros (including VAT)
 </UL>
 ';
 
@@ -444,9 +445,9 @@ Agua y refrescos<br/>
 <B>CAF&Eacute;S, CORTADOS o CARAJILLOS</B><br/>
 <B>CHUPITOS</B>
 <P>&nbsp;<br/>
-<B>PRECIO</B>
+<B>PRICE</B>
 <UL>
-{preu_2013} Euros (IVA incluido)<br/>
+{preu_2013} Euros (including VAT)<br/>
 </UL>
 ';
 
@@ -498,9 +499,9 @@ Agua y refrescos<br/>
 <B>CAF&Eacute;S, CORTADOS o CARAJILLOS</B><br/>
 <B>CHUPITOS</B>
 <br/>
-<B>PRECIO</B>
+<B>PRICE</B>
 <UL>
-{preu_2016} Euros (IVA incluido)<br/>
+{preu_2016} Euros (including VAT)<br/>
 </UL>
 ';
 
@@ -546,9 +547,9 @@ Copa sorbete de limón<br/>
 <B>CAF&Eacute;S, CORTADOS o CARAJILLOS</B><br/>
 <B>CHUPITOS</B>
 &nbsp;<br/>
-<B>PRECIO</B>
+<B>PRICE</B>
 <UL>
-{preu_2010} Euros (IVA incluido)<br/>
+{preu_2010} Euros (including VAT)<br/>
 </UL>
 ';
 
@@ -570,10 +571,10 @@ Copa sorbete de limón<br/>
 <BR>
 Incluyendo los acompañamientos (judias y patatas frits allioli pan tostado con tomate y ajo, bebida y cafés
 <BR><BR>
-<B>PRECIO</B>
+<B>PRICE</B>
 
 
-{preu_990060} Euros (IVA incluido)<BR>
+{preu_990060} Euros (including VAT)<BR>
 ';
 
 
@@ -588,12 +589,12 @@ Incluyendo los acompañamientos (judias y patatas frits allioli pan tostado con 
 	$translate['titol_menu_2037']=$translate['titol_menu_infantil']='Men&uacute; Infantil (ni&ntilde;os de 4 a 9 a&ntilde;os)';
 	$translate['menu_2037']=$translate['menu_infantil']='
 Macarrones, pollo rebozado o croquetas con patatas, refresco y helado<br/>
-12.75 Euros/unidad (IVA incluido)<br/>
+12.75 Euros/unidad (including VAT)<br/>
 &nbsp;<br/>';
 
 	$translate['titol_menu_2036']=$translate['titol_menu_junior']='Men&uacute; Junior (de 10 a 14 a&ntilde;os)';
 	$translate['menu_2036']=$translate['menu_2036']=$translate['menu_junior']='Macarrones o entrem&eacute;s, pollo o butifarra con patatas, refresco y helado<br/>
-17.71 Euros/unidad (IVA incluido)';
+17.71 Euros/unidad (including VAT)';
 
 	$translate['titol_menu_2017']=$translate['titol_menu_inf_comunio']='Men&uacute; Comunión (ni&ntilde;os de 4 a 9 a&ntilde;os)';
 	$translate['menu_2017']=$translate['menu_inf_comunio']='17.66 Euros';
@@ -610,33 +611,12 @@ Macarrones, pollo rebozado o croquetas con patatas, refresco y helado<br/>
 	
         
         
-        $translateJS['MENUS_COMENSALS']="Debes escoger tantos menús como comensales (adultos + juniors + niños)";
+        $translateJS['MENUS_COMENSALS']="You should choose the same amount of menus as diners (adults + juniors + children)";
         
 /*******************************************************     ERRORS   ***********************************/	
-$translateJS['err33'] = 'Test error33';
-$translateJS['err0'] = 'No ha estat possible crear la reserva.';
-$translateJS['err1'] = 'Test error1';
-$translateJS['err2'] = 'Test error2';
-$translateJS['err3'] = 'No hem trobat taula disponoble';
-$translateJS['err4'] = 'El mòbil no és correcte';
-$translateJS['err5'] = 'El camp nom no és correcte';
-$translateJS['err6'] = 'El camp cognoms no és correcte';
-$translateJS['err7'] = 'El nombre de comensals no és correcte';
-$translateJS['err8'] = 'No hi ha taula per l´hora que has demanat';
-$translateJS['err10'] = 'Para esta fecha debes seleccionar un menú para cada comensal';
-$translateJS['err99'] = 'Test error';
-$translateJS['err100'] = 'Error de sessió';
-$translateJS['err_contacti'] = 'Contacti amb el restaurant: 936929723 / 936910605';
-
-$translate['err20'] = '<b>Ja tens una reserva feta a Can Borrell!!</b><br/><br/>Pots modificar-la o eliminar-la, però no pots crear més d´una reserva online.<br/><em>(Per editar o cancel·lar utilitza l´enllaç que trobarà més amunt, sota la barra de navegació d´aquesta pàgina)</em><br/><br/><br/>Si ho desitges posa´t en contacte amb nosaltres:<br/><b>936929723 / 936910605</b><br/><br/><br/>La reserva que ens consta es pel dia ';
-$translateDirectJS['err21'] = '<b>No podemos hacer la reserva on-line a causa de algún problema con una reserva anterior</b><br/><br/>Por favor, para reservar contacta con el restaurant:936929723 / 936910605';
-$translateDirectJS['err20'] = '<b>Ya tienes una reserva hecha en Can Borrell!</b><br/><br/>Puedes modificarla o eliminarla pero no puedes crear más de una reserva online<br/><em>(Para editar o cancelar, utiliza el enlace que hay arriba, bajo la barra de navegación de esta página )</em><br/><br/><br/><br/><br/>Si lo deseas ponte en contacto con nosotros:<br/><b>936929723 / 936910605</b><br/><br/><br/>La reserva que nos consta es para el dia ';
-$translate['err21'] = '<b>No podem fer-te la reserva on-line a causa d´una reserva anterior!!</b><br/><br/>Si us plau, per reservar contacta amb el restaurant:936929723 / 936910605';
-$translateDirectJS['CAP_TAULA']="No tenemos ninguna mesa disponible para la fecha/cubiertos/cochecitos que nos pides.<br/><br/>Inténtalo para otra fecha";
         
         
-        
-	require_once('translate_es.php');
+	require_once('translate_en.php');
 	
         
         
