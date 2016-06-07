@@ -47,6 +47,7 @@ function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDe
 
 $resp['cat']="Petició de reserva rebuda";
 $resp['esp']="Petición de reserva recibida";
+$resp['en']="Request for a received reservation";
 if ($_POST['nens10_14']<=0) $_POST['txt_1']="NO";
 if ($_POST['nens4_9']<=0) $_POST['txt_2']="NO";
 $_POST['data_creacio']=date("Y-m-d H:i:s");

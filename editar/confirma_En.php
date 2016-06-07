@@ -32,23 +32,6 @@ $ltxt[4]['cat'] = "Confirmar pagament";
 $ltxt[4]['esp'] = "Confirmar pago";
 $ltxt[4]['en'] = "Confirm payment";
 
-$ltxt[5]['cat'] = "NO SE HA ENCONTRADO LA RESERVA SOLICITADA";
-$ltxt[5]['esp'] = "NO S'HA TROBAT  LA RESERVA SOL·LICITADA";
-$ltxt[5]['en'] = "RESERVATION NOT FOUND";
-
-$ltxt[6]['cat'] = "ESTA RESERVA YA CONSTA COMO PAGADA CON TARJETA DE CREDITO. <b>NO NECESITA CONFIRMAR EL PAGO</b>.<br/><br/>SI NO HA RECIBIDO UNA NOTIFICACIÓN DEL RESTAURANTE CONFIRMANDOLE LA RECEPCIÓN DEL PAGO CONTACTE CON NOSOTROS";
-$ltxt[6]['esp'] = "ESTA RESERVA YA CONSTA COMO PAGADA CON TARJETA DE CREDITO. <b>NO NECESITA CONFIRMAR EL PAGO</b>.<br/><br/>SI NO HA RECIBIDO UNA NOTIFICACIÓN DEL RESTAURANTE CONFIRMANDOLE LA RECEPCIÓN DEL PAGO CONTACTE CON NOSOTROS";
-$ltxt[6]['en'] = "THIS RESERVATION IS ALREADY REGISTERED AS PAYD<b>YOU DO NOT NEED TO CONFIRM IT</b>.<br/><br/>IF YOU HAVE'NT RECEIVED A CONFIRMATION EMAIL, CONTACT US";
-
-
-$ltxt[7]['cat'] = "LA RESERVA QUE INTENTA VALIDAR COMO PAGADA POR TRANSFERENCIA NO CONSTA COMO CONFIRMADA. PUEDE HABER CADUCADO, O ESTAR PENDIENTE DE CONFIRMACION. <br/><br/>POR FAVOR, CONTACTE CON EL RESTAURANTE";
-$ltxt[7]['esp'] = "LA RESERVA QUE INTENTA VALIDAR COMO PAGADA POR TRANSFERENCIA NO CONSTA COMO CONFIRMADA. PUEDE HABER CADUCADO, O ESTAR PENDIENTE DE CONFIRMACION. <br/><br/>POR FAVOR, CONTACTE CON EL RESTAURANTE";
-$ltxt[7]['en'] = "THIS RESERVATION IS NOT CONFIRMED. IT COULD BE EXPIRED, OR WAITING FER CONFIRMATIONBY DE RESTAURANT.<br/><br/>PLEASE, CONTACT THE RESTAURANT";
-
-$ltxt[8]['cat'] = "CONFIRMACIÓ REPETIDA O NULA";
-$ltxt[8]['esp'] = "CONFIRMACIÓ REPETIDA O NULA";
-$ltxt[8]['en'] = "CONFIRMATION IS REPEATED OR NULL";
-
 
 $id = intval(substr($_GET['id'], 5, 5));
 /* * *************************************************************************** */
@@ -60,18 +43,18 @@ $lang = $rou['lang'];
 $resposta = $rou['resposta'];
 if (!$rou) {
   echo '<meta http-equiv="Refresh" content="7;URL=../index.html" />';
-  die($ltxt[5][$lang] );
+  die("RESERVATION NOT FOUND");
   exit();
 }
 if ($rou["estat"] == 7) {
   echo '<meta http-equiv="Refresh" content="10;URL=../index.html" />';
-  die($ltxt[6][$lang] );
+  die("THIS RESERVATION IS ALREADY REGISTERED AS PAYD<b>YOU DO NOT NEED TO CONFIRM IT</b>.<br/><br/>IF YOU HAVE'NT RECEIVED A CONFIRMATION EMAIL, CONTACT US");
   exit();
 }
 
 if ($rou["estat"] != 2) {
   echo '<meta http-equiv="Refresh" content="7;URL=../index.html" />';
-  die($ltxt[7][$lang] );
+  die("THIS RESERVATION IS NOT CONFIRMED. IT COULD BE EXPIRED, OR WAITING FER CONFIRMATIONBY DE RESTAURANT.<br/><br/>PLEASE, CONTACT THE RESTAURANT");
   exit();
 }
 
@@ -106,7 +89,7 @@ else {
   if ($repe) {
     // COMPROVA QUE NO ESTIGUI JA CONFIRMADA
     echo '<meta http-equiv="Refresh" content="5;URL=../index.html" />';
-    die("<br><br>($ltxt[8][$lang] )");
+    die("<br><br>(CONFIRMACIÓ REPETIDA O NULA)");
     exit();
   }
 }
