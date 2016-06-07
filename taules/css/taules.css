@@ -552,7 +552,7 @@ top: -10%;
     width: 16px;
     height: 16px;
     background-image: url(pastis1.png);
-    background-color: red;
+    //background-color: red;
     background-repeat: no-repeat;
 }
 
