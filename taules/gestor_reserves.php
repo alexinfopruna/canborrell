@@ -1126,7 +1126,7 @@ $this->xgreg_log(DB_CONNECTION_FILE_DEL, 1);
       $superinfo = "";
       //$superinfo = $this->superInfoReserva($row);
       $online = $row['reserva_info'] & 1 ? '<div class="online" title="Reserva ONLINE">' . $sobret . '</div>' : '';
-      $pastis = $row['reserva_pastis']==1? '<div class="pastis" title="Demana pastís"></div>' : 'xxx';
+      $pastis = $row['reserva_pastis']==1? '<div class="pastis" title="Demana pastís"></div>' : '';
       if ($row['client_nom'] == "SENSE_NOM")
         $row['client_nom'] = "";
         $nom = '<div class="acn">' . substr($row['client_cognoms'] . ", " . $row['client_nom'], 0, 30).'</div>';
