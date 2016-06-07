@@ -25,10 +25,19 @@ echo $query_reserves;
 	//$mensa="ENVIEM SMS RESERVES CADUCADES. TROBATS $nr REGISTRES";
     while ($row=mysqli_fetch_array($reserves))
     {
+                                                                                    $lang =  $row['lang'];
 			ereg( "([0-9]{2,4})-([0-9]{1,2})-([0-9]{1,2})", $row['data'], $mifecha); 
 			$lafecha=$mifecha[3]."/".$mifecha[2]; 
-			$sms_mensa="SU SOLICITUD DE RESERVA EN CAN BORRELL PARA EL $lafecha (ID".$row["id_reserva"].") HA CADUCADO. Can Borrell NO GARANTIZA LA DISPONIBILIDAD DE MESA PARA EL GRUPO!!";
-			if (SMS_ACTIVAT) 
+			
+                                                                                    
+                                                                                    $sms_mensa="SU SOLICITUD DE RESERVA EN CAN BORRELL PARA EL $lafecha (ID".$row["id_reserva"].") HA CADUCADO. Can Borrell NO GARANTIZA LA DISPONIBILIDAD DE MESA PARA EL GRUPO!!";
+			
+                                                                                    if ($lang=='en'){
+                                                                                      $sms_mensa="YOUR REQUEST FOR A RESERVATION AT CAN BORRELL FOR THE $lafecha (ID".$row["id_reserva"].") HAS EXPIRED. Can Borrell CANNOT GUARANTEE THE AVAILABILITY OF A TABLE FOR YOUR GROUP!!";
+			
+                                                                                    }
+                                                                                    
+                                                                                    if (SMS_ACTIVAT) 
 			{
 				
 				enviaSMS_caducades($row['tel'],$sms_mensa);

@@ -71,6 +71,12 @@ function esborra_clients_llei($t)
     	
      
     $sms_mensa="RESTAURANT CAN BORRELL: A SOLICITUD SUYA, HEMOS ELIMINADO SUS DATOS DE NUESTRA BASE DE DATOS";
+    if ($lang=='en'){
+      $sms_mensa="RESTAURANT CAN BORRELL: AT YOUR REQUEST, WE HAVE REMOVED YOUR INFORMATION FROM OUR DATABASE";
+    }
+
+    
+    
     if (ENVIA_SMS)
     {
       enviaSMS_esborrat($row['client_mobil'],$sms_mensa);

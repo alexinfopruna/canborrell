@@ -546,3 +546,15 @@ top: -10%;
     font-size: 0.9em;
     padding: 0.4em 0.4em;
 }
+
+.pastis {
+    FLOAT: RIGHT;
+    width: 16px;
+    height: 16px;
+    background-image: url(pastis1.png);
+    background-color: red;
+    background-repeat: no-repeat;
+}
+
+
+

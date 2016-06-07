@@ -26,21 +26,16 @@
             <url>reservar/js/form_reserves.js</url>
             <bookmark id="4">
                 <name/>
-                <line>1122</line>
+                <line>1150</line>
                 <key/>
             </bookmark>
         </file>
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/var/www/canborrell/reservar/css/form_reserves_mob.css</file>
-            <file>file:/var/www/canborrell/reservar/translate_es.php</file>
-            <file>file:/var/www/canborrell/reservar/css/glyphicons.css</file>
-            <file>file:/var/www/canborrell/reservar/js/form_reserves.js</file>
-            <file>file:/var/www/canborrell/reservar/translate_ca.php</file>
-            <file>file:/var/www/canborrell/reservar/form.php</file>
-            <file>file:/var/www/canborrell/reservar/js/popups_ajuda.js</file>
-            <file>file:/var/www/canborrell/reservar/css/osx.css</file>
+            <file>file:/var/www/canborrell/taules/js/taules.js</file>
+            <file>file:/var/www/canborrell/taules/gestor_reserves.php</file>
+            <file>file:/var/www/canborrell/taules/css/taules.css</file>
         </group>
     </open-files>
 </project-private>

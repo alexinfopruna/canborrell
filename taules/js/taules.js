@@ -925,7 +925,7 @@ function addHandlersEditReserva()
             $("input[name=cotxets]").val(1);
     });
 
-    $(document).oneTime(3000, 'missatgeLlegit', missatgeLlegit);
+    $(document).oneTime(1200, 'missatgeLlegit', missatgeLlegit);
 
 
     $('#updata_resRESERVA_PASTIS').button();

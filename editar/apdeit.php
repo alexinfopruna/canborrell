@@ -1,7 +1,7 @@
 <?php
 if (!defined('ROOT')) define('ROOT', "../taules/");
+if (!defined('T_RESERVES')) define('T_RESERVES', "reserves");
 require_once(ROOT."Gestor.php");
-//require(ROOT."gestor_reserves.php");
 require_once(ROOT."gestor_reserves.php");
 
 if (!isset($_SESSION)) session_start(); 
@@ -15,7 +15,8 @@ require_once('mailer.php');
 //$lang='cat';
 ((bool)mysqli_query( $canborrell, "USE " . $database_canborrell));
 
-$id = $_GET['id'];
+$lang='cat';
+$id_reserva = $id = $_GET['id'];
 $P_ID = isset($_POST['P_ID'])?$_POST['P_ID']:FALSE;
 if (isset($_GET["sub"]) && $_GET["sub"]=="Confirmar") $_POST["Submit"]="Confirmar";
 $func=$_POST["Submit"];
@@ -23,6 +24,11 @@ $func=$_POST["Submit"];
 if (isset($_GET['resend'])) $func="Confirmar";
 if ($id!=$P_ID) return;
 $SMS=null;
+
+global $txt;
+$g=new gestor_reserves();
+$reserva = $g->load_reserva($id_reserva);
+$lang = $reserva['lang'];
 
 switch($func)
 {
@@ -32,17 +38,20 @@ case "Pendent":
 
   case "Confirmar":
     $estat=2;
-    $SMS="TU RESERVA {ID} PARA EL DIA {DIA} ESTA CONFIRMADA.HEMOS ENVIADO MAIL CON INTRUCCIONES PARA EL PAGO.SI NO RECIBES MAIL REVISA SPAM O CANTACTANOS: restaurant@can-borrell.com";
-  break;
+    //$SMS="TU RESERVA {ID} PARA EL DIA {DIA} ESTA CONFIRMADA.HEMOS ENVIADO MAIL CON INTRUCCIONES PARA EL PAGO.SI NO RECIBES MAIL REVISA SPAM O CANTACTANOS: restaurant@can-borrell.com";
+    $SMS = $txt['sms_confirmar'][$lang];
+    break;
   
   case "Denegar":
     $estat=4;
-    $SMS="TU RESERVA {ID} PARA EL DIA {DIA} HA SIDO DENEGADA. TE HEMOS ENVIADO EMAIL CON MAS DETALLES.SI NO RECIBES MAIL REVISA SPAM O CANTACTANOS: restaurant@can-borrell.com";
+    //$SMS="TU RESERVA {ID} PARA EL DIA {DIA} HA SIDO DENEGADA. TE HEMOS ENVIADO EMAIL CON MAS DETALLES.SI NO RECIBES MAIL REVISA SPAM O CANTACTANOS: restaurant@can-borrell.com";
+    $SMS=$txt['sms_denegar'][$lang];
     break;
 
   case "Pagada":
     $estat=3;
-    $SMS="HEMOS RECIBIDO CONFIRMACION DEL PAGO DE TU RESERVA {ID} PARA EL DIA {DIA}. TE ESPERAMOS EN CAN-BORRELL";
+    //$SMS="HEMOS RECIBIDO CONFIRMACION DEL PAGO DE TU RESERVA {ID} PARA EL DIA {DIA}. TE ESPERAMOS EN CAN-BORRELL";
+    $SMS=$txt['sms_pagada'][$lang];
     break;
 
   case "Eliminar":
@@ -53,6 +62,7 @@ case "Pendent":
     $estat=0;
   break;    
 }
+
 
 if (($func=="Eliminar")&&($id==$P_ID))
 {

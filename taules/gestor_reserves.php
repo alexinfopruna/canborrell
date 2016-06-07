@@ -188,8 +188,12 @@ class gestor_reserves extends Gestor {
 
     $dataSMS = $dataSMS = $this->cambiaf_a_normal($row['data']);
     $hora = $row['hora'];
+    $lang = $row['lang'];
 
     $mensa = "Restaurant Can Borrell: Su reserva para el $dataSMS a las $hora HA SIDO ANULADA. Si desea contactar con nosotros: 936929723 - 936910605. Gracias.(ID$id_reserva)";
+    if ($lang=='en'){
+      $mensa = "Restaurant Can Borrell: Your reservation for the $dataSMS at $hora HAS BEEN CANCELLED. If you wish to contact us: 936929723 – 936910605. Thank you.(ID$id_reserva)";
+    }
 
     if (!$permuta) {
       $this->enviaSMS($id_reserva, $mensa);
@@ -1122,6 +1126,7 @@ $this->xgreg_log(DB_CONNECTION_FILE_DEL, 1);
       $superinfo = "";
       //$superinfo = $this->superInfoReserva($row);
       $online = $row['reserva_info'] & 1 ? '<div class="online" title="Reserva ONLINE">' . $sobret . '</div>' : '';
+      $pastis = $row['reserva_pastis']==1? '<div class="pastis" title="Demana pastís"></div>' : 'xxx';
       if ($row['client_nom'] == "SENSE_NOM")
         $row['client_nom'] = "";
         $nom = '<div class="acn">' . substr($row['client_cognoms'] . ", " . $row['client_nom'], 0, 30).'</div>';
@@ -1132,8 +1137,8 @@ $this->xgreg_log(DB_CONNECTION_FILE_DEL, 1);
       //$data = $this->cambiaf_a_normal($row['data'], "%d/%m");
       $data = "";
       $html .= <<< EOHTML
-          <h3 $deleted style="{$impagada}" {$title}>
-            <a n="$n" href="form_reserva.php?edit={$row['id_reserva']}&id={$row['id_reserva']}" class="fr" taula="{$row['estat_taula_taula_id']}" id="accr-{$row['id_reserva']}"><span class="idr">{$row['reserva_id']}</span>&rArr;{$data}{$row['hora']} | <span class="act">{$row['estat_taula_nom']}&rArr;{$comensals}/{$row['cotxets']}</span> $online $paga_i_senyal $nom </a></h3>
+          <h3 $deleted style="{$impagada}; CLEAR:BOTH" {$title}>
+            <a n="$n" href="form_reserva.php?edit={$row['id_reserva']}&id={$row['id_reserva']}" class="fr" taula="{$row['estat_taula_taula_id']}" id="accr-{$row['id_reserva']}"><span class="idr">{$row['reserva_id']}</span>&rArr;{$data}{$row['hora']} | <span class="act">{$row['estat_taula_nom']}&rArr;{$comensals}/{$row['cotxets']}</span> $online $paga_i_senyal $pastis $nom </a></h3>
 EOHTML;
 
       $n++;
@@ -1996,9 +2001,17 @@ EOHTML;
       $id_reserva = $row["id_reserva"];
       $data = $this->cambiaf_a_normal($row['data']);
       $hora = $row['hora'];
+      $lang = $row['lang'];
 
       $missatge = "Recuerde: reserva $id_reserva, el $data - $hora para $persones personas.Es IMPRESCINDIBLE que nos comunique cualquier cambio antes de las 11:00h: 936929723 - 936910605";
+      if ($lang=='en'){
+        $missatge="Remember: reservation $id_reserva, $data - $horas for $personess people.It is ESSENTIAL that you let us know about any changes before 11:00h: 936929723 – 936910605";
+      }
+     
+      
       $this->enviaSMS($id_reserva, $missatge);
+
+      
       // echo "ENVIAT: ".$missatge;
       $query_reserves = "UPDATE " . T_RESERVES . " SET num_1=1 WHERE id_reserva=" . $row["id_reserva"];
       $update = mysqli_query($this->connexioDB, $query_reserves) or die(((is_object($GLOBALS["___mysqli_ston"])) ? mysqli_error($GLOBALS["___mysqli_ston"]) : (($___mysqli_res = mysqli_connect_error()) ? $___mysqli_res : false)));
