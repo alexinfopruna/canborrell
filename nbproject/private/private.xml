@@ -26,21 +26,23 @@
             <url>taules/js/taules.js</url>
             <bookmark id="1">
                 <name/>
-                <line>783</line>
+                <line>762</line>
                 <key/>
             </bookmark>
         </file>
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/var/www/canborrell/taules/Gestor.php</file>
             <file>file:/var/www/canborrell/taules/gestor_reserves.php</file>
-            <file>file:/var/www/canborrell/reservar/translate_ca.php</file>
-            <file>file:/var/www/canborrell/editar/pagament256.php</file>
-            <file>file:/var/www/canborrell/editar/TPV/pagamentKO.php</file>
-            <file>file:/var/www/canborrell/editar/TPV/pagamentOK.php</file>
-            <file>file:/var/www/canborrell/editar/reserves.php</file>
             <file>file:/var/www/canborrell/reservar/Gestor_form.php</file>
-            <file>file:/var/www/canborrell/taules/css/taules.css</file>
+            <file>file:/var/www/canborrell/taules/taules.php</file>
+            <file>file:/var/www/canborrell/taules/js/taules.js</file>
+            <file>file:/var/www/canborrell/taules/form_reserva.php</file>
+            <file>file:/var/www/canborrell/taules/head.php</file>
+            <file>file:/var/www/canborrell/taules/select_editor_form.php</file>
+            <file>file:/var/www/canborrell/reservar/form.php</file>
+            <file>file:/var/www/canborrell/taules/php/define.php</file>
         </group>
     </open-files>
 </project-private>
