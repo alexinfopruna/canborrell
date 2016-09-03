@@ -70,12 +70,14 @@ function esborra_clients_llei($t)
     mysqli_query( $DBConn, $query_reserves) or die(((is_object($GLOBALS["___mysqli_ston"])) ? mysqli_error($GLOBALS["___mysqli_ston"]) : (($___mysqli_res = mysqli_connect_error()) ? $___mysqli_res : false)));
     	
      
+
     //$sms_mensa="RESTAURANT CAN BORRELL: A SOLICITUD SUYA, HEMOS ELIMINADO SUS DATOS DE NUESTRA BASE DE DATOS";
     $sms_mensa="RESTAURANT CAN BORRELL: SEGONS SOLICITUD, HEM ESBORRAT LES TEVES ES DE LA NOSTRA BASE DE DADES";
 			
     //$sms_mensa = $this->lv("RESTAURANT CAN BORRELL: SEGONS SOLICITUD, HEM ESBORRAT LES TEVES ES DE LA NOSTRA BASE DE DADES");
    // $sms_mensa = sprintf($mensa, $lafecha,$row["id_reserva"]);
     
+
     
     if (ENVIA_SMS)
     {
@@ -88,8 +90,6 @@ function esborra_clients_llei($t)
       $mensa.="ESBORRA_CLIENT ".$row["client_id"]."- ENVIO SMS DESACTIVAT tel: ".$row['client_mobil']."\n";
     }
   }
-
-
   return $nr?$mensa:false;
 }
 
@@ -125,11 +125,8 @@ function enviaSMS_esborrat($numMobil,$mensa, $lang='ca')
   $sendService = new EsendexSendService( $username, $password, $accountReference );
   $result = $sendService->SendMessage( $recipients, $body, $type );
 
-
   global $gestor;
   $gestor->xgreg_log("ENVIAT SMS ESBORRA_CLIENT: $numMobil RESERVA $idReserva", 1);
   $gestor->xgreg_log("RESULTAT ENVIO: ".$result['Result']." / ".$result['MessageIDs'], 1);
-  
-  
 }
 ?>

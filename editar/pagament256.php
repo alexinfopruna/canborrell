@@ -21,8 +21,10 @@ require_once(INC_FILE_PATH . 'valors.php');
 require_once(INC_FILE_PATH . 'alex.inc'); //valida_admin('editar.php') ;
 $titol['cat'] = "PAGAMENT DE RESERVA";
 $titol['esp'] = "PAGO DE RESERVA";
+$titol['en'] = "PAYMENT OF RESERVATION";
 $subtitol['cat'] = "Dades de la reserva";
 $subtitol['esp'] = "Datos de la reserva";
+$subtitol['esp'] = "Reservation Information";
 
 if (!isset($_GET["id"])) {
   $surt = true;
@@ -59,6 +61,7 @@ if (($estat == 3) || ($estat == 7)) { // JA S?HA PAGAT
 
   $titol['cat'] = "Aquesta reserva ja ha estat pagada<br><br><br><br><br><br>";
   $titol['esp'] = "Esta reserva ya ha sido pagada<br><br><br><br><br><br><br>";
+  $titol['en'] = "This reservation has now been paid<br><br><br><br><br><br><br>";
   $surt = true;  
   $gestor->xgreg_log($titol['cat'],1);
 
@@ -66,6 +69,7 @@ if (($estat == 3) || ($estat == 7)) { // JA S?HA PAGAT
 else if ($estat != 2) {    // NO ESTA CONFIRMADA
   $titol['cat'] = "Lamentablement aquesta reserva no ha estat confirmada o ha caducat! Contacti amb el restaurant<br><br><br><br><br><br><br><br>";
   $titol['esp'] = "Lamentablemente esta reserva no ha sido confirmada o ha caducado! Contacte con el restaurante<br><br><br><br><br><br><br><br>";
+  $titol['en'] = "Unfortunately, this reservation has not been confirmed or has expired! Contact the restaurant<br><br><br><br><br><br><br><br>";
   $surt = true;
     $gestor->xgreg_log($titol['cat'],1);
 
@@ -79,6 +83,7 @@ $dif = compara_fechas($d1, $d2);
 if ($dif < 0) {
   $titol['cat'] = "Aquesta reserva ha caducat! Contacti amb el restaurant<br><br><br><br><br><br><br><br>";
   $titol['esp'] = "Esta reserva ha caducado! Contacte con el restaurante<br><br><br><br><br><br><br><br>";
+  $titol['en'] = "This reservation has expired! Contact the restaurant<br><br><br><br><br><br><br><br>";
   $surt = true;
       $gestor->xgreg_log($titol['cat'],1);
 
@@ -89,6 +94,7 @@ if ($dif < 0) {
 if (mysqli_num_rows($Result) <= 0) {
   $titol['cat'] = "Ho sentim però aquesta reserva no apareix a la base de dades<br><br><br><br><br><br><br><br><br>";
   $titol['esp'] = "Lo sentimos pero esta reserva no aparece en la base de datos<br><br><br><br><br><br><br><br><br>";
+  $titol['en'] = "We’re sorry, but this reservation does not appear on our database<br><br><br><br><br><br><br><br><br>";
   $surt = true;
       $gestor->xgreg_log($titol['cat'],1);
 
@@ -108,6 +114,7 @@ if (mysqli_num_rows($Result) <= 0) {
         <?php
         $translate['COMPRA_SEGURA']['esp'] = "Para realizar el pago a través de esta pasarela bancaria, es necesario que hayas activado la tarjeta para COMPRA SEGURA A INTERNET en tu banco.\\n\\nCon esta activación te facilitarán un código de cuatro cifras que se requiere al final del proceso.\\n\\nDisculpa las moléstias";
         $translate['COMPRA_SEGURA']['cat'] = "Per poder realitzar el pagament a través d´aquesta passarel·la bancaria, cal que hagis activat la tarja per a COMPRA SEGURA A INTERNET al teu banc. \\n\\nAmb aquesta activació et facilitaran un codi de quatre xifres que és requerit al final del procès.\\n\\nDisculpa les molèsties";
+        $translate['COMPRA_SEGURA']['en'] = "To make a payment using this bank gateway, you must activate the card for SECURE ONLINE PURCHASE in your bank.\\n\\nWith this activated you are given a code of four digits, needed to complete the process.\\n\\nSorry for the inconvenience";
         ?>
         <?php echo Gestor::loadJQuery(); ?>
         <script language=JavaScript>

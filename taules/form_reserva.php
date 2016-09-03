@@ -89,9 +89,13 @@ else {
 
   $comanda = null;
 }
+
+//echo $_SESSION['admin_id'];die();
 ?><form class="form_edit <?php echo $class; ?>" method="post" name="frmEditReserva" action="<?php echo $editFormAction; ?>" >
     <div class="missatge_dia"></div>
-    <div id="frm_edit_modal_<?php echo $class; ?>" class="centrat" >	
+      <?php //echo  $_SESSION['admin_id']; ?>
+    <div id="frm_edit_modal_<?php echo $class; ?>" class="centrat" >
+        
         <!-- UPLOAD -->
 
         <table align="center">
@@ -101,7 +105,9 @@ else {
                     <!-- UPLOAD -->
                     <input type="hidden" readonly="readonly" name="id_reserva" value="<?php echo $row_reserva['id_reserva'] ?>" size="32"  />
                     <input type="hidden" readonly="readonly" name="reserva_info" value="<?php echo $row_reserva['reserva_info'] ?>" size="32"  />
-<?php echo $row_reserva['id_reserva'] ?>
+                    <input type="hidden" readonly="readonly" name="editor_id" value="<?php echo $usr = $_SESSION['uSer']->id; ?>" size="32"  />
+                 
+<?php    echo $row_reserva['id_reserva'] ?>
                 </td>
             </tr>
 

@@ -25,8 +25,10 @@ function sms_caducades()
 	//$mensa="ENVIEM SMS RESERVES CADUCADES. TROBATS $nr REGISTRES";
     while ($row=mysqli_fetch_array($reserves))
     {
+                                                                                    $lang =  $row['lang'];
 			ereg( "([0-9]{2,4})-([0-9]{1,2})-([0-9]{1,2})", $row['data'], $mifecha); 
 			$lafecha=$mifecha[3]."/".$mifecha[2]; 
+
 			//$sms_mensa="SU SOLICITUD DE RESERVA EN CAN BORRELL PARA EL $lafecha (ID".$row["id_reserva"].") HA CADUCADO. Can Borrell NO GARANTIZA LA DISPONIBILIDAD DE MESA PARA EL GRUPO!!";
 			
                                                                                     $args[]=$lafecha;
@@ -36,6 +38,7 @@ function sms_caducades()
 
 //$sms_mensa = $this->lv("LA SOL·LICITUD DE RESERVA A CAN BORRELL PER AL %s (ID%s HA CADUCAT. Can Borrell NO GARANTITZA LA DISPONIBILITAT DE TAULA PER AL GRUP!!");
                                                                                     //$sms_mensa = sprintf($mensa, $lafecha,$row["id_reserva"]);
+
 
                                                                                     if (SMS_ACTIVAT) 
 			{

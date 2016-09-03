@@ -24,6 +24,7 @@ if (!defined('DB_CONNECTION_FILE'))
 
 
 require_once(ROOT . "Usuari.php");
+
 if (file_exists(ROOT . "php/define.php"))
   require(ROOT . "php/define.php");
 require_once(ROOT . "php/Configuracio.php");
@@ -48,6 +49,7 @@ if (!defined('INC_FILE_PATH'))
 if (!defined('TRANSLATE_DEBUG'))
   define('TRANSLATE_DEBUG', FALSE);
 /* * ******************************************************************************************************************* */
+
 
 /* * ******************************************************************************************************************* */
 
@@ -160,27 +162,29 @@ class Gestor {
 
     $b = !empty($_SESSION['uSer']);
     //$sessuser=unserialize($_SESSION['uSer']);
+
     if (!$b)
       return FALSE;
 
     $sessuser = $_SESSION['uSer'];
 
+
     $c = $sessuser->id;
+    
     if (!isset($_COOKIE['tok']))
       $_COOKIE['tok'] = FALSE; //lxlx
-    if (!isset($sessuser->tok))
-      $sessuser->tok = FALSE; //lxlx
+    if (!isset($sessuser->tok))   $sessuser->tok = FALSE; //lxlx
     $d = ($_COOKIE['tok'] == $sessuser->tok);
     //$e=($_SESSION['uSer']->permisos & $permisos); // NOMÉS CAL QUE COMPLEIX ALGUN PERMÍS
     $e = (($sessuser->permisos & $permisos) >= $permisos); // HA DE CUMPLIR IGUAL O MES DELS PERMISOS DEMANATS
-
     if ($user > 0 && $sessuser->id != $user && !($sessuser->permisos & $permis_admin))
       return false;
-
-    $valid = ($a && $b && $c && $d && $e);
+    
+   $valid = ($a && $b && $c && $d && $e);
     if ($valid) {
       $this->usuari = $sessuser;
-
+      $_SESSION['admin_id'] = $c;
+ 
       if (!headers_sent())
         setcookie("tok", $sessuser->tok, time() + 600);
 
@@ -220,7 +224,8 @@ class Gestor {
         session_start();
       //$this->usuari=$_SESSION['uSer']=serialize($usuari);
 
-      $this->usuari = $_SESSION['uSer'] = $usuari;
+      $this->usuari  = $_SESSION['uSer'] = $usuari;
+      $_SESSION['uSer_serialized']  = serialize($usuari);
       $_SESSION['loGin'] = $loginUsername;
       $_SESSION['permisos'] = $row['permisos'];
       $_SESSION['admin_id'] = intval($row['admin_id']);

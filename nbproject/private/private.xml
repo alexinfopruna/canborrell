@@ -2,14 +2,6 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="4">
         <file>
-            <url>taules/js/taules.js</url>
-            <bookmark id="1">
-                <name/>
-                <line>783</line>
-                <key/>
-            </bookmark>
-        </file>
-        <file>
             <url>editar/detall.php</url>
             <bookmark id="3">
                 <name/>
@@ -27,14 +19,17 @@
             <bookmark id="4">
                 <name/>
                 <line>1150</line>
+
                 <key/>
             </bookmark>
         </file>
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+
             <file>file:/var/www/canborrell/reservar/translate_en.php</file>
             <file>file:/var/www/canborrell/reservar/translate_grups_en.php</file>
+
         </group>
     </open-files>
 </project-private>

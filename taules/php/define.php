@@ -20,4 +20,13 @@ function mysqli_result($result, $row, $field = 0) {
  
     return $data[$field];
 }
+
+
+spl_autoload_register(function ($class_name) {
+  $rute="";
+  
+    include $ruta.$class_name . '.php';
+});
+
+
 ?>

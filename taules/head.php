@@ -71,6 +71,16 @@ if ($_SERVER['HTTP_HOST']=="localhost" ) $bg = "local";
 		$data=isset($_SESSION['data'])?$gestor->cambiaf_a_normal($_SESSION['data']):$date;
 		print "date_session='".$data."';\n";
 		print "var permisos='".$_SESSION['permisos']."';\n";
+                                                        /*     * */
+                                                        $id=0;
+                                                        if (isset($_SESSION['uSer'])){
+                                                          $sessuser = $_SESSION['uSer'];
+                                                          $id=intval($sessuser->id);
+                                                        }
+                                                        
+		print "var user='".$id."';\n";
+                                                    
+                                                         
 		print "var torn_session='".$_SESSION['torn']."';\n";
 		print 'var arxiu="produccio";'."\n";
 				

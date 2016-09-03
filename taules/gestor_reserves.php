@@ -137,6 +137,8 @@ class gestor_reserves extends Gestor {
     VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)", $this->SQLVal($mydata, "text"), $this->SQLVal($row['estat_taula_nom'], "text"), $this->SQLVal($torn, "text"), $this->SQLVal($taula_id, "text"), $this->SQLVal($row['reserva_id'], "text"), $this->SQLVal($row['estat_taula_x'], "text"), $this->SQLVal($row['estat_taula_y'], "zero"), $this->SQLVal($row['estat_taula_persones'], "zero"), $this->SQLVal($row['estat_taula_cotxets'], "zero"), $this->SQLVal($row['estat_taula_grup'], "text"), $this->SQLVal($row['estat_taula_plena'], "text"), $lock, $sess);
 
     $this->qry_result = mysqli_query($this->connexioDB, $sql) or die(((is_object($GLOBALS["___mysqli_ston"])) ? mysqli_error($GLOBALS["___mysqli_ston"]) : (($___mysqli_res = mysqli_connect_error()) ? $___mysqli_res : false)));
+    
+    
     return mysqli_affected_rows($this->connexioDB) ? "ok$unlock" : "ko$unlock";
   }
 
@@ -188,8 +190,12 @@ class gestor_reserves extends Gestor {
 
     $dataSMS = $dataSMS = $this->cambiaf_a_normal($row['data']);
     $hora = $row['hora'];
+    $lang = $row['lang'];
 
     $mensa = "Restaurant Can Borrell: Su reserva para el $dataSMS a las $hora HA SIDO ANULADA. Si desea contactar con nosotros: 936929723 - 936910605. Gracias.(ID$id_reserva)";
+    if ($lang=='en'){
+      $mensa = "Restaurant Can Borrell: Your reservation for the $dataSMS at $hora HAS BEEN CANCELLED. If you wish to contact us: 936929723 – 936910605. Thank you.(ID$id_reserva)";
+    }
 
     $lang_r = Gestor::codelang($row['lang']);
     require_once(ROOT . "../editar/translate_editar_$lang_r.php");
@@ -324,12 +330,18 @@ class gestor_reserves extends Gestor {
     $_POST['reserva_info'] = $this->flagBit($_POST['reserva_info'], 9, $selectorAccesible);
 
     /*
+      
+print_r($_SESSION['admin_id']);
+print_r($_SESSION['uSer']);
+print_r($_REQUEST);die();
+     
      */
-    /*     * */
-
+    $editor_id = $this->SQLVal($_SESSION['uSer']->id, "text");
+    if (isset($_REQUEST['editor_id']) && $_REQUEST['editor_id']) $editor_id = $_REQUEST['editor_id'];
+    
     $insertSQL = sprintf("INSERT INTO " . T_RESERVES . " ( id_reserva, client_id, data, hora, adults, 
       nens4_9, nens10_14, cotxets, reserva_pastis, reserva_info_pastis, observacions, resposta, estat, usuari_creacio, reserva_navegador, reserva_info) 
-      VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)", $this->SQLVal($_POST['id_reserva'], "text"), $this->SQLVal($_POST['client_id'], "text"), $this->SQLVal($_POST['data'], "datePHP"), $this->SQLVal($_POST['hora'], "text"), $this->SQLVal($_POST['adults'], "zero"), $this->SQLVal($_POST['nens4_9'], "zero"), $this->SQLVal($_POST['nens10_14'], "zero"), $this->SQLVal($_POST['cotxets'], "zero"), $this->SQLVal($_POST['RESERVA_PASTIS'] == 'on', "zero"), $this->SQLVal($_POST['INFO_PASTIS'], "text"), $this->SQLVal($_POST['observacions'], "text"), $this->SQLVal($_POST['resposta'], "text"), $this->SQLVal(100, "text"), $this->SQLVal($_SESSION['admin_id'], "text"), $this->SQLVal($_SERVER['HTTP_USER_AGENT'], "text"), $this->SQLVal($_POST['reserva_info'], "zero"));
+      VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)", $this->SQLVal($_POST['id_reserva'], "text"), $this->SQLVal($_POST['client_id'], "text"), $this->SQLVal($_POST['data'], "datePHP"), $this->SQLVal($_POST['hora'], "text"), $this->SQLVal($_POST['adults'], "zero"), $this->SQLVal($_POST['nens4_9'], "zero"), $this->SQLVal($_POST['nens10_14'], "zero"), $this->SQLVal($_POST['cotxets'], "zero"), $this->SQLVal($_POST['RESERVA_PASTIS'] == 'on', "zero"), $this->SQLVal($_POST['INFO_PASTIS'], "text"), $this->SQLVal($_POST['observacions'], "text"), $this->SQLVal($_POST['resposta'], "text"), $this->SQLVal(100, "text"), $editor_id, $this->SQLVal($_SERVER['HTTP_USER_AGENT'], "text"), $this->SQLVal($_POST['reserva_info'], "zero"));
 
     $a = $this->qry_result = $this->log_mysql_query($insertSQL, $this->connexioDB) or die(((is_object($GLOBALS["___mysqli_ston"])) ? mysqli_error($GLOBALS["___mysqli_ston"]) : (($___mysqli_res = mysqli_connect_error()) ? $___mysqli_res : false)));
     $idr = ((is_null($___mysqli_res = mysqli_insert_id($this->connexioDB))) ? false : $___mysqli_res);
@@ -1122,6 +1134,7 @@ class gestor_reserves extends Gestor {
       $superinfo = "";
 //$superinfo = $this->superInfoReserva($row);
       $online = $row['reserva_info'] & 1 ? '<div class="online" title="Reserva ONLINE">' . $sobret . '</div>' : '';
+      $pastis = $row['reserva_pastis']==1? '<div class="pastis" title="Demana pastís"></div>' : '';
       if ($row['client_nom'] == "SENSE_NOM")
         $row['client_nom'] = "";
       $nom = '<div class="acn">' . substr($row['client_cognoms'] . ", " . $row['client_nom'], 0, 30) . '</div>';
@@ -1132,13 +1145,14 @@ class gestor_reserves extends Gestor {
 //$data = $this->cambiaf_a_normal($row['data'], "%d/%m");
       $data = "";
       $html .= <<< EOHTML
-          <h3 $deleted style="{$impagada}" {$title}>
-            <a n="$n" href="form_reserva.php?edit={$row['id_reserva']}&id={$row['id_reserva']}" class="fr" taula="{$row['estat_taula_taula_id']}" id="accr-{$row['id_reserva']}"><span class="idr">{$row['reserva_id']}</span>&rArr;{$data}{$row['hora']} | <span class="act">{$row['estat_taula_nom']}&rArr;{$comensals}/{$row['cotxets']}</span> $online $paga_i_senyal $nom </a></h3>
+          <h3 $deleted style="{$impagada}; CLEAR:BOTH" {$title}>
+            <a n="$n" href="form_reserva.php?edit={$row['id_reserva']}&id={$row['id_reserva']}" class="fr" taula="{$row['estat_taula_taula_id']}" id="accr-{$row['id_reserva']}"><span class="idr">{$row['reserva_id']}</span>&rArr;{$data}{$row['hora']} | <span class="act">{$row['estat_taula_nom']}&rArr;{$comensals}/{$row['cotxets']}</span> $online $paga_i_senyal $pastis $nom </a></h3>
 EOHTML;
 
       $n++;
     }
 
+    //$html = $_SESSION['admin_id'].$html;
     return $html;
   }
 
@@ -1997,6 +2011,7 @@ EOHTML;
       $data = $this->cambiaf_a_normal($row['data']);
       $hora = $row['hora'];
       $lang = $row['lang'];
+
       //$missatge = "Recuerde: reserva $id_reserva, el $data - $hora para $persones personas.Es IMPRESCINDIBLE que nos comunique cualquier cambio antes de las 11:00h: 936929723 - 936910605";
       
       $args[]=$id_reserva;
@@ -2008,6 +2023,7 @@ EOHTML;
 
       $this->enviaSMS($id_reserva, $missatge);
 // echo "ENVIAT: ".$missatge;
+
       $query_reserves = "UPDATE " . T_RESERVES . " SET num_1=1 WHERE id_reserva=" . $row["id_reserva"];
       $update = mysqli_query($this->connexioDB, $query_reserves) or die(((is_object($GLOBALS["___mysqli_ston"])) ? mysqli_error($GLOBALS["___mysqli_ston"]) : (($___mysqli_res = mysqli_connect_error()) ? $___mysqli_res : false)));
 
